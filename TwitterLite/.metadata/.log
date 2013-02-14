@@ -1,0 +1,43 @@
+!SESSION 2011-10-20 18:05:08.896 -----------------------------------------------
+eclipse.buildId=M20080221-1800
+java.version=1.6.0_21
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY org.eclipse.core.jobs 4 2 2011-10-20 18:19:08.419
+!MESSAGE An internal error occurred during: "Updating workspace".
+!STACK 0
+java.lang.OutOfMemoryError: Java heap space
+	at org.eclipse.core.runtime.Path.append(Path.java:272)
+	at org.eclipse.core.internal.dtree.DeltaDataTree.getChildren(DeltaDataTree.java:540)
+	at org.eclipse.core.internal.events.ResourceDeltaFactory.createDelta(ResourceDeltaFactory.java:145)
+	at org.eclipse.core.internal.events.ResourceDeltaFactory.createDelta(ResourceDeltaFactory.java:154)
+	at org.eclipse.core.internal.events.ResourceDeltaFactory.createDelta(ResourceDeltaFactory.java:154)
+	at org.eclipse.core.internal.events.ResourceDeltaFactory.createDelta(ResourceDeltaFactory.java:154)
+	at org.eclipse.core.internal.events.ResourceDeltaFactory.createDelta(ResourceDeltaFactory.java:154)
+	at org.eclipse.core.internal.events.ResourceDeltaFactory.createDelta(ResourceDeltaFactory.java:154)
+	at org.eclipse.core.internal.events.ResourceDeltaFactory.createDelta(ResourceDeltaFactory.java:154)
+	at org.eclipse.core.internal.events.ResourceDeltaFactory.createDelta(ResourceDeltaFactory.java:154)
+	at org.eclipse.core.internal.events.ResourceDeltaFactory.createDelta(ResourceDeltaFactory.java:154)
+	at org.eclipse.core.internal.events.ResourceDeltaFactory.createDelta(ResourceDeltaFactory.java:154)
+	at org.eclipse.core.internal.events.ResourceDeltaFactory.createDelta(ResourceDeltaFactory.java:154)
+	at org.eclipse.core.internal.events.ResourceDeltaFactory.createDelta(ResourceDeltaFactory.java:154)
+	at org.eclipse.core.internal.events.ResourceDeltaFactory.createDelta(ResourceDeltaFactory.java:154)
+	at org.eclipse.core.internal.events.ResourceDeltaFactory.createDelta(ResourceDeltaFactory.java:154)
+	at org.eclipse.core.internal.events.ResourceDeltaFactory.createDelta(ResourceDeltaFactory.java:154)
+	at org.eclipse.core.internal.events.ResourceDeltaFactory.createDelta(ResourceDeltaFactory.java:154)
+	at org.eclipse.core.internal.events.ResourceDeltaFactory.createDelta(ResourceDeltaFactory.java:154)
+	at org.eclipse.core.internal.events.ResourceDeltaFactory.createDelta(ResourceDeltaFactory.java:154)
+	at org.eclipse.core.internal.events.ResourceDeltaFactory.createDelta(ResourceDeltaFactory.java:154)
+	at org.eclipse.core.internal.events.ResourceDeltaFactory.createDelta(ResourceDeltaFactory.java:154)
+	at org.eclipse.core.internal.events.ResourceDeltaFactory.createDelta(ResourceDeltaFactory.java:154)
+	at org.eclipse.core.internal.events.ResourceDeltaFactory.createDelta(ResourceDeltaFactory.java:154)
+	at org.eclipse.core.internal.events.ResourceDeltaFactory.createDelta(ResourceDeltaFactory.java:154)
+	at org.eclipse.core.internal.events.ResourceDeltaFactory.createDelta(ResourceDeltaFactory.java:154)
+	at org.eclipse.core.internal.events.ResourceDeltaFactory.createDelta(ResourceDeltaFactory.java:154)
+	at org.eclipse.core.internal.events.ResourceDeltaFactory.createDelta(ResourceDeltaFactory.java:154)
+	at org.eclipse.core.internal.events.ResourceDeltaFactory.createDelta(ResourceDeltaFactory.java:154)
+	at org.eclipse.core.internal.events.ResourceDeltaFactory.createDelta(ResourceDeltaFactory.java:154)
+	at org.eclipse.core.internal.events.ResourceDeltaFactory.createDelta(ResourceDeltaFactory.java:154)
+	at org.eclipse.core.internal.events.ResourceDeltaFactory.createDelta(ResourceDeltaFactory.java:154)

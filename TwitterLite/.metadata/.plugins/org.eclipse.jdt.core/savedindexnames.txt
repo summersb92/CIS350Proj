@@ -1,0 +1,15 @@
+INDEX VERSION 1.121+C:\Users\Max\Dropbox\CS163\TwitterLite\.metadata\.plugins\org.eclipse.jdt.core
+2375370348.index
+2479909925.index
+3291799386.index
+1708109377.index
+3325078859.index
+848959954.index
+2976685260.index
+529437705.index
+4050959524.index
+3082991455.index
+3679562513.index
+3140045379.index
+197035435.index
+1962638457.index

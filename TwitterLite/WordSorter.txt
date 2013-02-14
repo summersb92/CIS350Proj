@@ -1,0 +1,20 @@
+ListComparator sc = new ListComparator();	
+		wordCounter = new ArrayList<Word>();
+		//then sort arrayList when finalized	
+		wordList = new StringBuilder();
+		Set<String> ks = wc.keySet();
+		for(String k : ks){
+			//k = word
+			//val = number
+			int val = wc.get(k);
+			Word temp = new Word(k , val);
+			wordCounter.add(temp);
+		}
+		Collections.sort(wordCounter, sc);
+		//for each word in wordCounter
+		for(Word w : wordCounter){
+			int count = w.count;
+			String word = w.word;
+			wordList.append(word+" => "+count+"\n");
+		}
+		return wordList.toString();

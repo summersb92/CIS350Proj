@@ -1,7 +1,7 @@
 SummerJTwitt
 
 
-Access level	 :		Read-only 
+Access level	 :		Read, write, and direct messages  
 About the application permission model
 Consumer key	 :		fGgcrXwnaLhwH5P2RwRpVw
 Consumer secret	 :		OcS01RmdSTio2CdBrkolvHFPjLvBFehPUuZvGBv6M
@@ -10,6 +10,23 @@ Authorize URL	 :		https://api.twitter.com/oauth/authorize
 Access token URL :		https://api.twitter.com/oauth/access_token
 Callback URL	None
 
-Access token	 :		390344824-WkRCVAxqUKUjC0KWUSRtipgNAkan6QZH1RoCO2GI
-Access token secret:	Bx8APa42naHoouTUrH0Jhb37FQjXLGaoFQChKrwH5k0
+Access token	 :		390344824-CwxqzEr7bQ0r86f9LP09sOdIZitkiGhaX5vwE9oI
+Access token secret:	dixvS55TOsTtGEAdlPcjAfMTyp54hJnfphnLgftfIWs
+Access level	 :		Read, write, and direct messages
+
+
+
+
+
+Access level	 :		Read-only
+Consumer key	 :		OqPqt115jJqXE0ZvOr4ZvA
+Consumer secret	 :		eTmYcYyZ7OFVQ8rhzcJm9mtWX2B0cP0nUk5z0iRwJQc
+Request token URL:		https://api.twitter.com/oauth/request_token
+Authorize URL	 :		https://api.twitter.com/oauth/authorize
+Access token URL :		https://api.twitter.com/oauth/access_token
+Callback URL	None
+
+Access token	 :		382301664-r0iQLZssWYR5PT19jttCZVIqF8Zkh9MDoRvpfGS8
+Access token secret:	hjgD8uJkcivtLlrbx9jZJnuk7napQFE6DUVwlukTNw
+
 Access level	 :		Read-only
