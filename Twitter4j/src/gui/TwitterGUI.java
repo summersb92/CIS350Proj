@@ -17,7 +17,6 @@ import java.io.*;
 import java.util.List;
 
 
-@SuppressWarnings("serial")
 /**
  * Creates the GUI and runs the application
  * 
