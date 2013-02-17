@@ -226,34 +226,7 @@ public class TwitterGUI extends javax.swing.JFrame{
 	 * list as an XML file.
 	 */
 	private void saveButtonAction() {
-        if (engine.getModel().getRowCount() > 0) {
-            /* open the CURRENT directory */
-            JFileChooser chooser = new JFileChooser(
-            		new File("."));
-            chooser.setDialogTitle("Export As XML");
-            int status = chooser.showSaveDialog(this);
-            if (status == JFileChooser.APPROVE_OPTION) {
-                String filename = chooser.getSelectedFile()
-                	.getAbsolutePath();
-                if (engine.saveAsXML(filename)) {
-                    JOptionPane.showMessageDialog(this,
-                            "XML Export Successful..",
-                            "Export As XML",
-                            JOptionPane.
-                            INFORMATION_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(this,
-                    		"XML Export Failed.",
-                            "Export As XML",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(this,
-                    "No books to save at this time.",
-                    "Export As XML",
-                    JOptionPane.INFORMATION_MESSAGE);
-        }
+        
     }
 	/**
 	 * runs the main application starting with TwitterGUI

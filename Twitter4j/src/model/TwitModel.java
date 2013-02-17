@@ -10,6 +10,7 @@ import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+import twitter4j.auth.RequestToken;
 
 /**
  * TwitModel.class
@@ -18,7 +19,7 @@ import twitter4j.TwitterFactory;
  * @author Ben
  */
 @SuppressWarnings("serial")
-public class TwitModel extends AbstractTableModel{
+public class TwitModel extends AbstractTableModel {
 
 	private Date date;
 	private String loginName;
@@ -35,6 +36,7 @@ public class TwitModel extends AbstractTableModel{
 //	private ExportUtility export;
 	
 	private Twitter twitter;
+	RequestToken requestToken;
 //	private OAuthSignpostClient client;
 	private Status status;
 
@@ -43,7 +45,7 @@ public class TwitModel extends AbstractTableModel{
 	/**
 	 * The Constructor for TwitModel()
 	 */
-	public TwitModel() { 
+	public TwitModel()  { 
 		myTweets = new ArrayList<MyTweet>();
 //		wordCounter = new ArrayList<Word>();
 //		twitter = new Twitter();
@@ -267,37 +269,6 @@ public class TwitModel extends AbstractTableModel{
 	public int getRowCount() {
 		return myTweets.size();
 	}
-
-	/**
-	 * Sorts a status by Date.
-	 */
-	public void sortByDate() {
-
-	}
-	/**
-	 * Sorts a status by login name.
-	 */
-	public void sortByLogin() {
-
-	}
-	/**
-	 * sorts statues by friends count.
-	 */
-	public void sortByFreinds() {
-
-	}
-	/**
-	 * sorts statuses by followers count.
-	 */
-	public void sortByFollowers() {
-
-	}
-	/**
-	 * sorts statuses by display name.
-	 */
-	public void sortByDisplayName() {
-
-	}
 	/**
 	 * loads a string a splits it into a bunch of tokens.
 	 * @return inputwords
@@ -306,34 +277,10 @@ public class TwitModel extends AbstractTableModel{
 		return null;
 	}
 	/**
-	 * countWords gets the count of all words.
-	 * @param src - gets List<String>
-	 * @return wordList
-	 */
-	public String countWords(List<String> src) {
-		return null;
-	}
-	/**
-	 * Generates the word FrequencyList.
-	 * @return countWords(words)
-	 */
-	public String wordFrequencyList(){
-		return  null;
-	}
-	/**
 	 * Gets the top trending list.
 	 * @return twitter.getTrends();
 	 */
 	public Object topTrendingList() {
 		return null;
 	} 
-	/**
-	 * saves a file as an XML.
-	 * @param filename - what the file name will be
-	 * @return the true or false if a success or failure
-	 */
-	public boolean saveAsXML(String filename) {
-		return false;
-
-	}
 }

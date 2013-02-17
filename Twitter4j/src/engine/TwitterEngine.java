@@ -199,22 +199,6 @@ public class TwitterEngine {
 		model.updateStatus(post);
 	}
 	/**
-	 * saves a file as an XML
-	 * 
-	 * @param filename - that you want to use
-	 * @return - XML file that has been produced
-	 */
-	public boolean saveAsXML(String filename) {
-	    return model.saveAsXML(filename);
-	}
-	/**
-	 * produces a wordFrequencyList
-	 * @return - model.wordFrequencyList();
-	 */
-	public Object wordFrequencyList() {
-		return model.wordFrequencyList();
-	}
-	/**
 	 * Gathers what is trending on Twitter
 	 * 
 	 * @return model.topTrendingList();
