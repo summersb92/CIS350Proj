@@ -84,41 +84,6 @@ public class TwitterEngine {
 				consumerSecret, accessToken, accessTokenS);
 	}
 	
-	
-	
-	
-	//sorts
-	/**
-	 * sorts the table by date
-	 */
-	public void sortByDate(){
-		model.sortByDate();
-	}
-	/**
-	 * sorts the table by Login name
-	 */
-	public void sortByLoginName(){
-		model.sortByLogin();
-	}
-	/**
-	 * sorts the table by Display name
-	 */
-	public void sortByDsiplayName(){
-		model.sortByDate();
-	}
-	/**
-	 * sorts the table by friends count
-	 */
-	public void sortByFriends(){
-		model.sortByFreinds();
-	}
-	/**
-	 * sorts the table by followers count
-	 */
-	public void sortByFollowers(){
-		model.sortByFollowers();
-	}
-	
 	/**
 	 * gets the current array lists size
 	 * 

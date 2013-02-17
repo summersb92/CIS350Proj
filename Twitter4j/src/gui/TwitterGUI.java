@@ -4,6 +4,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -35,11 +36,7 @@ public class TwitterGUI extends javax.swing.JFrame{
 	private JMenuItem fileExport, fileDeleteTable, fileQuit,
 			fileDeleteStatus, generateWordFrequencyList, 
 			generateTopTrendingList, help_About;
-	private JRadioButtonMenuItem sortByCreation,
-			sortByLoginName, sortByDisplayName,
-			sortByFreindCount, sortByFollowerCount;
-	private ButtonGroup group;
-//	private TwitterResultsPanel results;
+	private TwitterResultsPanel results;
 //	private AuthenticatePanel authP;
 //	private GetStatusPanel getStatusP;
 //	private GetTimePanel getTimeP;
@@ -69,8 +66,8 @@ public class TwitterGUI extends javax.swing.JFrame{
 		eastPanel = new JPanel();
 		eastPanel.setLayout(new BoxLayout
 				(eastPanel, BoxLayout.Y_AXIS));
-//		results = new TwitterResultsPanel(engine);
-//		eastPanel.add(results);
+		results = new TwitterResultsPanel(engine);
+		eastPanel.add(results);
 		GUI.add(eastPanel, BorderLayout.EAST);
 	}
 	/**
@@ -82,7 +79,30 @@ public class TwitterGUI extends javax.swing.JFrame{
 		westPanel = new JPanel();
 		westPanel.setLayout(new BoxLayout
 				(westPanel, BoxLayout.Y_AXIS));
-		
+		JTabbedPane tabbedPane = new JTabbedPane();
+		JComponent panel1 = makeTextPanel("Panel #1");
+        tabbedPane.addTab("Tab 1", panel1);
+    //    tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
+         
+        JComponent panel2 = makeTextPanel("Panel #2");
+        tabbedPane.addTab("Tab 2",panel2);
+      //  tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
+         
+        JComponent panel3 = makeTextPanel("Panel #3");
+        tabbedPane.addTab("Tab 3", panel3);
+       // tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
+         
+        JComponent panel4 = makeTextPanel(
+                "Panel #4 (has a preferred size of 410 x 50).");
+        panel4.setPreferredSize(new Dimension(410, 50));
+        tabbedPane.addTab("Tab 4",panel4);
+       // tabbedPane.setMnemonicAt(3, KeyEvent.VK_4);
+        
+		//Add the tabbed pane to this panel.
+		westPanel.add(tabbedPane);
+        
+		//The following line enables to use scrolling tabs.
+		tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 //		combo.addActionListener(switchHandeler);
 		
 //		authP = new AuthenticatePanel(engine);
@@ -98,6 +118,16 @@ public class TwitterGUI extends javax.swing.JFrame{
 //		westPanel.add(authP);
 		GUI.add(westPanel, BorderLayout.WEST);
 	}
+	
+    protected JComponent makeTextPanel(String text) {
+        JPanel panel = new JPanel(false);
+        JLabel filler = new JLabel(text);
+        filler.setHorizontalAlignment(JLabel.CENTER);
+        panel.setLayout(new GridLayout(1, 1));
+        panel.add(filler);
+        return panel;
+    }
+     
 	/**
 	 * menuInit() geneartes the JMenuBar to be used.
 	 */
@@ -132,36 +162,6 @@ public class TwitterGUI extends javax.swing.JFrame{
 		generate.add(generateWordFrequencyList);
 		generate.add(generateTopTrendingList);
 		menu.add(generate);
-		
-		//Creates the Sort Menu
-		sort = new JMenu("Sort");
-		sortByCreation = new JRadioButtonMenuItem
-				("By Creation Date");
-		sortByLoginName = new JRadioButtonMenuItem
-				("By Login Name");
-		sortByDisplayName = new JRadioButtonMenuItem
-				("By Display Name");
-		sortByFreindCount = new JRadioButtonMenuItem
-				("By Freinds Count");
-		sortByFollowerCount = new JRadioButtonMenuItem
-				("By Followers Count");
-		sortByCreation.addActionListener(menuHandeler);
-		sortByLoginName.addActionListener(menuHandeler);
-		sortByDisplayName.addActionListener(menuHandeler);
-		sortByFreindCount.addActionListener(menuHandeler);
-		sortByFollowerCount.addActionListener(menuHandeler);
-		group = new ButtonGroup();
-		group.add(sortByCreation);
-		group.add(sortByLoginName);
-		group.add(sortByDisplayName);
-		group.add(sortByFreindCount);
-		group.add(sortByFollowerCount);
-		sort.add(sortByCreation);
-		sort.add(sortByLoginName);
-		sort.add(sortByDisplayName);
-		sort.add(sortByFreindCount);
-		sort.add(sortByFollowerCount);
-		menu.add(sort);
 		//Create the Help Menu
 		help = new JMenu("Help");
 		help_About = new JMenuItem("About...");
@@ -200,30 +200,6 @@ public class TwitterGUI extends javax.swing.JFrame{
 						"                  10/28/2011 \n" +
 						"         For a JTwitterProgram");
 			}
-			if(e.getActionCommand().equals(
-					"By Freinds Count"))
-				engine.sortByFriends();
-			if(e.getActionCommand().equals(
-					"By Followers Count"))
-				engine.sortByFollowers();
-			if(e.getActionCommand().equals(
-					"By Creation Date"))
-				engine.sortByDate();
-			if(e.getActionCommand().equals(
-					"By Display Name"))
-				engine.sortByDate();
-			if(e.getActionCommand().equals(
-					"By Login Name"))
-				engine.sortByLoginName();
-//			if(e.getActionCommand().equals(
-//					"Word Frequency List"))
-//				results.wordFrequencyCount(
-//						engine.wordFrequencyList());
-//			if(e.getActionCommand().equals(
-//					"Top Trending List")){
-//				results.topTrendingOutput(
-//						engine.topTrendingList());
-//			}
 		}	
 	};
 	/**
