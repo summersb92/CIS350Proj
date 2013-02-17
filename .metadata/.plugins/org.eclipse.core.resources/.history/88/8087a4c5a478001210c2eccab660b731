@@ -44,7 +44,7 @@ public class TwitModel extends AbstractTableModel{
 	public TwitModel(){
 		myTweets = new ArrayList<MyTweet>();
 //		wordCounter = new ArrayList<Word>();
-//		twitter = new Twitter();
+		twitter = new Twitter();
 	}
 	/**
 	 * Gets the values to be displayed within the Table
@@ -123,6 +123,7 @@ public class TwitModel extends AbstractTableModel{
 	 */
 	public void retriveStatusList(String userName) {
 
+		}
 	}
 	/**
 	 * Gets the size of an Array List
@@ -307,7 +308,6 @@ public class TwitModel extends AbstractTableModel{
 	 * @return inputwords
 	 */
 	public List<String> loadString(){
-		return null;
 		
 
 	}
@@ -317,7 +317,7 @@ public class TwitModel extends AbstractTableModel{
 	 * @return wordList
 	 */
 	public String countWords(List<String> src) {
-		return null;
+		
 	}
 	/**
 	 * Generates the word FrequencyList
@@ -325,8 +325,12 @@ public class TwitModel extends AbstractTableModel{
 	 * @return countWords(words)
 	 */
 	public String wordFrequencyList(){
-		return  null;
-		
+		List<String> words;
+		words = loadString();
+		if(words != null){
+			countWords(words);
+		}
+		return countWords(words);
 	}
 	/**
 	 * Gets the top trending list
@@ -334,7 +338,7 @@ public class TwitModel extends AbstractTableModel{
 	 * @return twitter.getTrends();
 	 */
 	public Object topTrendingList() {
-		return null;
+		return twitter.getTrends();
 	} 
 	/**
 	 * saves a file as an XML
@@ -343,7 +347,18 @@ public class TwitModel extends AbstractTableModel{
 	 * @return the true or false if a success or failure
 	 */
 	public boolean saveAsXML(String filename) {
-		return false;
-
+		if (filename.equals("")) {
+			return false;
+		}
+		try {
+			PrintWriter out =
+				new PrintWriter(new BufferedWriter(
+					new FileWriter(filename)));
+			out.print(export.toXML());
+			out.close();
+			return true;
+		} catch (IOException ex) {
+			return false;
+		}
 	}
 }

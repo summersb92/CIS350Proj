@@ -43,8 +43,8 @@ public class TwitModel extends AbstractTableModel{
 	 */
 	public TwitModel(){
 		myTweets = new ArrayList<MyTweet>();
-//		wordCounter = new ArrayList<Word>();
-//		twitter = new Twitter();
+		wordCounter = new ArrayList<Word>();
+		twitter = new Twitter();
 	}
 	/**
 	 * Gets the values to be displayed within the Table
@@ -115,14 +115,18 @@ public class TwitModel extends AbstractTableModel{
 	 * pram userName - user that is being searched for
 	 */
 	public void retriveStatus(String userName){
-
+		status = twitter.getStatus(userName);
+		ArrayListGenerator(status);	
 	}
 	/**
 	 * Gets the status timeline of a particular user
 	 * @param userName - user name being searched
 	 */
 	public void retriveStatusList(String userName) {
-
+		tweets = twitter.getUserTimeline(userName);
+		for (Status s : tweets) {
+			ArrayListGenerator(s);
+		}
 	}
 	/**
 	 * Gets the size of an Array List
@@ -163,7 +167,10 @@ public class TwitModel extends AbstractTableModel{
 	 * @param keyWord - word being searched
 	 */
 	public void getWordSearch(String keyWord) {
-
+		List<Status> results = twitter.search(keyWord);
+		for (Status s : results) {
+			ArrayListGenerator(s);
+		}
 	}
 	/**
 	 * Gets the phrase that is being searched
@@ -173,7 +180,11 @@ public class TwitModel extends AbstractTableModel{
 	 */
 	public void getPhraseSearch(String keyWord,
 			String phrase) {
-
+		String temp = (keyWord + "\""+phrase+"\"");
+		List<Status> results = twitter.search(temp);
+		for (Status s : results) {
+			ArrayListGenerator(s);
+		}
 	}
 	/**
 	 * gets the statues to a user with a specific input
@@ -184,7 +195,12 @@ public class TwitModel extends AbstractTableModel{
 	 */
 	public void getToUserSearch(String keyWord,
 			String phrase, String toUser) {
-
+		String temp = (keyWord +
+				"\""+phrase+"\""+"@"+toUser);
+		List<Status> results = twitter.search(temp);
+		for (Status s : results) {
+			ArrayListGenerator(s);
+		}
 	}
 	/**
 	 * get the status from a user
@@ -195,7 +211,13 @@ public class TwitModel extends AbstractTableModel{
 	 */
 	public void getFromUserSearch(String keyWord,
 			String phrase, String fromUser) {
-
+		String temp = (keyWord + "\""+phrase+"\"");
+		List<Status> results = twitter.
+			getUserTimeline(fromUser);
+		twitter.search(temp);
+		for (Status s : results) {
+			ArrayListGenerator(s);
+		}
 	}
 	/**
 	 * gets a statuses that meet all parameters
@@ -207,7 +229,14 @@ public class TwitModel extends AbstractTableModel{
 	 */
 	public void getAllSearch(String keyWord,
 			String phrase, String toUser, String fromUser) {
-
+		String temp = (keyWord +
+				"\""+phrase+"\""+"@"+toUser);
+		List<Status> results = twitter.
+				getUserTimeline(fromUser);
+		twitter.search(temp);
+		for (Status s : results) {
+			ArrayListGenerator(s);
+		}
 	}
 	/**
 	 * gets keywords from a particular user
@@ -217,7 +246,12 @@ public class TwitModel extends AbstractTableModel{
 	 */
 	public void getKeyFromSearch(String keyWord,
 			String fromUser) {
-
+		List<Status> results = twitter.
+			getUserTimeline(fromUser);
+		twitter.search(keyWord);
+		for (Status s : results) {
+			ArrayListGenerator(s);
+		}
 	}
 	/**
 	 * Gets keywords to a specified user
@@ -227,7 +261,11 @@ public class TwitModel extends AbstractTableModel{
 	 */
 	public void getKeyToSearch(String keyWord,
 			String toUser) {
-
+		String temp = (keyWord +"@"+toUser);
+		List<Status> results = twitter.search(temp);
+		for (Status s : results) {
+			ArrayListGenerator(s);
+		}
 	}
 	/**
 	 * Authenticates a user
@@ -240,20 +278,43 @@ public class TwitModel extends AbstractTableModel{
 	public void authentication(String userName, 
 			String userKey, String userSecret,
 			String token, String tokenSecret){
-
+		try{
+			client = new OAuthSignpostClient
+			(userKey, userSecret, token, tokenSecret);
+			twitter = new Twitter(userName, client);
+		}catch(Exception e){
+			JOptionPane.showMessageDialog(null, 
+					"Login Failed",
+					"User not Found",
+					JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	/**
-	 * Destroys the status of the current user
+	 * destorys the status of the current user
 	 */
 	public void destoryStatus() {
-
+		try{
+			twitter.destroyStatus(status.getId());
+		}catch(Exception e){
+			JOptionPane.showMessageDialog(null, 
+					"Not Authenticated",
+					"Invalid action",
+					JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	/**
 	 * sets a new status for the current user
 	 * @param post
 	 */
 	public void updateStatus(String post) {
-
+		try{
+			twitter.setStatus(post);
+		}catch(Exception e){
+			JOptionPane.showMessageDialog(null, 
+					"Not Authenticated",
+					"Invalid action",
+					JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	/**
 	 * Gets he column length
@@ -276,40 +337,79 @@ public class TwitModel extends AbstractTableModel{
 	 * Sorts a status by Date
 	 */
 	public void sortByDate() {
-
+		if (myTweets.size() > 1) {
+			Collections.sort(myTweets,
+					new DateComparator());
+			this.fireTableRowsUpdated(0,
+					myTweets.size() - 1);
+		}
 	}
 	/**
 	 * Sorts a status by login name
 	 */
 	public void sortByLogin() {
-
+		if (myTweets.size() > 1) {
+			Collections.sort(myTweets,
+					new LoginNameComparator());
+			this.fireTableRowsUpdated(0,
+					myTweets.size() - 1);
+		}
 	}
 	/**
 	 * sorts statues by friends count
 	 */
 	public void sortByFreinds() {
-
+		if (myTweets.size() > 1){
+			Collections.sort(myTweets,
+					new FriendsCountComparator());
+			this.fireTableRowsUpdated(0,
+					myTweets.size() - 1);
+		}
 	}
 	/**
 	 * sorts statuses by followers count
 	 */
 	public void sortByFollowers() {
-
+		if (myTweets.size() > 1){
+			Collections.sort(myTweets,
+					new FollowersCountComparator());
+			this.fireTableRowsUpdated(0,
+					myTweets.size() - 1);
+		}
 	}
 	/**
 	 * sorts statuses by display name
 	 */
 	public void sortByDisplayName() {
-
+		if (myTweets.size() > 1) {
+			Collections.sort(myTweets,
+					new DisplayNameComparator());
+			this.fireTableRowsUpdated(0,
+					myTweets.size() - 1);
+		}
 	}
 	/**
 	 * loads a string a splits it into a bunch of tokens
 	 * @return inputwords
 	 */
 	public List<String> loadString(){
-		return null;
-		
-
+		List<String> inputWords = new ArrayList<String>();
+		String PUNCT_REGEXP = "[\\p{P} \\t\\n\\r]";
+		try{
+			for(MyTweet m : myTweets){
+				String[] toks = 
+					m.getText().split(PUNCT_REGEXP);
+				for(String t : toks){
+					if(t.length() == 0){
+						continue; //ignores empty strings
+					}
+					inputWords.add(t.toLowerCase());
+				}
+			}
+		}catch(Exception e){
+			System.out.println("There are no words");
+		}
+		return inputWords;
 	}
 	/**
 	 * countWords gets the count of all words
@@ -317,7 +417,37 @@ public class TwitModel extends AbstractTableModel{
 	 * @return wordList
 	 */
 	public String countWords(List<String> src) {
-		return null;
+		Map<String, Integer> wc;
+		wc = new TreeMap<String, Integer>();
+		//Generates the TreeMap
+		for(String s : src){
+			if(wc.containsKey(s)){
+				int oldValue = wc.get(s);
+				wc.put(s, oldValue + 1);
+			}else{
+				wc.put(s,1);
+			}
+		}
+		ListComparator sc = new ListComparator();	
+		wordCounter = new ArrayList<Word>();
+		//then sort arrayList when finalized	
+		wordList = new StringBuilder();
+		Set<String> ks = wc.keySet();
+		for(String k : ks){
+			//k = word
+			//val = number
+			int val = wc.get(k);
+			Word temp = new Word(k , val);
+			wordCounter.add(temp);
+		}
+		Collections.sort(wordCounter, sc);
+		//for each word in wordCounter
+		for(Word w : wordCounter){
+			int count = w.count;
+			String word = w.word;
+			wordList.append(word+" => "+count+"\n");
+		}
+		return wordList.toString();
 	}
 	/**
 	 * Generates the word FrequencyList
@@ -325,8 +455,12 @@ public class TwitModel extends AbstractTableModel{
 	 * @return countWords(words)
 	 */
 	public String wordFrequencyList(){
-		return  null;
-		
+		List<String> words;
+		words = loadString();
+		if(words != null){
+			countWords(words);
+		}
+		return countWords(words);
 	}
 	/**
 	 * Gets the top trending list
@@ -334,7 +468,7 @@ public class TwitModel extends AbstractTableModel{
 	 * @return twitter.getTrends();
 	 */
 	public Object topTrendingList() {
-		return null;
+		return twitter.getTrends();
 	} 
 	/**
 	 * saves a file as an XML
@@ -343,7 +477,18 @@ public class TwitModel extends AbstractTableModel{
 	 * @return the true or false if a success or failure
 	 */
 	public boolean saveAsXML(String filename) {
-		return false;
-
+		if (filename.equals("")) {
+			return false;
+		}
+		try {
+			PrintWriter out =
+				new PrintWriter(new BufferedWriter(
+					new FileWriter(filename)));
+			out.print(export.toXML());
+			out.close();
+			return true;
+		} catch (IOException ex) {
+			return false;
+		}
 	}
 }
