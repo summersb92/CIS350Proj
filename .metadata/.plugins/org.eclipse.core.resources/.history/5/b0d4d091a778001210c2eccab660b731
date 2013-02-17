@@ -38,12 +38,12 @@ public class TwitterGUI extends javax.swing.JFrame{
 			sortByLoginName, sortByDisplayName,
 			sortByFreindCount, sortByFollowerCount;
 	private ButtonGroup group;
-//	private TwitterResultsPanel results;
-//	private AuthenticatePanel authP;
-//	private GetStatusPanel getStatusP;
-//	private GetTimePanel getTimeP;
-//	private PostPanel postP;
-//	private SearchPanel searchP;
+	private TwitterResultsPanel results;
+	private AuthenticatePanel authP;
+	private GetStatusPanel getStatusP;
+	private GetTimePanel getTimeP;
+	private PostPanel postP;
+	private SearchPanel searchP;
 	
 	private TwitterEngine engine;
 	
@@ -67,8 +67,8 @@ public class TwitterGUI extends javax.swing.JFrame{
 		eastPanel = new JPanel();
 		eastPanel.setLayout(new BoxLayout
 				(eastPanel, BoxLayout.Y_AXIS));
-//		results = new TwitterResultsPanel(engine);
-//		eastPanel.add(results);
+		results = new TwitterResultsPanel(engine);
+		eastPanel.add(results);
 		GUI.add(eastPanel, BorderLayout.EAST);
 	}
 	/**
@@ -83,20 +83,20 @@ public class TwitterGUI extends javax.swing.JFrame{
 		
 		combo = new JComboBox(options);
 		combo.setMaximumSize(new Dimension(300, 60));
-//		combo.addActionListener(switchHandeler);
+		combo.addActionListener(switchHandeler);
 		
-//		authP = new AuthenticatePanel(engine);
-//		getStatusP = new GetStatusPanel(engine);
-//		getTimeP = new GetTimePanel(engine);
-//		postP = new PostPanel(engine);
-//		searchP = new SearchPanel(engine);
+		authP = new AuthenticatePanel(engine);
+		getStatusP = new GetStatusPanel(engine);
+		getTimeP = new GetTimePanel(engine);
+		postP = new PostPanel(engine);
+		searchP = new SearchPanel(engine);
 		TitledBorder operationTitle = 
 				BorderFactory.createTitledBorder
         		("Select Operation");
 		combo.setBorder(operationTitle);
 		westPanel.add(combo);
 		westPanel.add(Box.createVerticalGlue());
-//		westPanel.add(authP);
+		westPanel.add(authP);
 		GUI.add(westPanel, BorderLayout.WEST);
 	}
 	/**
@@ -216,45 +216,45 @@ public class TwitterGUI extends javax.swing.JFrame{
 			if(e.getActionCommand().equals(
 					"By Login Name"))
 				engine.sortByLoginName();
-//			if(e.getActionCommand().equals(
-//					"Word Frequency List"))
-//				results.wordFrequencyCount(
-//						engine.wordFrequencyList());
-//			if(e.getActionCommand().equals(
-//					"Top Trending List")){
-//				results.topTrendingOutput(
-//						engine.topTrendingList());
-//			}
+			if(e.getActionCommand().equals(
+					"Word Frequency List"))
+				results.wordFrequencyCount(
+						engine.wordFrequencyList());
+			if(e.getActionCommand().equals(
+					"Top Trending List")){
+				results.topTrendingOutput(
+						engine.topTrendingList());
+			}
 		}	
 	};
 	/**
 	 * Handels which panel is active bellow the ComboBox
 	 */
-//	private ActionListener switchHandeler = new 
-//			ActionListener(){
-//		@Override
-//		public void actionPerformed(ActionEvent e) {
-//			westPanel.remove(authP);
-//			westPanel.remove(getStatusP);
-//			westPanel.remove(getTimeP);
-//			westPanel.remove(postP);
-//			westPanel.remove(searchP);
-//			//0 is the combo box, and 1 is whats beneath
-//			//westPanel.remove(1);
-//			GUI.pack();
-//			switch(combo.getSelectedIndex()){
-//			case 0: westPanel.add(authP); GUI.pack(); break;
-//			case 1: westPanel.add(getStatusP); GUI.pack();
-//				break;
-//			case 2: westPanel.add(getTimeP); GUI.pack();
-//				break; //timeline
-//			case 3: westPanel.add(postP); GUI.pack(); break;
-//			case 4: westPanel.add(searchP); GUI.pack();
-//				break; //search
-//			}	
-//			GUI.pack();
-//		}
-//	};
+	private ActionListener switchHandeler = new 
+			ActionListener(){
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			westPanel.remove(authP);
+			westPanel.remove(getStatusP);
+			westPanel.remove(getTimeP);
+			westPanel.remove(postP);
+			westPanel.remove(searchP);
+			//0 is the combo box, and 1 is whats beneath
+			//westPanel.remove(1);
+			GUI.pack();
+			switch(combo.getSelectedIndex()){
+			case 0: westPanel.add(authP); GUI.pack(); break;
+			case 1: westPanel.add(getStatusP); GUI.pack();
+				break;
+			case 2: westPanel.add(getTimeP); GUI.pack();
+				break; //timeline
+			case 3: westPanel.add(postP); GUI.pack(); break;
+			case 4: westPanel.add(searchP); GUI.pack();
+				break; //search
+			}	
+			GUI.pack();
+		}
+	};
 	/**
 	 * uses the saveXML action to save a the twitter Status
 	 * list as an XML file.
