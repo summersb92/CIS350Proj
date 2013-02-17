@@ -13,8 +13,8 @@ TODO
 4. Show individuals who you follow
 5. GUI that will handle these four calls and developer login.
 
-
 Release 2 - Due TBA
+
 1. Allow someone to mark someone as a favorite
 2. Show only favorite users
 3. Show the people you are following with the most followers
