@@ -2,6 +2,8 @@ package engine;
 
 import java.util.Date;
 
+import twitter4j.TwitterException;
+
 import model.Tweet;
 import model.TwitModel;
 
@@ -40,12 +42,13 @@ public class TwitterEngine {
 		model.retriveStatus(userName);
 	}
 	/**
-	 * gets a status List
+	 * gets a users timeline
 	 * 
 	 * @param userName - the user being searched
+	 * @throws TwitterException 
 	 */
-	public void getStatusList(String userName) {
-		model.retriveStatusList(userName);
+	public void getTimeline(String userName) throws TwitterException {
+		model.retriveTimeline(userName);
 	}
 	/**
 	 * addTweets creates a twitter Status in the table

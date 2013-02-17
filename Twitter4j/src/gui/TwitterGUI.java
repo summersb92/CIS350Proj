@@ -13,6 +13,7 @@ import javax.swing.border.TitledBorder;
 import engine.TwitterEngine;
 
 import java.io.*;
+import java.util.List;
 
 
 @SuppressWarnings("serial")
@@ -26,7 +27,7 @@ public class TwitterGUI extends javax.swing.JFrame{
 	private String[] options={"Authenticate User",
 			"Get Status", "Get UserTimeline","Post Status",
 			"Search for Statuses"};
-	private JComboBox combo;
+//	private JComboBox combo;
 	private JPanel eastPanel, westPanel;
 	private JFrame GUI;
 	private JMenuBar menu;
@@ -49,6 +50,7 @@ public class TwitterGUI extends javax.swing.JFrame{
 	
 	/**
 	 * Packs and sets the GUI
+	 * @throws TwitterException 
 	 */
 	public TwitterGUI(){
 		engine = new TwitterEngine();
@@ -81,8 +83,6 @@ public class TwitterGUI extends javax.swing.JFrame{
 		westPanel.setLayout(new BoxLayout
 				(westPanel, BoxLayout.Y_AXIS));
 		
-		combo = new JComboBox(options);
-		combo.setMaximumSize(new Dimension(300, 60));
 //		combo.addActionListener(switchHandeler);
 		
 //		authP = new AuthenticatePanel(engine);
@@ -93,8 +93,7 @@ public class TwitterGUI extends javax.swing.JFrame{
 		TitledBorder operationTitle = 
 				BorderFactory.createTitledBorder
         		("Select Operation");
-		combo.setBorder(operationTitle);
-		westPanel.add(combo);
+
 		westPanel.add(Box.createVerticalGlue());
 //		westPanel.add(authP);
 		GUI.add(westPanel, BorderLayout.WEST);
@@ -299,6 +298,7 @@ public class TwitterGUI extends javax.swing.JFrame{
 	public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+
                 new TwitterGUI();
             }
         });  

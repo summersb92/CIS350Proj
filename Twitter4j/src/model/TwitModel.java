@@ -8,6 +8,8 @@ import javax.swing.table.AbstractTableModel;
 
 import twitter4j.Status;
 import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
 
 /**
  * TwitModel.class
@@ -116,9 +118,16 @@ public class TwitModel extends AbstractTableModel{
 	/**
 	 * Gets the status timeline of a particular user.
 	 * @param userName - user name being searched
+	 * @throws TwitterException 
 	 */
-	public void retriveStatusList(String userName) {
-
+	public void retriveTimeline(String userName) throws TwitterException{
+		twitter = TwitterFactory.getSingleton();
+	    List<Status> statuses = twitter.getHomeTimeline();
+	    System.out.println("Showing home timeline.");
+	    for (Status status : statuses) {
+	        System.out.println(status.getUser().getName() + ":" +
+	                           status.getText());
+	    }
 	}
 	/**
 	 * Gets the size of an Array List.
