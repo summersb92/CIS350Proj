@@ -1,0 +1,16 @@
+package engine;
+
+/**
+ * 
+ * @author Ben
+ *
+ * Creates the Interface for the Twitter Engine class
+ */
+public interface ITweet {
+	java.util.Date getCreatedAt();
+	String getLoginName();
+	String getDisplayName();
+	String getText();
+	int getFriendsCount();
+	int getFollowersCount();
+}

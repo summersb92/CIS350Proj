@@ -60,7 +60,7 @@ public class TwitterEngine {
 	public void addTweet(Date date, String loginName,
 			String displayName, int friends,
 			int followers, String text){	
-		Tweet t = new Tweet(date ,loginName, displayName,
+		Tweet t = new Tweet(date ,loginName, displayName, 
 				friends, followers, text);
 		model.add(t);
 	}

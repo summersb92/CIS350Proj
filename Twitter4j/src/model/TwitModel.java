@@ -41,13 +41,14 @@ public class TwitModel extends AbstractTableModel{
 	/**
 	 * The Constructor for TwitModel()
 	 */
-	public TwitModel(){
+	public TwitModel() { 
 		myTweets = new ArrayList<MyTweet>();
 //		wordCounter = new ArrayList<Word>();
 //		twitter = new Twitter();
 	}
 	/**
 	 * Gets the values to be displayed within the Table
+	 * @return val;
 	 */
 	public Object getValueAt(int row, int col){
 		Object val = null;
@@ -70,39 +71,35 @@ public class TwitModel extends AbstractTableModel{
 	}
 	@Override
 	/**
-	 * Creates the column Names
-	 * 
-	 * pram - int column
-	 * 
+	 * Creates the column Names.
+	 * @param - int columm
 	 * return - columnNames[column]
 	 */
 	public String getColumnName(int column) {
 		return columnNames[column];
 	}
 	/**
-	 * Adds a tweet to the table from the ArrayList
-	 * 
+	 * Adds a tweet to the table from the ArrayList.
 	 * @param t - arrayList being passed into the Table
 	 */
-	public void add(MyTweet t){
-		if(t != null){
+	public void add(MyTweet t) {
+		if (t != null) { 
 			myTweets.add(t);
 			fireTableRowsInserted(myTweets.size()-1,
 					myTweets.size());
 		}
 	}
 	/**
-	 * Removes a Tweets from the array List
-	 * 
+	 * Removes a Tweets from the array List.
 	 * @param index - Position of the value
 	 */
 	public void remove(int index) {
-		try{
+		try {
 			myTweets.remove(index);
 			fireTableRowsDeleted(index, index);
 			return;
-		}catch(IndexOutOfBoundsException e){
-			JOptionPane.showMessageDialog(null, 
+		} catch(IndexOutOfBoundsException e) { 
+			JOptionPane.showMessageDialog(null , 
 				"Invalid Selection",
 				"Invalid action",
 				JOptionPane.ERROR_MESSAGE);
@@ -110,46 +107,43 @@ public class TwitModel extends AbstractTableModel{
 	}
 
 	/**
-	 * Gets the Status of the specified userName
-	 * 
-	 * pram userName - user that is being searched for
+	 * Gets the Status of the specified userName.
+	 * @param userName - user that is being searched for
 	 */
 	public void retriveStatus(String userName){
 
 	}
 	/**
-	 * Gets the status timeline of a particular user
+	 * Gets the status timeline of a particular user.
 	 * @param userName - user name being searched
 	 */
 	public void retriveStatusList(String userName) {
 
 	}
 	/**
-	 * Gets the size of an Array List
+	 * Gets the size of an Array List.
 	 * @return - myTweets.size() - size of myTweets
 	 */
 	public int getArrayListSize(){
 		return myTweets.size();
 	}
 	/**
-	 * Creates the ArrayList Generator
-	 * 
+	 * Creates the ArrayList Generator.
 	 * @param status
 	 */
-	public void ArrayListGenerator(Status status){
+	public void ArrayListGenerator(Status status) {
 		date = status.getCreatedAt();
 		loginName = status.getUser().getScreenName();
 		displayName = status.getUser().getName();
 		followers = status.getUser().getFollowersCount();
 		freinds = status.getUser().getFriendsCount();
 		text = status.getText();
-		t = new Tweet(date ,loginName, displayName,
-				followers, freinds, text);
+		t = new Tweet(date , loginName , displayName , 
+				followers , freinds , text);
 		add(t);
 	}
 	/**
-	 * Retrieves the status of the selected index
-	 * 
+	 * Retrieves the status of the selected index.
 	 * @param index - index that is selected
 	 * @return - the text of that index.
 	 */
@@ -158,88 +152,81 @@ public class TwitModel extends AbstractTableModel{
 	}
 	/**
 	 * getWordSearch gets what is being
-	 * searched and produces an arrayList
-	 * 
+	 * searched and produces an arrayList.
 	 * @param keyWord - word being searched
 	 */
 	public void getWordSearch(String keyWord) {
 
 	}
 	/**
-	 * Gets the phrase that is being searched
-	 * 
+	 * Gets the phrase that is being searched.
 	 * @param keyWord - keyword 
 	 * @param phrase - phrase
 	 */
-	public void getPhraseSearch(String keyWord,
+	public void getPhraseSearch(String keyWord ,
 			String phrase) {
 
 	}
 	/**
-	 * gets the statues to a user with a specific input
-	 * 
+	 * gets the statues to a user with a specific input.
 	 * @param keyWord
 	 * @param phrase
 	 * @param toUser
 	 */
-	public void getToUserSearch(String keyWord,
-			String phrase, String toUser) {
+	public void getToUserSearch(String keyWord ,
+			String phrase , String toUser) {
 
 	}
 	/**
-	 * get the status from a user
-	 * 
+	 * get the status from a user.
 	 * @param keyWord
 	 * @param phrase
 	 * @param fromUser
 	 */
-	public void getFromUserSearch(String keyWord,
-			String phrase, String fromUser) {
+	public void getFromUserSearch(String keyWord ,
+			String phrase , String fromUser) {
 
 	}
 	/**
-	 * gets a statuses that meet all parameters
-	 * 
+	 * gets a statuses that meet all parameters.
 	 * @param keyWord
 	 * @param phrase
 	 * @param toUser
 	 * @param fromUser
 	 */
-	public void getAllSearch(String keyWord,
-			String phrase, String toUser, String fromUser) {
+	public void getAllSearch(String keyWord ,
+			String phrase , String toUser , String fromUser) {
 
 	}
 	/**
-	 * gets keywords from a particular user
-	 * 
+	 * gets keywords from a particular user.
 	 * @param keyWord
 	 * @param fromUser
 	 */
-	public void getKeyFromSearch(String keyWord,
+	public void getKeyFromSearch(String keyWord ,
 			String fromUser) {
 
 	}
 	/**
-	 * Gets keywords to a specified user
-	 * 
+	 * Gets keywords to a specified user.
 	 * @param keyWord
 	 * @param toUser
 	 */
-	public void getKeyToSearch(String keyWord,
+	public void getKeyToSearch(String keyWord ,
 			String toUser) {
 
 	}
 	/**
-	 * Authenticates a user
+	 * Authenticates a user.
 	 * @param userName
 	 * @param userKey
 	 * @param userSecret
 	 * @param token
 	 * @param tokenSecret
 	 */
-	public void authentication(String userName, 
-			String userKey, String userSecret,
-			String token, String tokenSecret){
+	public void authentication(String userName , 
+			String userKey , String userSecret , 
+			String token , String tokenSecret) {
 
 	}
 	/**
@@ -249,14 +236,14 @@ public class TwitModel extends AbstractTableModel{
 
 	}
 	/**
-	 * sets a new status for the current user
+	 * sets a new status for the current user.
 	 * @param post
 	 */
 	public void updateStatus(String post) {
 
 	}
 	/**
-	 * Gets he column length
+	 * Gets he column length.
 	 * @return columnName.length();
 	 */
 	@Override
@@ -264,7 +251,7 @@ public class TwitModel extends AbstractTableModel{
 		return columnNames.length;
 	}
 	/**
-	 * gets the rowCount
+	 * gets the rowCount.
 	 * @return myTweets.size();
 	 */
 	@Override
@@ -273,46 +260,44 @@ public class TwitModel extends AbstractTableModel{
 	}
 
 	/**
-	 * Sorts a status by Date
+	 * Sorts a status by Date.
 	 */
 	public void sortByDate() {
 
 	}
 	/**
-	 * Sorts a status by login name
+	 * Sorts a status by login name.
 	 */
 	public void sortByLogin() {
 
 	}
 	/**
-	 * sorts statues by friends count
+	 * sorts statues by friends count.
 	 */
 	public void sortByFreinds() {
 
 	}
 	/**
-	 * sorts statuses by followers count
+	 * sorts statuses by followers count.
 	 */
 	public void sortByFollowers() {
 
 	}
 	/**
-	 * sorts statuses by display name
+	 * sorts statuses by display name.
 	 */
 	public void sortByDisplayName() {
 
 	}
 	/**
-	 * loads a string a splits it into a bunch of tokens
+	 * loads a string a splits it into a bunch of tokens.
 	 * @return inputwords
 	 */
 	public List<String> loadString(){
 		return null;
-		
-
 	}
 	/**
-	 * countWords gets the count of all words
+	 * countWords gets the count of all words.
 	 * @param src - gets List<String>
 	 * @return wordList
 	 */
@@ -320,25 +305,21 @@ public class TwitModel extends AbstractTableModel{
 		return null;
 	}
 	/**
-	 * Generates the word FrequencyList
-	 * 
+	 * Generates the word FrequencyList.
 	 * @return countWords(words)
 	 */
 	public String wordFrequencyList(){
 		return  null;
-		
 	}
 	/**
-	 * Gets the top trending list
-	 * 
+	 * Gets the top trending list.
 	 * @return twitter.getTrends();
 	 */
 	public Object topTrendingList() {
 		return null;
 	} 
 	/**
-	 * saves a file as an XML
-	 * 
+	 * saves a file as an XML.
 	 * @param filename - what the file name will be
 	 * @return the true or false if a success or failure
 	 */
