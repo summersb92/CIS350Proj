@@ -84,8 +84,8 @@ public class AuthenticatePanel extends JPanel{
 	 * present within the Authenticate Panel. Sends Data
 	 * to the Engine and error checks here.
 	 */
-	private ActionListener loginHandeler = new 
-			ActionListener(){
+	private ActionListener loginHandeler =
+			new 	ActionListener(){
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getActionCommand().equals("Authenticate")){
@@ -104,9 +104,9 @@ public class AuthenticatePanel extends JPanel{
 					JOptionPane.showMessageDialog(null, 
 							"Fill in all fields");
 				}else{
-					engine.login(userName,
-							consumerKey, consumerSecret,
-							accessToken, accessTokenS);
+					//engine.login(userName,
+						//	consumerKey, consumerSecret,
+							//accessToken, accessTokenS);
 					
 				}
 			}

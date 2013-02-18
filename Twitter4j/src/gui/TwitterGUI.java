@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
+import twitter4j.TwitterException;
+
 import engine.TwitterEngine;
 
 import java.io.*;
@@ -39,8 +41,8 @@ public class TwitterGUI extends javax.swing.JFrame{
 	private TwitterResultsPanel results;
 	private AuthenticatePanel authP;
 //	private GetStatusPanel getStatusP;
-//	private GetTimePanel getTimeP;
-//	private PostPanel postP;
+	private GetTimePanel getTimeP;
+	private PostPanel postP;
 //	private SearchPanel searchP;
 	
 	private TwitterEngine engine;
@@ -49,7 +51,7 @@ public class TwitterGUI extends javax.swing.JFrame{
 	 * Packs and sets the GUI
 	 * @throws TwitterException 
 	 */
-	public TwitterGUI(){
+	public TwitterGUI() throws TwitterException{
 		engine = new TwitterEngine();
 		GUI = new JFrame("Twitter Lite");
 		menuInit();
@@ -74,8 +76,9 @@ public class TwitterGUI extends javax.swing.JFrame{
 	 * Contains the Panels in the Operation Section.
 	 * The combobox allows selection bettween the different
 	 * options.
+	 * @throws TwitterException 
 	 */
-	private void WestPanelInit() {
+	private void WestPanelInit() throws TwitterException {
 		westPanel = new JPanel();
 		westPanel.setLayout(new BoxLayout
 				(westPanel, BoxLayout.Y_AXIS));
@@ -96,17 +99,18 @@ public class TwitterGUI extends javax.swing.JFrame{
 //		tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 //		combo.addActionListener(switchHandeler);
 		
-		authP = new AuthenticatePanel(engine);
+		//authP = new AuthenticatePanel(engine);
 //		getStatusP = new GetStatusPanel(engine);
-//		getTimeP = new GetTimePanel(engine);
-//		postP = new PostPanel(engine);
+		getTimeP = new GetTimePanel(engine);
+		postP = new PostPanel(engine);
 //		searchP = new SearchPanel(engine);
 		TitledBorder operationTitle = 
 				BorderFactory.createTitledBorder
         		("Select Operation");
 
 		westPanel.add(Box.createVerticalGlue());
-		westPanel.add(authP);
+		westPanel.add(postP);
+		westPanel.add(getTimeP);
 		GUI.add(westPanel, BorderLayout.WEST);
 	}
 	
@@ -239,7 +243,12 @@ public class TwitterGUI extends javax.swing.JFrame{
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
 
-                new TwitterGUI();
+                try {
+					new TwitterGUI();
+				} catch (TwitterException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });  
     }

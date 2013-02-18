@@ -1,7 +1,9 @@
 package engine;
 
 import java.util.Date;
+import java.util.List;
 
+import twitter4j.Status;
 import twitter4j.TwitterException;
 
 import model.Tweet;
@@ -43,12 +45,12 @@ public class TwitterEngine {
 	}
 	/**
 	 * gets a users timeline
+	 * @return 
 	 * 
-	 * @param userName - the user being searched
 	 * @throws TwitterException 
 	 */
-	public void getTimeline(String userName) throws TwitterException {
-		model.retriveTimeline(userName);
+	public List<Status> getTimeline() throws TwitterException {
+		return model.retriveTimeline();
 	}
 	/**
 	 * addTweets creates a twitter Status in the table
@@ -77,12 +79,12 @@ public class TwitterEngine {
 	 * @param accessToken - their access token
 	 * @param accessTokenS - their access token secret
 	 */
-	public final void login(String userName,
-			final String consumerKey, final String consumerSecret,
-			final String accessToken, final String accessTokenS) {
+	/*public void login(String userName,
+			String consumerKey, String consumerSecret,
+			String accessToken, String accessTokenS) {
 		model.authentication(userName, consumerKey,
 				consumerSecret, accessToken, accessTokenS);
-	}
+	}*/
 	
 	/**
 	 * gets the current array lists size
