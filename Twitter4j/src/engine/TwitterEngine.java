@@ -10,51 +10,51 @@ import model.Tweet;
 import model.TwitModel;
 
 /**
- * TwitterEngine.class
- * 
- * Intermediary between the GUI and model
+ * Intermediary between the GUI and model.
  * 
  * @author Ben
  */
 public class TwitterEngine {
-	
+	/** Main variable of the model. */
 	private TwitModel model;
+	/** Stores index of item clicked in table. */
 	private int index;
-	private String post;
+//	/** Stores text of a tweet post. */
+//	private String post;
 	
 	/**
-	 * Constructs the Twitter Engine
+	 * Constructs the Twitter Engine.
 	 */
-	public TwitterEngine(){
+	public TwitterEngine() {
 		model = new TwitModel();
 	}
 	/**
-	 * gets the model
+	 * Gets the model.
 	 * 
-	 * @return model
+	 * @return model - model that handles program logic
 	 */
-	public TwitModel getModel() {
+	public final TwitModel getModel() {
 		return model;
 	}
 	/**
-	 * gets a users status
+	 * Gets a user's status.
 	 * 
 	 * @param userName - the user being searched
 	 */
-	public void getStatus(String userName){
+	public final void getStatus(final String userName) {
 		model.retrieveStatus(userName);
 	}
 	/**
-	 * gets a users timeline
-	 * @return 
+	 * Gets a users timeline.
+	 * @return Status timeline
 	 * 
 	 * @throws TwitterException 
 	 */
-	public List<Status> getTimeline() throws TwitterException {
+	public final List<Status> getTimeline() throws TwitterException {
 		return model.retriveTimeline();
 	}
 	/**
-	 * addTweets creates a twitter Status in the table
+	 * addTweets creates a twitter Status in the table.
 	 * 
 	 * @param date - createdAt
 	 * @param loginName - user
@@ -63,10 +63,10 @@ public class TwitterEngine {
 	 * @param followers - how many followers
 	 * @param text - status text
 	 */
-	public void addTweet(Date date, String loginName,
-			String displayName, int friends,
-			int followers, String text){	
-		Tweet t = new Tweet(date ,loginName, displayName, 
+	public final void addTweet(final Date date, final  String loginName,
+			final String displayName, final int friends,
+			final int followers, final String text) {	
+		Tweet t = new Tweet(date, loginName, displayName, 
 				friends, followers, text);
 		model.add(t);
 	}
@@ -88,41 +88,43 @@ public class TwitterEngine {
 	}*/
 	
 	/**
-	 * gets the current array lists size
+	 * 
+	 * Gets the current array lists size.
 	 * 
 	 * @return - checks an array lists size
 	 */
-	public int getArrayListSize(){
+	public final int getArrayListSize() {
 		return model.getArrayListSize();
 	}
+	
 	/**
-	 * gets the text for a selected users status
+	 * Gets the text for a selected users status.
 	 * 
 	 * @param index - the current spot on a table
 	 *  highlighted
 	 * @return - the status of that highlighted table row
 	 */
-	public String getDisplayStatis(int index) {
+	public final String getDisplayStatus(final int index) {
 		this.index = index;
-		return model.retriveDisplayStatis(index);
+		return model.retrieveDisplayStatus(index);
 	}
 	
 	/**
-	 * Searches for a particular keyword
+	 * Searches for a particular keyword.
 	 * 
 	 * @param keyWord - keyword for the search
 	 */
-	public void getWordSearch(String keyWord) {
+	public final void getWordSearch(final String keyWord) {
 		model.getWordSearch(keyWord);
 	}
 	/**
-	 * Searches for a phrase
+	 * Searches for a phrase.
 	 * 
 	 * @param keyWord - the keyword
 	 * @param phrase - the phrase
 	 */
-	public void getPhraseSearch(String keyWord,
-			String phrase){
+	public final void getPhraseSearch(final String keyWord,
+			final String phrase) {
 		model.getPhraseSearch(keyWord, phrase);
 	}
 	/**
@@ -182,9 +184,9 @@ public class TwitterEngine {
 		//model.getKeyFromSearch(keyWord, toUser);
 	//}
 	/**
-	 * removes a tweet from the table
+	 * Removes a tweet from the table.
 	 */
-	public void deleteTweet() {
+	public final void deleteTweet() {
 		model.remove(index);
 	}
 	/**
@@ -194,13 +196,14 @@ public class TwitterEngine {
 		//model.destoryStatus();
 	//}
 	/**
-	 * Posts a new status
+	 * Posts a new status.
 	 * 
-	 * @param post2 - 140 character or less post
-	 * @return 
+	 * @param post - 140 character or less post
+	 * @return updated model
 	 * @throws TwitterException 
 	 */
-	public TwitModel postStatus(String post) throws TwitterException {
+	public final TwitModel postStatus(final String post) 
+								throws TwitterException {
 		model.updateStatus(post);
 		return model;
 	}

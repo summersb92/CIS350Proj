@@ -13,14 +13,23 @@ import twitter4j.TwitterFactory;
 import twitter4j.Twitter;
 
 @SuppressWarnings("serial")
-public class GetTimePanel extends JPanel{
-
+public class GetTimePanel extends JPanel {
+		/** JPanel for Twitter timeline. */
 		private JPanel timeLinePanel;
+		/** Text area for the timeline. */
 		private JTextArea timeLineArea;
+		/** Twitter variable that holds a twitter instance. */
 		private Twitter twitter;
+		/** A List of twitter User Statuses. */
 		private List<Status> statuses;
 		
-		public GetTimePanel(TwitterEngine engine) throws TwitterException {		
+		/**
+		 * Creates the Timeline Panel and adds it's components.
+		 * @param engine - engine variable communicates with model
+		 * @throws TwitterException - a twitter exception
+		 */
+		public GetTimePanel(final TwitterEngine engine) 
+								throws TwitterException {		
 		
 		twitter = TwitterFactory.getSingleton();
 			
@@ -34,14 +43,20 @@ public class GetTimePanel extends JPanel{
 	    System.out.println("Showing home timeline.");
 	    
 	    for (Status status : statuses) {
-	       timeLineArea.append(status.getUser().getName() + ":" + status.getText());
+	       timeLineArea.append(status.getUser().getName() + ":" 
+	    		   + status.getText());
 	       timeLineArea.append("\n\n");
 	    }
 	 
 	    add(timeLineArea);
 	}
-	
-	public void updateTimeLinePanel() throws TwitterException{
+		
+	/**
+	 * Updates the timeline panel when necessary.
+	 * 
+	 * @throws TwitterException - a twitter exception
+	 */
+	public final void updateTimeLinePanel() throws TwitterException {
 		
 		timeLineArea.setText("");
 		
@@ -50,7 +65,8 @@ public class GetTimePanel extends JPanel{
 		statuses = twitter.getHomeTimeline();
 	    
 	    for (Status status : statuses) {
-	       timeLineArea.append(status.getUser().getName() + ":" + status.getText());
+	       timeLineArea.append(status.getUser().getName() + ":" 
+	    		   + status.getText());
 	       timeLineArea.append("\n\n");
 	    }
 	}

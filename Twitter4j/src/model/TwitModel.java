@@ -179,7 +179,7 @@ public class TwitModel extends AbstractTableModel {
 	 * @param index - index that is selected
 	 * @return - the text of that index.
 	 */
-	public final String retriveDisplayStatis(final int index) {
+	public final String retrieveDisplayStatus(final int index) {
 		return myTweets.get(index).getText();	
 	}
 	/**
