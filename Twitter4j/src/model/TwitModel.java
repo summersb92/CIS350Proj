@@ -32,7 +32,7 @@ public class TwitModel extends AbstractTableModel {
 	private Tweet t;
 	private ArrayList<MyTweet> myTweets;
 //	private ArrayList<Word> wordCounter;
-	private List<Status> tweets;
+//	private List<Status> tweets;
 //	private ExportUtility export;
 	
 	private Twitter twitter;
@@ -235,9 +235,9 @@ public class TwitModel extends AbstractTableModel {
 	 * @param token
 	 * @param tokenSecret
 	 */
-	public void authentication(String userName , 
-			String userKey , String userSecret , 
-			String token , String tokenSecret) {
+	public void authentication(final String userName , 
+			final String userKey , final String userSecret , 
+			final String token , final String tokenSecret) {
 
 	}
 	/**

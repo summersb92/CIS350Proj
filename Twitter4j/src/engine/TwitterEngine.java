@@ -77,9 +77,9 @@ public class TwitterEngine {
 	 * @param accessToken - their access token
 	 * @param accessTokenS - their access token secret
 	 */
-	public void login(String userName,
-			String consumerKey, String consumerSecret,
-			String accessToken, String accessTokenS) {
+	public final void login(String userName,
+			final String consumerKey, final String consumerSecret,
+			final String accessToken, final String accessTokenS) {
 		model.authentication(userName, consumerKey,
 				consumerSecret, accessToken, accessTokenS);
 	}
