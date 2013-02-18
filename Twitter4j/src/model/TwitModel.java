@@ -37,7 +37,7 @@ public class TwitModel extends AbstractTableModel {
 	private String text;
 	/** Stores a Tweet sent/received. */
 	private Tweet t;
-	/** */
+	/** Stores an ArrayList of tweets */
 	private ArrayList<MyTweet> myTweets;
 	private Twitter twitter;
 	RequestToken requestToken;
