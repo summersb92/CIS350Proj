@@ -10,7 +10,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import twitter4j.*;
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+
 
 @SuppressWarnings("serial")
 public class PostPanel extends JPanel{
@@ -22,9 +25,10 @@ public class PostPanel extends JPanel{
 	private JPanel UpdatePanel;
 	private JButton tweet;
 	private TwitterEngine engine;
+
 	
-	
-	public PostPanel(engine.TwitterEngine engine2) throws TwitterException{
+	public PostPanel(TwitterEngine engine) throws TwitterException{
+		this.engine = engine;
 		ButtonListener listener = new ButtonListener();
 		
 		

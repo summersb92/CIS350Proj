@@ -196,14 +196,13 @@ public class TwitterEngine {
 	/**
 	 * Posts a new status
 	 * 
-	 * @param post - 140 character or less post
+	 * @param post2 - 140 character or less post
+	 * @return 
 	 * @throws TwitterException 
 	 */
-	public void postStatus(String post) throws TwitterException {
-		this.post = post;
-		
-		System.out.println(this.post);
-		model.updateStatus(this.post);
+	public TwitModel postStatus(String post) throws TwitterException {
+		model.updateStatus(post);
+		return model;
 	}
 	/**
 	 * Gathers what is trending on Twitter

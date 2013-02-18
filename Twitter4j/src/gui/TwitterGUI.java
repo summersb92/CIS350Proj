@@ -82,25 +82,6 @@ public class TwitterGUI extends javax.swing.JFrame{
 		westPanel = new JPanel();
 		westPanel.setLayout(new BoxLayout
 				(westPanel, BoxLayout.Y_AXIS));
-//		JTabbedPane tabbedPane = new JTabbedPane();
-//		JComponent panel1 = makeTextPanel("Panel #1");
-//        tabbedPane.addTab("Tab 1", panel1);
-//        JComponent panel2 = makeTextPanel("Panel #2");
-//        tabbedPane.addTab("Tab 2",panel2);
-//        JComponent panel3 = makeTextPanel("Panel #3");
-//        tabbedPane.addTab("Tab 3", panel3);
-//        JComponent panel4 = makeTextPanel(
-//                "Panel #4 (has a preferred size of 410 x 50).");
-//        tabbedPane.addTab("Tab 4",panel4);        
-		//Add the tabbed pane to this panel.
-//		westPanel.add(tabbedPane);
-        
-		//The following line enables to use scrolling tabs.
-//		tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-//		combo.addActionListener(switchHandeler);
-		
-		//authP = new AuthenticatePanel(engine);
-//		getStatusP = new GetStatusPanel(engine);
 		getTimeP = new GetTimePanel(engine);
 		postP = new PostPanel(engine);
 //		searchP = new SearchPanel(engine);
@@ -192,9 +173,12 @@ public class TwitterGUI extends javax.swing.JFrame{
 			}
 			if(e.getActionCommand().equals("About...")){
 				JOptionPane.showMessageDialog(null, 
-						"Produced by Benjamin Summers \n" +
-						"                  10/28/2011 \n" +
-						"         For a JTwitterProgram");
+						"Produced by\n Benjamin Summers \n" +
+						"			 Kevin Anderson     \n" +
+						"			 Seth Hilaski       \n" +
+						"			 Trent Newberry     \n" +
+						"            2/17/2013          \n" +
+						"            For a CIS350 Project");
 			}
 		}	
 	};
