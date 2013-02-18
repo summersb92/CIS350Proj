@@ -17,8 +17,9 @@ import java.io.*;
 import java.util.List;
 
 
+@SuppressWarnings("serial")
 /**
- * Creates the GUI and runs the application.
+ * Creates the GUI and runs the application
  * 
  * @author Ben
  */
@@ -63,7 +64,8 @@ public class TwitterGUI extends javax.swing.JFrame{
 	 */
 	private void EastPanelInit() {
 		eastPanel = new JPanel();
-		eastPanel.setLayout(new BoxLayout (eastPanel, BoxLayout.Y_AXIS));
+		eastPanel.setLayout(new BoxLayout
+				(eastPanel, BoxLayout.Y_AXIS));
 		results = new TwitterResultsPanel(engine);
 		eastPanel.add(results);
 		GUI.add(eastPanel, BorderLayout.EAST);
@@ -168,12 +170,12 @@ public class TwitterGUI extends javax.swing.JFrame{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			//System.out.println(e);
-			if(e.getActionCommand().equals(
-					"Delete Status")){
+			if(e.getActionCommand().equals
+					("Delete Status")){
 				engine.deleteStatus();
 			}
-			if(e.getActionCommand().equals(
-					"Delete Table Status")){
+			if(e.getActionCommand().equals
+					("Delete Table Status")){
 				engine.deleteTweet();
 			}
 			if(e.getActionCommand().equals
