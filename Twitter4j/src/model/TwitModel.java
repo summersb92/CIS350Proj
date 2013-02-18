@@ -1,7 +1,9 @@
 package model;
 
-import java.io.*;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
@@ -12,7 +14,7 @@ import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.auth.RequestToken;
 
-/**
+/**.
  * TwitModel.class
  * 
  * Does all of the calculating for the TwitterLite
@@ -31,13 +33,8 @@ public class TwitModel extends AbstractTableModel {
 
 	private Tweet t;
 	private ArrayList<MyTweet> myTweets;
-//	private ArrayList<Word> wordCounter;
-//	private List<Status> tweets;
-//	private ExportUtility export;
-	
 	private Twitter twitter;
 	RequestToken requestToken;
-//	private OAuthSignpostClient client;
 	private Status status;
 
 	private String[] columnNames = {"Date", "Login Name",

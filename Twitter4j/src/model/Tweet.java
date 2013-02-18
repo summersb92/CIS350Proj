@@ -9,7 +9,7 @@ import java.util.Date;
  * 
  * @author Ben
  */
-public class Tweet implements MyTweet {
+public class Tweet implements MyTweet{
 
 	private BigInteger id;
 	private Date date;
@@ -41,7 +41,7 @@ public class Tweet implements MyTweet {
 		this.text = text;
 	}
 
-	@Override
+	
 	/**
 	 * gets the user id
 	 * @return id
@@ -49,7 +49,7 @@ public class Tweet implements MyTweet {
 	public BigInteger getId() {
 		return id;
 	}
-	@Override
+	
 	/**
 	 * gets the date
 	 * @return date
@@ -57,7 +57,7 @@ public class Tweet implements MyTweet {
 	public Date getCreatedAt() {
 		return date;
 	}
-	@Override
+	
 	/**
 	 * gets the login name
 	 * @return loginName
@@ -65,7 +65,7 @@ public class Tweet implements MyTweet {
 	public String getLoginName() {
 		return loginName;
 	}
-	@Override
+	
 	/**
 	 * gets the display name
 	 * @return displayName
@@ -73,7 +73,7 @@ public class Tweet implements MyTweet {
 	public String getDisplayName() {
 		return displayName;
 	}
-	@Override
+	
 	/**
 	 * gets the status text
 	 * @return text
@@ -81,7 +81,7 @@ public class Tweet implements MyTweet {
 	public String getText() {
 		return text;
 	}
-	@Override
+	
 	/**
 	 * gets the friends count
 	 * @return freindsCount
@@ -89,7 +89,7 @@ public class Tweet implements MyTweet {
 	public int getFriendsCount() {
 		return friendsCount;
 	}
-	@Override
+	
 	/**
 	 * gets the followers count
 	 * @return followersCount
