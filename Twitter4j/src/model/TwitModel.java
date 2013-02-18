@@ -32,7 +32,7 @@ public class TwitModel extends AbstractTableModel {
 	private Tweet t;
 	private ArrayList<MyTweet> myTweets;
 //	private ArrayList<Word> wordCounter;
-//	private List<Status> tweets;
+	private List<Status> tweets;
 //	private ExportUtility export;
 	
 	private Twitter twitter;

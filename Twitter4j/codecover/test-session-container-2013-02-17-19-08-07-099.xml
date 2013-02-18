@@ -1,0 +1,2787 @@
+<?xml version="1.0" encoding="UTF-8"?><TestSessionContainer xmlns="http://www.codecover.org/xml/testsession-container" Date="1361146087079" TestSessionContainerId="0bd13380-8ade-4193-90f6-81f9e81bc49b" version="1.0">
+<SrcFileList>
+<SrcFile Content="package model;&#13;&#10;&#13;&#10;import java.io.*;&#13;&#10;import java.util.*;&#13;&#10;&#13;&#10;import javax.swing.JOptionPane;&#13;&#10;import javax.swing.table.AbstractTableModel;&#13;&#10;&#13;&#10;import twitter4j.*;&#13;&#10;&#13;&#10;/**&#13;&#10; * TwitModel.class&#13;&#10; * &#13;&#10; * Does all of the calculating for the TwitterLite&#13;&#10; * @author Ben&#13;&#10; */&#13;&#10;@SuppressWarnings(&quot;serial&quot;)&#13;&#10;public class TwitModel extends AbstractTableModel {&#13;&#10;&#13;&#10;&#9;private Date date;&#13;&#10;&#9;private String loginName;&#13;&#10;&#9;private String displayName;&#13;&#10;&#9;private int followers;&#13;&#10;&#9;private int freinds;&#13;&#10;&#9;private String text;&#13;&#10;&#9;private StringBuilder wordList;&#13;&#10;&#13;&#10;&#9;private Tweet t;&#13;&#10;&#9;private ArrayList&lt;MyTweet&gt; myTweets;&#13;&#10;//&#9;private ArrayList&lt;Word&gt; wordCounter;&#13;&#10;&#9;private List&lt;Status&gt; tweets;&#13;&#10;//&#9;private ExportUtility export;&#13;&#10;&#9;&#13;&#10;&#9;private Twitter twitter;&#13;&#10;&#9;RequestToken requestToken;&#13;&#10;//&#9;private OAuthSignpostClient client;&#13;&#10;&#9;private Status status;&#13;&#10;&#13;&#10;&#9;private String[] columnNames = {&quot;Date&quot;, &quot;Login Name&quot;,&#13;&#10;&#9;&#9;&#9;&quot;Display Name&quot;, &quot;Freinds&quot;, &quot;Followers&quot;};&#13;&#10;&#9;/**&#13;&#10;&#9; * The Constructor for TwitModel()&#13;&#10;&#9; */&#13;&#10;&#9;public TwitModel()  { &#13;&#10;&#9;&#9;myTweets = new ArrayList&lt;MyTweet&gt;();&#13;&#10;//&#9;&#9;wordCounter = new ArrayList&lt;Word&gt;();&#13;&#10;//&#9;&#9;twitter = new Twitter();&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * Gets the values to be displayed within the Table&#13;&#10;&#9; * @return val;&#13;&#10;&#9; */&#13;&#10;&#9;public Object getValueAt(int row, int col){&#13;&#10;&#9;&#9;Object val = null;&#13;&#10;&#9;&#9;switch(col){&#13;&#10;&#9;&#9;case 0:&#13;&#10;&#9;&#9;&#9;val = myTweets.get(row).getCreatedAt(); break;&#13;&#10;&#9;&#9;case 1:&#13;&#10;&#9;&#9;&#9;val = myTweets.get(row).getLoginName(); break;&#13;&#10;&#9;&#9;case 2:&#13;&#10;&#9;&#9;&#9;val = myTweets.get(row).getDisplayName();&#13;&#10;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;case 3:&#13;&#10;&#9;&#9;&#9;val = myTweets.get(row).getFriendsCount();&#13;&#10;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;case 4:&#13;&#10;&#9;&#9;&#9;val = myTweets.get(row).getFollowersCount();&#13;&#10;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;return val;&#13;&#10;&#9;}&#13;&#10;&#9;@Override&#13;&#10;&#9;/**&#13;&#10;&#9; * Creates the column Names.&#13;&#10;&#9; * @param - int columm&#13;&#10;&#9; * return - columnNames[column]&#13;&#10;&#9; */&#13;&#10;&#9;public String getColumnName(int column) {&#13;&#10;&#9;&#9;return columnNames[column];&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * Adds a tweet to the table from the ArrayList.&#13;&#10;&#9; * @param t - arrayList being passed into the Table&#13;&#10;&#9; */&#13;&#10;&#9;public void add(MyTweet t) {&#13;&#10;&#9;&#9;if (t != null) { &#13;&#10;&#9;&#9;&#9;myTweets.add(t);&#13;&#10;&#9;&#9;&#9;fireTableRowsInserted(myTweets.size()-1,&#13;&#10;&#9;&#9;&#9;&#9;&#9;myTweets.size());&#13;&#10;&#9;&#9;}&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * Removes a Tweets from the array List.&#13;&#10;&#9; * @param index - Position of the value&#13;&#10;&#9; */&#13;&#10;&#9;public void remove(int index) {&#13;&#10;&#9;&#9;try {&#13;&#10;&#9;&#9;&#9;myTweets.remove(index);&#13;&#10;&#9;&#9;&#9;fireTableRowsDeleted(index, index);&#13;&#10;&#9;&#9;&#9;return;&#13;&#10;&#9;&#9;} catch(IndexOutOfBoundsException e) { &#13;&#10;&#9;&#9;&#9;JOptionPane.showMessageDialog(null , &#13;&#10;&#9;&#9;&#9;&#9;&quot;Invalid Selection&quot;,&#13;&#10;&#9;&#9;&#9;&#9;&quot;Invalid action&quot;,&#13;&#10;&#9;&#9;&#9;&#9;JOptionPane.ERROR_MESSAGE);&#13;&#10;&#9;&#9;}&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;/**&#13;&#10;&#9; * Gets the Status of the specified userName.&#13;&#10;&#9; * @param userName - user that is being searched for&#13;&#10;&#9; */&#13;&#10;&#9;public void retriveStatus(String userName){&#13;&#10;&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * Gets the status timeline of a particular user.&#13;&#10;&#9; * @param userName - user name being searched&#13;&#10;&#9; * @throws TwitterException &#13;&#10;&#9; */&#13;&#10;&#9;public void retriveTimeline(String userName) throws TwitterException{&#13;&#10;&#9;&#9;twitter = TwitterFactory.getSingleton();&#13;&#10;&#9;    List&lt;Status&gt; statuses = twitter.getHomeTimeline();&#13;&#10;&#9;    System.out.println(&quot;Showing home timeline.&quot;);&#13;&#10;&#9;    for (Status status : statuses) {&#13;&#10;&#9;        System.out.println(status.getUser().getName() + &quot;:&quot; +&#13;&#10;&#9;                           status.getText());&#13;&#10;&#9;    }&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * Gets the size of an Array List.&#13;&#10;&#9; * @return - myTweets.size() - size of myTweets&#13;&#10;&#9; */&#13;&#10;&#9;public int getArrayListSize(){&#13;&#10;&#9;&#9;return myTweets.size();&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * Creates the ArrayList Generator.&#13;&#10;&#9; * @param status&#13;&#10;&#9; */&#13;&#10;&#9;public void ArrayListGenerator(Status status) {&#13;&#10;&#9;&#9;date = status.getCreatedAt();&#13;&#10;&#9;&#9;loginName = status.getUser().getScreenName();&#13;&#10;&#9;&#9;displayName = status.getUser().getName();&#13;&#10;&#9;&#9;followers = status.getUser().getFollowersCount();&#13;&#10;&#9;&#9;freinds = status.getUser().getFriendsCount();&#13;&#10;&#9;&#9;text = status.getText();&#13;&#10;&#9;&#9;t = new Tweet(date , loginName , displayName , &#13;&#10;&#9;&#9;&#9;&#9;followers , freinds , text);&#13;&#10;&#9;&#9;add(t);&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * Retrieves the status of the selected index.&#13;&#10;&#9; * @param index - index that is selected&#13;&#10;&#9; * @return - the text of that index.&#13;&#10;&#9; */&#13;&#10;&#9;public String retriveDisplayStatis(int index) {&#13;&#10;&#9;&#9;return myTweets.get(index).getText();&#9;&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * getWordSearch gets what is being&#13;&#10;&#9; * searched and produces an arrayList.&#13;&#10;&#9; * @param keyWord - word being searched&#13;&#10;&#9; */&#13;&#10;&#9;public void getWordSearch(String keyWord) {&#13;&#10;&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * Gets the phrase that is being searched.&#13;&#10;&#9; * @param keyWord - keyword &#13;&#10;&#9; * @param phrase - phrase&#13;&#10;&#9; */&#13;&#10;&#9;public void getPhraseSearch(String keyWord ,&#13;&#10;&#9;&#9;&#9;String phrase) {&#13;&#10;&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * gets the statues to a user with a specific input.&#13;&#10;&#9; * @param keyWord&#13;&#10;&#9; * @param phrase&#13;&#10;&#9; * @param toUser&#13;&#10;&#9; */&#13;&#10;&#9;public void getToUserSearch(String keyWord ,&#13;&#10;&#9;&#9;&#9;String phrase , String toUser) {&#13;&#10;&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * get the status from a user.&#13;&#10;&#9; * @param keyWord&#13;&#10;&#9; * @param phrase&#13;&#10;&#9; * @param fromUser&#13;&#10;&#9; */&#13;&#10;&#9;public void getFromUserSearch(String keyWord ,&#13;&#10;&#9;&#9;&#9;String phrase , String fromUser) {&#13;&#10;&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * gets a statuses that meet all parameters.&#13;&#10;&#9; * @param keyWord&#13;&#10;&#9; * @param phrase&#13;&#10;&#9; * @param toUser&#13;&#10;&#9; * @param fromUser&#13;&#10;&#9; */&#13;&#10;&#9;public void getAllSearch(String keyWord ,&#13;&#10;&#9;&#9;&#9;String phrase , String toUser , String fromUser) {&#13;&#10;&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * gets keywords from a particular user.&#13;&#10;&#9; * @param keyWord&#13;&#10;&#9; * @param fromUser&#13;&#10;&#9; */&#13;&#10;&#9;public void getKeyFromSearch(String keyWord ,&#13;&#10;&#9;&#9;&#9;String fromUser) {&#13;&#10;&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * Gets keywords to a specified user.&#13;&#10;&#9; * @param keyWord&#13;&#10;&#9; * @param toUser&#13;&#10;&#9; */&#13;&#10;&#9;public void getKeyToSearch(String keyWord ,&#13;&#10;&#9;&#9;&#9;String toUser) {&#13;&#10;&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * Authenticates a user.&#13;&#10;&#9; * @param userName&#13;&#10;&#9; * @param userKey&#13;&#10;&#9; * @param userSecret&#13;&#10;&#9; * @param token&#13;&#10;&#9; * @param tokenSecret&#13;&#10;&#9; */&#13;&#10;&#9;public void authentication(String userName , &#13;&#10;&#9;&#9;&#9;String userKey , String userSecret , &#13;&#10;&#9;&#9;&#9;String token , String tokenSecret) {&#13;&#10;&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * Destroys the status of the current user&#13;&#10;&#9; */&#13;&#10;&#9;public void destoryStatus() {&#13;&#10;&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * sets a new status for the current user.&#13;&#10;&#9; * @param post&#13;&#10;&#9; */&#13;&#10;&#9;public void updateStatus(String post) {&#13;&#10;&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * Gets he column length.&#13;&#10;&#9; * @return columnName.length();&#13;&#10;&#9; */&#13;&#10;&#9;@Override&#13;&#10;&#9;public int getColumnCount() {&#13;&#10;&#9;&#9;return columnNames.length;&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * gets the rowCount.&#13;&#10;&#9; * @return myTweets.size();&#13;&#10;&#9; */&#13;&#10;&#9;@Override&#13;&#10;&#9;public int getRowCount() {&#13;&#10;&#9;&#9;return myTweets.size();&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * loads a string a splits it into a bunch of tokens.&#13;&#10;&#9; * @return inputwords&#13;&#10;&#9; */&#13;&#10;&#9;public List&lt;String&gt; loadString(){&#13;&#10;&#9;&#9;return null;&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * Gets the top trending list.&#13;&#10;&#9; * @return twitter.getTrends();&#13;&#10;&#9; */&#13;&#10;&#9;public Object topTrendingList() {&#13;&#10;&#9;&#9;return null;&#13;&#10;&#9;} &#13;&#10;}" Filename="TwitModel.java" Intrnl_Id="1"/>
+<SrcFile Content="package model;&#13;&#10;&#13;&#10;import java.math.BigInteger;&#13;&#10;import java.util.Date;&#13;&#10;&#13;&#10;/**&#13;&#10; * Creates the Arraylist Parmaters called Tweet and this&#13;&#10; * class impliments the MyTweet interface.&#13;&#10; * &#13;&#10; * @author Ben&#13;&#10; */&#13;&#10;public class Tweet implements MyTweet {&#13;&#10;&#13;&#10;&#9;private BigInteger id;&#13;&#10;&#9;private Date date;&#13;&#10;&#9;private String loginName;&#13;&#10;&#9;private String displayName;&#13;&#10;&#9;private String text;&#13;&#10;&#9;private int friendsCount;&#13;&#10;&#9;private int followersCount;&#13;&#10;&#13;&#10;&#13;&#10;&#9;/**&#13;&#10;&#9; * The Tweet constructor&#13;&#10;&#9; * &#13;&#10;&#9; * @param date&#13;&#10;&#9; * @param loginName&#13;&#10;&#9; * @param displayName&#13;&#10;&#9; * @param friendsCount&#13;&#10;&#9; * @param followersCount&#13;&#10;&#9; * @param text&#13;&#10;&#9; */&#13;&#10;&#9;public Tweet(Date date, String loginName,&#13;&#10;&#9;&#9;&#9;String displayName, int friendsCount,&#13;&#10;&#9;&#9;&#9;int followersCount, String text) {&#13;&#10;&#9;&#9;this.date = date;&#13;&#10;&#9;&#9;this.loginName = loginName;&#13;&#10;&#9;&#9;this.displayName = displayName;&#13;&#10;&#9;&#9;this.friendsCount = friendsCount;&#13;&#10;&#9;&#9;this.followersCount = followersCount;&#13;&#10;&#9;&#9;this.text = text;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;@Override&#13;&#10;&#9;/**&#13;&#10;&#9; * gets the user id&#13;&#10;&#9; * @return id&#13;&#10;&#9; */&#13;&#10;&#9;public BigInteger getId() {&#13;&#10;&#9;&#9;return id;&#13;&#10;&#9;}&#13;&#10;&#9;@Override&#13;&#10;&#9;/**&#13;&#10;&#9; * gets the date&#13;&#10;&#9; * @return date&#13;&#10;&#9; */&#13;&#10;&#9;public Date getCreatedAt() {&#13;&#10;&#9;&#9;return date;&#13;&#10;&#9;}&#13;&#10;&#9;@Override&#13;&#10;&#9;/**&#13;&#10;&#9; * gets the login name&#13;&#10;&#9; * @return loginName&#13;&#10;&#9; */&#13;&#10;&#9;public String getLoginName() {&#13;&#10;&#9;&#9;return loginName;&#13;&#10;&#9;}&#13;&#10;&#9;@Override&#13;&#10;&#9;/**&#13;&#10;&#9; * gets the display name&#13;&#10;&#9; * @return displayName&#13;&#10;&#9; */&#13;&#10;&#9;public String getDisplayName() {&#13;&#10;&#9;&#9;return displayName;&#13;&#10;&#9;}&#13;&#10;&#9;@Override&#13;&#10;&#9;/**&#13;&#10;&#9; * gets the status text&#13;&#10;&#9; * @return text&#13;&#10;&#9; */&#13;&#10;&#9;public String getText() {&#13;&#10;&#9;&#9;return text;&#13;&#10;&#9;}&#13;&#10;&#9;@Override&#13;&#10;&#9;/**&#13;&#10;&#9; * gets the friends count&#13;&#10;&#9; * @return freindsCount&#13;&#10;&#9; */&#13;&#10;&#9;public int getFriendsCount() {&#13;&#10;&#9;&#9;return friendsCount;&#13;&#10;&#9;}&#13;&#10;&#9;@Override&#13;&#10;&#9;/**&#13;&#10;&#9; * gets the followers count&#13;&#10;&#9; * @return followersCount&#13;&#10;&#9; */&#13;&#10;&#9;public int getFollowersCount() {&#13;&#10;&#9;&#9;return followersCount;&#13;&#10;&#9;}&#13;&#10;}" Filename="Tweet.java" Intrnl_Id="2"/>
+<SrcFile Content="package model;&#13;&#10;import java.math.BigInteger;&#13;&#10;import java.util.Date;&#13;&#10;&#13;&#10;&#13;&#10;/**&#13;&#10; * MyTweet creates the basic interface for a users status&#13;&#10; * &#13;&#10; * @author Ben&#13;&#10; *&#13;&#10; */&#13;&#10;public interface MyTweet {&#13;&#10;&#9;BigInteger getId();&#13;&#10;&#9;&#13;&#10;&#9;Date getCreatedAt();&#13;&#10;&#9;&#13;&#10;&#9;String getLoginName();&#13;&#10;&#9;&#13;&#10;&#9;String getDisplayName();&#13;&#10;&#9;&#13;&#10;&#9;String getText();&#13;&#10;&#9;&#13;&#10;&#9;int getFriendsCount();&#13;&#10;&#9;&#13;&#10;&#9;int getFollowersCount();&#13;&#10;}&#13;&#10;" Filename="MyTweet.java" Intrnl_Id="3"/>
+<SrcFile Content="package gui;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;import java.awt.*;&#13;&#10;import javax.swing.*;&#13;&#10;import javax.swing.border.TitledBorder;&#13;&#10;import engine.TwitterEngine;&#13;&#10;&#13;&#10;&#13;&#10;/**&#13;&#10; * TwitterResultsPanel.class&#13;&#10; * &#13;&#10; * Generates the TwitterResultsPanel which displays all&#13;&#10; * output from any action taken in the program&#13;&#10; * @author Ben&#13;&#10; *&#13;&#10; */&#13;&#10;@SuppressWarnings(&quot;serial&quot;)&#13;&#10;public class TwitterResultsPanel extends JPanel{&#13;&#10;&#13;&#10;&#9;private JTextArea textArea;&#13;&#10;&#9;private JPanel twitResults;&#13;&#10;&#9;private TitledBorder tableTitle, textTitle;&#13;&#10;&#9;private JTable table;&#13;&#10;&#13;&#10;&#9;private TwitterEngine engine;&#13;&#10;&#13;&#10;&#9;/**&#13;&#10;&#9; * Constructs the TwitterResultsPanel&#13;&#10;&#9; * &#13;&#10;&#9; * @param engine&#13;&#10;&#9; */&#13;&#10;&#9;public TwitterResultsPanel(TwitterEngine engine){&#13;&#10;&#9;&#9;//engine = new TwitterEngine();&#13;&#10;&#13;&#10;&#9;&#9;this.engine = engine;&#13;&#10;&#9;&#9;GridLayout resultLayout = new GridLayout&#13;&#10;&#9;&#9;(2, 2, 5, 10);&#13;&#10;&#9;&#9;twitResults = new JPanel();&#13;&#10;&#9;&#9;twitResults.setLayout(resultLayout);&#13;&#10;&#13;&#10;&#9;&#9;//Table Creation&#13;&#10;&#9;&#9;table = new JTable();&#13;&#10;&#9;&#9;table.setToolTipText(&quot;&quot;);&#13;&#10;&#9;&#9;table.setSelectionMode(javax.swing.&#13;&#10;&#9;&#9;&#9;&#9;ListSelectionModel.SINGLE_SELECTION);&#13;&#10;&#9;&#9;table.getTableHeader().setReorderingAllowed(false);&#13;&#10;&#13;&#10;&#9;&#9;table.addMouseListener(new java.awt.event.&#13;&#10;&#9;&#9;&#9;&#9;MouseAdapter() {&#13;&#10;&#9;&#9;&#9;public void mouseClicked(java.awt.event.&#13;&#10;&#9;&#9;&#9;&#9;&#9;MouseEvent evt) {&#13;&#10;&#9;&#9;&#9;&#9;tableMouseClicked();&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;});&#13;&#10;&#9;&#9;table.setPreferredScrollableViewportSize&#13;&#10;&#9;&#9;(new Dimension(500, 140));&#13;&#10;&#9;&#9;//table.setFillsViewportHeight(true);&#13;&#10;&#9;&#9;JScrollPane scrollPane = new JScrollPane();&#13;&#10;&#9;&#9;tableTitle = BorderFactory.createTitledBorder&#13;&#10;&#9;&#9;(&quot;Statuses&quot;);&#13;&#10;&#9;&#9;table.setModel(engine.getModel());&#13;&#10;&#9;&#9;scrollPane.setVerticalScrollBarPolicy(JScrollPane.&#13;&#10;&#9;&#9;&#9;&#9;VERTICAL_SCROLLBAR_ALWAYS);&#13;&#10;&#9;&#9;//attaches table to the scroll pane&#13;&#10;&#9;&#9;scrollPane.setViewportView(table); &#13;&#10;&#9;&#9;scrollPane.setBorder(tableTitle);&#13;&#10;&#9;&#9;twitResults.add(scrollPane);&#13;&#10;&#13;&#10;&#9;&#9;//Text Area&#13;&#10;&#9;&#9;textArea = new JTextArea(7, 40); &#13;&#10;&#9;&#9;textArea.setEditable(true);&#13;&#10;&#9;&#9;textTitle = BorderFactory.createTitledBorder&#13;&#10;&#9;&#9;(&quot;Status Text&quot;);&#13;&#10;&#9;&#9;textArea.setLineWrap(true);&#13;&#10;&#9;&#9;textArea.setBorder(textTitle);&#13;&#10;&#9;&#9;JScrollPane textPane = new JScrollPane();&#13;&#10;&#9;&#9;textPane.setVerticalScrollBarPolicy(JScrollPane.&#13;&#10;&#9;&#9;&#9;&#9;VERTICAL_SCROLLBAR_ALWAYS);&#13;&#10;&#9;&#9;textPane.setViewportView(textArea);&#13;&#10;&#9;&#9;twitResults.add(textPane);&#13;&#10;&#13;&#10;&#9;&#9;//Add twitResults to the Panel&#13;&#10;&#9;&#9;add(twitResults); &#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * gets the value of the text for the particular &#13;&#10;&#9; * position of the table.&#13;&#10;&#9; */&#13;&#10;&#9;private void tableMouseClicked(){&#13;&#10;&#9;&#9;int index = table.getSelectedRow();&#13;&#10;&#9;&#9;if(index!= -1){&#13;&#10;&#9;&#9;&#9;String output = engine.getDisplayStatis(index);&#13;&#10;&#9;&#9;&#9;setStatus(output);&#13;&#10;&#9;&#9;}&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * Orders what needs to be displayed with in the Status&#13;&#10;&#9; * text area.&#13;&#10;&#9; * @param object &#13;&#10;&#9; * &#13;&#10;&#9; * @param output - A string of the users current status.&#13;&#10;&#9; */&#13;&#10;&#9;private void setStatus(String output) {&#13;&#10;&#9;&#9;textArea.setText(output);&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * Gets the topTrendingOutput&#13;&#10;&#9; * &#13;&#10;&#9; * @param topTrendingList - what is top trending&#13;&#10;&#9; */&#13;&#10;&#9;public void topTrendingOutput(Object topTrendingList) {&#13;&#10;&#9;&#9;textArea.setText(topTrendingList.toString());&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * Gets the wordFrequencyCount&#13;&#10;&#9; * &#13;&#10;&#9; * @param wordFrequencyList - what is the word frequency&#13;&#10;&#9; */&#13;&#10;&#9;public void wordFrequencyCount(Object wordFrequencyList)&#13;&#10;&#9;{&#13;&#10;&#9;&#9;textArea.setText(wordFrequencyList.toString());&#13;&#10;&#9;}&#13;&#10;}&#13;&#10;" Filename="TwitterResultsPanel.java" Intrnl_Id="4"/>
+<SrcFile Content="package gui;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;import java.awt.BorderLayout;&#13;&#10;import java.awt.Dimension;&#13;&#10;import java.awt.GridLayout;&#13;&#10;import java.awt.event.ActionEvent;&#13;&#10;import java.awt.event.ActionListener;&#13;&#10;&#13;&#10;import javax.swing.*;&#13;&#10;import javax.swing.border.TitledBorder;&#13;&#10;&#13;&#10;import engine.TwitterEngine;&#13;&#10;&#13;&#10;import java.io.*;&#13;&#10;import java.util.List;&#13;&#10;&#13;&#10;&#13;&#10;/**&#13;&#10; * Creates the GUI and runs the application&#13;&#10; * &#13;&#10; * @author Ben&#13;&#10; */&#13;&#10;public class TwitterGUI extends javax.swing.JFrame{&#13;&#10;&#13;&#10;&#9;private String[] options={&quot;Authenticate User&quot;,&#13;&#10;&#9;&#9;&#9;&quot;Get Status&quot;, &quot;Get UserTimeline&quot;,&quot;Post Status&quot;,&#13;&#10;&#9;&#9;&#9;&quot;Search for Statuses&quot;};&#13;&#10;//&#9;private JComboBox combo;&#13;&#10;&#9;private JPanel eastPanel, westPanel;&#13;&#10;&#9;private JFrame GUI;&#13;&#10;&#9;private JMenuBar menu;&#13;&#10;&#9;private JMenu file, generate, sort, help; &#13;&#10;&#9;private JMenuItem fileExport, fileDeleteTable, fileQuit,&#13;&#10;&#9;&#9;&#9;fileDeleteStatus, generateWordFrequencyList, &#13;&#10;&#9;&#9;&#9;generateTopTrendingList, help_About;&#13;&#10;&#9;private TwitterResultsPanel results;&#13;&#10;&#9;private AuthenticatePanel authP;&#13;&#10;//&#9;private GetStatusPanel getStatusP;&#13;&#10;//&#9;private GetTimePanel getTimeP;&#13;&#10;//&#9;private PostPanel postP;&#13;&#10;//&#9;private SearchPanel searchP;&#13;&#10;&#9;&#13;&#10;&#9;private TwitterEngine engine;&#13;&#10;&#9;&#13;&#10;&#9;/**&#13;&#10;&#9; * Packs and sets the GUI&#13;&#10;&#9; * @throws TwitterException &#13;&#10;&#9; */&#13;&#10;&#9;public TwitterGUI(){&#13;&#10;&#9;&#9;engine = new TwitterEngine();&#13;&#10;&#9;&#9;GUI = new JFrame(&quot;Twitter Lite&quot;);&#13;&#10;&#9;&#9;menuInit();&#13;&#10;&#9;&#9;WestPanelInit();&#13;&#10;&#9;&#9;EastPanelInit();&#13;&#10;&#9;&#9;GUI.pack();&#13;&#10;&#9;&#9;GUI.setVisible(true);&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * Creates the Eastern Panel using the&#13;&#10;&#9; * class TwitterResultsPanel();&#13;&#10;&#9; */&#13;&#10;&#9;private void EastPanelInit() {&#13;&#10;&#9;&#9;eastPanel = new JPanel();&#13;&#10;&#9;&#9;eastPanel.setLayout(new BoxLayout&#13;&#10;&#9;&#9;&#9;&#9;(eastPanel, BoxLayout.Y_AXIS));&#13;&#10;&#9;&#9;results = new TwitterResultsPanel(engine);&#13;&#10;&#9;&#9;eastPanel.add(results);&#13;&#10;&#9;&#9;GUI.add(eastPanel, BorderLayout.EAST);&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * Contains the Panels in the Operation Section.&#13;&#10;&#9; * The combobox allows selection bettween the different&#13;&#10;&#9; * options.&#13;&#10;&#9; */&#13;&#10;&#9;private void WestPanelInit() {&#13;&#10;&#9;&#9;westPanel = new JPanel();&#13;&#10;&#9;&#9;westPanel.setLayout(new BoxLayout&#13;&#10;&#9;&#9;&#9;&#9;(westPanel, BoxLayout.Y_AXIS));&#13;&#10;//&#9;&#9;JTabbedPane tabbedPane = new JTabbedPane();&#13;&#10;//&#9;&#9;JComponent panel1 = makeTextPanel(&quot;Panel #1&quot;);&#13;&#10;//        tabbedPane.addTab(&quot;Tab 1&quot;, panel1);&#13;&#10;//        JComponent panel2 = makeTextPanel(&quot;Panel #2&quot;);&#13;&#10;//        tabbedPane.addTab(&quot;Tab 2&quot;,panel2);&#13;&#10;//        JComponent panel3 = makeTextPanel(&quot;Panel #3&quot;);&#13;&#10;//        tabbedPane.addTab(&quot;Tab 3&quot;, panel3);&#13;&#10;//        JComponent panel4 = makeTextPanel(&#13;&#10;//                &quot;Panel #4 (has a preferred size of 410 x 50).&quot;);&#13;&#10;//        tabbedPane.addTab(&quot;Tab 4&quot;,panel4);        &#13;&#10;&#9;&#9;//Add the tabbed pane to this panel.&#13;&#10;//&#9;&#9;westPanel.add(tabbedPane);&#13;&#10;        &#13;&#10;&#9;&#9;//The following line enables to use scrolling tabs.&#13;&#10;//&#9;&#9;tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);&#13;&#10;//&#9;&#9;combo.addActionListener(switchHandeler);&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;authP = new AuthenticatePanel(engine);&#13;&#10;//&#9;&#9;getStatusP = new GetStatusPanel(engine);&#13;&#10;//&#9;&#9;getTimeP = new GetTimePanel(engine);&#13;&#10;//&#9;&#9;postP = new PostPanel(engine);&#13;&#10;//&#9;&#9;searchP = new SearchPanel(engine);&#13;&#10;&#9;&#9;TitledBorder operationTitle = &#13;&#10;&#9;&#9;&#9;&#9;BorderFactory.createTitledBorder&#13;&#10;        &#9;&#9;(&quot;Select Operation&quot;);&#13;&#10;&#13;&#10;&#9;&#9;westPanel.add(Box.createVerticalGlue());&#13;&#10;&#9;&#9;westPanel.add(authP);&#13;&#10;&#9;&#9;GUI.add(westPanel, BorderLayout.WEST);&#13;&#10;&#9;}&#13;&#10;&#9;&#13;&#10;    protected JComponent makeTextPanel(String text) {&#13;&#10;        JPanel panel = new JPanel(false);&#13;&#10;        JLabel filler = new JLabel(text);&#13;&#10;        filler.setHorizontalAlignment(JLabel.CENTER);&#13;&#10;        //panel.setLayout(new GridLayout(1, 1));&#13;&#10;        panel.add(filler);&#13;&#10;        return panel;&#13;&#10;    }&#13;&#10;     &#13;&#10;&#9;/**&#13;&#10;&#9; * menuInit() geneartes the JMenuBar to be used.&#13;&#10;&#9; */&#13;&#10;&#9;private void menuInit() {&#13;&#10;&#9;&#9;menu = new JMenuBar();&#13;&#10;&#9;&#9;//Creates the File Menu&#13;&#10;&#9;&#9;file = new JMenu(&quot;File&quot;);&#13;&#10;&#9;&#9;fileDeleteStatus = new JMenuItem(&quot;Delete Status&quot;);&#13;&#10;&#9;&#9;fileDeleteTable = new&#13;&#10;&#9;&#9;&#9;JMenuItem(&quot;Delete Table Status&quot;);&#13;&#10;&#9;&#9;fileExport = new JMenuItem(&quot;Export to XML ...&quot;);&#13;&#10;&#9;&#9;fileQuit = new JMenuItem(&quot;Quit&quot;);&#13;&#10;&#9;&#9;fileDeleteStatus.addActionListener(menuHandeler);&#13;&#10;&#9;&#9;fileDeleteTable.addActionListener(menuHandeler);&#13;&#10;&#9;&#9;fileExport.addActionListener(menuHandeler);&#13;&#10;&#9;&#9;fileQuit.addActionListener(menuHandeler);&#13;&#10;&#9;&#9;file.add(fileDeleteStatus);&#13;&#10;&#9;&#9;file.add(fileDeleteTable);&#13;&#10;&#9;&#9;file.add(fileExport);&#13;&#10;&#9;&#9;file.add(fileQuit);&#13;&#10;&#9;&#9;menu.add(file);&#13;&#10;&#9;&#9;//Creates the Generate Menu&#13;&#10;&#9;&#9;generate = new JMenu(&quot;Generate&quot;);&#13;&#10;&#9;&#9;generateWordFrequencyList = new JMenuItem&#13;&#10;&#9;&#9;&#9;&#9;(&quot;Word Frequency List&quot;);&#13;&#10;&#9;&#9;generateTopTrendingList = new JMenuItem&#13;&#10;&#9;&#9;&#9;&#9;(&quot;Top Trending List&quot;);&#13;&#10;&#9;&#9;generateWordFrequencyList.addActionListener&#13;&#10;&#9;&#9;&#9;(menuHandeler);&#13;&#10;&#9;&#9;generateTopTrendingList.addActionListener&#13;&#10;&#9;&#9;&#9;(menuHandeler);&#13;&#10;&#9;&#9;generate.add(generateWordFrequencyList);&#13;&#10;&#9;&#9;generate.add(generateTopTrendingList);&#13;&#10;&#9;&#9;menu.add(generate);&#13;&#10;&#9;&#9;//Create the Help Menu&#13;&#10;&#9;&#9;help = new JMenu(&quot;Help&quot;);&#13;&#10;&#9;&#9;help_About = new JMenuItem(&quot;About...&quot;);&#13;&#10;&#9;&#9;help_About.addActionListener(menuHandeler);&#13;&#10;&#9;&#9;help.add(help_About);&#13;&#10;&#9;&#9;menu.add(help);&#13;&#10;&#9;&#9;//Add Menu to the GUI&#13;&#10;&#9;&#9;GUI.setJMenuBar(menu);&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * Handels all of the actions in the JMenuBar&#13;&#10;&#9; */&#13;&#10;&#9;private ActionListener menuHandeler = new &#13;&#10;&#9;&#9;&#9;ActionListener(){&#13;&#10;&#9;&#9;@Override&#13;&#10;&#9;&#9;public void actionPerformed(ActionEvent e) {&#13;&#10;&#9;&#9;&#9;//System.out.println(e);&#13;&#10;&#9;&#9;&#9;if(e.getActionCommand().equals&#13;&#10;&#9;&#9;&#9;&#9;&#9;(&quot;Delete Status&quot;)){&#13;&#10;&#9;&#9;&#9;&#9;engine.deleteStatus();&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;if(e.getActionCommand().equals&#13;&#10;&#9;&#9;&#9;&#9;&#9;(&quot;Delete Table Status&quot;)){&#13;&#10;&#9;&#9;&#9;&#9;engine.deleteTweet();&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;if(e.getActionCommand().equals&#13;&#10;&#9;&#9;&#9;&#9;&#9;(&quot;Export to XML ...&quot;)){&#13;&#10;&#9;&#9;&#9;&#9;saveButtonAction();&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;if(e.getActionCommand().equals(&quot;Quit&quot;)){&#13;&#10;&#9;&#9;&#9;&#9;System.exit(0);&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;if(e.getActionCommand().equals(&quot;About...&quot;)){&#13;&#10;&#9;&#9;&#9;&#9;JOptionPane.showMessageDialog(null, &#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&quot;Produced by Benjamin Summers \n&quot; +&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&quot;                  10/28/2011 \n&quot; +&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&quot;         For a JTwitterProgram&quot;);&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;}&#9;&#13;&#10;&#9;};&#13;&#10;&#9;/**&#13;&#10;&#9; * Handels which panel is active bellow the ComboBox&#13;&#10;&#9; */&#13;&#10;//&#9;private ActionListener switchHandeler = new &#13;&#10;//&#9;&#9;&#9;ActionListener(){&#13;&#10;//&#9;&#9;@Override&#13;&#10;//&#9;&#9;public void actionPerformed(ActionEvent e) {&#13;&#10;//&#9;&#9;&#9;westPanel.remove(authP);&#13;&#10;//&#9;&#9;&#9;westPanel.remove(getStatusP);&#13;&#10;//&#9;&#9;&#9;westPanel.remove(getTimeP);&#13;&#10;//&#9;&#9;&#9;westPanel.remove(postP);&#13;&#10;//&#9;&#9;&#9;westPanel.remove(searchP);&#13;&#10;//&#9;&#9;&#9;//0 is the combo box, and 1 is whats beneath&#13;&#10;//&#9;&#9;&#9;//westPanel.remove(1);&#13;&#10;//&#9;&#9;&#9;GUI.pack();&#13;&#10;//&#9;&#9;&#9;switch(combo.getSelectedIndex()){&#13;&#10;//&#9;&#9;&#9;case 0: westPanel.add(authP); GUI.pack(); break;&#13;&#10;//&#9;&#9;&#9;case 1: westPanel.add(getStatusP); GUI.pack();&#13;&#10;//&#9;&#9;&#9;&#9;break;&#13;&#10;//&#9;&#9;&#9;case 2: westPanel.add(getTimeP); GUI.pack();&#13;&#10;//&#9;&#9;&#9;&#9;break; //timeline&#13;&#10;//&#9;&#9;&#9;case 3: westPanel.add(postP); GUI.pack(); break;&#13;&#10;//&#9;&#9;&#9;case 4: westPanel.add(searchP); GUI.pack();&#13;&#10;//&#9;&#9;&#9;&#9;break; //search&#13;&#10;//&#9;&#9;&#9;}&#9;&#13;&#10;//&#9;&#9;&#9;GUI.pack();&#13;&#10;//&#9;&#9;}&#13;&#10;//&#9;};&#13;&#10;&#9;/**&#13;&#10;&#9; * uses the saveXML action to save a the twitter Status&#13;&#10;&#9; * list as an XML file.&#13;&#10;&#9; */&#13;&#10;&#9;private void saveButtonAction() {&#13;&#10;        &#13;&#10;    }&#13;&#10;&#9;/**&#13;&#10;&#9; * runs the main application starting with TwitterGUI&#13;&#10;&#9; * which instantiates all other methods that are part&#13;&#10;&#9; * of the GUI&#13;&#10;&#9; * &#13;&#10;&#9; * @param args&#13;&#10;&#9; */&#13;&#10;&#9;public static void main(String args[]) {&#13;&#10;        java.awt.EventQueue.invokeLater(new Runnable() {&#13;&#10;            public void run() {&#13;&#10;&#13;&#10;                new TwitterGUI();&#13;&#10;            }&#13;&#10;        });  &#13;&#10;    }&#13;&#10;&#9;&#13;&#10;}" Filename="TwitterGUI.java" Intrnl_Id="5"/>
+<SrcFile Content="package gui;&#13;&#10;&#13;&#10;&#13;&#10;import java.awt.GridLayout;&#13;&#10;import java.awt.event.ActionEvent;&#13;&#10;import java.awt.event.ActionListener;&#13;&#10;import javax.swing.*;&#13;&#10;&#13;&#10;import twitter4j.TwitterException;&#13;&#10;&#13;&#10;import engine.TwitterEngine;&#13;&#10;/**&#13;&#10; * AuthenticationPanel.class&#13;&#10; * &#13;&#10; * Constructs the authentication panel which is palced&#13;&#10; * inside of the west Panel.&#13;&#10; * @author Ben&#13;&#10; *&#13;&#10; */&#13;&#10;@SuppressWarnings(&quot;serial&quot;)&#13;&#10;public class AuthenticatePanel extends JPanel{&#13;&#10;&#13;&#10;&#9;private JPanel authPanel;&#13;&#10;&#9;private JLabel userNameL, consumerKeyL, consumerSecretL,&#13;&#10;&#9;&#9;acessTokenL, acessTokenSecretL;&#13;&#10;&#9;private JTextField userNameF, consumerKeyF,&#13;&#10;&#9;&#9;consumerSecretF, acessTokenF,&#13;&#10;&#9;&#9;acessTokenSecretF;&#13;&#10;&#9;private JButton authenticate, cancel;&#13;&#10;&#9;&#13;&#10;&#9;private String userName, consumerKey, consumerSecret,&#13;&#10;&#9;&#9;&#9;accessToken, accessTokenS;&#13;&#10;&#9;&#13;&#10;&#9;private TwitterEngine engine;&#13;&#10;&#9;&#13;&#10;&#9;/**&#13;&#10;&#9; * Creates the Authenication GUI&#13;&#10;&#9; * @param engine &#13;&#10;&#9; */&#13;&#10;&#9;public AuthenticatePanel(TwitterEngine engine){&#13;&#10;&#9;&#9;this.engine = engine;&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;GridLayout authLayout = new GridLayout&#13;&#10;&#9;&#9;&#9;&#9;(6, 2, 2, 5);&#13;&#10;&#9;&#9;authPanel = new JPanel();&#13;&#10;&#9;&#9;authPanel.setLayout(authLayout);&#13;&#10;&#9;&#9;//username&#13;&#10;&#9;&#9;userNameL = new JLabel(&quot;User Name: &quot;);&#13;&#10;&#9;&#9;userNameF = new JTextField(20);&#13;&#10;&#9;&#9;authPanel.add(userNameL);&#13;&#10;&#9;&#9;authPanel.add(userNameF);&#13;&#10;&#9;&#9;//consumer key&#13;&#10;&#9;&#9;consumerKeyL = new JLabel(&quot;Consumer Key: &quot;);&#13;&#10;&#9;&#9;consumerKeyF = new JTextField(20);&#13;&#10;&#9;&#9;authPanel.add(consumerKeyL);&#13;&#10;&#9;&#9;authPanel.add(consumerKeyF);&#13;&#10;&#9;&#9;//consumer secret&#13;&#10;&#9;&#9;consumerSecretL = new JLabel(&quot;Consumer Secret: &quot;);&#13;&#10;&#9;&#9;consumerSecretF = new JTextField(20);&#13;&#10;&#9;&#9;authPanel.add(consumerSecretL);&#13;&#10;&#9;&#9;authPanel.add(consumerSecretF);&#13;&#10;&#9;&#9;//access token&#13;&#10;&#9;&#9;acessTokenL = new JLabel(&quot;Acess Token: &quot;);&#13;&#10;&#9;&#9;acessTokenF = new JTextField(20);&#13;&#10;&#9;&#9;authPanel.add(acessTokenL);&#13;&#10;&#9;&#9;authPanel.add(acessTokenF);&#13;&#10;&#9;&#9;//access token secret&#13;&#10;&#9;&#9;acessTokenSecretL = new JLabel&#13;&#10;&#9;&#9;&#9;&#9;(&quot;Acess Token Secret: &quot;);&#13;&#10;&#9;&#9;acessTokenSecretF = new JTextField(20);&#13;&#10;&#9;&#9;authPanel.add(acessTokenSecretL);&#13;&#10;&#9;&#9;authPanel.add(acessTokenSecretF);&#13;&#10;&#9;&#9;//authenticate , cancel&#13;&#10;&#9;&#9;authenticate = new JButton(&quot;Authenticate&quot;);&#13;&#10;&#9;&#9;cancel = new JButton(&quot;Cancel&quot;);&#13;&#10;&#9;&#9;authenticate.addActionListener(loginHandeler);&#13;&#10;&#9;&#9;cancel.addActionListener(loginHandeler);&#13;&#10;&#9;&#9;authPanel.add(authenticate);&#13;&#10;&#9;&#9;authPanel.add(cancel);&#13;&#10;&#9;&#9;add(authPanel);&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * login Handeler manages the two buttons that are&#13;&#10;&#9; * present within the Authenticate Panel. Sends Data&#13;&#10;&#9; * to the Engine and error checks here.&#13;&#10;&#9; */&#13;&#10;&#9;private ActionListener loginHandeler = new &#13;&#10;&#9;&#9;&#9;ActionListener(){&#13;&#10;&#9;&#9;@Override&#13;&#10;&#9;&#9;public void actionPerformed(ActionEvent e) {&#13;&#10;&#9;&#9;&#9;if(e.getActionCommand().equals(&quot;Authenticate&quot;)){&#13;&#10;&#9;&#9;&#9;&#9;userName = userNameF.getText();&#13;&#10;&#9;&#9;&#9;&#9;consumerKey = consumerKeyF.getText();&#13;&#10;&#9;&#9;&#9;&#9;consumerSecret = consumerSecretF.getText();&#13;&#10;&#9;&#9;&#9;&#9;accessToken = acessTokenF.getText();&#13;&#10;&#9;&#9;&#9;&#9;accessTokenS = acessTokenSecretF.getText();&#13;&#10;&#9;&#9;&#9;&#9;//if any thing is empty then the program&#13;&#10;&#9;&#9;&#9;&#9;//can't work.&#13;&#10;&#9;&#9;&#9;&#9;if(userName.length() == 0 ||&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;consumerKey.length() == 0 ||&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;consumerSecret.length() == 0 ||&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;accessToken.length() == 0 ||&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;accessTokenS.length() == 0){&#13;&#10;&#9;&#9;&#9;&#9;&#9;JOptionPane.showMessageDialog(null, &#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&quot;Fill in all fields&quot;);&#13;&#10;&#9;&#9;&#9;&#9;}else{&#13;&#10;&#9;&#9;&#9;&#9;&#9;engine.login(userName,&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;consumerKey, consumerSecret,&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;accessToken, accessTokenS);&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#13;&#10;&#9;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;if(e.getActionCommand().equals(&quot;Cancel&quot;))&#13;&#10;&#9;&#9;&#9;&#9;userNameF.setText(&quot;&quot;);&#13;&#10;&#9;&#9;&#9;&#9;consumerKeyF.setText(&quot;&quot;);&#13;&#10;&#9;&#9;&#9;&#9;consumerSecretF.setText(&quot;&quot;);&#13;&#10;&#9;&#9;&#9;&#9;acessTokenF.setText(&quot;&quot;);&#13;&#10;&#9;&#9;&#9;&#9;acessTokenSecretF.setText(&quot;&quot;);&#13;&#10;&#9;&#9;}&#9;&#13;&#10;&#9;};&#13;&#10;}&#13;&#10;" Filename="AuthenticatePanel.java" Intrnl_Id="6"/>
+<SrcFile Content="package engine;&#13;&#10;&#13;&#10;import java.util.Date;&#13;&#10;&#13;&#10;import twitter4j.TwitterException;&#13;&#10;&#13;&#10;import model.Tweet;&#13;&#10;import model.TwitModel;&#13;&#10;&#13;&#10;/**&#13;&#10; * TwitterEngine.class&#13;&#10; * &#13;&#10; * Intermediary between the GUI and model&#13;&#10; * &#13;&#10; * @author Ben&#13;&#10; */&#13;&#10;public class TwitterEngine {&#13;&#10;&#9;&#13;&#10;&#9;private TwitModel model;&#13;&#10;&#9;private int index;&#13;&#10;&#9;&#13;&#10;&#9;/**&#13;&#10;&#9; * Constructs the Twitter Engine&#13;&#10;&#9; */&#13;&#10;&#9;public TwitterEngine(){&#13;&#10;&#9;&#9;model = new TwitModel();&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * gets the model&#13;&#10;&#9; * &#13;&#10;&#9; * @return model&#13;&#10;&#9; */&#13;&#10;&#9;public TwitModel getModel() {&#13;&#10;&#9;&#9;return model;&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * gets a users status&#13;&#10;&#9; * &#13;&#10;&#9; * @param userName - the user being searched&#13;&#10;&#9; */&#13;&#10;&#9;public void getStatus(String userName){&#13;&#10;&#9;&#9;model.retriveStatus(userName);&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * gets a users timeline&#13;&#10;&#9; * &#13;&#10;&#9; * @param userName - the user being searched&#13;&#10;&#9; * @throws TwitterException &#13;&#10;&#9; */&#13;&#10;&#9;public void getTimeline(String userName) throws TwitterException {&#13;&#10;&#9;&#9;model.retriveTimeline(userName);&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * addTweets creates a twitter Status in the table&#13;&#10;&#9; * &#13;&#10;&#9; * @param date - createdAt&#13;&#10;&#9; * @param loginName - user&#13;&#10;&#9; * @param displayName - name that is shown&#13;&#10;&#9; * @param friends - how many friends&#13;&#10;&#9; * @param followers - how many followers&#13;&#10;&#9; * @param text - status text&#13;&#10;&#9; */&#13;&#10;&#9;public void addTweet(Date date, String loginName,&#13;&#10;&#9;&#9;&#9;String displayName, int friends,&#13;&#10;&#9;&#9;&#9;int followers, String text){&#9;&#13;&#10;&#9;&#9;Tweet t = new Tweet(date ,loginName, displayName, &#13;&#10;&#9;&#9;&#9;&#9;friends, followers, text);&#13;&#10;&#9;&#9;model.add(t);&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * sends the inputs for a user to authenticate their&#13;&#10;&#9; * current session&#13;&#10;&#9; * &#13;&#10;&#9; * @param userName - user at the screen&#13;&#10;&#9; * @param consumerKey - their consumer key&#13;&#10;&#9; * @param consumerSecret - their consumer secret key&#13;&#10;&#9; * @param accessToken - their access token&#13;&#10;&#9; * @param accessTokenS - their access token secret&#13;&#10;&#9; */&#13;&#10;&#9;public void login(String userName,&#13;&#10;&#9;&#9;&#9;String consumerKey, String consumerSecret,&#13;&#10;&#9;&#9;&#9;String accessToken, String accessTokenS) {&#13;&#10;&#9;&#9;model.authentication(userName, consumerKey,&#13;&#10;&#9;&#9;&#9;&#9;consumerSecret, accessToken, accessTokenS);&#13;&#10;&#9;}&#13;&#10;&#9;&#13;&#10;&#9;/**&#13;&#10;&#9; * gets the current array lists size&#13;&#10;&#9; * &#13;&#10;&#9; * @return - checks an array lists size&#13;&#10;&#9; */&#13;&#10;&#9;public int getArrayListSize(){&#13;&#10;&#9;&#9;return model.getArrayListSize();&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * gets the text for a selected users status&#13;&#10;&#9; * &#13;&#10;&#9; * @param index - the current spot on a table&#13;&#10;&#9; *  highlighted&#13;&#10;&#9; * @return - the status of that highlighted table row&#13;&#10;&#9; */&#13;&#10;&#9;public String getDisplayStatis(int index) {&#13;&#10;&#9;&#9;this.index = index;&#13;&#10;&#9;&#9;return model.retriveDisplayStatis(index);&#13;&#10;&#9;}&#13;&#10;&#9;&#13;&#10;&#9;/**&#13;&#10;&#9; * Searches for a particular keyword&#13;&#10;&#9; * &#13;&#10;&#9; * @param keyWord - keyword for the search&#13;&#10;&#9; */&#13;&#10;&#9;public void getWordSearch(String keyWord) {&#13;&#10;&#9;&#9;model.getWordSearch(keyWord);&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * Searches for a phrase&#13;&#10;&#9; * &#13;&#10;&#9; * @param keyWord - the keyword&#13;&#10;&#9; * @param phrase - the phrase&#13;&#10;&#9; */&#13;&#10;&#9;public void getPhraseSearch(String keyWord,&#13;&#10;&#9;&#9;&#9;String phrase){&#13;&#10;&#9;&#9;model.getPhraseSearch(keyWord, phrase);&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * Searches for any posts to a user&#13;&#10;&#9; * &#13;&#10;&#9; * @param keyWord - keyword being searched&#13;&#10;&#9; * @param phrase - phrase being searched&#13;&#10;&#9; * @param toUser - user searching&#13;&#10;&#9; */&#13;&#10;&#9;public void getToUserSearch(String keyWord,&#13;&#10;&#9;&#9;&#9;String phrase, String toUser) {&#13;&#10;&#9;&#9;model.getToUserSearch(keyWord, phrase, toUser);&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * Searched for posts from a user&#13;&#10;&#9; * &#13;&#10;&#9; * @param keyWord - keyword being searched&#13;&#10;&#9; * @param phrase - phrase being searched&#13;&#10;&#9; * @param fromUser - posts from that user&#13;&#10;&#9; */&#13;&#10;&#9;public void getFromUserSearch(String keyWord,&#13;&#10;&#9;&#9;&#9;String phrase, String fromUser) {&#13;&#10;&#9;&#9;model.getToUserSearch(keyWord, phrase, fromUser);&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * Searched posts that are from a user to a particular&#13;&#10;&#9; * user&#13;&#10;&#9; * &#13;&#10;&#9; * @param keyWord - keyword being searched&#13;&#10;&#9; * @param phrase - phrase being searched&#13;&#10;&#9; * @param toUser - posts to that user&#13;&#10;&#9; * @param fromUser - posts from that user&#13;&#10;&#9; */&#13;&#10;&#9;public void getAllSearch(String keyWord, String phrase,&#13;&#10;&#9;&#9;&#9;String toUser, String fromUser) {&#13;&#10;&#9;&#9;model.getAllSearch(keyWord, phrase, toUser,&#13;&#10;&#9;&#9;&#9;&#9;fromUser);&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * searched a keyword from a user&#13;&#10;&#9; * &#13;&#10;&#9; * @param keyWord - keyword being searched&#13;&#10;&#9; * @param fromUser - posts from that user&#13;&#10;&#9; */&#13;&#10;&#9;public void getKeyFromSearch(String keyWord,&#13;&#10;&#9;&#9;&#9;String fromUser) {&#13;&#10;&#9;&#9;model.getKeyFromSearch(keyWord, fromUser);&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * searches a keyword to a user&#13;&#10;&#9; * &#13;&#10;&#9; * @param keyWord - keyword being searched&#13;&#10;&#9; * @param toUser - post sent to that user&#13;&#10;&#9; */&#13;&#10;&#9;public void getKeyToSearch(String keyWord,&#13;&#10;&#9;&#9;&#9;String toUser) {&#13;&#10;&#9;&#9;model.getKeyFromSearch(keyWord, toUser);&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * removes a tweet from the table&#13;&#10;&#9; */&#13;&#10;&#9;public void deleteTweet() {&#13;&#10;&#9;&#9;model.remove(index);&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * removes current status&#13;&#10;&#9; */&#13;&#10;&#9;public void deleteStatus() {&#13;&#10;&#9;&#9;model.destoryStatus();&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * Posts a new status&#13;&#10;&#9; * &#13;&#10;&#9; * @param post - 140 character or less post&#13;&#10;&#9; */&#13;&#10;&#9;public void postStatus(String post) {&#13;&#10;&#9;&#9;model.updateStatus(post);&#13;&#10;&#9;}&#13;&#10;&#9;/**&#13;&#10;&#9; * Gathers what is trending on Twitter&#13;&#10;&#9; * &#13;&#10;&#9; * @return model.topTrendingList();&#13;&#10;&#9; */&#13;&#10;&#9;public Object topTrendingList() {&#13;&#10;&#9;&#9;return model.topTrendingList();&#9;&#13;&#10;&#9;}&#13;&#10;}&#13;&#10;" Filename="TwitterEngine.java" Intrnl_Id="7"/>
+<SrcFile Content="package engine;&#13;&#10;&#13;&#10;/**&#13;&#10; * @author Ben&#13;&#10; *&#13;&#10; * Creates the Interface for the Twitter Engine class&#13;&#10; */&#13;&#10;public interface ITweet {&#13;&#10;&#9;java.util.Date getCreatedAt();&#13;&#10;&#9;String getLoginName();&#13;&#10;&#9;String getDisplayName();&#13;&#10;&#9;String getText();&#13;&#10;&#9;int getFriendsCount();&#13;&#10;&#9;int getFollowersCount();&#13;&#10;}&#13;&#10;" Filename="ITweet.java" Intrnl_Id="8"/>
+</SrcFileList>
+<CritList>
+<CritListEntry Name="org.codecover.model.utils.criteria.LoopCoverage" PluginName="org.codecover"/>
+<CritListEntry Name="org.codecover.model.utils.criteria.BranchCoverage" PluginName="org.codecover"/>
+<CritListEntry Name="org.codecover.model.utils.criteria.ConditionCoverage" PluginName="org.codecover"/>
+<CritListEntry Name="org.codecover.model.utils.criteria.SynchronizedStatementCoverage" PluginName="org.codecover"/>
+<CritListEntry Name="org.codecover.model.utils.criteria.QMOCoverage" PluginName="org.codecover"/>
+<CritListEntry Name="org.codecover.model.utils.criteria.StatementCoverage" PluginName="org.codecover"/>
+</CritList>
+<BoolOpList>
+<BoolOp Arity="2" Intrnl_Id="9" Name="conditional or (||)">
+<BoolAssgnmntBoolMapList>
+<MapEntry BoolAssgnmnt="01" Value="true"/>
+<MapEntry BoolAssgnmnt="00" Value="false"/>
+<MapEntry BoolAssgnmnt="12" Value="true"/>
+</BoolAssgnmntBoolMapList>
+</BoolOp>
+</BoolOpList>
+<HierarchyLvlTypeList>
+<HierarchyLvlType EnglishName="package" IntrnlName="package" Intrnl_Id="10"/>
+<HierarchyLvlType EnglishName="class" IntrnlName="class" Intrnl_Id="11"/>
+<HierarchyLvlType EnglishName="method" IntrnlName="method" Intrnl_Id="12"/>
+<HierarchyLvlType EnglishName="default package" IntrnlName="default package" Intrnl_Id="13"/>
+<HierarchyLvlType EnglishName="interface" IntrnlName="interface" Intrnl_Id="14"/>
+<HierarchyLvlType EnglishName="anonymous class" IntrnlName="class" Intrnl_Id="15"/>
+</HierarchyLvlTypeList>
+<MASTRoot>
+<HierarchyLvl HierarchyLvlId="873" HierarchyLvlTypeId="13" Intrnl_Id="16" Name="default package">
+<Header/>
+<LocList/>
+<HierarchyLvl HierarchyLvlId="870" HierarchyLvlTypeId="10" Intrnl_Id="17" Name="model">
+<Header/>
+<LocList/>
+<HierarchyLvl HierarchyLvlId="801" HierarchyLvlTypeId="11" Intrnl_Id="18" Name="TwitModel">
+<Header>
+<Loc EndOffset="345" SrcFileId="1" StartOffset="267"/>
+</Header>
+<LocList>
+<Loc EndOffset="6520" SrcFileId="1" StartOffset="267"/>
+</LocList>
+<StmntSeq Intrnl_Id="19">
+<LocList>
+<Loc EndOffset="926" SrcFileId="1" StartOffset="828"/>
+</LocList>
+<BasicStmnt CovItemId="S1" CovItemPrefix="model.TwitModel.java" Intrnl_Id="20">
+<LocList>
+<Loc EndOffset="926" SrcFileId="1" StartOffset="828"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+<HierarchyLvl HierarchyLvlId="777" HierarchyLvlTypeId="12" Intrnl_Id="21" Name="TwitModel">
+<Header>
+<Loc EndOffset="996" SrcFileId="1" StartOffset="978"/>
+</Header>
+<LocList>
+<Loc EndOffset="1116" SrcFileId="1" StartOffset="978"/>
+</LocList>
+<StmntSeq Intrnl_Id="22">
+<LocList>
+<Loc EndOffset="1040" SrcFileId="1" StartOffset="1004"/>
+</LocList>
+<BasicStmnt CovItemId="S2" CovItemPrefix="model.TwitModel.java" Intrnl_Id="23">
+<LocList>
+<Loc EndOffset="1040" SrcFileId="1" StartOffset="1004"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="778" HierarchyLvlTypeId="12" Intrnl_Id="24" Name="getValueAt">
+<Header>
+<Loc EndOffset="1245" SrcFileId="1" StartOffset="1203"/>
+</Header>
+<LocList>
+<Loc EndOffset="1640" SrcFileId="1" StartOffset="1203"/>
+</LocList>
+<StmntSeq Intrnl_Id="25">
+<LocList>
+<Loc EndOffset="1268" SrcFileId="1" StartOffset="1250"/>
+<Loc EndOffset="1621" SrcFileId="1" StartOffset="1272"/>
+<Loc EndOffset="1636" SrcFileId="1" StartOffset="1625"/>
+</LocList>
+<BasicStmnt CovItemId="S3" CovItemPrefix="model.TwitModel.java" Intrnl_Id="26">
+<LocList>
+<Loc EndOffset="1268" SrcFileId="1" StartOffset="1250"/>
+</LocList>
+</BasicStmnt>
+<CondStmnt CovItemId="S4" CovItemPrefix="model.TwitModel.java" Intrnl_Id="27">
+<Branch CovItemId="B1" CovItemPrefix="model.TwitModel.java" Implct="false" Intrnl_Id="28">
+<Cond>
+<Loc EndOffset="1294" SrcFileId="1" StartOffset="1288"/>
+</Cond>
+<LocList>
+<Loc EndOffset="1346" SrcFileId="1" StartOffset="1300"/>
+</LocList>
+<StmntSeq Intrnl_Id="29">
+<LocList>
+<Loc EndOffset="1339" SrcFileId="1" StartOffset="1300"/>
+<Loc EndOffset="1346" SrcFileId="1" StartOffset="1340"/>
+</LocList>
+<BasicStmnt CovItemId="S5" CovItemPrefix="model.TwitModel.java" Intrnl_Id="30">
+<LocList>
+<Loc EndOffset="1339" SrcFileId="1" StartOffset="1300"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S6" CovItemPrefix="model.TwitModel.java" Intrnl_Id="31">
+<LocList>
+<Loc EndOffset="1346" SrcFileId="1" StartOffset="1340"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B2" CovItemPrefix="model.TwitModel.java" Implct="false" Intrnl_Id="32">
+<Cond>
+<Loc EndOffset="1356" SrcFileId="1" StartOffset="1350"/>
+</Cond>
+<LocList>
+<Loc EndOffset="1408" SrcFileId="1" StartOffset="1362"/>
+</LocList>
+<StmntSeq Intrnl_Id="33">
+<LocList>
+<Loc EndOffset="1401" SrcFileId="1" StartOffset="1362"/>
+<Loc EndOffset="1408" SrcFileId="1" StartOffset="1402"/>
+</LocList>
+<BasicStmnt CovItemId="S7" CovItemPrefix="model.TwitModel.java" Intrnl_Id="34">
+<LocList>
+<Loc EndOffset="1401" SrcFileId="1" StartOffset="1362"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S8" CovItemPrefix="model.TwitModel.java" Intrnl_Id="35">
+<LocList>
+<Loc EndOffset="1408" SrcFileId="1" StartOffset="1402"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B3" CovItemPrefix="model.TwitModel.java" Implct="false" Intrnl_Id="36">
+<Cond>
+<Loc EndOffset="1418" SrcFileId="1" StartOffset="1412"/>
+</Cond>
+<LocList>
+<Loc EndOffset="1476" SrcFileId="1" StartOffset="1424"/>
+</LocList>
+<StmntSeq Intrnl_Id="37">
+<LocList>
+<Loc EndOffset="1465" SrcFileId="1" StartOffset="1424"/>
+<Loc EndOffset="1476" SrcFileId="1" StartOffset="1470"/>
+</LocList>
+<BasicStmnt CovItemId="S9" CovItemPrefix="model.TwitModel.java" Intrnl_Id="38">
+<LocList>
+<Loc EndOffset="1465" SrcFileId="1" StartOffset="1424"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S10" CovItemPrefix="model.TwitModel.java" Intrnl_Id="39">
+<LocList>
+<Loc EndOffset="1476" SrcFileId="1" StartOffset="1470"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B4" CovItemPrefix="model.TwitModel.java" Implct="false" Intrnl_Id="40">
+<Cond>
+<Loc EndOffset="1486" SrcFileId="1" StartOffset="1480"/>
+</Cond>
+<LocList>
+<Loc EndOffset="1545" SrcFileId="1" StartOffset="1492"/>
+</LocList>
+<StmntSeq Intrnl_Id="41">
+<LocList>
+<Loc EndOffset="1534" SrcFileId="1" StartOffset="1492"/>
+<Loc EndOffset="1545" SrcFileId="1" StartOffset="1539"/>
+</LocList>
+<BasicStmnt CovItemId="S11" CovItemPrefix="model.TwitModel.java" Intrnl_Id="42">
+<LocList>
+<Loc EndOffset="1534" SrcFileId="1" StartOffset="1492"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S12" CovItemPrefix="model.TwitModel.java" Intrnl_Id="43">
+<LocList>
+<Loc EndOffset="1545" SrcFileId="1" StartOffset="1539"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B5" CovItemPrefix="model.TwitModel.java" Implct="false" Intrnl_Id="44">
+<Cond>
+<Loc EndOffset="1555" SrcFileId="1" StartOffset="1549"/>
+</Cond>
+<LocList>
+<Loc EndOffset="1616" SrcFileId="1" StartOffset="1561"/>
+</LocList>
+<StmntSeq Intrnl_Id="45">
+<LocList>
+<Loc EndOffset="1605" SrcFileId="1" StartOffset="1561"/>
+<Loc EndOffset="1616" SrcFileId="1" StartOffset="1610"/>
+</LocList>
+<BasicStmnt CovItemId="S13" CovItemPrefix="model.TwitModel.java" Intrnl_Id="46">
+<LocList>
+<Loc EndOffset="1605" SrcFileId="1" StartOffset="1561"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S14" CovItemPrefix="model.TwitModel.java" Intrnl_Id="47">
+<LocList>
+<Loc EndOffset="1616" SrcFileId="1" StartOffset="1610"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B6" CovItemPrefix="model.TwitModel.java" Implct="true" Intrnl_Id="48">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="49">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="1278" SrcFileId="1" StartOffset="1272"/>
+<LocList>
+<Loc EndOffset="1621" SrcFileId="1" StartOffset="1272"/>
+</LocList>
+</CondStmnt>
+<BasicStmnt CovItemId="S15" CovItemPrefix="model.TwitModel.java" Intrnl_Id="50">
+<LocList>
+<Loc EndOffset="1636" SrcFileId="1" StartOffset="1625"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="779" HierarchyLvlTypeId="12" Intrnl_Id="51" Name="getColumnName">
+<Header>
+<Loc EndOffset="1796" SrcFileId="1" StartOffset="1643"/>
+</Header>
+<LocList>
+<Loc EndOffset="1833" SrcFileId="1" StartOffset="1643"/>
+</LocList>
+<StmntSeq Intrnl_Id="52">
+<LocList>
+<Loc EndOffset="1829" SrcFileId="1" StartOffset="1802"/>
+</LocList>
+<BasicStmnt CovItemId="S16" CovItemPrefix="model.TwitModel.java" Intrnl_Id="53">
+<LocList>
+<Loc EndOffset="1829" SrcFileId="1" StartOffset="1802"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="780" HierarchyLvlTypeId="12" Intrnl_Id="54" Name="add">
+<Header>
+<Loc EndOffset="1979" SrcFileId="1" StartOffset="1953"/>
+</Header>
+<LocList>
+<Loc EndOffset="2101" SrcFileId="1" StartOffset="1953"/>
+</LocList>
+<StmntSeq Intrnl_Id="55">
+<LocList>
+<Loc EndOffset="2097" SrcFileId="1" StartOffset="1985"/>
+</LocList>
+<CondStmnt CovItemId="S17" CovItemPrefix="model.TwitModel.java" Intrnl_Id="56">
+<Branch CovItemId="B7" CovItemPrefix="model.TwitModel.java" Implct="false" Intrnl_Id="57">
+<Cond/>
+<LocList>
+<Loc EndOffset="2097" SrcFileId="1" StartOffset="2000"/>
+</LocList>
+<StmntSeq Intrnl_Id="58">
+<LocList>
+<Loc EndOffset="2023" SrcFileId="1" StartOffset="2007"/>
+<Loc EndOffset="2092" SrcFileId="1" StartOffset="2028"/>
+</LocList>
+<BasicStmnt CovItemId="S18" CovItemPrefix="model.TwitModel.java" Intrnl_Id="59">
+<LocList>
+<Loc EndOffset="2023" SrcFileId="1" StartOffset="2007"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S19" CovItemPrefix="model.TwitModel.java" Intrnl_Id="60">
+<LocList>
+<Loc EndOffset="2092" SrcFileId="1" StartOffset="2028"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B8" CovItemPrefix="model.TwitModel.java" Implct="true" Intrnl_Id="61">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="62">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="1987" SrcFileId="1" StartOffset="1985"/>
+<LocList>
+<Loc EndOffset="2097" SrcFileId="1" StartOffset="1985"/>
+</LocList>
+<RootTerm CovItemId="C1" CovItemPrefix="model.TwitModel.java" Intrnl_Id="63">
+<BasicBoolTerm Intrnl_Id="64">
+<LocList>
+<Loc EndOffset="1998" SrcFileId="1" StartOffset="1989"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</CondStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="781" HierarchyLvlTypeId="12" Intrnl_Id="65" Name="remove">
+<Header>
+<Loc EndOffset="2230" SrcFileId="1" StartOffset="2201"/>
+</Header>
+<LocList>
+<Loc EndOffset="2497" SrcFileId="1" StartOffset="2201"/>
+</LocList>
+<StmntSeq Intrnl_Id="66">
+<LocList>
+<Loc EndOffset="2269" SrcFileId="1" StartOffset="2246"/>
+<Loc EndOffset="2309" SrcFileId="1" StartOffset="2274"/>
+<Loc EndOffset="2321" SrcFileId="1" StartOffset="2314"/>
+<Loc EndOffset="2493" SrcFileId="1" StartOffset="2236"/>
+</LocList>
+<BasicStmnt CovItemId="S21" CovItemPrefix="model.TwitModel.java" Intrnl_Id="67">
+<LocList>
+<Loc EndOffset="2269" SrcFileId="1" StartOffset="2246"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S22" CovItemPrefix="model.TwitModel.java" Intrnl_Id="68">
+<LocList>
+<Loc EndOffset="2309" SrcFileId="1" StartOffset="2274"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S23" CovItemPrefix="model.TwitModel.java" Intrnl_Id="69">
+<LocList>
+<Loc EndOffset="2321" SrcFileId="1" StartOffset="2314"/>
+</LocList>
+</BasicStmnt>
+<CondStmnt CovItemId="S20" CovItemPrefix="model.TwitModel.java" Intrnl_Id="70">
+<Branch CovItemId="B9" CovItemPrefix="model.TwitModel.java" Implct="true" Intrnl_Id="71">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="72">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B10" CovItemPrefix="model.TwitModel.java" Implct="false" Intrnl_Id="73">
+<Cond>
+<Loc EndOffset="2361" SrcFileId="1" StartOffset="2327"/>
+</Cond>
+<LocList>
+<Loc EndOffset="2493" SrcFileId="1" StartOffset="2362"/>
+</LocList>
+<StmntSeq Intrnl_Id="74">
+<LocList>
+<Loc EndOffset="2488" SrcFileId="1" StartOffset="2369"/>
+</LocList>
+<BasicStmnt CovItemId="S24" CovItemPrefix="model.TwitModel.java" Intrnl_Id="75">
+<LocList>
+<Loc EndOffset="2488" SrcFileId="1" StartOffset="2369"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="2239" SrcFileId="1" StartOffset="2236"/>
+<LocList>
+<Loc EndOffset="2493" SrcFileId="1" StartOffset="2236"/>
+</LocList>
+</CondStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="782" HierarchyLvlTypeId="12" Intrnl_Id="76" Name="retriveStatus">
+<Header>
+<Loc EndOffset="2659" SrcFileId="1" StartOffset="2617"/>
+</Header>
+<LocList>
+<Loc EndOffset="2666" SrcFileId="1" StartOffset="2617"/>
+</LocList>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="783" HierarchyLvlTypeId="12" Intrnl_Id="77" Name="retriveTimeline">
+<Header>
+<Loc EndOffset="2880" SrcFileId="1" StartOffset="2812"/>
+</Header>
+<LocList>
+<Loc EndOffset="3197" SrcFileId="1" StartOffset="2812"/>
+</LocList>
+<StmntSeq Intrnl_Id="78">
+<LocList>
+<Loc EndOffset="2925" SrcFileId="1" StartOffset="2885"/>
+<Loc EndOffset="2982" SrcFileId="1" StartOffset="2932"/>
+<Loc EndOffset="3034" SrcFileId="1" StartOffset="2989"/>
+<Loc EndOffset="3193" SrcFileId="1" StartOffset="3041"/>
+</LocList>
+<BasicStmnt CovItemId="S25" CovItemPrefix="model.TwitModel.java" Intrnl_Id="79">
+<LocList>
+<Loc EndOffset="2925" SrcFileId="1" StartOffset="2885"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S26" CovItemPrefix="model.TwitModel.java" Intrnl_Id="80">
+<LocList>
+<Loc EndOffset="2982" SrcFileId="1" StartOffset="2932"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S27" CovItemPrefix="model.TwitModel.java" Intrnl_Id="81">
+<LocList>
+<Loc EndOffset="3034" SrcFileId="1" StartOffset="2989"/>
+</LocList>
+</BasicStmnt>
+<LoopStmnt CovItemId="S28" CovItemPrefix="model.TwitModel.java" Intrnl_Id="82" MltplExecId="L1-2" MltplExecPrefix="model.TwitModel.java" NvrExecId="L1-0" NvrExecPrefix="model.TwitModel.java" OnceExecutedId="L1-1" OnceExecutedPrefix="model.TwitModel.java" OptBodyExec="true">
+<StmntSeq Intrnl_Id="83">
+<LocList>
+<Loc EndOffset="3185" SrcFileId="1" StartOffset="3084"/>
+</LocList>
+<BasicStmnt CovItemId="S29" CovItemPrefix="model.TwitModel.java" Intrnl_Id="84">
+<LocList>
+<Loc EndOffset="3185" SrcFileId="1" StartOffset="3084"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+<Keyword EndOffset="3044" SrcFileId="1" StartOffset="3041"/>
+<LocList>
+<Loc EndOffset="3193" SrcFileId="1" StartOffset="3041"/>
+</LocList>
+</LoopStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="784" HierarchyLvlTypeId="12" Intrnl_Id="85" Name="getArrayListSize">
+<Header>
+<Loc EndOffset="3328" SrcFileId="1" StartOffset="3299"/>
+</Header>
+<LocList>
+<Loc EndOffset="3360" SrcFileId="1" StartOffset="3299"/>
+</LocList>
+<StmntSeq Intrnl_Id="86">
+<LocList>
+<Loc EndOffset="3356" SrcFileId="1" StartOffset="3333"/>
+</LocList>
+<BasicStmnt CovItemId="S30" CovItemPrefix="model.TwitModel.java" Intrnl_Id="87">
+<LocList>
+<Loc EndOffset="3356" SrcFileId="1" StartOffset="3333"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="785" HierarchyLvlTypeId="12" Intrnl_Id="88" Name="ArrayListGenerator">
+<Header>
+<Loc EndOffset="3477" SrcFileId="1" StartOffset="3432"/>
+</Header>
+<LocList>
+<Loc EndOffset="3836" SrcFileId="1" StartOffset="3432"/>
+</LocList>
+<StmntSeq Intrnl_Id="89">
+<LocList>
+<Loc EndOffset="3512" SrcFileId="1" StartOffset="3483"/>
+<Loc EndOffset="3561" SrcFileId="1" StartOffset="3516"/>
+<Loc EndOffset="3606" SrcFileId="1" StartOffset="3565"/>
+<Loc EndOffset="3659" SrcFileId="1" StartOffset="3610"/>
+<Loc EndOffset="3708" SrcFileId="1" StartOffset="3663"/>
+<Loc EndOffset="3736" SrcFileId="1" StartOffset="3712"/>
+<Loc EndOffset="3821" SrcFileId="1" StartOffset="3740"/>
+<Loc EndOffset="3832" SrcFileId="1" StartOffset="3825"/>
+</LocList>
+<BasicStmnt CovItemId="S31" CovItemPrefix="model.TwitModel.java" Intrnl_Id="90">
+<LocList>
+<Loc EndOffset="3512" SrcFileId="1" StartOffset="3483"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S32" CovItemPrefix="model.TwitModel.java" Intrnl_Id="91">
+<LocList>
+<Loc EndOffset="3561" SrcFileId="1" StartOffset="3516"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S33" CovItemPrefix="model.TwitModel.java" Intrnl_Id="92">
+<LocList>
+<Loc EndOffset="3606" SrcFileId="1" StartOffset="3565"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S34" CovItemPrefix="model.TwitModel.java" Intrnl_Id="93">
+<LocList>
+<Loc EndOffset="3659" SrcFileId="1" StartOffset="3610"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S35" CovItemPrefix="model.TwitModel.java" Intrnl_Id="94">
+<LocList>
+<Loc EndOffset="3708" SrcFileId="1" StartOffset="3663"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S36" CovItemPrefix="model.TwitModel.java" Intrnl_Id="95">
+<LocList>
+<Loc EndOffset="3736" SrcFileId="1" StartOffset="3712"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S37" CovItemPrefix="model.TwitModel.java" Intrnl_Id="96">
+<LocList>
+<Loc EndOffset="3821" SrcFileId="1" StartOffset="3740"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S38" CovItemPrefix="model.TwitModel.java" Intrnl_Id="97">
+<LocList>
+<Loc EndOffset="3832" SrcFileId="1" StartOffset="3825"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="786" HierarchyLvlTypeId="12" Intrnl_Id="98" Name="retriveDisplayStatis">
+<Header>
+<Loc EndOffset="4027" SrcFileId="1" StartOffset="3982"/>
+</Header>
+<LocList>
+<Loc EndOffset="4075" SrcFileId="1" StartOffset="3982"/>
+</LocList>
+<StmntSeq Intrnl_Id="99">
+<LocList>
+<Loc EndOffset="4070" SrcFileId="1" StartOffset="4033"/>
+</LocList>
+<BasicStmnt CovItemId="S39" CovItemPrefix="model.TwitModel.java" Intrnl_Id="100">
+<LocList>
+<Loc EndOffset="4070" SrcFileId="1" StartOffset="4033"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="787" HierarchyLvlTypeId="12" Intrnl_Id="101" Name="getWordSearch">
+<Header>
+<Loc EndOffset="4252" SrcFileId="1" StartOffset="4211"/>
+</Header>
+<LocList>
+<Loc EndOffset="4260" SrcFileId="1" StartOffset="4211"/>
+</LocList>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="788" HierarchyLvlTypeId="12" Intrnl_Id="102" Name="getPhraseSearch">
+<Header>
+<Loc EndOffset="4442" SrcFileId="1" StartOffset="4379"/>
+</Header>
+<LocList>
+<Loc EndOffset="4450" SrcFileId="1" StartOffset="4379"/>
+</LocList>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="789" HierarchyLvlTypeId="12" Intrnl_Id="103" Name="getToUserSearch">
+<Header>
+<Loc EndOffset="4657" SrcFileId="1" StartOffset="4578"/>
+</Header>
+<LocList>
+<Loc EndOffset="4665" SrcFileId="1" StartOffset="4578"/>
+</LocList>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="790" HierarchyLvlTypeId="12" Intrnl_Id="104" Name="getFromUserSearch">
+<Header>
+<Loc EndOffset="4856" SrcFileId="1" StartOffset="4773"/>
+</Header>
+<LocList>
+<Loc EndOffset="4864" SrcFileId="1" StartOffset="4773"/>
+</LocList>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="791" HierarchyLvlTypeId="12" Intrnl_Id="105" Name="getAllSearch">
+<Header>
+<Loc EndOffset="5099" SrcFileId="1" StartOffset="5005"/>
+</Header>
+<LocList>
+<Loc EndOffset="5107" SrcFileId="1" StartOffset="5005"/>
+</LocList>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="792" HierarchyLvlTypeId="12" Intrnl_Id="106" Name="getKeyFromSearch">
+<Header>
+<Loc EndOffset="5272" SrcFileId="1" StartOffset="5206"/>
+</Header>
+<LocList>
+<Loc EndOffset="5280" SrcFileId="1" StartOffset="5206"/>
+</LocList>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="793" HierarchyLvlTypeId="12" Intrnl_Id="107" Name="getKeyToSearch">
+<Header>
+<Loc EndOffset="5436" SrcFileId="1" StartOffset="5374"/>
+</Header>
+<LocList>
+<Loc EndOffset="5444" SrcFileId="1" StartOffset="5374"/>
+</LocList>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="794" HierarchyLvlTypeId="12" Intrnl_Id="108" Name="authentication">
+<Header>
+<Loc EndOffset="5718" SrcFileId="1" StartOffset="5592"/>
+</Header>
+<LocList>
+<Loc EndOffset="5726" SrcFileId="1" StartOffset="5592"/>
+</LocList>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="795" HierarchyLvlTypeId="12" Intrnl_Id="109" Name="destoryStatus">
+<Header>
+<Loc EndOffset="5813" SrcFileId="1" StartOffset="5786"/>
+</Header>
+<LocList>
+<Loc EndOffset="5821" SrcFileId="1" StartOffset="5786"/>
+</LocList>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="796" HierarchyLvlTypeId="12" Intrnl_Id="110" Name="updateStatus">
+<Header>
+<Loc EndOffset="5935" SrcFileId="1" StartOffset="5898"/>
+</Header>
+<LocList>
+<Loc EndOffset="5943" SrcFileId="1" StartOffset="5898"/>
+</LocList>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="797" HierarchyLvlTypeId="12" Intrnl_Id="111" Name="getColumnCount">
+<Header>
+<Loc EndOffset="6059" SrcFileId="1" StartOffset="6020"/>
+</Header>
+<LocList>
+<Loc EndOffset="6095" SrcFileId="1" StartOffset="6020"/>
+</LocList>
+<StmntSeq Intrnl_Id="112">
+<LocList>
+<Loc EndOffset="6091" SrcFileId="1" StartOffset="6065"/>
+</LocList>
+<BasicStmnt CovItemId="S40" CovItemPrefix="model.TwitModel.java" Intrnl_Id="113">
+<LocList>
+<Loc EndOffset="6091" SrcFileId="1" StartOffset="6065"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="798" HierarchyLvlTypeId="12" Intrnl_Id="114" Name="getRowCount">
+<Header>
+<Loc EndOffset="6200" SrcFileId="1" StartOffset="6164"/>
+</Header>
+<LocList>
+<Loc EndOffset="6233" SrcFileId="1" StartOffset="6164"/>
+</LocList>
+<StmntSeq Intrnl_Id="115">
+<LocList>
+<Loc EndOffset="6229" SrcFileId="1" StartOffset="6206"/>
+</LocList>
+<BasicStmnt CovItemId="S41" CovItemPrefix="model.TwitModel.java" Intrnl_Id="116">
+<LocList>
+<Loc EndOffset="6229" SrcFileId="1" StartOffset="6206"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="799" HierarchyLvlTypeId="12" Intrnl_Id="117" Name="loadString">
+<Header>
+<Loc EndOffset="6360" SrcFileId="1" StartOffset="6328"/>
+</Header>
+<LocList>
+<Loc EndOffset="6381" SrcFileId="1" StartOffset="6328"/>
+</LocList>
+<StmntSeq Intrnl_Id="118">
+<LocList>
+<Loc EndOffset="6377" SrcFileId="1" StartOffset="6365"/>
+</LocList>
+<BasicStmnt CovItemId="S42" CovItemPrefix="model.TwitModel.java" Intrnl_Id="119">
+<LocList>
+<Loc EndOffset="6377" SrcFileId="1" StartOffset="6365"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="800" HierarchyLvlTypeId="12" Intrnl_Id="120" Name="topTrendingList">
+<Header>
+<Loc EndOffset="6494" SrcFileId="1" StartOffset="6463"/>
+</Header>
+<LocList>
+<Loc EndOffset="6516" SrcFileId="1" StartOffset="6463"/>
+</LocList>
+<StmntSeq Intrnl_Id="121">
+<LocList>
+<Loc EndOffset="6512" SrcFileId="1" StartOffset="6500"/>
+</LocList>
+<BasicStmnt CovItemId="S43" CovItemPrefix="model.TwitModel.java" Intrnl_Id="122">
+<LocList>
+<Loc EndOffset="6512" SrcFileId="1" StartOffset="6500"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="810" HierarchyLvlTypeId="11" Intrnl_Id="123" Name="Tweet">
+<Header>
+<Loc EndOffset="244" SrcFileId="2" StartOffset="207"/>
+</Header>
+<LocList>
+<Loc EndOffset="1826" SrcFileId="2" StartOffset="207"/>
+</LocList>
+<HierarchyLvl HierarchyLvlId="802" HierarchyLvlTypeId="12" Intrnl_Id="124" Name="Tweet">
+<Header>
+<Loc EndOffset="737" SrcFileId="2" StartOffset="617"/>
+</Header>
+<LocList>
+<Loc EndOffset="929" SrcFileId="2" StartOffset="617"/>
+</LocList>
+<StmntSeq Intrnl_Id="125">
+<LocList>
+<Loc EndOffset="760" SrcFileId="2" StartOffset="743"/>
+<Loc EndOffset="791" SrcFileId="2" StartOffset="764"/>
+<Loc EndOffset="826" SrcFileId="2" StartOffset="795"/>
+<Loc EndOffset="863" SrcFileId="2" StartOffset="830"/>
+<Loc EndOffset="904" SrcFileId="2" StartOffset="867"/>
+<Loc EndOffset="925" SrcFileId="2" StartOffset="908"/>
+</LocList>
+<BasicStmnt CovItemId="S1" CovItemPrefix="model.Tweet.java" Intrnl_Id="126">
+<LocList>
+<Loc EndOffset="760" SrcFileId="2" StartOffset="743"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S2" CovItemPrefix="model.Tweet.java" Intrnl_Id="127">
+<LocList>
+<Loc EndOffset="791" SrcFileId="2" StartOffset="764"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S3" CovItemPrefix="model.Tweet.java" Intrnl_Id="128">
+<LocList>
+<Loc EndOffset="826" SrcFileId="2" StartOffset="795"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S4" CovItemPrefix="model.Tweet.java" Intrnl_Id="129">
+<LocList>
+<Loc EndOffset="863" SrcFileId="2" StartOffset="830"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S5" CovItemPrefix="model.Tweet.java" Intrnl_Id="130">
+<LocList>
+<Loc EndOffset="904" SrcFileId="2" StartOffset="867"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S6" CovItemPrefix="model.Tweet.java" Intrnl_Id="131">
+<LocList>
+<Loc EndOffset="925" SrcFileId="2" StartOffset="908"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="803" HierarchyLvlTypeId="12" Intrnl_Id="132" Name="getId">
+<Header>
+<Loc EndOffset="1021" SrcFileId="2" StartOffset="934"/>
+</Header>
+<LocList>
+<Loc EndOffset="1041" SrcFileId="2" StartOffset="934"/>
+</LocList>
+<StmntSeq Intrnl_Id="133">
+<LocList>
+<Loc EndOffset="1037" SrcFileId="2" StartOffset="1027"/>
+</LocList>
+<BasicStmnt CovItemId="S7" CovItemPrefix="model.Tweet.java" Intrnl_Id="134">
+<LocList>
+<Loc EndOffset="1037" SrcFileId="2" StartOffset="1027"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="804" HierarchyLvlTypeId="12" Intrnl_Id="135" Name="getCreatedAt">
+<Header>
+<Loc EndOffset="1131" SrcFileId="2" StartOffset="1044"/>
+</Header>
+<LocList>
+<Loc EndOffset="1153" SrcFileId="2" StartOffset="1044"/>
+</LocList>
+<StmntSeq Intrnl_Id="136">
+<LocList>
+<Loc EndOffset="1149" SrcFileId="2" StartOffset="1137"/>
+</LocList>
+<BasicStmnt CovItemId="S8" CovItemPrefix="model.Tweet.java" Intrnl_Id="137">
+<LocList>
+<Loc EndOffset="1149" SrcFileId="2" StartOffset="1137"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="805" HierarchyLvlTypeId="12" Intrnl_Id="138" Name="getLoginName">
+<Header>
+<Loc EndOffset="1256" SrcFileId="2" StartOffset="1156"/>
+</Header>
+<LocList>
+<Loc EndOffset="1283" SrcFileId="2" StartOffset="1156"/>
+</LocList>
+<StmntSeq Intrnl_Id="139">
+<LocList>
+<Loc EndOffset="1279" SrcFileId="2" StartOffset="1262"/>
+</LocList>
+<BasicStmnt CovItemId="S9" CovItemPrefix="model.Tweet.java" Intrnl_Id="140">
+<LocList>
+<Loc EndOffset="1279" SrcFileId="2" StartOffset="1262"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="806" HierarchyLvlTypeId="12" Intrnl_Id="141" Name="getDisplayName">
+<Header>
+<Loc EndOffset="1392" SrcFileId="2" StartOffset="1286"/>
+</Header>
+<LocList>
+<Loc EndOffset="1421" SrcFileId="2" StartOffset="1286"/>
+</LocList>
+<StmntSeq Intrnl_Id="142">
+<LocList>
+<Loc EndOffset="1417" SrcFileId="2" StartOffset="1398"/>
+</LocList>
+<BasicStmnt CovItemId="S10" CovItemPrefix="model.Tweet.java" Intrnl_Id="143">
+<LocList>
+<Loc EndOffset="1417" SrcFileId="2" StartOffset="1398"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="807" HierarchyLvlTypeId="12" Intrnl_Id="144" Name="getText">
+<Header>
+<Loc EndOffset="1515" SrcFileId="2" StartOffset="1424"/>
+</Header>
+<LocList>
+<Loc EndOffset="1537" SrcFileId="2" StartOffset="1424"/>
+</LocList>
+<StmntSeq Intrnl_Id="145">
+<LocList>
+<Loc EndOffset="1533" SrcFileId="2" StartOffset="1521"/>
+</LocList>
+<BasicStmnt CovItemId="S11" CovItemPrefix="model.Tweet.java" Intrnl_Id="146">
+<LocList>
+<Loc EndOffset="1533" SrcFileId="2" StartOffset="1521"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="808" HierarchyLvlTypeId="12" Intrnl_Id="147" Name="getFriendsCount">
+<Header>
+<Loc EndOffset="1646" SrcFileId="2" StartOffset="1540"/>
+</Header>
+<LocList>
+<Loc EndOffset="1676" SrcFileId="2" StartOffset="1540"/>
+</LocList>
+<StmntSeq Intrnl_Id="148">
+<LocList>
+<Loc EndOffset="1672" SrcFileId="2" StartOffset="1652"/>
+</LocList>
+<BasicStmnt CovItemId="S12" CovItemPrefix="model.Tweet.java" Intrnl_Id="149">
+<LocList>
+<Loc EndOffset="1672" SrcFileId="2" StartOffset="1652"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="809" HierarchyLvlTypeId="12" Intrnl_Id="150" Name="getFollowersCount">
+<Header>
+<Loc EndOffset="1791" SrcFileId="2" StartOffset="1679"/>
+</Header>
+<LocList>
+<Loc EndOffset="1823" SrcFileId="2" StartOffset="1679"/>
+</LocList>
+<StmntSeq Intrnl_Id="151">
+<LocList>
+<Loc EndOffset="1819" SrcFileId="2" StartOffset="1797"/>
+</LocList>
+<BasicStmnt CovItemId="S13" CovItemPrefix="model.Tweet.java" Intrnl_Id="152">
+<LocList>
+<Loc EndOffset="1819" SrcFileId="2" StartOffset="1797"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="818" HierarchyLvlTypeId="14" Intrnl_Id="153" Name="MyTweet">
+<Header>
+<Loc EndOffset="192" SrcFileId="3" StartOffset="168"/>
+</Header>
+<LocList>
+<Loc EndOffset="384" SrcFileId="3" StartOffset="168"/>
+</LocList>
+<HierarchyLvl HierarchyLvlId="811" HierarchyLvlTypeId="12" Intrnl_Id="154" Name="getId">
+<Header>
+<Loc EndOffset="215" SrcFileId="3" StartOffset="197"/>
+</Header>
+<LocList>
+<Loc EndOffset="216" SrcFileId="3" StartOffset="197"/>
+</LocList>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="812" HierarchyLvlTypeId="12" Intrnl_Id="155" Name="getCreatedAt">
+<Header>
+<Loc EndOffset="241" SrcFileId="3" StartOffset="222"/>
+</Header>
+<LocList>
+<Loc EndOffset="242" SrcFileId="3" StartOffset="222"/>
+</LocList>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="813" HierarchyLvlTypeId="12" Intrnl_Id="156" Name="getLoginName">
+<Header>
+<Loc EndOffset="269" SrcFileId="3" StartOffset="248"/>
+</Header>
+<LocList>
+<Loc EndOffset="270" SrcFileId="3" StartOffset="248"/>
+</LocList>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="814" HierarchyLvlTypeId="12" Intrnl_Id="157" Name="getDisplayName">
+<Header>
+<Loc EndOffset="299" SrcFileId="3" StartOffset="276"/>
+</Header>
+<LocList>
+<Loc EndOffset="300" SrcFileId="3" StartOffset="276"/>
+</LocList>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="815" HierarchyLvlTypeId="12" Intrnl_Id="158" Name="getText">
+<Header>
+<Loc EndOffset="322" SrcFileId="3" StartOffset="306"/>
+</Header>
+<LocList>
+<Loc EndOffset="323" SrcFileId="3" StartOffset="306"/>
+</LocList>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="816" HierarchyLvlTypeId="12" Intrnl_Id="159" Name="getFriendsCount">
+<Header>
+<Loc EndOffset="350" SrcFileId="3" StartOffset="329"/>
+</Header>
+<LocList>
+<Loc EndOffset="351" SrcFileId="3" StartOffset="329"/>
+</LocList>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="817" HierarchyLvlTypeId="12" Intrnl_Id="160" Name="getFollowersCount">
+<Header>
+<Loc EndOffset="380" SrcFileId="3" StartOffset="357"/>
+</Header>
+<LocList>
+<Loc EndOffset="381" SrcFileId="3" StartOffset="357"/>
+</LocList>
+</HierarchyLvl>
+</HierarchyLvl>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="871" HierarchyLvlTypeId="10" Intrnl_Id="161" Name="gui">
+<Header/>
+<LocList/>
+<HierarchyLvl HierarchyLvlId="826" HierarchyLvlTypeId="11" Intrnl_Id="162" Name="TwitterResultsPanel">
+<Header>
+<Loc EndOffset="384" SrcFileId="4" StartOffset="308"/>
+</Header>
+<LocList>
+<Loc EndOffset="3206" SrcFileId="4" StartOffset="308"/>
+</LocList>
+<HierarchyLvl HierarchyLvlId="821" HierarchyLvlTypeId="12" Intrnl_Id="163" Name="TwitterResultsPanel">
+<Header>
+<Loc EndOffset="681" SrcFileId="4" StartOffset="633"/>
+</Header>
+<LocList>
+<Loc EndOffset="2247" SrcFileId="4" StartOffset="633"/>
+</LocList>
+<StmntSeq Intrnl_Id="164">
+<LocList>
+<Loc EndOffset="744" SrcFileId="4" StartOffset="723"/>
+<Loc EndOffset="806" SrcFileId="4" StartOffset="748"/>
+<Loc EndOffset="837" SrcFileId="4" StartOffset="810"/>
+<Loc EndOffset="877" SrcFileId="4" StartOffset="841"/>
+<Loc EndOffset="924" SrcFileId="4" StartOffset="903"/>
+<Loc EndOffset="953" SrcFileId="4" StartOffset="928"/>
+<Loc EndOffset="1035" SrcFileId="4" StartOffset="957"/>
+<Loc EndOffset="1090" SrcFileId="4" StartOffset="1039"/>
+<Loc EndOffset="1119" SrcFileId="4" StartOffset="1096"/>
+<Loc EndOffset="1268" SrcFileId="4" StartOffset="1266"/>
+<Loc EndOffset="1342" SrcFileId="4" StartOffset="1272"/>
+<Loc EndOffset="1430" SrcFileId="4" StartOffset="1387"/>
+<Loc EndOffset="1496" SrcFileId="4" StartOffset="1434"/>
+<Loc EndOffset="1534" SrcFileId="4" StartOffset="1500"/>
+<Loc EndOffset="1621" SrcFileId="4" StartOffset="1538"/>
+<Loc EndOffset="1698" SrcFileId="4" StartOffset="1664"/>
+<Loc EndOffset="1736" SrcFileId="4" StartOffset="1703"/>
+<Loc EndOffset="1768" SrcFileId="4" StartOffset="1740"/>
+<Loc EndOffset="1821" SrcFileId="4" StartOffset="1789"/>
+<Loc EndOffset="1853" SrcFileId="4" StartOffset="1826"/>
+<Loc EndOffset="1921" SrcFileId="4" StartOffset="1857"/>
+<Loc EndOffset="1952" SrcFileId="4" StartOffset="1925"/>
+<Loc EndOffset="1986" SrcFileId="4" StartOffset="1956"/>
+<Loc EndOffset="2031" SrcFileId="4" StartOffset="1990"/>
+<Loc EndOffset="2116" SrcFileId="4" StartOffset="2035"/>
+<Loc EndOffset="2155" SrcFileId="4" StartOffset="2120"/>
+<Loc EndOffset="2185" SrcFileId="4" StartOffset="2159"/>
+<Loc EndOffset="2242" SrcFileId="4" StartOffset="2225"/>
+</LocList>
+<BasicStmnt CovItemId="S1" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="165">
+<LocList>
+<Loc EndOffset="744" SrcFileId="4" StartOffset="723"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S2" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="166">
+<LocList>
+<Loc EndOffset="806" SrcFileId="4" StartOffset="748"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S3" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="167">
+<LocList>
+<Loc EndOffset="837" SrcFileId="4" StartOffset="810"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S4" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="168">
+<LocList>
+<Loc EndOffset="877" SrcFileId="4" StartOffset="841"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S5" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="169">
+<LocList>
+<Loc EndOffset="924" SrcFileId="4" StartOffset="903"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S6" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="170">
+<LocList>
+<Loc EndOffset="953" SrcFileId="4" StartOffset="928"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S7" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="171">
+<LocList>
+<Loc EndOffset="1035" SrcFileId="4" StartOffset="957"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S8" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="172">
+<LocList>
+<Loc EndOffset="1090" SrcFileId="4" StartOffset="1039"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S9" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="173">
+<LocList>
+<Loc EndOffset="1119" SrcFileId="4" StartOffset="1096"/>
+<Loc EndOffset="1268" SrcFileId="4" StartOffset="1266"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S11" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="174">
+<LocList>
+<Loc EndOffset="1342" SrcFileId="4" StartOffset="1272"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S12" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="175">
+<LocList>
+<Loc EndOffset="1430" SrcFileId="4" StartOffset="1387"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S13" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="176">
+<LocList>
+<Loc EndOffset="1496" SrcFileId="4" StartOffset="1434"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S14" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="177">
+<LocList>
+<Loc EndOffset="1534" SrcFileId="4" StartOffset="1500"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S15" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="178">
+<LocList>
+<Loc EndOffset="1621" SrcFileId="4" StartOffset="1538"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S16" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="179">
+<LocList>
+<Loc EndOffset="1698" SrcFileId="4" StartOffset="1664"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S17" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="180">
+<LocList>
+<Loc EndOffset="1736" SrcFileId="4" StartOffset="1703"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S18" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="181">
+<LocList>
+<Loc EndOffset="1768" SrcFileId="4" StartOffset="1740"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S19" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="182">
+<LocList>
+<Loc EndOffset="1821" SrcFileId="4" StartOffset="1789"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S20" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="183">
+<LocList>
+<Loc EndOffset="1853" SrcFileId="4" StartOffset="1826"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S21" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="184">
+<LocList>
+<Loc EndOffset="1921" SrcFileId="4" StartOffset="1857"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S22" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="185">
+<LocList>
+<Loc EndOffset="1952" SrcFileId="4" StartOffset="1925"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S23" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="186">
+<LocList>
+<Loc EndOffset="1986" SrcFileId="4" StartOffset="1956"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S24" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="187">
+<LocList>
+<Loc EndOffset="2031" SrcFileId="4" StartOffset="1990"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S25" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="188">
+<LocList>
+<Loc EndOffset="2116" SrcFileId="4" StartOffset="2035"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S26" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="189">
+<LocList>
+<Loc EndOffset="2155" SrcFileId="4" StartOffset="2120"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S27" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="190">
+<LocList>
+<Loc EndOffset="2185" SrcFileId="4" StartOffset="2159"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S28" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="191">
+<LocList>
+<Loc EndOffset="2242" SrcFileId="4" StartOffset="2225"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+<HierarchyLvl HierarchyLvlId="820" HierarchyLvlTypeId="15" Intrnl_Id="192" Name="java.awt.event.&#13;&#10;&#9;&#9;&#9;&#9;MouseAdapter">
+<Header>
+<Loc EndOffset="1158" SrcFileId="4" StartOffset="1123"/>
+</Header>
+<LocList>
+<Loc EndOffset="1266" SrcFileId="4" StartOffset="1119"/>
+</LocList>
+<HierarchyLvl HierarchyLvlId="819" HierarchyLvlTypeId="12" Intrnl_Id="193" Name="mouseClicked">
+<Header>
+<Loc EndOffset="1227" SrcFileId="4" StartOffset="1165"/>
+</Header>
+<LocList>
+<Loc EndOffset="1261" SrcFileId="4" StartOffset="1165"/>
+</LocList>
+<StmntSeq Intrnl_Id="194">
+<LocList>
+<Loc EndOffset="1255" SrcFileId="4" StartOffset="1235"/>
+</LocList>
+<BasicStmnt CovItemId="S10" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="195">
+<LocList>
+<Loc EndOffset="1255" SrcFileId="4" StartOffset="1235"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+</HierarchyLvl>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="822" HierarchyLvlTypeId="12" Intrnl_Id="196" Name="tableMouseClicked">
+<Header>
+<Loc EndOffset="2374" SrcFileId="4" StartOffset="2342"/>
+</Header>
+<LocList>
+<Loc EndOffset="2517" SrcFileId="4" StartOffset="2342"/>
+</LocList>
+<StmntSeq Intrnl_Id="197">
+<LocList>
+<Loc EndOffset="2414" SrcFileId="4" StartOffset="2379"/>
+<Loc EndOffset="2513" SrcFileId="4" StartOffset="2418"/>
+</LocList>
+<BasicStmnt CovItemId="S29" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="198">
+<LocList>
+<Loc EndOffset="2414" SrcFileId="4" StartOffset="2379"/>
+</LocList>
+</BasicStmnt>
+<CondStmnt CovItemId="S30" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="199">
+<Branch CovItemId="B1" CovItemPrefix="gui.TwitterResultsPanel.java" Implct="false" Intrnl_Id="200">
+<Cond/>
+<LocList>
+<Loc EndOffset="2513" SrcFileId="4" StartOffset="2432"/>
+</LocList>
+<StmntSeq Intrnl_Id="201">
+<LocList>
+<Loc EndOffset="2485" SrcFileId="4" StartOffset="2438"/>
+<Loc EndOffset="2508" SrcFileId="4" StartOffset="2490"/>
+</LocList>
+<BasicStmnt CovItemId="S31" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="202">
+<LocList>
+<Loc EndOffset="2485" SrcFileId="4" StartOffset="2438"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S32" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="203">
+<LocList>
+<Loc EndOffset="2508" SrcFileId="4" StartOffset="2490"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B2" CovItemPrefix="gui.TwitterResultsPanel.java" Implct="true" Intrnl_Id="204">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="205">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="2420" SrcFileId="4" StartOffset="2418"/>
+<LocList>
+<Loc EndOffset="2513" SrcFileId="4" StartOffset="2418"/>
+</LocList>
+<RootTerm CovItemId="C1" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="206">
+<BasicBoolTerm Intrnl_Id="207">
+<LocList>
+<Loc EndOffset="2431" SrcFileId="4" StartOffset="2421"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</CondStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="823" HierarchyLvlTypeId="12" Intrnl_Id="208" Name="setStatus">
+<Header>
+<Loc EndOffset="2728" SrcFileId="4" StartOffset="2691"/>
+</Header>
+<LocList>
+<Loc EndOffset="2763" SrcFileId="4" StartOffset="2691"/>
+</LocList>
+<StmntSeq Intrnl_Id="209">
+<LocList>
+<Loc EndOffset="2759" SrcFileId="4" StartOffset="2734"/>
+</LocList>
+<BasicStmnt CovItemId="S33" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="210">
+<LocList>
+<Loc EndOffset="2759" SrcFileId="4" StartOffset="2734"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="824" HierarchyLvlTypeId="12" Intrnl_Id="211" Name="topTrendingOutput">
+<Header>
+<Loc EndOffset="2920" SrcFileId="4" StartOffset="2867"/>
+</Header>
+<LocList>
+<Loc EndOffset="2975" SrcFileId="4" StartOffset="2867"/>
+</LocList>
+<StmntSeq Intrnl_Id="212">
+<LocList>
+<Loc EndOffset="2971" SrcFileId="4" StartOffset="2926"/>
+</LocList>
+<BasicStmnt CovItemId="S34" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="213">
+<LocList>
+<Loc EndOffset="2971" SrcFileId="4" StartOffset="2926"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="825" HierarchyLvlTypeId="12" Intrnl_Id="214" Name="wordFrequencyCount">
+<Header>
+<Loc EndOffset="3144" SrcFileId="4" StartOffset="3088"/>
+</Header>
+<LocList>
+<Loc EndOffset="3203" SrcFileId="4" StartOffset="3088"/>
+</LocList>
+<StmntSeq Intrnl_Id="215">
+<LocList>
+<Loc EndOffset="3199" SrcFileId="4" StartOffset="3152"/>
+</LocList>
+<BasicStmnt CovItemId="S35" CovItemPrefix="gui.TwitterResultsPanel.java" Intrnl_Id="216">
+<LocList>
+<Loc EndOffset="3199" SrcFileId="4" StartOffset="3152"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="838" HierarchyLvlTypeId="11" Intrnl_Id="217" Name="TwitterGUI">
+<Header>
+<Loc EndOffset="456" SrcFileId="5" StartOffset="406"/>
+</Header>
+<LocList>
+<Loc EndOffset="7163" SrcFileId="5" StartOffset="406"/>
+</LocList>
+<StmntSeq Intrnl_Id="218">
+<LocList>
+<Loc EndOffset="588" SrcFileId="5" StartOffset="462"/>
+<Loc EndOffset="5047" SrcFileId="5" StartOffset="5009"/>
+<Loc EndOffset="5762" SrcFileId="5" StartOffset="5761"/>
+</LocList>
+<BasicStmnt CovItemId="S1" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="219">
+<LocList>
+<Loc EndOffset="588" SrcFileId="5" StartOffset="462"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S55" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="220">
+<LocList>
+<Loc EndOffset="5047" SrcFileId="5" StartOffset="5009"/>
+<Loc EndOffset="5762" SrcFileId="5" StartOffset="5761"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+<HierarchyLvl HierarchyLvlId="827" HierarchyLvlTypeId="12" Intrnl_Id="221" Name="TwitterGUI">
+<Header>
+<Loc EndOffset="1239" SrcFileId="5" StartOffset="1220"/>
+</Header>
+<LocList>
+<Loc EndOffset="1409" SrcFileId="5" StartOffset="1220"/>
+</LocList>
+<StmntSeq Intrnl_Id="222">
+<LocList>
+<Loc EndOffset="1273" SrcFileId="5" StartOffset="1244"/>
+<Loc EndOffset="1310" SrcFileId="5" StartOffset="1277"/>
+<Loc EndOffset="1325" SrcFileId="5" StartOffset="1314"/>
+<Loc EndOffset="1345" SrcFileId="5" StartOffset="1329"/>
+<Loc EndOffset="1365" SrcFileId="5" StartOffset="1349"/>
+<Loc EndOffset="1380" SrcFileId="5" StartOffset="1369"/>
+<Loc EndOffset="1405" SrcFileId="5" StartOffset="1384"/>
+</LocList>
+<BasicStmnt CovItemId="S2" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="223">
+<LocList>
+<Loc EndOffset="1273" SrcFileId="5" StartOffset="1244"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S3" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="224">
+<LocList>
+<Loc EndOffset="1310" SrcFileId="5" StartOffset="1277"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S4" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="225">
+<LocList>
+<Loc EndOffset="1325" SrcFileId="5" StartOffset="1314"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S5" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="226">
+<LocList>
+<Loc EndOffset="1345" SrcFileId="5" StartOffset="1329"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S6" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="227">
+<LocList>
+<Loc EndOffset="1365" SrcFileId="5" StartOffset="1349"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S7" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="228">
+<LocList>
+<Loc EndOffset="1380" SrcFileId="5" StartOffset="1369"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S8" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="229">
+<LocList>
+<Loc EndOffset="1405" SrcFileId="5" StartOffset="1384"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="828" HierarchyLvlTypeId="12" Intrnl_Id="230" Name="EastPanelInit">
+<Header>
+<Loc EndOffset="1527" SrcFileId="5" StartOffset="1499"/>
+</Header>
+<LocList>
+<Loc EndOffset="1751" SrcFileId="5" StartOffset="1499"/>
+</LocList>
+<StmntSeq Intrnl_Id="231">
+<LocList>
+<Loc EndOffset="1558" SrcFileId="5" StartOffset="1533"/>
+<Loc EndOffset="1632" SrcFileId="5" StartOffset="1562"/>
+<Loc EndOffset="1678" SrcFileId="5" StartOffset="1636"/>
+<Loc EndOffset="1705" SrcFileId="5" StartOffset="1682"/>
+<Loc EndOffset="1747" SrcFileId="5" StartOffset="1709"/>
+</LocList>
+<BasicStmnt CovItemId="S9" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="232">
+<LocList>
+<Loc EndOffset="1558" SrcFileId="5" StartOffset="1533"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S10" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="233">
+<LocList>
+<Loc EndOffset="1632" SrcFileId="5" StartOffset="1562"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S11" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="234">
+<LocList>
+<Loc EndOffset="1678" SrcFileId="5" StartOffset="1636"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S12" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="235">
+<LocList>
+<Loc EndOffset="1705" SrcFileId="5" StartOffset="1682"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S13" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="236">
+<LocList>
+<Loc EndOffset="1747" SrcFileId="5" StartOffset="1709"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="829" HierarchyLvlTypeId="12" Intrnl_Id="237" Name="WestPanelInit">
+<Header>
+<Loc EndOffset="1917" SrcFileId="5" StartOffset="1889"/>
+</Header>
+<LocList>
+<Loc EndOffset="3229" SrcFileId="5" StartOffset="1889"/>
+</LocList>
+<StmntSeq Intrnl_Id="238">
+<LocList>
+<Loc EndOffset="1948" SrcFileId="5" StartOffset="1923"/>
+<Loc EndOffset="2022" SrcFileId="5" StartOffset="1952"/>
+<Loc EndOffset="2843" SrcFileId="5" StartOffset="2805"/>
+<Loc EndOffset="3112" SrcFileId="5" StartOffset="3011"/>
+<Loc EndOffset="3158" SrcFileId="5" StartOffset="3118"/>
+<Loc EndOffset="3183" SrcFileId="5" StartOffset="3162"/>
+<Loc EndOffset="3225" SrcFileId="5" StartOffset="3187"/>
+</LocList>
+<BasicStmnt CovItemId="S14" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="239">
+<LocList>
+<Loc EndOffset="1948" SrcFileId="5" StartOffset="1923"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S15" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="240">
+<LocList>
+<Loc EndOffset="2022" SrcFileId="5" StartOffset="1952"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S16" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="241">
+<LocList>
+<Loc EndOffset="2843" SrcFileId="5" StartOffset="2805"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S17" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="242">
+<LocList>
+<Loc EndOffset="3112" SrcFileId="5" StartOffset="3011"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S18" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="243">
+<LocList>
+<Loc EndOffset="3158" SrcFileId="5" StartOffset="3118"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S19" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="244">
+<LocList>
+<Loc EndOffset="3183" SrcFileId="5" StartOffset="3162"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S20" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="245">
+<LocList>
+<Loc EndOffset="3225" SrcFileId="5" StartOffset="3187"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="830" HierarchyLvlTypeId="12" Intrnl_Id="246" Name="makeTextPanel">
+<Header>
+<Loc EndOffset="3285" SrcFileId="5" StartOffset="3238"/>
+</Header>
+<LocList>
+<Loc EndOffset="3536" SrcFileId="5" StartOffset="3238"/>
+</LocList>
+<StmntSeq Intrnl_Id="247">
+<LocList>
+<Loc EndOffset="3330" SrcFileId="5" StartOffset="3297"/>
+<Loc EndOffset="3373" SrcFileId="5" StartOffset="3340"/>
+<Loc EndOffset="3428" SrcFileId="5" StartOffset="3383"/>
+<Loc EndOffset="3506" SrcFileId="5" StartOffset="3488"/>
+<Loc EndOffset="3529" SrcFileId="5" StartOffset="3516"/>
+</LocList>
+<BasicStmnt CovItemId="S21" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="248">
+<LocList>
+<Loc EndOffset="3330" SrcFileId="5" StartOffset="3297"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S22" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="249">
+<LocList>
+<Loc EndOffset="3373" SrcFileId="5" StartOffset="3340"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S23" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="250">
+<LocList>
+<Loc EndOffset="3428" SrcFileId="5" StartOffset="3383"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S24" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="251">
+<LocList>
+<Loc EndOffset="3506" SrcFileId="5" StartOffset="3488"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S25" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="252">
+<LocList>
+<Loc EndOffset="3529" SrcFileId="5" StartOffset="3516"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="831" HierarchyLvlTypeId="12" Intrnl_Id="253" Name="menuInit">
+<Header>
+<Loc EndOffset="3632" SrcFileId="5" StartOffset="3609"/>
+</Header>
+<LocList>
+<Loc EndOffset="4946" SrcFileId="5" StartOffset="3609"/>
+</LocList>
+<StmntSeq Intrnl_Id="254">
+<LocList>
+<Loc EndOffset="3660" SrcFileId="5" StartOffset="3638"/>
+<Loc EndOffset="3716" SrcFileId="5" StartOffset="3691"/>
+<Loc EndOffset="3770" SrcFileId="5" StartOffset="3720"/>
+<Loc EndOffset="3833" SrcFileId="5" StartOffset="3774"/>
+<Loc EndOffset="3885" SrcFileId="5" StartOffset="3837"/>
+<Loc EndOffset="3922" SrcFileId="5" StartOffset="3889"/>
+<Loc EndOffset="3975" SrcFileId="5" StartOffset="3926"/>
+<Loc EndOffset="4027" SrcFileId="5" StartOffset="3979"/>
+<Loc EndOffset="4074" SrcFileId="5" StartOffset="4031"/>
+<Loc EndOffset="4119" SrcFileId="5" StartOffset="4078"/>
+<Loc EndOffset="4150" SrcFileId="5" StartOffset="4123"/>
+<Loc EndOffset="4180" SrcFileId="5" StartOffset="4154"/>
+<Loc EndOffset="4205" SrcFileId="5" StartOffset="4184"/>
+<Loc EndOffset="4228" SrcFileId="5" StartOffset="4209"/>
+<Loc EndOffset="4247" SrcFileId="5" StartOffset="4232"/>
+<Loc EndOffset="4315" SrcFileId="5" StartOffset="4282"/>
+<Loc EndOffset="4390" SrcFileId="5" StartOffset="4319"/>
+<Loc EndOffset="4461" SrcFileId="5" StartOffset="4394"/>
+<Loc EndOffset="4528" SrcFileId="5" StartOffset="4465"/>
+<Loc EndOffset="4593" SrcFileId="5" StartOffset="4532"/>
+<Loc EndOffset="4637" SrcFileId="5" StartOffset="4597"/>
+<Loc EndOffset="4679" SrcFileId="5" StartOffset="4641"/>
+<Loc EndOffset="4702" SrcFileId="5" StartOffset="4683"/>
+<Loc EndOffset="4757" SrcFileId="5" StartOffset="4732"/>
+<Loc EndOffset="4800" SrcFileId="5" StartOffset="4761"/>
+<Loc EndOffset="4847" SrcFileId="5" StartOffset="4804"/>
+<Loc EndOffset="4872" SrcFileId="5" StartOffset="4851"/>
+<Loc EndOffset="4891" SrcFileId="5" StartOffset="4876"/>
+<Loc EndOffset="4942" SrcFileId="5" StartOffset="4920"/>
+</LocList>
+<BasicStmnt CovItemId="S26" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="255">
+<LocList>
+<Loc EndOffset="3660" SrcFileId="5" StartOffset="3638"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S27" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="256">
+<LocList>
+<Loc EndOffset="3716" SrcFileId="5" StartOffset="3691"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S28" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="257">
+<LocList>
+<Loc EndOffset="3770" SrcFileId="5" StartOffset="3720"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S29" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="258">
+<LocList>
+<Loc EndOffset="3833" SrcFileId="5" StartOffset="3774"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S30" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="259">
+<LocList>
+<Loc EndOffset="3885" SrcFileId="5" StartOffset="3837"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S31" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="260">
+<LocList>
+<Loc EndOffset="3922" SrcFileId="5" StartOffset="3889"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S32" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="261">
+<LocList>
+<Loc EndOffset="3975" SrcFileId="5" StartOffset="3926"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S33" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="262">
+<LocList>
+<Loc EndOffset="4027" SrcFileId="5" StartOffset="3979"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S34" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="263">
+<LocList>
+<Loc EndOffset="4074" SrcFileId="5" StartOffset="4031"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S35" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="264">
+<LocList>
+<Loc EndOffset="4119" SrcFileId="5" StartOffset="4078"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S36" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="265">
+<LocList>
+<Loc EndOffset="4150" SrcFileId="5" StartOffset="4123"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S37" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="266">
+<LocList>
+<Loc EndOffset="4180" SrcFileId="5" StartOffset="4154"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S38" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="267">
+<LocList>
+<Loc EndOffset="4205" SrcFileId="5" StartOffset="4184"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S39" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="268">
+<LocList>
+<Loc EndOffset="4228" SrcFileId="5" StartOffset="4209"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S40" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="269">
+<LocList>
+<Loc EndOffset="4247" SrcFileId="5" StartOffset="4232"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S41" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="270">
+<LocList>
+<Loc EndOffset="4315" SrcFileId="5" StartOffset="4282"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S42" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="271">
+<LocList>
+<Loc EndOffset="4390" SrcFileId="5" StartOffset="4319"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S43" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="272">
+<LocList>
+<Loc EndOffset="4461" SrcFileId="5" StartOffset="4394"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S44" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="273">
+<LocList>
+<Loc EndOffset="4528" SrcFileId="5" StartOffset="4465"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S45" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="274">
+<LocList>
+<Loc EndOffset="4593" SrcFileId="5" StartOffset="4532"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S46" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="275">
+<LocList>
+<Loc EndOffset="4637" SrcFileId="5" StartOffset="4597"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S47" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="276">
+<LocList>
+<Loc EndOffset="4679" SrcFileId="5" StartOffset="4641"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S48" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="277">
+<LocList>
+<Loc EndOffset="4702" SrcFileId="5" StartOffset="4683"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S49" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="278">
+<LocList>
+<Loc EndOffset="4757" SrcFileId="5" StartOffset="4732"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S50" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="279">
+<LocList>
+<Loc EndOffset="4800" SrcFileId="5" StartOffset="4761"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S51" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="280">
+<LocList>
+<Loc EndOffset="4847" SrcFileId="5" StartOffset="4804"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S52" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="281">
+<LocList>
+<Loc EndOffset="4872" SrcFileId="5" StartOffset="4851"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S53" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="282">
+<LocList>
+<Loc EndOffset="4891" SrcFileId="5" StartOffset="4876"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S54" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="283">
+<LocList>
+<Loc EndOffset="4942" SrcFileId="5" StartOffset="4920"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="833" HierarchyLvlTypeId="15" Intrnl_Id="284" Name="ActionListener">
+<Header>
+<Loc EndOffset="5072" SrcFileId="5" StartOffset="5056"/>
+</Header>
+<LocList>
+<Loc EndOffset="5761" SrcFileId="5" StartOffset="5047"/>
+</LocList>
+<HierarchyLvl HierarchyLvlId="832" HierarchyLvlTypeId="12" Intrnl_Id="285" Name="actionPerformed">
+<Header>
+<Loc EndOffset="5132" SrcFileId="5" StartOffset="5077"/>
+</Header>
+<LocList>
+<Loc EndOffset="5756" SrcFileId="5" StartOffset="5077"/>
+</LocList>
+<StmntSeq Intrnl_Id="286">
+<LocList>
+<Loc EndOffset="5258" SrcFileId="5" StartOffset="5168"/>
+<Loc EndOffset="5358" SrcFileId="5" StartOffset="5263"/>
+<Loc EndOffset="5454" SrcFileId="5" StartOffset="5363"/>
+<Loc EndOffset="5526" SrcFileId="5" StartOffset="5459"/>
+<Loc EndOffset="5751" SrcFileId="5" StartOffset="5531"/>
+</LocList>
+<CondStmnt CovItemId="S56" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="287">
+<Branch CovItemId="B1" CovItemPrefix="gui.TwitterGUI.java" Implct="false" Intrnl_Id="288">
+<Cond/>
+<LocList>
+<Loc EndOffset="5258" SrcFileId="5" StartOffset="5223"/>
+</LocList>
+<StmntSeq Intrnl_Id="289">
+<LocList>
+<Loc EndOffset="5252" SrcFileId="5" StartOffset="5230"/>
+</LocList>
+<BasicStmnt CovItemId="S57" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="290">
+<LocList>
+<Loc EndOffset="5252" SrcFileId="5" StartOffset="5230"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B2" CovItemPrefix="gui.TwitterGUI.java" Implct="true" Intrnl_Id="291">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="292">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="5170" SrcFileId="5" StartOffset="5168"/>
+<LocList>
+<Loc EndOffset="5258" SrcFileId="5" StartOffset="5168"/>
+</LocList>
+<RootTerm CovItemId="C1" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="293">
+<BasicBoolTerm Intrnl_Id="294">
+<LocList>
+<Loc EndOffset="5222" SrcFileId="5" StartOffset="5171"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</CondStmnt>
+<CondStmnt CovItemId="S58" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="295">
+<Branch CovItemId="B3" CovItemPrefix="gui.TwitterGUI.java" Implct="false" Intrnl_Id="296">
+<Cond/>
+<LocList>
+<Loc EndOffset="5358" SrcFileId="5" StartOffset="5324"/>
+</LocList>
+<StmntSeq Intrnl_Id="297">
+<LocList>
+<Loc EndOffset="5352" SrcFileId="5" StartOffset="5331"/>
+</LocList>
+<BasicStmnt CovItemId="S59" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="298">
+<LocList>
+<Loc EndOffset="5352" SrcFileId="5" StartOffset="5331"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B4" CovItemPrefix="gui.TwitterGUI.java" Implct="true" Intrnl_Id="299">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="300">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="5265" SrcFileId="5" StartOffset="5263"/>
+<LocList>
+<Loc EndOffset="5358" SrcFileId="5" StartOffset="5263"/>
+</LocList>
+<RootTerm CovItemId="C2" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="301">
+<BasicBoolTerm Intrnl_Id="302">
+<LocList>
+<Loc EndOffset="5323" SrcFileId="5" StartOffset="5266"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</CondStmnt>
+<CondStmnt CovItemId="S60" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="303">
+<Branch CovItemId="B5" CovItemPrefix="gui.TwitterGUI.java" Implct="false" Intrnl_Id="304">
+<Cond/>
+<LocList>
+<Loc EndOffset="5454" SrcFileId="5" StartOffset="5422"/>
+</LocList>
+<StmntSeq Intrnl_Id="305">
+<LocList>
+<Loc EndOffset="5448" SrcFileId="5" StartOffset="5429"/>
+</LocList>
+<BasicStmnt CovItemId="S61" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="306">
+<LocList>
+<Loc EndOffset="5448" SrcFileId="5" StartOffset="5429"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B6" CovItemPrefix="gui.TwitterGUI.java" Implct="true" Intrnl_Id="307">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="308">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="5365" SrcFileId="5" StartOffset="5363"/>
+<LocList>
+<Loc EndOffset="5454" SrcFileId="5" StartOffset="5363"/>
+</LocList>
+<RootTerm CovItemId="C3" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="309">
+<BasicBoolTerm Intrnl_Id="310">
+<LocList>
+<Loc EndOffset="5421" SrcFileId="5" StartOffset="5366"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</CondStmnt>
+<CondStmnt CovItemId="S62" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="311">
+<Branch CovItemId="B7" CovItemPrefix="gui.TwitterGUI.java" Implct="false" Intrnl_Id="312">
+<Cond/>
+<LocList>
+<Loc EndOffset="5526" SrcFileId="5" StartOffset="5498"/>
+</LocList>
+<StmntSeq Intrnl_Id="313">
+<LocList>
+<Loc EndOffset="5520" SrcFileId="5" StartOffset="5505"/>
+</LocList>
+<BasicStmnt CovItemId="S63" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="314">
+<LocList>
+<Loc EndOffset="5520" SrcFileId="5" StartOffset="5505"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B8" CovItemPrefix="gui.TwitterGUI.java" Implct="true" Intrnl_Id="315">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="316">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="5461" SrcFileId="5" StartOffset="5459"/>
+<LocList>
+<Loc EndOffset="5526" SrcFileId="5" StartOffset="5459"/>
+</LocList>
+<RootTerm CovItemId="C4" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="317">
+<BasicBoolTerm Intrnl_Id="318">
+<LocList>
+<Loc EndOffset="5497" SrcFileId="5" StartOffset="5462"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</CondStmnt>
+<CondStmnt CovItemId="S64" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="319">
+<Branch CovItemId="B9" CovItemPrefix="gui.TwitterGUI.java" Implct="false" Intrnl_Id="320">
+<Cond/>
+<LocList>
+<Loc EndOffset="5751" SrcFileId="5" StartOffset="5574"/>
+</LocList>
+<StmntSeq Intrnl_Id="321">
+<LocList>
+<Loc EndOffset="5745" SrcFileId="5" StartOffset="5581"/>
+</LocList>
+<BasicStmnt CovItemId="S65" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="322">
+<LocList>
+<Loc EndOffset="5745" SrcFileId="5" StartOffset="5581"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B10" CovItemPrefix="gui.TwitterGUI.java" Implct="true" Intrnl_Id="323">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="324">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="5533" SrcFileId="5" StartOffset="5531"/>
+<LocList>
+<Loc EndOffset="5751" SrcFileId="5" StartOffset="5531"/>
+</LocList>
+<RootTerm CovItemId="C5" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="325">
+<BasicBoolTerm Intrnl_Id="326">
+<LocList>
+<Loc EndOffset="5573" SrcFileId="5" StartOffset="5534"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</CondStmnt>
+</StmntSeq>
+</HierarchyLvl>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="834" HierarchyLvlTypeId="12" Intrnl_Id="327" Name="saveButtonAction">
+<Header>
+<Loc EndOffset="6767" SrcFileId="5" StartOffset="6736"/>
+</Header>
+<LocList>
+<Loc EndOffset="6786" SrcFileId="5" StartOffset="6736"/>
+</LocList>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="837" HierarchyLvlTypeId="12" Intrnl_Id="328" Name="main">
+<Header>
+<Loc EndOffset="6990" SrcFileId="5" StartOffset="6952"/>
+</Header>
+<LocList>
+<Loc EndOffset="7157" SrcFileId="5" StartOffset="6952"/>
+</LocList>
+<StmntSeq Intrnl_Id="329">
+<LocList>
+<Loc EndOffset="7034" SrcFileId="5" StartOffset="7002"/>
+<Loc EndOffset="7148" SrcFileId="5" StartOffset="7146"/>
+</LocList>
+<BasicStmnt CovItemId="S66" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="330">
+<LocList>
+<Loc EndOffset="7034" SrcFileId="5" StartOffset="7002"/>
+<Loc EndOffset="7148" SrcFileId="5" StartOffset="7146"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+<HierarchyLvl HierarchyLvlId="836" HierarchyLvlTypeId="15" Intrnl_Id="331" Name="Runnable">
+<Header>
+<Loc EndOffset="7048" SrcFileId="5" StartOffset="7038"/>
+</Header>
+<LocList>
+<Loc EndOffset="7146" SrcFileId="5" StartOffset="7034"/>
+</LocList>
+<HierarchyLvl HierarchyLvlId="835" HierarchyLvlTypeId="12" Intrnl_Id="332" Name="run">
+<Header>
+<Loc EndOffset="7081" SrcFileId="5" StartOffset="7064"/>
+</Header>
+<LocList>
+<Loc EndOffset="7135" SrcFileId="5" StartOffset="7064"/>
+</LocList>
+<StmntSeq Intrnl_Id="333">
+<LocList>
+<Loc EndOffset="7120" SrcFileId="5" StartOffset="7103"/>
+</LocList>
+<BasicStmnt CovItemId="S67" CovItemPrefix="gui.TwitterGUI.java" Intrnl_Id="334">
+<LocList>
+<Loc EndOffset="7120" SrcFileId="5" StartOffset="7103"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+</HierarchyLvl>
+</HierarchyLvl>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="842" HierarchyLvlTypeId="11" Intrnl_Id="335" Name="AuthenticatePanel">
+<Header>
+<Loc EndOffset="440" SrcFileId="6" StartOffset="366"/>
+</Header>
+<LocList>
+<Loc EndOffset="3500" SrcFileId="6" StartOffset="366"/>
+</LocList>
+<StmntSeq Intrnl_Id="336">
+<LocList>
+<Loc EndOffset="2467" SrcFileId="6" StartOffset="2428"/>
+<Loc EndOffset="3497" SrcFileId="6" StartOffset="3496"/>
+</LocList>
+<BasicStmnt CovItemId="S32" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="337">
+<LocList>
+<Loc EndOffset="2467" SrcFileId="6" StartOffset="2428"/>
+<Loc EndOffset="3497" SrcFileId="6" StartOffset="3496"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+<HierarchyLvl HierarchyLvlId="839" HierarchyLvlTypeId="12" Intrnl_Id="338" Name="AuthenticatePanel">
+<Header>
+<Loc EndOffset="950" SrcFileId="6" StartOffset="904"/>
+</Header>
+<LocList>
+<Loc EndOffset="2263" SrcFileId="6" StartOffset="904"/>
+</LocList>
+<StmntSeq Intrnl_Id="339">
+<LocList>
+<Loc EndOffset="976" SrcFileId="6" StartOffset="955"/>
+<Loc EndOffset="1041" SrcFileId="6" StartOffset="984"/>
+<Loc EndOffset="1070" SrcFileId="6" StartOffset="1045"/>
+<Loc EndOffset="1106" SrcFileId="6" StartOffset="1074"/>
+<Loc EndOffset="1162" SrcFileId="6" StartOffset="1124"/>
+<Loc EndOffset="1197" SrcFileId="6" StartOffset="1166"/>
+<Loc EndOffset="1226" SrcFileId="6" StartOffset="1201"/>
+<Loc EndOffset="1255" SrcFileId="6" StartOffset="1230"/>
+<Loc EndOffset="1321" SrcFileId="6" StartOffset="1277"/>
+<Loc EndOffset="1359" SrcFileId="6" StartOffset="1325"/>
+<Loc EndOffset="1391" SrcFileId="6" StartOffset="1363"/>
+<Loc EndOffset="1423" SrcFileId="6" StartOffset="1395"/>
+<Loc EndOffset="1498" SrcFileId="6" StartOffset="1448"/>
+<Loc EndOffset="1539" SrcFileId="6" StartOffset="1502"/>
+<Loc EndOffset="1574" SrcFileId="6" StartOffset="1543"/>
+<Loc EndOffset="1609" SrcFileId="6" StartOffset="1578"/>
+<Loc EndOffset="1673" SrcFileId="6" StartOffset="1631"/>
+<Loc EndOffset="1710" SrcFileId="6" StartOffset="1677"/>
+<Loc EndOffset="1741" SrcFileId="6" StartOffset="1714"/>
+<Loc EndOffset="1772" SrcFileId="6" StartOffset="1745"/>
+<Loc EndOffset="1862" SrcFileId="6" StartOffset="1801"/>
+<Loc EndOffset="1905" SrcFileId="6" StartOffset="1866"/>
+<Loc EndOffset="1942" SrcFileId="6" StartOffset="1909"/>
+<Loc EndOffset="1979" SrcFileId="6" StartOffset="1946"/>
+<Loc EndOffset="2053" SrcFileId="6" StartOffset="2010"/>
+<Loc EndOffset="2088" SrcFileId="6" StartOffset="2057"/>
+<Loc EndOffset="2138" SrcFileId="6" StartOffset="2092"/>
+<Loc EndOffset="2182" SrcFileId="6" StartOffset="2142"/>
+<Loc EndOffset="2214" SrcFileId="6" StartOffset="2186"/>
+<Loc EndOffset="2240" SrcFileId="6" StartOffset="2218"/>
+<Loc EndOffset="2259" SrcFileId="6" StartOffset="2244"/>
+</LocList>
+<BasicStmnt CovItemId="S1" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="340">
+<LocList>
+<Loc EndOffset="976" SrcFileId="6" StartOffset="955"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S2" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="341">
+<LocList>
+<Loc EndOffset="1041" SrcFileId="6" StartOffset="984"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S3" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="342">
+<LocList>
+<Loc EndOffset="1070" SrcFileId="6" StartOffset="1045"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S4" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="343">
+<LocList>
+<Loc EndOffset="1106" SrcFileId="6" StartOffset="1074"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S5" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="344">
+<LocList>
+<Loc EndOffset="1162" SrcFileId="6" StartOffset="1124"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S6" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="345">
+<LocList>
+<Loc EndOffset="1197" SrcFileId="6" StartOffset="1166"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S7" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="346">
+<LocList>
+<Loc EndOffset="1226" SrcFileId="6" StartOffset="1201"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S8" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="347">
+<LocList>
+<Loc EndOffset="1255" SrcFileId="6" StartOffset="1230"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S9" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="348">
+<LocList>
+<Loc EndOffset="1321" SrcFileId="6" StartOffset="1277"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S10" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="349">
+<LocList>
+<Loc EndOffset="1359" SrcFileId="6" StartOffset="1325"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S11" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="350">
+<LocList>
+<Loc EndOffset="1391" SrcFileId="6" StartOffset="1363"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S12" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="351">
+<LocList>
+<Loc EndOffset="1423" SrcFileId="6" StartOffset="1395"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S13" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="352">
+<LocList>
+<Loc EndOffset="1498" SrcFileId="6" StartOffset="1448"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S14" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="353">
+<LocList>
+<Loc EndOffset="1539" SrcFileId="6" StartOffset="1502"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S15" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="354">
+<LocList>
+<Loc EndOffset="1574" SrcFileId="6" StartOffset="1543"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S16" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="355">
+<LocList>
+<Loc EndOffset="1609" SrcFileId="6" StartOffset="1578"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S17" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="356">
+<LocList>
+<Loc EndOffset="1673" SrcFileId="6" StartOffset="1631"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S18" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="357">
+<LocList>
+<Loc EndOffset="1710" SrcFileId="6" StartOffset="1677"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S19" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="358">
+<LocList>
+<Loc EndOffset="1741" SrcFileId="6" StartOffset="1714"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S20" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="359">
+<LocList>
+<Loc EndOffset="1772" SrcFileId="6" StartOffset="1745"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S21" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="360">
+<LocList>
+<Loc EndOffset="1862" SrcFileId="6" StartOffset="1801"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S22" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="361">
+<LocList>
+<Loc EndOffset="1905" SrcFileId="6" StartOffset="1866"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S23" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="362">
+<LocList>
+<Loc EndOffset="1942" SrcFileId="6" StartOffset="1909"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S24" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="363">
+<LocList>
+<Loc EndOffset="1979" SrcFileId="6" StartOffset="1946"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S25" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="364">
+<LocList>
+<Loc EndOffset="2053" SrcFileId="6" StartOffset="2010"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S26" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="365">
+<LocList>
+<Loc EndOffset="2088" SrcFileId="6" StartOffset="2057"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S27" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="366">
+<LocList>
+<Loc EndOffset="2138" SrcFileId="6" StartOffset="2092"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S28" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="367">
+<LocList>
+<Loc EndOffset="2182" SrcFileId="6" StartOffset="2142"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S29" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="368">
+<LocList>
+<Loc EndOffset="2214" SrcFileId="6" StartOffset="2186"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S30" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="369">
+<LocList>
+<Loc EndOffset="2240" SrcFileId="6" StartOffset="2218"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S31" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="370">
+<LocList>
+<Loc EndOffset="2259" SrcFileId="6" StartOffset="2244"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="841" HierarchyLvlTypeId="15" Intrnl_Id="371" Name="ActionListener">
+<Header>
+<Loc EndOffset="2492" SrcFileId="6" StartOffset="2476"/>
+</Header>
+<LocList>
+<Loc EndOffset="3496" SrcFileId="6" StartOffset="2467"/>
+</LocList>
+<HierarchyLvl HierarchyLvlId="840" HierarchyLvlTypeId="12" Intrnl_Id="372" Name="actionPerformed">
+<Header>
+<Loc EndOffset="2552" SrcFileId="6" StartOffset="2497"/>
+</Header>
+<LocList>
+<Loc EndOffset="3491" SrcFileId="6" StartOffset="2497"/>
+</LocList>
+<StmntSeq Intrnl_Id="373">
+<LocList>
+<Loc EndOffset="3281" SrcFileId="6" StartOffset="2559"/>
+<Loc EndOffset="3355" SrcFileId="6" StartOffset="3286"/>
+<Loc EndOffset="3386" SrcFileId="6" StartOffset="3361"/>
+<Loc EndOffset="3420" SrcFileId="6" StartOffset="3392"/>
+<Loc EndOffset="3450" SrcFileId="6" StartOffset="3426"/>
+<Loc EndOffset="3486" SrcFileId="6" StartOffset="3456"/>
+</LocList>
+<CondStmnt CovItemId="S33" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="374">
+<Branch CovItemId="B1" CovItemPrefix="gui.AuthenticatePanel.java" Implct="false" Intrnl_Id="375">
+<Cond/>
+<LocList>
+<Loc EndOffset="3281" SrcFileId="6" StartOffset="2606"/>
+</LocList>
+<StmntSeq Intrnl_Id="376">
+<LocList>
+<Loc EndOffset="2644" SrcFileId="6" StartOffset="2613"/>
+<Loc EndOffset="2687" SrcFileId="6" StartOffset="2650"/>
+<Loc EndOffset="2736" SrcFileId="6" StartOffset="2693"/>
+<Loc EndOffset="2778" SrcFileId="6" StartOffset="2742"/>
+<Loc EndOffset="2827" SrcFileId="6" StartOffset="2784"/>
+<Loc EndOffset="3275" SrcFileId="6" StartOffset="2898"/>
+</LocList>
+<BasicStmnt CovItemId="S34" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="377">
+<LocList>
+<Loc EndOffset="2644" SrcFileId="6" StartOffset="2613"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S35" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="378">
+<LocList>
+<Loc EndOffset="2687" SrcFileId="6" StartOffset="2650"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S36" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="379">
+<LocList>
+<Loc EndOffset="2736" SrcFileId="6" StartOffset="2693"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S37" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="380">
+<LocList>
+<Loc EndOffset="2778" SrcFileId="6" StartOffset="2742"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S38" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="381">
+<LocList>
+<Loc EndOffset="2827" SrcFileId="6" StartOffset="2784"/>
+</LocList>
+</BasicStmnt>
+<CondStmnt CovItemId="S39" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="382">
+<Branch CovItemId="B3" CovItemPrefix="gui.AuthenticatePanel.java" Implct="false" Intrnl_Id="383">
+<Cond/>
+<LocList>
+<Loc EndOffset="3154" SrcFileId="6" StartOffset="3072"/>
+</LocList>
+<StmntSeq Intrnl_Id="384">
+<LocList>
+<Loc EndOffset="3147" SrcFileId="6" StartOffset="3080"/>
+</LocList>
+<BasicStmnt CovItemId="S40" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="385">
+<LocList>
+<Loc EndOffset="3147" SrcFileId="6" StartOffset="3080"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B4" CovItemPrefix="gui.AuthenticatePanel.java" Implct="false" Intrnl_Id="386">
+<Cond>
+<Loc EndOffset="3158" SrcFileId="6" StartOffset="3154"/>
+</Cond>
+<LocList>
+<Loc EndOffset="3275" SrcFileId="6" StartOffset="3158"/>
+</LocList>
+<StmntSeq Intrnl_Id="387">
+<LocList>
+<Loc EndOffset="3261" SrcFileId="6" StartOffset="3166"/>
+</LocList>
+<BasicStmnt CovItemId="S41" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="388">
+<LocList>
+<Loc EndOffset="3261" SrcFileId="6" StartOffset="3166"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="2900" SrcFileId="6" StartOffset="2898"/>
+<LocList>
+<Loc EndOffset="3275" SrcFileId="6" StartOffset="2898"/>
+</LocList>
+<RootTerm CovItemId="C2" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="389">
+<OpTerm BooleanOpId="9" Intrnl_Id="390">
+<OpTerm BooleanOpId="9" Intrnl_Id="391">
+<OpTerm BooleanOpId="9" Intrnl_Id="392">
+<OpTerm BooleanOpId="9" Intrnl_Id="393">
+<BasicBoolTerm Intrnl_Id="394">
+<LocList>
+<Loc EndOffset="2923" SrcFileId="6" StartOffset="2901"/>
+</LocList>
+</BasicBoolTerm>
+<BasicBoolTerm Intrnl_Id="395">
+<LocList>
+<Loc EndOffset="2959" SrcFileId="6" StartOffset="2934"/>
+</LocList>
+</BasicBoolTerm>
+<LocList>
+<Loc EndOffset="2926" SrcFileId="6" StartOffset="2924"/>
+</LocList>
+</OpTerm>
+<BasicBoolTerm Intrnl_Id="396">
+<LocList>
+<Loc EndOffset="2998" SrcFileId="6" StartOffset="2970"/>
+</LocList>
+</BasicBoolTerm>
+<LocList>
+<Loc EndOffset="2962" SrcFileId="6" StartOffset="2960"/>
+</LocList>
+</OpTerm>
+<BasicBoolTerm Intrnl_Id="397">
+<LocList>
+<Loc EndOffset="3034" SrcFileId="6" StartOffset="3009"/>
+</LocList>
+</BasicBoolTerm>
+<LocList>
+<Loc EndOffset="3001" SrcFileId="6" StartOffset="2999"/>
+</LocList>
+</OpTerm>
+<BasicBoolTerm Intrnl_Id="398">
+<LocList>
+<Loc EndOffset="3071" SrcFileId="6" StartOffset="3045"/>
+</LocList>
+</BasicBoolTerm>
+<LocList>
+<Loc EndOffset="3037" SrcFileId="6" StartOffset="3035"/>
+</LocList>
+</OpTerm>
+</RootTerm>
+</CondStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B2" CovItemPrefix="gui.AuthenticatePanel.java" Implct="true" Intrnl_Id="399">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="400">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="2561" SrcFileId="6" StartOffset="2559"/>
+<LocList>
+<Loc EndOffset="3281" SrcFileId="6" StartOffset="2559"/>
+</LocList>
+<RootTerm CovItemId="C1" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="401">
+<BasicBoolTerm Intrnl_Id="402">
+<LocList>
+<Loc EndOffset="2605" SrcFileId="6" StartOffset="2562"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</CondStmnt>
+<CondStmnt CovItemId="S42" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="403">
+<Branch CovItemId="B5" CovItemPrefix="gui.AuthenticatePanel.java" Implct="false" Intrnl_Id="404">
+<Cond/>
+<LocList>
+<Loc EndOffset="3355" SrcFileId="6" StartOffset="3333"/>
+</LocList>
+<StmntSeq Intrnl_Id="405">
+<LocList>
+<Loc EndOffset="3355" SrcFileId="6" StartOffset="3333"/>
+</LocList>
+<BasicStmnt CovItemId="S43" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="406">
+<LocList>
+<Loc EndOffset="3355" SrcFileId="6" StartOffset="3333"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B6" CovItemPrefix="gui.AuthenticatePanel.java" Implct="true" Intrnl_Id="407">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="408">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="3288" SrcFileId="6" StartOffset="3286"/>
+<LocList>
+<Loc EndOffset="3355" SrcFileId="6" StartOffset="3286"/>
+</LocList>
+<RootTerm CovItemId="C3" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="409">
+<BasicBoolTerm Intrnl_Id="410">
+<LocList>
+<Loc EndOffset="3326" SrcFileId="6" StartOffset="3289"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</CondStmnt>
+<BasicStmnt CovItemId="S44" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="411">
+<LocList>
+<Loc EndOffset="3386" SrcFileId="6" StartOffset="3361"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S45" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="412">
+<LocList>
+<Loc EndOffset="3420" SrcFileId="6" StartOffset="3392"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S46" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="413">
+<LocList>
+<Loc EndOffset="3450" SrcFileId="6" StartOffset="3426"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S47" CovItemPrefix="gui.AuthenticatePanel.java" Intrnl_Id="414">
+<LocList>
+<Loc EndOffset="3486" SrcFileId="6" StartOffset="3456"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+</HierarchyLvl>
+</HierarchyLvl>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="872" HierarchyLvlTypeId="10" Intrnl_Id="415" Name="engine">
+<Header/>
+<LocList/>
+<HierarchyLvl HierarchyLvlId="862" HierarchyLvlTypeId="11" Intrnl_Id="416" Name="TwitterEngine">
+<Header>
+<Loc EndOffset="260" SrcFileId="7" StartOffset="234"/>
+</Header>
+<LocList>
+<Loc EndOffset="5035" SrcFileId="7" StartOffset="234"/>
+</LocList>
+<HierarchyLvl HierarchyLvlId="843" HierarchyLvlTypeId="12" Intrnl_Id="417" Name="TwitterEngine">
+<Header>
+<Loc EndOffset="388" SrcFileId="7" StartOffset="366"/>
+</Header>
+<LocList>
+<Loc EndOffset="421" SrcFileId="7" StartOffset="366"/>
+</LocList>
+<StmntSeq Intrnl_Id="418">
+<LocList>
+<Loc EndOffset="417" SrcFileId="7" StartOffset="393"/>
+</LocList>
+<BasicStmnt CovItemId="S1" CovItemPrefix="engine.TwitterEngine.java" Intrnl_Id="419">
+<LocList>
+<Loc EndOffset="417" SrcFileId="7" StartOffset="393"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="844" HierarchyLvlTypeId="12" Intrnl_Id="420" Name="getModel">
+<Header>
+<Loc EndOffset="508" SrcFileId="7" StartOffset="481"/>
+</Header>
+<LocList>
+<Loc EndOffset="531" SrcFileId="7" StartOffset="481"/>
+</LocList>
+<StmntSeq Intrnl_Id="421">
+<LocList>
+<Loc EndOffset="527" SrcFileId="7" StartOffset="514"/>
+</LocList>
+<BasicStmnt CovItemId="S2" CovItemPrefix="engine.TwitterEngine.java" Intrnl_Id="422">
+<LocList>
+<Loc EndOffset="527" SrcFileId="7" StartOffset="514"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="845" HierarchyLvlTypeId="12" Intrnl_Id="423" Name="getStatus">
+<Header>
+<Loc EndOffset="662" SrcFileId="7" StartOffset="624"/>
+</Header>
+<LocList>
+<Loc EndOffset="701" SrcFileId="7" StartOffset="624"/>
+</LocList>
+<StmntSeq Intrnl_Id="424">
+<LocList>
+<Loc EndOffset="697" SrcFileId="7" StartOffset="667"/>
+</LocList>
+<BasicStmnt CovItemId="S3" CovItemPrefix="engine.TwitterEngine.java" Intrnl_Id="425">
+<LocList>
+<Loc EndOffset="697" SrcFileId="7" StartOffset="667"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="846" HierarchyLvlTypeId="12" Intrnl_Id="426" Name="getTimeline">
+<Header>
+<Loc EndOffset="891" SrcFileId="7" StartOffset="827"/>
+</Header>
+<LocList>
+<Loc EndOffset="933" SrcFileId="7" StartOffset="827"/>
+</LocList>
+<StmntSeq Intrnl_Id="427">
+<LocList>
+<Loc EndOffset="929" SrcFileId="7" StartOffset="897"/>
+</LocList>
+<BasicStmnt CovItemId="S4" CovItemPrefix="engine.TwitterEngine.java" Intrnl_Id="428">
+<LocList>
+<Loc EndOffset="929" SrcFileId="7" StartOffset="897"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="847" HierarchyLvlTypeId="12" Intrnl_Id="429" Name="addTweet">
+<Header>
+<Loc EndOffset="1341" SrcFileId="7" StartOffset="1223"/>
+</Header>
+<LocList>
+<Loc EndOffset="1450" SrcFileId="7" StartOffset="1223"/>
+</LocList>
+<StmntSeq Intrnl_Id="430">
+<LocList>
+<Loc EndOffset="1429" SrcFileId="7" StartOffset="1347"/>
+<Loc EndOffset="1446" SrcFileId="7" StartOffset="1433"/>
+</LocList>
+<BasicStmnt CovItemId="S5" CovItemPrefix="engine.TwitterEngine.java" Intrnl_Id="431">
+<LocList>
+<Loc EndOffset="1429" SrcFileId="7" StartOffset="1347"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S6" CovItemPrefix="engine.TwitterEngine.java" Intrnl_Id="432">
+<LocList>
+<Loc EndOffset="1446" SrcFileId="7" StartOffset="1433"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="848" HierarchyLvlTypeId="12" Intrnl_Id="433" Name="login">
+<Header>
+<Loc EndOffset="1913" SrcFileId="7" StartOffset="1787"/>
+</Header>
+<LocList>
+<Loc EndOffset="2015" SrcFileId="7" StartOffset="1787"/>
+</LocList>
+<StmntSeq Intrnl_Id="434">
+<LocList>
+<Loc EndOffset="2011" SrcFileId="7" StartOffset="1919"/>
+</LocList>
+<BasicStmnt CovItemId="S7" CovItemPrefix="engine.TwitterEngine.java" Intrnl_Id="435">
+<LocList>
+<Loc EndOffset="2011" SrcFileId="7" StartOffset="1919"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="849" HierarchyLvlTypeId="12" Intrnl_Id="436" Name="getArrayListSize">
+<Header>
+<Loc EndOffset="2149" SrcFileId="7" StartOffset="2120"/>
+</Header>
+<LocList>
+<Loc EndOffset="2190" SrcFileId="7" StartOffset="2120"/>
+</LocList>
+<StmntSeq Intrnl_Id="437">
+<LocList>
+<Loc EndOffset="2186" SrcFileId="7" StartOffset="2154"/>
+</LocList>
+<BasicStmnt CovItemId="S8" CovItemPrefix="engine.TwitterEngine.java" Intrnl_Id="438">
+<LocList>
+<Loc EndOffset="2186" SrcFileId="7" StartOffset="2154"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="850" HierarchyLvlTypeId="12" Intrnl_Id="439" Name="getDisplayStatis">
+<Header>
+<Loc EndOffset="2421" SrcFileId="7" StartOffset="2380"/>
+</Header>
+<LocList>
+<Loc EndOffset="2495" SrcFileId="7" StartOffset="2380"/>
+</LocList>
+<StmntSeq Intrnl_Id="440">
+<LocList>
+<Loc EndOffset="2446" SrcFileId="7" StartOffset="2427"/>
+<Loc EndOffset="2491" SrcFileId="7" StartOffset="2450"/>
+</LocList>
+<BasicStmnt CovItemId="S9" CovItemPrefix="engine.TwitterEngine.java" Intrnl_Id="441">
+<LocList>
+<Loc EndOffset="2446" SrcFileId="7" StartOffset="2427"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S10" CovItemPrefix="engine.TwitterEngine.java" Intrnl_Id="442">
+<LocList>
+<Loc EndOffset="2491" SrcFileId="7" StartOffset="2450"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="851" HierarchyLvlTypeId="12" Intrnl_Id="443" Name="getWordSearch">
+<Header>
+<Loc EndOffset="2644" SrcFileId="7" StartOffset="2603"/>
+</Header>
+<LocList>
+<Loc EndOffset="2683" SrcFileId="7" StartOffset="2603"/>
+</LocList>
+<StmntSeq Intrnl_Id="444">
+<LocList>
+<Loc EndOffset="2679" SrcFileId="7" StartOffset="2650"/>
+</LocList>
+<BasicStmnt CovItemId="S11" CovItemPrefix="engine.TwitterEngine.java" Intrnl_Id="445">
+<LocList>
+<Loc EndOffset="2679" SrcFileId="7" StartOffset="2650"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="852" HierarchyLvlTypeId="12" Intrnl_Id="446" Name="getPhraseSearch">
+<Header>
+<Loc EndOffset="2859" SrcFileId="7" StartOffset="2797"/>
+</Header>
+<LocList>
+<Loc EndOffset="2907" SrcFileId="7" StartOffset="2797"/>
+</LocList>
+<StmntSeq Intrnl_Id="447">
+<LocList>
+<Loc EndOffset="2903" SrcFileId="7" StartOffset="2864"/>
+</LocList>
+<BasicStmnt CovItemId="S12" CovItemPrefix="engine.TwitterEngine.java" Intrnl_Id="448">
+<LocList>
+<Loc EndOffset="2903" SrcFileId="7" StartOffset="2864"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="853" HierarchyLvlTypeId="12" Intrnl_Id="449" Name="getToUserSearch">
+<Header>
+<Loc EndOffset="3167" SrcFileId="7" StartOffset="3090"/>
+</Header>
+<LocList>
+<Loc EndOffset="3224" SrcFileId="7" StartOffset="3090"/>
+</LocList>
+<StmntSeq Intrnl_Id="450">
+<LocList>
+<Loc EndOffset="3220" SrcFileId="7" StartOffset="3173"/>
+</LocList>
+<BasicStmnt CovItemId="S13" CovItemPrefix="engine.TwitterEngine.java" Intrnl_Id="451">
+<LocList>
+<Loc EndOffset="3220" SrcFileId="7" StartOffset="3173"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="854" HierarchyLvlTypeId="12" Intrnl_Id="452" Name="getFromUserSearch">
+<Header>
+<Loc EndOffset="3494" SrcFileId="7" StartOffset="3413"/>
+</Header>
+<LocList>
+<Loc EndOffset="3553" SrcFileId="7" StartOffset="3413"/>
+</LocList>
+<StmntSeq Intrnl_Id="453">
+<LocList>
+<Loc EndOffset="3549" SrcFileId="7" StartOffset="3500"/>
+</LocList>
+<BasicStmnt CovItemId="S14" CovItemPrefix="engine.TwitterEngine.java" Intrnl_Id="454">
+<LocList>
+<Loc EndOffset="3549" SrcFileId="7" StartOffset="3500"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="855" HierarchyLvlTypeId="12" Intrnl_Id="455" Name="getAllSearch">
+<Header>
+<Loc EndOffset="3904" SrcFileId="7" StartOffset="3813"/>
+</Header>
+<LocList>
+<Loc EndOffset="3973" SrcFileId="7" StartOffset="3813"/>
+</LocList>
+<StmntSeq Intrnl_Id="456">
+<LocList>
+<Loc EndOffset="3969" SrcFileId="7" StartOffset="3910"/>
+</LocList>
+<BasicStmnt CovItemId="S15" CovItemPrefix="engine.TwitterEngine.java" Intrnl_Id="457">
+<LocList>
+<Loc EndOffset="3969" SrcFileId="7" StartOffset="3910"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="856" HierarchyLvlTypeId="12" Intrnl_Id="458" Name="getKeyFromSearch">
+<Header>
+<Loc EndOffset="4184" SrcFileId="7" StartOffset="4119"/>
+</Header>
+<LocList>
+<Loc EndOffset="4236" SrcFileId="7" StartOffset="4119"/>
+</LocList>
+<StmntSeq Intrnl_Id="459">
+<LocList>
+<Loc EndOffset="4232" SrcFileId="7" StartOffset="4190"/>
+</LocList>
+<BasicStmnt CovItemId="S16" CovItemPrefix="engine.TwitterEngine.java" Intrnl_Id="460">
+<LocList>
+<Loc EndOffset="4232" SrcFileId="7" StartOffset="4190"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="857" HierarchyLvlTypeId="12" Intrnl_Id="461" Name="getKeyToSearch">
+<Header>
+<Loc EndOffset="4441" SrcFileId="7" StartOffset="4380"/>
+</Header>
+<LocList>
+<Loc EndOffset="4491" SrcFileId="7" StartOffset="4380"/>
+</LocList>
+<StmntSeq Intrnl_Id="462">
+<LocList>
+<Loc EndOffset="4487" SrcFileId="7" StartOffset="4447"/>
+</LocList>
+<BasicStmnt CovItemId="S17" CovItemPrefix="engine.TwitterEngine.java" Intrnl_Id="463">
+<LocList>
+<Loc EndOffset="4487" SrcFileId="7" StartOffset="4447"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="858" HierarchyLvlTypeId="12" Intrnl_Id="464" Name="deleteTweet">
+<Header>
+<Loc EndOffset="4567" SrcFileId="7" StartOffset="4542"/>
+</Header>
+<LocList>
+<Loc EndOffset="4597" SrcFileId="7" StartOffset="4542"/>
+</LocList>
+<StmntSeq Intrnl_Id="465">
+<LocList>
+<Loc EndOffset="4593" SrcFileId="7" StartOffset="4573"/>
+</LocList>
+<BasicStmnt CovItemId="S18" CovItemPrefix="engine.TwitterEngine.java" Intrnl_Id="466">
+<LocList>
+<Loc EndOffset="4593" SrcFileId="7" StartOffset="4573"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="859" HierarchyLvlTypeId="12" Intrnl_Id="467" Name="deleteStatus">
+<Header>
+<Loc EndOffset="4666" SrcFileId="7" StartOffset="4640"/>
+</Header>
+<LocList>
+<Loc EndOffset="4698" SrcFileId="7" StartOffset="4640"/>
+</LocList>
+<StmntSeq Intrnl_Id="468">
+<LocList>
+<Loc EndOffset="4694" SrcFileId="7" StartOffset="4672"/>
+</LocList>
+<BasicStmnt CovItemId="S19" CovItemPrefix="engine.TwitterEngine.java" Intrnl_Id="469">
+<LocList>
+<Loc EndOffset="4694" SrcFileId="7" StartOffset="4672"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="860" HierarchyLvlTypeId="12" Intrnl_Id="470" Name="postStatus">
+<Header>
+<Loc EndOffset="4824" SrcFileId="7" StartOffset="4789"/>
+</Header>
+<LocList>
+<Loc EndOffset="4859" SrcFileId="7" StartOffset="4789"/>
+</LocList>
+<StmntSeq Intrnl_Id="471">
+<LocList>
+<Loc EndOffset="4855" SrcFileId="7" StartOffset="4830"/>
+</LocList>
+<BasicStmnt CovItemId="S20" CovItemPrefix="engine.TwitterEngine.java" Intrnl_Id="472">
+<LocList>
+<Loc EndOffset="4855" SrcFileId="7" StartOffset="4830"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="861" HierarchyLvlTypeId="12" Intrnl_Id="473" Name="topTrendingList">
+<Header>
+<Loc EndOffset="4990" SrcFileId="7" StartOffset="4959"/>
+</Header>
+<LocList>
+<Loc EndOffset="5032" SrcFileId="7" StartOffset="4959"/>
+</LocList>
+<StmntSeq Intrnl_Id="474">
+<LocList>
+<Loc EndOffset="5027" SrcFileId="7" StartOffset="4996"/>
+</LocList>
+<BasicStmnt CovItemId="S21" CovItemPrefix="engine.TwitterEngine.java" Intrnl_Id="475">
+<LocList>
+<Loc EndOffset="5027" SrcFileId="7" StartOffset="4996"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="869" HierarchyLvlTypeId="14" Intrnl_Id="476" Name="ITweet">
+<Header>
+<Loc EndOffset="127" SrcFileId="8" StartOffset="104"/>
+</Header>
+<LocList>
+<Loc EndOffset="289" SrcFileId="8" StartOffset="104"/>
+</LocList>
+<HierarchyLvl HierarchyLvlId="863" HierarchyLvlTypeId="12" Intrnl_Id="477" Name="getCreatedAt">
+<Header>
+<Loc EndOffset="161" SrcFileId="8" StartOffset="132"/>
+</Header>
+<LocList>
+<Loc EndOffset="162" SrcFileId="8" StartOffset="132"/>
+</LocList>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="864" HierarchyLvlTypeId="12" Intrnl_Id="478" Name="getLoginName">
+<Header>
+<Loc EndOffset="186" SrcFileId="8" StartOffset="165"/>
+</Header>
+<LocList>
+<Loc EndOffset="187" SrcFileId="8" StartOffset="165"/>
+</LocList>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="865" HierarchyLvlTypeId="12" Intrnl_Id="479" Name="getDisplayName">
+<Header>
+<Loc EndOffset="213" SrcFileId="8" StartOffset="190"/>
+</Header>
+<LocList>
+<Loc EndOffset="214" SrcFileId="8" StartOffset="190"/>
+</LocList>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="866" HierarchyLvlTypeId="12" Intrnl_Id="480" Name="getText">
+<Header>
+<Loc EndOffset="233" SrcFileId="8" StartOffset="217"/>
+</Header>
+<LocList>
+<Loc EndOffset="234" SrcFileId="8" StartOffset="217"/>
+</LocList>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="867" HierarchyLvlTypeId="12" Intrnl_Id="481" Name="getFriendsCount">
+<Header>
+<Loc EndOffset="258" SrcFileId="8" StartOffset="237"/>
+</Header>
+<LocList>
+<Loc EndOffset="259" SrcFileId="8" StartOffset="237"/>
+</LocList>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="868" HierarchyLvlTypeId="12" Intrnl_Id="482" Name="getFollowersCount">
+<Header>
+<Loc EndOffset="285" SrcFileId="8" StartOffset="262"/>
+</Header>
+<LocList>
+<Loc EndOffset="286" SrcFileId="8" StartOffset="262"/>
+</LocList>
+</HierarchyLvl>
+</HierarchyLvl>
+</HierarchyLvl>
+</HierarchyLvl>
+</MASTRoot>
+</TestSessionContainer>
