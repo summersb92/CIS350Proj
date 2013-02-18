@@ -156,10 +156,10 @@ public class TwitterGUI extends javax.swing.JFrame{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			//System.out.println(e);
-			if(e.getActionCommand().equals
-					("Delete Status")){
-				engine.deleteStatus();
-			}
+			//if(e.getActionCommand().equals
+				//	("Delete Status")){
+				//engine.deleteStatus();
+			//}
 			if(e.getActionCommand().equals
 					("Delete Table Status")){
 				engine.deleteTweet();

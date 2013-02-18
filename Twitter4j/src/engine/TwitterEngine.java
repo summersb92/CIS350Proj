@@ -132,10 +132,10 @@ public class TwitterEngine {
 	 * @param phrase - phrase being searched
 	 * @param toUser - user searching
 	 */
-	public void getToUserSearch(String keyWord,
-			String phrase, String toUser) {
-		model.getToUserSearch(keyWord, phrase, toUser);
-	}
+	//public void getToUserSearch(String keyWord,
+		//	String phrase, String toUser) {
+	//	model.getToUserSearch(keyWord, phrase, toUser);
+	//}
 	/**
 	 * Searched for posts from a user
 	 * 
@@ -143,10 +143,10 @@ public class TwitterEngine {
 	 * @param phrase - phrase being searched
 	 * @param fromUser - posts from that user
 	 */
-	public void getFromUserSearch(String keyWord,
-			String phrase, String fromUser) {
-		model.getToUserSearch(keyWord, phrase, fromUser);
-	}
+	//public void getFromUserSearch(String keyWord,
+		//	String phrase, String fromUser) {
+		//model.getToUserSearch(keyWord, phrase, fromUser);
+	//}
 	/**
 	 * Searched posts that are from a user to a particular
 	 * user
@@ -156,31 +156,31 @@ public class TwitterEngine {
 	 * @param toUser - posts to that user
 	 * @param fromUser - posts from that user
 	 */
-	public void getAllSearch(String keyWord, String phrase,
-			String toUser, String fromUser) {
-		model.getAllSearch(keyWord, phrase, toUser,
-				fromUser);
-	}
+	//public void getAllSearch(String keyWord, String phrase,
+		//	String toUser, String fromUser) {
+		//model.getAllSearch(keyWord, phrase, toUser,
+			//	fromUser);
+	//}
 	/**
 	 * searched a keyword from a user
 	 * 
 	 * @param keyWord - keyword being searched
 	 * @param fromUser - posts from that user
 	 */
-	public void getKeyFromSearch(String keyWord,
-			String fromUser) {
-		model.getKeyFromSearch(keyWord, fromUser);
-	}
+	//public void getKeyFromSearch(String keyWord,
+		//	String fromUser) {
+		//model.getKeyFromSearch(keyWord, fromUser);
+	//}
 	/**
 	 * searches a keyword to a user
 	 * 
 	 * @param keyWord - keyword being searched
 	 * @param toUser - post sent to that user
 	 */
-	public void getKeyToSearch(String keyWord,
-			String toUser) {
-		model.getKeyFromSearch(keyWord, toUser);
-	}
+	//public void getKeyToSearch(String keyWord,
+		//	String toUser) {
+		//model.getKeyFromSearch(keyWord, toUser);
+	//}
 	/**
 	 * removes a tweet from the table
 	 */
@@ -190,9 +190,9 @@ public class TwitterEngine {
 	/**
 	 * removes current status
 	 */
-	public void deleteStatus() {
-		model.destoryStatus();
-	}
+	//public void deleteStatus() {
+		//model.destoryStatus();
+	//}
 	/**
 	 * Posts a new status
 	 * 
@@ -209,7 +209,7 @@ public class TwitterEngine {
 	 * 
 	 * @return model.topTrendingList();
 	 */
-	public Object topTrendingList() {
-		return model.topTrendingList();	
-	}
+	//public Object topTrendingList() {
+		//return model.topTrendingList();	
+	//}
 }
