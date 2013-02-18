@@ -126,9 +126,8 @@ public class TwitModel extends AbstractTableModel {
 	    List<Status> statuses = twitter.getHomeTimeline();
 	    System.out.println("Showing home timeline.");
 	    for (Status status : statuses) {
-//	        System.out.println(status.getUser().getName() + ":" +
-//	                           status.getText());
-	        ArrayListGenerator(status);
+	        System.out.println(status.getUser().getName() + ":" +
+	                           status.getText());
 	    }
 		return statuses;
 	}
@@ -250,9 +249,11 @@ public class TwitModel extends AbstractTableModel {
 	/**
 	 * sets a new status for the current user.
 	 * @param post
+	 * @throws TwitterException 
 	 */
-	public void updateStatus(String post) {
-		
+	public void updateStatus(String post) throws TwitterException {
+		System.out.println(post);
+		twitter.updateStatus(post);
 	}
 	/**
 	 * Gets he column length.

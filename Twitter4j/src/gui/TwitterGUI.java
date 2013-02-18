@@ -1,5 +1,7 @@
 package gui;
 
+
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -110,6 +112,7 @@ public class TwitterGUI extends javax.swing.JFrame{
 		westPanel.add(postP);
 		westPanel.add(getTimeP);
 		GUI.add(westPanel, BorderLayout.WEST);
+		GUI.pack();
 	}
 	
     protected JComponent makeTextPanel(String text) {

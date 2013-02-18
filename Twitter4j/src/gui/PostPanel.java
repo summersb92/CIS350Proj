@@ -33,7 +33,7 @@ public class PostPanel extends JPanel{
 		tweet = new JButton("Post Tweet");
 		tweet.addActionListener((listener));
 		
-		updateTextBox = new JTextField();;
+		updateTextBox = new JTextField(35);
 		
 				
 		UpdatePanel.add(updateTextBox);
@@ -44,21 +44,18 @@ public class PostPanel extends JPanel{
 		add(UpdatePanel);		
 }
 	
-	
-	public void postTweet(){
-		
-		String post = updateTextBox.getText();
-		System.out.println(post);
-		engine.postStatus(post);
-		tweet.setText("");
-	}
-	
-
-
 	class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource().equals(tweet)){
-				postTweet();
+				try {
+					String post = updateTextBox.getText();
+					System.out.println(post);
+					engine.postStatus(post);
+					tweet.setText("");
+				} catch (TwitterException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		}
 	}
