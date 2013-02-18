@@ -1,6 +1,5 @@
 package model;
 
-import java.io.*;
 import java.util.*;
 
 import javax.swing.JOptionPane;
@@ -42,7 +41,7 @@ public class TwitModel extends AbstractTableModel {
 
 	private String[] columnNames = {"Date", "Login Name",
 			"Display Name", "Freinds", "Followers"};
-	/**
+	/**.
 	 * The Constructor for TwitModel()
 	 */
 	public TwitModel()  { 
@@ -50,13 +49,13 @@ public class TwitModel extends AbstractTableModel {
 //		wordCounter = new ArrayList<Word>();
 //		twitter = new Twitter();
 	}
-	/**
+	/**.
 	 * Gets the values to be displayed within the Table
 	 * @return val;
 	 */
-	public Object getValueAt(int row, int col){
+	public final Object getValueAt(final int row, int col){
 		Object val = null;
-		switch(col){
+		switch(col) {
 		case 0:
 			val = myTweets.get(row).getCreatedAt(); break;
 		case 1:
@@ -70,26 +69,27 @@ public class TwitModel extends AbstractTableModel {
 		case 4:
 			val = myTweets.get(row).getFollowersCount();
 			break;
+		default:
+			break;
 		}
 		return val;
 	}
-	@Override
 	/**
 	 * Creates the column Names.
-	 * @param - int columm
-	 * return - columnNames[column]
+	 * @param column 
+	 * @return - columnNames[column]
 	 */
-	public String getColumnName(int column) {
+	public final String getColumnName(final int column) {
 		return columnNames[column];
 	}
 	/**
 	 * Adds a tweet to the table from the ArrayList.
 	 * @param t - arrayList being passed into the Table
 	 */
-	public void add(MyTweet t) {
+	public final void add(final MyTweet t) {
 		if (t != null) { 
 			myTweets.add(t);
-			fireTableRowsInserted(myTweets.size()-1,
+			fireTableRowsInserted(myTweets.size() - 1,
 					myTweets.size());
 		}
 	}
@@ -97,12 +97,12 @@ public class TwitModel extends AbstractTableModel {
 	 * Removes a Tweets from the array List.
 	 * @param index - Position of the value
 	 */
-	public void remove(int index) {
+	public final void remove(final int index) {
 		try {
 			myTweets.remove(index);
 			fireTableRowsDeleted(index, index);
 			return;
-		} catch(IndexOutOfBoundsException e) { 
+		} catch (IndexOutOfBoundsException e) { 
 			JOptionPane.showMessageDialog(null , 
 				"Invalid Selection",
 				"Invalid action",
@@ -114,7 +114,7 @@ public class TwitModel extends AbstractTableModel {
 	 * Gets the Status of the specified userName.
 	 * @param userName - user that is being searched for
 	 */
-	public void retriveStatus(String userName){
+	public void retriveStatus(final String userName){
 
 	}
 	/**
@@ -122,27 +122,28 @@ public class TwitModel extends AbstractTableModel {
 	 * @param userName - user name being searched
 	 * @throws TwitterException 
 	 */
-	public void retriveTimeline(String userName) throws TwitterException{
+	public final void retriveTimeline(final String userName)
+			throws TwitterException { 
 		twitter = TwitterFactory.getSingleton();
 	    List<Status> statuses = twitter.getHomeTimeline();
 	    System.out.println("Showing home timeline.");
 	    for (Status status : statuses) {
-	        System.out.println(status.getUser().getName() + ":" +
-	                           status.getText());
+	        System.out.println(status.getUser().getName() + ":"
+	        	+ status.getText());
 	    }
 	}
 	/**
 	 * Gets the size of an Array List.
 	 * @return - myTweets.size() - size of myTweets
 	 */
-	public int getArrayListSize(){
+	public final int getArrayListSize() {
 		return myTweets.size();
 	}
 	/**
 	 * Creates the ArrayList Generator.
-	 * @param status
+	 * @param status - retrives a status
 	 */
-	public void ArrayListGenerator(Status status) {
+	public final void arrayListGenerator(final Status status) {
 		date = status.getCreatedAt();
 		loginName = status.getUser().getScreenName();
 		displayName = status.getUser().getName();
@@ -158,7 +159,7 @@ public class TwitModel extends AbstractTableModel {
 	 * @param index - index that is selected
 	 * @return - the text of that index.
 	 */
-	public String retriveDisplayStatis(int index) {
+	public final String retriveDisplayStatis(final int index) {
 		return myTweets.get(index).getText();	
 	}
 	/**
@@ -166,7 +167,7 @@ public class TwitModel extends AbstractTableModel {
 	 * searched and produces an arrayList.
 	 * @param keyWord - word being searched
 	 */
-	public void getWordSearch(String keyWord) {
+	public void getWordSearch(final String keyWord) {
 
 	}
 	/**
@@ -174,28 +175,28 @@ public class TwitModel extends AbstractTableModel {
 	 * @param keyWord - keyword 
 	 * @param phrase - phrase
 	 */
-	public void getPhraseSearch(String keyWord ,
-			String phrase) {
+	public void getPhraseSearch(final String keyWord ,
+			final String phrase) {
 
 	}
 	/**
 	 * gets the statues to a user with a specific input.
-	 * @param keyWord
-	 * @param phrase
-	 * @param toUser
+	 * @param keyWord - get a keyword to search
+	 * @param phrase - gets a phrase to search
+	 * @param toUser - search from a user
 	 */
-	public void getToUserSearch(String keyWord ,
-			String phrase , String toUser) {
+	public void getToUserSearch(final String keyWord ,
+			final String phrase , final String toUser) {
 
 	}
 	/**
 	 * get the status from a user.
-	 * @param keyWord
-	 * @param phrase
-	 * @param fromUser
+	 * @param keyWord - key word to search
+	 * @param phrase - phrase to search
+	 * @param fromUser - search from a user.
 	 */
-	public void getFromUserSearch(String keyWord ,
-			String phrase , String fromUser) {
+	public void getFromUserSearch(final String keyWord ,
+			final String phrase , final String fromUser) {
 
 	}
 	/**
@@ -205,26 +206,8 @@ public class TwitModel extends AbstractTableModel {
 	 * @param toUser
 	 * @param fromUser
 	 */
-	public void getAllSearch(String keyWord ,
-			String phrase , String toUser , String fromUser) {
-
-	}
-	/**
-	 * gets keywords from a particular user.
-	 * @param keyWord
-	 * @param fromUser
-	 */
-	public void getKeyFromSearch(String keyWord ,
-			String fromUser) {
-
-	}
-	/**
-	 * Gets keywords to a specified user.
-	 * @param keyWord
-	 * @param toUser
-	 */
-	public void getKeyToSearch(String keyWord ,
-			String toUser) {
+	public void getAllSearch(final String keyWord ,
+			final String phrase , final String toUser , final String fromUser) {
 
 	}
 	/**
