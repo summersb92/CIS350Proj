@@ -23,16 +23,21 @@ import twitter4j.auth.RequestToken;
  */
 @SuppressWarnings("serial")
 public class TwitModel extends AbstractTableModel {
-
+	/** Stores the current date.*/
 	private Date date;
+	/** Stores a twitter username. */
 	private String loginName;
+	/** Stores a user's actual name. */
 	private String displayName;
+	/** Stores the number of followers. */
 	private int followers;
-	private int freinds;
+	/** Stores the number of friends. */
+	private int friends;
+	/** Stores the text of a Status. */
 	private String text;
-	private StringBuilder wordList;
-
+	/** Stores a Tweet sent/received. */
 	private Tweet t;
+	/** */
 	private ArrayList<MyTweet> myTweets;
 	private Twitter twitter;
 	RequestToken requestToken;
@@ -158,10 +163,10 @@ public class TwitModel extends AbstractTableModel {
 		loginName = status.getUser().getScreenName();
 		displayName = status.getUser().getName();
 		followers = status.getUser().getFollowersCount();
-		freinds = status.getUser().getFriendsCount();
+		friends = status.getUser().getFriendsCount();
 		text = status.getText();
 		t = new Tweet(date , loginName , displayName , 
-				followers , freinds , text);
+				followers , friends , text);
 		add(t);
 	}
 	/**
