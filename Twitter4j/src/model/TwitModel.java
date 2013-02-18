@@ -128,6 +128,7 @@ public class TwitModel extends AbstractTableModel {
 	    for (Status status : statuses) {
 	        System.out.println(status.getUser().getName() + ":" +
 	                           status.getText());
+	        arrayListGenerator(status);
 	    }
 		return statuses;
 	}
@@ -135,14 +136,14 @@ public class TwitModel extends AbstractTableModel {
 	 * Gets the size of an Array List.
 	 * @return - myTweets.size() - size of myTweets
 	 */
-	public int getArrayListSize(){
+	public final int getArrayListSize(){
 		return myTweets.size();
 	}
 	/**
 	 * Creates the ArrayList Generator.
-	 * @param status
+	 * @param status - the current status of a twitter user
 	 */
-	public void ArrayListGenerator(Status status) {
+	public final void arrayListGenerator(final Status status) {
 		date = status.getCreatedAt();
 		loginName = status.getUser().getScreenName();
 		displayName = status.getUser().getName();
@@ -158,7 +159,7 @@ public class TwitModel extends AbstractTableModel {
 	 * @param index - index that is selected
 	 * @return - the text of that index.
 	 */
-	public String retriveDisplayStatis(int index) {
+	public final String retriveDisplayStatis(final int index) {
 		return myTweets.get(index).getText();	
 	}
 	/**
