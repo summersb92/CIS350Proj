@@ -42,7 +42,7 @@ public class TwitterEngine {
 	 * @param userName - the user being searched
 	 */
 	public void getStatus(String userName){
-		model.retriveStatus(userName);
+		model.retrieveStatus(userName);
 	}
 	/**
 	 * gets a users timeline

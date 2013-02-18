@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 import twitter4j.Status;
+import twitter4j.User;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -112,8 +113,17 @@ public class TwitModel extends AbstractTableModel {
 	 * Gets the Status of the specified userName.
 	 * @param userName - user that is being searched for
 	 */
-	public void retriveStatus(String userName){
-
+	public Status retrieveStatus(String userName){
+		User tempUser = null;
+		try{
+			tempUser = twitter.showUser(userName);
+			
+		}catch(TwitterException e) {
+			JOptionPane.showMessageDialog(null,
+			"Could not get Status of user \"" + userName + "\"");
+		}
+		
+		return tempUser.getStatus();
 	}
 	/**
 	 * Gets the status timeline of a particular user.
