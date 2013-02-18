@@ -129,8 +129,9 @@ public class TwitModel extends AbstractTableModel {
 	    List<Status> statuses = twitter.getHomeTimeline();
 	    System.out.println("Showing home timeline.");
 	    for (Status status : statuses) {
-	        System.out.println(status.getUser().getName() + ":" +
-	                           status.getText());
+//	        System.out.println(status.getUser().getName() + ":" +
+//	                           status.getText());
+	        ArrayListGenerator(status);
 	    }
 		return statuses;
 	}
