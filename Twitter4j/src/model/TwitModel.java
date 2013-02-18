@@ -24,7 +24,7 @@ import twitter4j.TwitterFactory;
 public class TwitModel extends AbstractTableModel {
 	/** Stores the current date.*/
 	private Date date;
-	/** Stores a twitter username. */
+	/** Stores the username.*/
 	private String loginName;
 	/** Stores a user's actual name. */
 	private String displayName;

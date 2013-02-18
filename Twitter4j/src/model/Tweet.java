@@ -9,30 +9,36 @@ import java.util.Date;
  * 
  * @author Ben
  */
-public class Tweet implements MyTweet{
-
+public class Tweet implements MyTweet {
+	/**  */
 	private BigInteger id;
+	/** Stores the tweet date.*/
 	private Date date;
+	/** Stores the username.*/
 	private String loginName;
+	/** Stores a user's actual name. */
 	private String displayName;
+	/** Stores the text of a Status. */
 	private String text;
+	/** Stores the number of friends. */
 	private int friendsCount;
+	/** Stores the number of followers. */
 	private int followersCount;
 
 
 	/**
-	 * The Tweet constructor
+	 * The Tweet constructor.
 	 * 
-	 * @param date
-	 * @param loginName
-	 * @param displayName
-	 * @param friendsCount
-	 * @param followersCount
-	 * @param text
+	 * @param date - stores the tweet date.
+	 * @param loginName - stores the username
+	 * @param displayName - stores the actual name
+	 * @param friendsCount - stores amount of friends
+	 * @param followersCount - stores amount of followers
+	 * @param text - stores the text of the tweet
 	 */
-	public Tweet(Date date, String loginName,
-			String displayName, int friendsCount,
-			int followersCount, String text) {
+	public Tweet(final Date date, final String loginName,
+			final String displayName, final int friendsCount,
+			final int followersCount, final String text) {
 		this.date = date;
 		this.loginName = loginName;
 		this.displayName = displayName;
@@ -43,58 +49,58 @@ public class Tweet implements MyTweet{
 
 	
 	/**
-	 * gets the user id
-	 * @return id
+	 * Gets the user id.
+	 * @return id - the user id
 	 */
-	public BigInteger getId() {
+	public final  BigInteger getId() {
 		return id;
 	}
 	
 	/**
-	 * gets the date
-	 * @return date
+	 * Gets the date.
+	 * @return date - date of the tweet
 	 */
-	public Date getCreatedAt() {
+	public final Date getCreatedAt() {
 		return date;
 	}
 	
 	/**
-	 * gets the login name
-	 * @return loginName
+	 * Gets the login name.
+	 * @return loginName - username of tweeter
 	 */
-	public String getLoginName() {
+	public final String getLoginName() {
 		return loginName;
 	}
 	
 	/**
-	 * gets the display name
-	 * @return displayName
+	 * Gets the display name.
+	 * @return displayName - actual name of tweeter
 	 */
-	public String getDisplayName() {
+	public final String getDisplayName() {
 		return displayName;
 	}
 	
 	/**
-	 * gets the status text
-	 * @return text
+	 * Gets the status text.
+	 * @return text - the text of a tweet
 	 */
-	public String getText() {
+	public final String getText() {
 		return text;
 	}
 	
 	/**
-	 * gets the friends count
-	 * @return freindsCount
+	 * Gets the friends count.
+	 * @return friendsCount - the number of friends
 	 */
-	public int getFriendsCount() {
+	public final int getFriendsCount() {
 		return friendsCount;
 	}
 	
 	/**
-	 * gets the followers count
-	 * @return followersCount
+	 * Gets the followers count.
+	 * @return followersCount - the number of followers
 	 */
-	public int getFollowersCount() {
+	public final int getFollowersCount() {
 		return followersCount;
 	}
 }
