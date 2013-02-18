@@ -173,9 +173,12 @@ public class TwitterGUI extends javax.swing.JFrame{
 			}
 			if(e.getActionCommand().equals("About...")){
 				JOptionPane.showMessageDialog(null, 
-						"Produced by Benjamin Summers \n" +
-						"                  10/28/2011 \n" +
-						"         For a JTwitterProgram");
+						"Produced by\n Benjamin Summers \n" +
+						"			 Kevin Anderson     \n" +
+						"			 Seth Hilaski       \n" +
+						"			 Trent Newberry     \n" +
+						"            2/17/2013          \n" +
+						"            For a CIS350 Project");
 			}
 		}	
 	};

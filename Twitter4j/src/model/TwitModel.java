@@ -263,7 +263,7 @@ public class TwitModel extends AbstractTableModel {
 	 * @throws TwitterException 
 	 */
 	public void updateStatus(String post) throws TwitterException {
-		System.out.println(post);
+		
 		twitter.updateStatus(post);
 	}
 	/**
