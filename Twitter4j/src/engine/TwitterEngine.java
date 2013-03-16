@@ -83,10 +83,13 @@ public class TwitterEngine {
 	 * @param accessTokenS - their access token secret
 	 */
 	public void login() {
-		
-	
+			
 		model.Athenticate();
+	}
 	
+	public void logout(){
+		
+		model.logout();
 	}
 	/**
 	 * gets the current array lists size

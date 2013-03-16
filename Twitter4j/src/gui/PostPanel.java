@@ -56,6 +56,7 @@ public class PostPanel extends JPanel{
 					System.out.println(post);
 					engine.postStatus(post);
 					tweet.setText("");
+					UpdatePanel.updateUI();
 				} catch (TwitterException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

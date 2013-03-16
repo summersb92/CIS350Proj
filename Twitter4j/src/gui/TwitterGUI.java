@@ -4,6 +4,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +12,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
+import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -30,7 +32,7 @@ import java.util.List;
  * 
  * @author Ben
  */
-public class TwitterGUI extends javax.swing.JFrame{
+public class TwitterGUI extends JFrame{
 
 	private String[] options={"Authenticate User",
 			"Get Status", "Get UserTimeline","Post Status",
@@ -44,7 +46,7 @@ public class TwitterGUI extends javax.swing.JFrame{
 	private JMenuItem fileExport, fileDeleteTable, fileQuit,
 			fileDeleteStatus, generateWordFrequencyList, 
 			generateTopTrendingList, help_About;
-	private TwitterResultsPanel results;
+	//private TwitterResultsPanel results;
 	private JPanel profile;
 //	private GetStatusPanel getStatusP;
 	private GetTimePanel getTimeP;
@@ -53,8 +55,22 @@ public class TwitterGUI extends javax.swing.JFrame{
 	
 	private JButton loginButton;
 	private JButton signoutButton;
+	private JButton updateTimelineButton;
 	
 	private TwitterEngine engine;
+	
+	private JTextArea textArea;
+	private JPanel twitResults;
+	private TitledBorder tableTitle, textTitle;
+	private JTable table;
+	private JTextField updateTextBox;
+	private JPanel UpdatePanel;
+	private JButton tweet;
+	private JPanel PostTimePanel;
+	private JPanel timeLinePanel;
+	private JTextArea timeLineArea;
+	private Twitter twitter;
+	private List<Status> statuses;
 	
 	/**
 	 * Packs and sets the GUI
@@ -67,8 +83,8 @@ public class TwitterGUI extends javax.swing.JFrame{
 		engine.login();
 		menuInit();
 		ProfileTabInit();
-		WestPanelInit();
-		EastPanelInit();
+		PostTimeTabInit();
+		FollowerTabInit();
 		
 		GUI.add(tabs);
 		GUI.pack();
@@ -112,22 +128,135 @@ public class TwitterGUI extends javax.swing.JFrame{
 	 * Creates the Eastern Panel using the
 	 * class TwitterResultsPanel();
 	 */
-	private void EastPanelInit() {
-		eastPanel = new JPanel();
-		eastPanel.setLayout(new BoxLayout
-				(eastPanel, BoxLayout.Y_AXIS));
-		results = new TwitterResultsPanel(engine);
-		eastPanel.add(results);
-		//GUI.add(eastPanel, BorderLayout.EAST);
-		tabs.addTab("Followers", eastPanel);
+	private void FollowerTabInit() {
+		
+		GridLayout resultLayout = new GridLayout
+				(2, 2, 5, 10);
+				twitResults = new JPanel();
+				twitResults.setLayout(resultLayout);
+
+				//Table Creation
+				table = new JTable();
+				table.setToolTipText("");
+				table.setSelectionMode(javax.swing.
+						ListSelectionModel.SINGLE_SELECTION);
+				table.getTableHeader().setReorderingAllowed(false);
+
+				table.addMouseListener(new java.awt.event.MouseAdapter() {
+					public void mouseClicked(java.awt.event.MouseEvent evt) {
+						tableMouseClicked();
+					}
+				});
+				table.setPreferredScrollableViewportSize
+				(new Dimension(500, 140));
+				//table.setFillsViewportHeight(true);
+				JScrollPane scrollPane = new JScrollPane();
+				tableTitle = BorderFactory.createTitledBorder
+				("Statuses");
+				table.setModel(engine.getModel());
+				scrollPane.setVerticalScrollBarPolicy(JScrollPane.
+						VERTICAL_SCROLLBAR_ALWAYS);
+				//attaches table to the scroll pane
+				scrollPane.setViewportView(table); 
+				scrollPane.setBorder(tableTitle);
+				twitResults.add(scrollPane);
+
+				//Text Area
+				textArea = new JTextArea(7, 40); 
+				textArea.setEditable(true);
+				textTitle = BorderFactory.createTitledBorder
+				("Status Text");
+				textArea.setLineWrap(true);
+				textArea.setBorder(textTitle);
+				JScrollPane textPane = new JScrollPane();
+				textPane.setVerticalScrollBarPolicy(JScrollPane.
+						VERTICAL_SCROLLBAR_ALWAYS);
+				textPane.setViewportView(textArea);
+				twitResults.add(textPane);
+		 
+		tabs.addTab("Followers", twitResults);
 	}
+	
+	private void tableMouseClicked(){
+		int index = table.getSelectedRow();
+		if(index!= -1){
+			String output = engine.getDisplayStatis(index);
+			setStatus(output);
+		}
+	}
+	/**
+	 * Orders what needs to be displayed with in the Status
+	 * text area.
+	 * @param object 
+	 * 
+	 * @param output - A string of the users current status.
+	 */
+	private void setStatus(String output) {
+		textArea.setText(output);
+	}
+	/**
+	 * Gets the topTrendingOutput
+	 * 
+	 * @param topTrendingList - what is top trending
+	 */
+	public void topTrendingOutput(Object topTrendingList) {
+		textArea.setText(topTrendingList.toString());
+	}
+	/**
+	 * Gets the wordFrequencyCount
+	 * 
+	 * @param wordFrequencyList - what is the word frequency
+	 */
+	public void wordFrequencyCount(Object wordFrequencyList)
+	{
+		textArea.setText(wordFrequencyList.toString());
+	}
+
 	/**
 	 * Contains the Panels in the Operation Section.
 	 * The combobox allows selection bettween the different
 	 * options.
 	 * @throws TwitterException 
 	 */
-	private void WestPanelInit() throws TwitterException {
+	private void PostTimeTabInit() throws TwitterException {
+		
+		ButtonListener listener = new ButtonListener();
+	
+		PostTimePanel = new JPanel();
+		PostTimePanel.setLayout(new BorderLayout());
+		
+		UpdatePanel = new JPanel();
+		UpdatePanel.setLayout(new FlowLayout());
+		tweet = new JButton("Post Tweet");
+		updateTimelineButton = new JButton("Update");
+		tweet.addActionListener((listener));
+		updateTimelineButton.addActionListener(listener);
+		
+		updateTextBox = new JTextField(35);
+		
+				
+		UpdatePanel.add(updateTextBox);
+		UpdatePanel.add(tweet);
+		UpdatePanel.add(updateTimelineButton);
+		
+		timeLinePanel = new JPanel();
+		timeLineArea = new JTextArea();
+		
+		timeLinePanel.add(timeLineArea);
+
+		statuses = engine.getTimeline();
+	    
+		
+	    
+	   for (Status status : statuses) {
+	       timeLineArea.append(status.getUser().getName() + ":" + status.getText());
+	       timeLineArea.append("\n\n");
+	    }
+		
+		PostTimePanel.add(UpdatePanel, BorderLayout.PAGE_START);
+		PostTimePanel.add(timeLineArea, BorderLayout.PAGE_END);
+		
+		/*
 		westPanel = new JPanel();
 		westPanel.setLayout(new BoxLayout
 				(westPanel, BoxLayout.Y_AXIS));
@@ -141,14 +270,16 @@ public class TwitterGUI extends javax.swing.JFrame{
 		westPanel.add(Box.createVerticalGlue());
 		westPanel.add(postP);
 		westPanel.add(getTimeP);
+		*/
 		
-		tabs.addTab("Post Tweet/Timeline", westPanel);
+		tabs.addTab("Post Tweet/Timeline", PostTimePanel);
 		//GUI.add(westPanel, BorderLayout.WEST);
 		//GUI.pack();
 	}
 	
     protected JComponent makeTextPanel(String text) {
-        JPanel panel = new JPanel(false);
+       
+       	JPanel panel = new JPanel(false);
         JLabel filler = new JLabel(text);
         filler.setHorizontalAlignment(JLabel.CENTER);
         //panel.setLayout(new GridLayout(1, 1));
@@ -161,6 +292,37 @@ public class TwitterGUI extends javax.swing.JFrame{
 			if(e.getSource().equals(loginButton)){
 				engine.login();
 			}
+			if(e.getSource().equals(signoutButton)){
+				engine.logout();
+			}
+			if(e.getSource().equals(tweet)){
+				try {
+					String post = updateTextBox.getText();
+					System.out.println(post);
+					engine.postStatus(post);
+					updateTextBox.setText("");			
+					
+				} catch (TwitterException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			if(e.getSource().equals(updateTimelineButton)){
+				try {
+					
+					
+					
+					statuses = engine.getTimeline();
+					
+					for (Status status : statuses) {
+					       timeLineArea.append(status.getUser().getName() + ":" + status.getText());
+					       timeLineArea.append("\n\n");
+					    }
+				} catch (TwitterException e1) {
+					e1.printStackTrace();
+				}
+			}
+			
 		}
 	}
      

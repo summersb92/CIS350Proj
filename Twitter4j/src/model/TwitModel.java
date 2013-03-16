@@ -336,6 +336,7 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 	                        		    "Unable to get the access token.",
 	                        		    "Inane error",
 	                        		    JOptionPane.ERROR_MESSAGE);
+	                        			te.printStackTrace();
 	                        	
 	                           // System.out.println("Unable to get the access token.");
 	                        } else {
@@ -389,6 +390,12 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 	    } catch (URISyntaxException e) {
 	        e.printStackTrace();
 	    }
+	}
+	
+	public void logout(){
+		
+		accessToken = null;
+		
 	}
 	/**
 	 * Destroys the status of the current user

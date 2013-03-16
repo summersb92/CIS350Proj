@@ -27,7 +27,6 @@ public class GetTimePanel extends JPanel{
 		timeLinePanel = new JPanel();
 		timeLineArea = new JTextArea();
 		
-		//friendsScrollPane = new JScrollPane(timeLineArea);
 		timeLinePanel.add(timeLineArea);
 
 		statuses = engine.getTimeline();
