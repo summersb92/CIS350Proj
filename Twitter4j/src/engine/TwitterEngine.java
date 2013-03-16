@@ -1,5 +1,7 @@
 package engine;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -81,8 +83,9 @@ public class TwitterEngine {
 	 * @param consumerSecret - their consumer secret key
 	 * @param accessToken - their access token
 	 * @param accessTokenS - their access token secret
+	 * @throws Exception 
 	 */
-	public void login() {
+	public void login() throws Exception {
 			
 		model.Athenticate();
 	}
@@ -202,11 +205,11 @@ public class TwitterEngine {
 	 * 
 	 * @param post2 - 140 character or less post
 	 * @return 
+	 * @return 
 	 * @throws TwitterException 
 	 */
-	public TwitModel postStatus(String post) throws TwitterException {
+	public void postStatus(String post) throws TwitterException {
 		model.updateStatus(post);
-		return model;
 	}
 	/**
 	 * Gathers what is trending on Twitter

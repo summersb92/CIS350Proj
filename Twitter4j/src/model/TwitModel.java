@@ -5,17 +5,24 @@ import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 import javax.swing.ImageIcon;
 import javax.swing.JEditorPane;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -277,36 +284,66 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 	 * @param userSecret
 	 * @param token
 	 * @param tokenSecret
+	 * @throws TwitterException 
+	 * @throws IllegalStateException 
+	 * @throws IOException 
 	 */
-	public void Athenticate() {
+	public void Athenticate() throws IllegalStateException, TwitterException, IOException, Exception {
 				 
 	        cb = new ConfigurationBuilder();
 	         
 	        cb.setDebugEnabled(true)
 	      .setOAuthConsumerKey("UP8vf0xlwUkPHvikkEBXQ")
 	      .setOAuthConsumerSecret("62H0idR3HypsRitEUQI3j2ugqTINXybjeBSLr4QH78");
-	   
+	        
+	        tf = new TwitterFactory(cb.build());
+            twitter = tf.getInstance();
+	        
+	        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	        
+	        String username = JOptionPane.showInputDialog(frame, "User Name");
+	        
+	        File file = new File("loginInformation.txt");
+	        
+			Scanner scanner = new Scanner(file);
+
+			while (scanner.hasNextLine()) {
+				
+				String line = scanner.nextLine();
+				
+				String[] s = line.split(", ");
+				s[1].trim();
+				s[2].trim();
+				
+				System.out.println("User1: " + s[1]);
+				System.out.println("User2: " + s[2]);
+				
+				if (s[0].equals(username)){
+					accessToken = new AccessToken(s[1], s[2]);
+					twitter.setOAuthAccessToken(accessToken);
+				}
+				
+			}
+			
+			if(accessToken != null){
+				scanner.close();
+				return;
+			}else{
+				
+			
 	        try {
 	            tf = new TwitterFactory(cb.build());
 	            twitter = tf.getInstance();
 	             
 	            try {
-	               // System.out.println("-----");
-	 
+	              
 	                // get request token.
 	                // this will throw IllegalStateException if access token is already available
-	                // this is oob, desktop client version
 	                requestToken = twitter.getOAuthRequestToken();
-	 
-	              //  System.out.println("Got request token.");
-	             //   System.out.println("Request token: " + requestToken.getToken());
-	            //    System.out.println("Request token secret: " + requestToken.getTokenSecret());
-	 
-	               // System.out.println("|-----");
 	 
 	                accessToken = null;
 	 
-	                BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	                
 	                 
 	                while (null == accessToken) {
 	                	
@@ -314,13 +351,6 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 	                	
 	                	openWebpage(url);
 
-	                	
-	                	//JOptionPane.showMessageDialog(frame, url);
-	                	//JOptionPane.showMessageDialog(frame,"Open the following URL and grant access to your account: " + requestToken.getAuthorizationURL() );
-	                	
-	                  //  System.out.println("Open the following URL and grant access to your account:");
-	                  //  System.out.println(requestToken.getAuthorizationURL());
-	                  // System.out.print("Enter the PIN(if available) and hit enter after you granted access.[PIN]:");
 	                    String pin = JOptionPane.showInputDialog(frame, "Enter the PIN(if available) and hit ok.");
 	                
 	                    try {
@@ -344,9 +374,6 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 	                        }
 	                    }
 	                }
-	                //System.out.println("Got access token.");
-	               // System.out.println("Access token: " + accessToken.getToken());
-	               // System.out.println("Access token secret: " + accessToken.getTokenSecret());
 	                 
 	            } catch (IllegalStateException ie) {
 	                // access token is already available, or consumer key/secret is not set.
@@ -356,21 +383,26 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 	                }
 	            }
 	             
-	          // Status status = twitter.updateStatus(testStatus);
-	 
-	      //     System.out.println("Successfully updated the status to [" + status.getText() + "].");
-	 
-	           //System.out.println("ready exit");
-	             
 	        } catch (TwitterException te) {
-	            te.printStackTrace();
-	            System.out.println("Failed to get timeline: " + te.getMessage());
-	            System.exit(-1);
+	            
 	        } catch (IOException ioe) {
-	            ioe.printStackTrace();
-	            System.out.println("Failed to read the system input.");
-	            System.exit(-1);
+	          
 	        }
+	        
+	        
+	        PrintWriter out = new PrintWriter(new FileWriter("./loginInformation.txt", true));
+			String saveFile = "";
+
+			User user = twitter.showUser(twitter.getId());
+			
+			
+			saveFile += user.getName() + ", " + accessToken.getToken() + ", " + accessToken.getTokenSecret();
+			
+			out.println();
+			out.print(saveFile);
+			out.close();
+			}
+			
 	    }
 		
 	public static void openWebpage(URI uri) {
@@ -394,7 +426,7 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 	
 	public void logout(){
 		
-		accessToken = null;
+		twitter.setOAuthAccessToken(null);
 		
 	}
 	/**
@@ -442,16 +474,7 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 //	public Object topTrendingList() {
 //		return null;
 //	} 
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void hyperlinkUpdate(HyperlinkEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+
 	public ImageIcon getProfileImage() throws IllegalStateException, TwitterException {
 		
 		User user = twitter.showUser(twitter.getId());
@@ -461,5 +484,15 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 		ImageIcon icon = new ImageIcon(url);
 		
 		return icon;
+	}
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void hyperlinkUpdate(HyperlinkEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }

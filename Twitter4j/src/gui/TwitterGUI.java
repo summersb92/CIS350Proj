@@ -19,7 +19,6 @@ import twitter4j.TwitterFactory;
 import twitter4j.User;
 
 import engine.TwitterEngine;
-import gui.PostPanel.ButtonListener;
 
 import java.io.*;
 import java.net.URL;
@@ -46,11 +45,9 @@ public class TwitterGUI extends JFrame{
 	private JMenuItem fileExport, fileDeleteTable, fileQuit,
 			fileDeleteStatus, generateWordFrequencyList, 
 			generateTopTrendingList, help_About;
-	//private TwitterResultsPanel results;
+  //private TwitterResultsPanel results;
 	private JPanel profile;
 //	private GetStatusPanel getStatusP;
-	private GetTimePanel getTimeP;
-	private PostPanel postP;
 //	private SearchPanel searchP;
 	
 	private JButton loginButton;
@@ -74,9 +71,9 @@ public class TwitterGUI extends JFrame{
 	
 	/**
 	 * Packs and sets the GUI
-	 * @throws TwitterException 
+	 * @throws Exception 
 	 */
-	public TwitterGUI() throws TwitterException{
+	public TwitterGUI() throws Exception{
 		engine = new TwitterEngine();
 		GUI = new JFrame("Twitter Lite");
 		tabs = new JTabbedPane();
@@ -109,6 +106,7 @@ public class TwitterGUI extends JFrame{
 		loginButton = new JButton("Log In");
 		loginButton.addActionListener(listener);
 		signoutButton = new JButton("Sign Out");
+		signoutButton.addActionListener(listener);
 		
 		
 		login.add(loginButton);
@@ -256,25 +254,9 @@ public class TwitterGUI extends JFrame{
 		PostTimePanel.add(UpdatePanel, BorderLayout.PAGE_START);
 		PostTimePanel.add(timeLineArea, BorderLayout.PAGE_END);
 		
-		/*
-		westPanel = new JPanel();
-		westPanel.setLayout(new BoxLayout
-				(westPanel, BoxLayout.Y_AXIS));
-		getTimeP = new GetTimePanel(engine);
-		postP = new PostPanel(engine);
-//		searchP = new SearchPanel(engine);
-		TitledBorder operationTitle = 
-				BorderFactory.createTitledBorder
-        		("Select Operation");
 
-		westPanel.add(Box.createVerticalGlue());
-		westPanel.add(postP);
-		westPanel.add(getTimeP);
-		*/
 		
 		tabs.addTab("Post Tweet/Timeline", PostTimePanel);
-		//GUI.add(westPanel, BorderLayout.WEST);
-		//GUI.pack();
 	}
 	
     protected JComponent makeTextPanel(String text) {
@@ -282,7 +264,6 @@ public class TwitterGUI extends JFrame{
        	JPanel panel = new JPanel(false);
         JLabel filler = new JLabel(text);
         filler.setHorizontalAlignment(JLabel.CENTER);
-        //panel.setLayout(new GridLayout(1, 1));
         panel.add(filler);
         return panel;
     }
@@ -290,15 +271,59 @@ public class TwitterGUI extends JFrame{
 	class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource().equals(loginButton)){
-				engine.login();
+				try {
+					engine.login();
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IllegalStateException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (TwitterException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 			if(e.getSource().equals(signoutButton)){
 				engine.logout();
+				for(int i = 0; i <= tabs.getTabCount() + 1; i++){
+				tabs.removeTabAt(0);
+				}
+				GUI.pack();
+				try {
+					engine.login();
+					menuInit();
+					ProfileTabInit();
+					PostTimeTabInit();
+					FollowerTabInit();
+					GUI.pack();
+					
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IllegalStateException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (TwitterException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 			if(e.getSource().equals(tweet)){
 				try {
 					String post = updateTextBox.getText();
-					System.out.println(post);
 					engine.postStatus(post);
 					updateTextBox.setText("");			
 					
@@ -308,9 +333,7 @@ public class TwitterGUI extends JFrame{
 				}
 			}
 			if(e.getSource().equals(updateTimelineButton)){
-				try {
-					
-					
+				try {			
 					
 					statuses = engine.getTimeline();
 					
@@ -451,8 +474,16 @@ public class TwitterGUI extends JFrame{
 
                 try {
 					new TwitterGUI();
-					
-				} catch (TwitterException e) {
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
