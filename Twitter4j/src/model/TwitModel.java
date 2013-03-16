@@ -43,6 +43,9 @@ public class TwitModel extends AbstractTableModel {
 	/** String array contains names of column headings. */
 	private String[] columnNames = {"Date", "Login Name",
 			"Display Name", "Freinds", "Followers"};
+	/** Stores a list of favorite users */
+	private ArrayList<User> myFavorites;
+	
 	/**
 	 * The Constructor for TwitModel().
 	 */
@@ -277,8 +280,8 @@ public class TwitModel extends AbstractTableModel {
 		twitter.updateStatus(post);
 	}
 	/**
-	 * Gets he column length.
-	 * @return columnName.length();
+	 * Gets the column length.
+	 * @return The length/size of a column
 	 */
 	@Override
 	public final int getColumnCount() {
@@ -286,13 +289,34 @@ public class TwitModel extends AbstractTableModel {
 	}
 	/**
 	 * gets the rowCount.
-	 * @return myTweets.size();
+	 * @return The number of rows 
 	 */
 	@Override
 	public final int getRowCount() {
 		return myTweets.size();
 	}
 	/**
+	 * Adds a new favorite user to the myFavorites Arraylist.
+	 * @param user - The User to add to the favorites list
+	 */
+	public final void addFavorite(final User user) {
+		myFavorites.add(user);
+	}
+	/**
+	 * Removes a favorite user from the myFavorites Arraylist.
+	 * @param user - The User to remove from the favorites list
+	 */
+	public final void deleteFavorite(final User user) {
+		myFavorites.remove(user);
+	}
+	/**
+	 * Returns the overall number of favorites.
+	 * @return the number of favorites in myFavorites list
+	 */
+	public final int numOfFavorites() {
+		return myFavorites.size();
+	}
+	/*
 	 * loads a string a splits it into a bunch of tokens.
 	 * @return inputwords
 	 */
