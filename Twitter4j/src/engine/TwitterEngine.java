@@ -3,6 +3,8 @@ package engine;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.ImageIcon;
+
 import twitter4j.Status;
 import twitter4j.TwitterException;
 
@@ -207,8 +209,14 @@ public class TwitterEngine {
 	 * Gathers what is trending on Twitter
 	 * 
 	 * @return model.topTrendingList();
+	 * @throws TwitterException 
+	 * @throws IllegalStateException 
 	 */
 	//public Object topTrendingList() {
 		//return model.topTrendingList();	
 	//}
+	
+	public ImageIcon getProfileImage() throws IllegalStateException, TwitterException {
+		return model.getProfileImage();
+	}
 }

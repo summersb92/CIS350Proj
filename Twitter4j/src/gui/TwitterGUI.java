@@ -80,12 +80,8 @@ public class TwitterGUI extends javax.swing.JFrame{
 		profile.setLayout(new BorderLayout());
 		
 		ButtonListener listener = new ButtonListener();
-		
-		Twitter twitter = TwitterFactory.getSingleton();
-		User user = twitter.showUser(twitter.getId());
-		@SuppressWarnings("deprecation")
-		URL url = user.getProfileImageUrlHttps();
-		ImageIcon img = new ImageIcon(url);
+
+		ImageIcon img = engine.getProfileImage();
 		
 		JLabel UserIcon = new JLabel(img);
 		
