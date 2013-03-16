@@ -3,76 +3,127 @@ package gui;
 
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 
+import twitter4j.Twitter;
 import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+import twitter4j.User;
 
 import engine.TwitterEngine;
+import gui.PostPanel.ButtonListener;
 
+import java.io.*;
+import java.net.URL;
+import java.util.List;
 
 
 @SuppressWarnings("serial")
 /**
- * Creates the GUI and runs the application.
+ * Creates the GUI and runs the application
  * 
  * @author Ben
  */
-public class TwitterGUI extends javax.swing.JFrame {
+public class TwitterGUI extends javax.swing.JFrame{
 
-//	private String[] options = {"Authenticate User",
-//			"Get Status", "Get UserTimeline","Post Status",
-//			"Search for Statuses"};
+	private String[] options={"Authenticate User",
+			"Get Status", "Get UserTimeline","Post Status",
+			"Search for Statuses"};
 //	private JComboBox combo;
-	/** GUI panel variables. */
 	private JPanel eastPanel, westPanel;
-	/** Main JFrame. */
 	private JFrame GUI;
-	/** GUI Menu Bar. */
 	private JMenuBar menu;
-	/** Menu Bar Components. */
+	private JTabbedPane tabs;
 	private JMenu file, generate, sort, help; 
-	/** Items of individual components. */
 	private JMenuItem fileExport, fileDeleteTable, fileQuit,
 			fileDeleteStatus, generateWordFrequencyList, 
-			generateTopTrendingList, helpAbout;
-	/** GUI component contains twitter results. */
+			generateTopTrendingList, help_About;
 	private TwitterResultsPanel results;
-//	private AuthenticatePanel authP;
+	private JPanel profile;
 //	private GetStatusPanel getStatusP;
-	/** GUI panel for getting time. */
 	private GetTimePanel getTimeP;
-	/** GUI Panel for posts. */
 	private PostPanel postP;
 //	private SearchPanel searchP;
-	/** Twitter engine communicates with model. */
+	
+	private JButton loginButton;
+	private JButton signoutButton;
+	
 	private TwitterEngine engine;
 	
 	/**
-	 * Packs and sets the GUI.
+	 * Packs and sets the GUI
 	 * @throws TwitterException 
 	 */
-	public TwitterGUI() throws TwitterException {
+	public TwitterGUI() throws TwitterException{
 		engine = new TwitterEngine();
 		GUI = new JFrame("Twitter Lite");
+		tabs = new JTabbedPane();
+		engine.login();
 		menuInit();
-		westPanelInit();
-		eastPanelInit();
+		ProfileTabInit();
+		WestPanelInit();
+		EastPanelInit();
+		
+		GUI.add(tabs);
 		GUI.pack();
 		GUI.setVisible(true);
 	}
+	
+	public void ProfileTabInit() throws IllegalStateException, TwitterException{
+		profile = new JPanel();
+		profile.setLayout(new BorderLayout());
+		
+		ButtonListener listener = new ButtonListener();
+		
+		Twitter twitter = TwitterFactory.getSingleton();
+		User user = twitter.showUser(twitter.getId());
+		@SuppressWarnings("deprecation")
+		URL url = user.getProfileImageUrlHttps();
+		ImageIcon img = new ImageIcon(url);
+		
+		JLabel UserIcon = new JLabel(img);
+		
+		JPanel  user1 = new JPanel();
+		JPanel login = new JPanel();
+		
+		user1.add(UserIcon);
+		
+		loginButton = new JButton("Log In");
+		loginButton.addActionListener(listener);
+		signoutButton = new JButton("Sign Out");
+		
+		
+		login.add(loginButton);
+		login.add(signoutButton);
+		
+		profile.add(user1, BorderLayout.PAGE_START);
+		profile.add(login, BorderLayout.PAGE_END);
+		
+		
+		
+		tabs.addTab("Profile", profile);
+		
+		GUI.add(tabs);
+		
+	}
 	/**
 	 * Creates the Eastern Panel using the
-	 * class TwitterResultsPanel().
+	 * class TwitterResultsPanel();
 	 */
-	private void eastPanelInit() {
+	private void EastPanelInit() {
 		eastPanel = new JPanel();
-		eastPanel.setLayout(new BoxLayout(eastPanel, BoxLayout.Y_AXIS));
+		eastPanel.setLayout(new BoxLayout
+				(eastPanel, BoxLayout.Y_AXIS));
 		results = new TwitterResultsPanel(engine);
 		eastPanel.add(results);
-		GUI.add(eastPanel, BorderLayout.EAST);
+		//GUI.add(eastPanel, BorderLayout.EAST);
+		tabs.addTab("Followers", eastPanel);
 	}
 	/**
 	 * Contains the Panels in the Operation Section.
@@ -80,29 +131,27 @@ public class TwitterGUI extends javax.swing.JFrame {
 	 * options.
 	 * @throws TwitterException 
 	 */
-	private void westPanelInit() throws TwitterException {
+	private void WestPanelInit() throws TwitterException {
 		westPanel = new JPanel();
-		westPanel.setLayout(new BoxLayout(westPanel, BoxLayout.Y_AXIS));
+		westPanel.setLayout(new BoxLayout
+				(westPanel, BoxLayout.Y_AXIS));
 		getTimeP = new GetTimePanel(engine);
 		postP = new PostPanel(engine);
 //		searchP = new SearchPanel(engine);
-//		TitledBorder operationTitle = 
-//				BorderFactory.createTitledBorder("Select Operation");
+		TitledBorder operationTitle = 
+				BorderFactory.createTitledBorder
+        		("Select Operation");
 
 		westPanel.add(Box.createVerticalGlue());
 		westPanel.add(postP);
 		westPanel.add(getTimeP);
-		GUI.add(westPanel, BorderLayout.WEST);
-		GUI.pack();
+		
+		tabs.addTab("Post Tweet/Timeline", westPanel);
+		//GUI.add(westPanel, BorderLayout.WEST);
+		//GUI.pack();
 	}
 	
-	/**
-	 * Creates a text panel from the given text.
-	 *  
-	 * @param text - String of text for the panel
-	 * @return newly created text panel
-	 */
-    protected final JComponent makeTextPanel(final String text) {
+    protected JComponent makeTextPanel(String text) {
         JPanel panel = new JPanel(false);
         JLabel filler = new JLabel(text);
         filler.setHorizontalAlignment(JLabel.CENTER);
@@ -110,9 +159,17 @@ public class TwitterGUI extends javax.swing.JFrame {
         panel.add(filler);
         return panel;
     }
+    
+	class ButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			if(e.getSource().equals(loginButton)){
+				engine.login();
+			}
+		}
+	}
      
 	/**
-	 * menuInit() generates the JMenuBar to be used.
+	 * menuInit() geneartes the JMenuBar to be used.
 	 */
 	private void menuInit() {
 		menu = new JMenuBar();
@@ -134,51 +191,57 @@ public class TwitterGUI extends javax.swing.JFrame {
 		menu.add(file);
 		//Creates the Generate Menu
 		generate = new JMenu("Generate");
-		generateWordFrequencyList = new JMenuItem("Word Frequency List");
-		generateTopTrendingList = new JMenuItem("Top Trending List");
-		generateWordFrequencyList.addActionListener(menuHandeler);
-		generateTopTrendingList.addActionListener(menuHandeler);
+		generateWordFrequencyList = new JMenuItem
+				("Word Frequency List");
+		generateTopTrendingList = new JMenuItem
+				("Top Trending List");
+		generateWordFrequencyList.addActionListener
+			(menuHandeler);
+		generateTopTrendingList.addActionListener
+			(menuHandeler);
 		generate.add(generateWordFrequencyList);
 		generate.add(generateTopTrendingList);
 		menu.add(generate);
 		//Create the Help Menu
 		help = new JMenu("Help");
-		helpAbout = new JMenuItem("About...");
-		helpAbout.addActionListener(menuHandeler);
-		help.add(helpAbout);
+		help_About = new JMenuItem("About...");
+		help_About.addActionListener(menuHandeler);
+		help.add(help_About);
 		menu.add(help);
 		//Add Menu to the GUI
 		GUI.setJMenuBar(menu);
 	}
 	/**
-	 * Handles all of the actions in the JMenuBar.
+	 * Handels all of the actions in the JMenuBar
 	 */
 	private ActionListener menuHandeler = new 
-			ActionListener() {
+			ActionListener(){
 		@Override
-		public void actionPerformed(final ActionEvent e) {
+		public void actionPerformed(ActionEvent e) {
 			//System.out.println(e);
 			//if(e.getActionCommand().equals
 				//	("Delete Status")){
 				//engine.deleteStatus();
 			//}
-			if (e.getActionCommand().equals("Delete Table Status")) {
+			if(e.getActionCommand().equals
+					("Delete Table Status")){
 				engine.deleteTweet();
 			}
-			if (e.getActionCommand().equals("Export to XML ...")) {
+			if(e.getActionCommand().equals
+					("Export to XML ...")){
 				saveButtonAction();
 			}
-			if (e.getActionCommand().equals("Quit")) {
+			if(e.getActionCommand().equals("Quit")){
 				System.exit(0);
 			}
-			if (e.getActionCommand().equals("About...")) {
+			if(e.getActionCommand().equals("About...")){
 				JOptionPane.showMessageDialog(null, 
-						"Produced by\n Benjamin Summers \n" 
-				+ "			 Kevin Anderson     \n" 
-				+ "			 Seth Hilaski       \n"
-				+ "			 Trent Newberry     \n" 
-				+ "            2/17/2013          \n" 
-				+ "            For a CIS350 Project");
+						"Produced by\n Benjamin Summers \n" +
+						"			 Kevin Anderson     \n" +
+						"			 Seth Hilaski       \n" +
+						"			 Trent Newberry     \n" +
+						"            2/17/2013          \n" +
+						"            For a CIS350 Project");
 			}
 		}	
 	};
@@ -220,16 +283,17 @@ public class TwitterGUI extends javax.swing.JFrame {
 	/**
 	 * runs the main application starting with TwitterGUI
 	 * which instantiates all other methods that are part
-	 * of the GUI.
+	 * of the GUI
 	 * 
-	 * @param args - program arguments
+	 * @param args
 	 */
-	public static void main(final String[] args) {
+	public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
 
                 try {
 					new TwitterGUI();
+					
 				} catch (TwitterException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

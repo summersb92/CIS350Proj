@@ -1,11 +1,25 @@
 package model;
 
 
+import java.awt.Desktop;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.JEditorPane;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 import javax.swing.table.AbstractTableModel;
 
 import twitter4j.Status;
@@ -13,6 +27,9 @@ import twitter4j.User;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+import twitter4j.auth.AccessToken;
+import twitter4j.auth.RequestToken;
+import twitter4j.conf.ConfigurationBuilder;
 
 /**.
  * TwitModel.class
@@ -21,7 +38,7 @@ import twitter4j.TwitterFactory;
  * @author Ben
  */
 @SuppressWarnings("serial")
-public class TwitModel extends AbstractTableModel {
+public class TwitModel extends AbstractTableModel implements HyperlinkListener, ActionListener {
 	/** Stores the current date.*/
 	private Date date;
 	/** Stores the username.*/
@@ -43,9 +60,8 @@ public class TwitModel extends AbstractTableModel {
 	/** String array contains names of column headings. */
 	private String[] columnNames = {"Date", "Login Name",
 			"Display Name", "Freinds", "Followers"};
-	/** Stores a list of favorite users */
-	private ArrayList<User> myFavorites;
-	
+	private JFrame frame;
+	private JEditorPane htmlPane;
 	/**
 	 * The Constructor for TwitModel().
 	 */
@@ -147,10 +163,8 @@ public class TwitModel extends AbstractTableModel {
 	public final List<Status> retriveTimeline() throws TwitterException {
 		twitter = new TwitterFactory().getSingleton();
 	    List<Status> statuses = twitter.getHomeTimeline();
-	    System.out.println("Showing home timeline.");
+	    
 	    for (Status status : statuses) {
-	        System.out.println(status.getUser().getName() + ":" 
-	        								+ status.getText());
 	        arrayListGenerator(status);
 	    }
 		return statuses;
@@ -182,7 +196,7 @@ public class TwitModel extends AbstractTableModel {
 	 * @param index - index that is selected
 	 * @return - the text of that index.
 	 */
-	public final String retrieveDisplayStatus(final int index) {
+	public final String retriveDisplayStatis(final int index) {
 		return myTweets.get(index).getText();	
 	}
 	/**
@@ -259,11 +273,122 @@ public class TwitModel extends AbstractTableModel {
 	 * @param token
 	 * @param tokenSecret
 	 */
-//	public void authentication(String userName , 
-//			String userKey , String userSecret , 
-//			String token , String tokenSecret) {
-//
-//	}
+	public void Athenticate() {
+		
+		// String testStatus="Hello from twitter4j";
+		 
+	        ConfigurationBuilder cb = new ConfigurationBuilder();
+	         
+	         
+	        //the following is set without accesstoken- desktop client
+	        cb.setDebugEnabled(true)
+	      .setOAuthConsumerKey("UP8vf0xlwUkPHvikkEBXQ")
+	      .setOAuthConsumerSecret("62H0idR3HypsRitEUQI3j2ugqTINXybjeBSLr4QH78");
+	   
+	        try {
+	            TwitterFactory tf = new TwitterFactory(cb.build());
+	            Twitter twitter = tf.getInstance();
+	             
+	            try {
+	               // System.out.println("-----");
+	 
+	                // get request token.
+	                // this will throw IllegalStateException if access token is already available
+	                // this is oob, desktop client version
+	                RequestToken requestToken = twitter.getOAuthRequestToken();
+	 
+	                System.out.println("Got request token.");
+	                System.out.println("Request token: " + requestToken.getToken());
+	                System.out.println("Request token secret: " + requestToken.getTokenSecret());
+	 
+	                System.out.println("|-----");
+	 
+	                AccessToken accessToken = null;
+	 
+	                BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	                 
+	                while (null == accessToken) {
+	                	
+	                	URL url = new URL(requestToken.getAuthenticationURL());
+	                	
+	                	openWebpage(url);
+
+	                	
+	                	//JOptionPane.showMessageDialog(frame, url);
+	                	//JOptionPane.showMessageDialog(frame,"Open the following URL and grant access to your account: " + requestToken.getAuthorizationURL() );
+	                	
+	                  //  System.out.println("Open the following URL and grant access to your account:");
+	                  //  System.out.println(requestToken.getAuthorizationURL());
+	                  // System.out.print("Enter the PIN(if available) and hit enter after you granted access.[PIN]:");
+	                    String pin = br.readLine();
+	                
+	                    try {
+	                        if (pin.length() > 0) {
+	                            accessToken = twitter.getOAuthAccessToken(requestToken, pin);
+	                        } else {
+	                            accessToken = twitter.getOAuthAccessToken(requestToken);
+	                        }
+	                    } catch (TwitterException te) {
+	                        if (401 == te.getStatusCode()) {
+	                        	
+	                        	JOptionPane.showMessageDialog(frame,
+	                        		    "Unable to get the access token.",
+	                        		    "Inane error",
+	                        		    JOptionPane.ERROR_MESSAGE);
+	                        	
+	                           // System.out.println("Unable to get the access token.");
+	                        } else {
+	                            te.printStackTrace();
+	                        }
+	                    }
+	                }
+	                System.out.println("Got access token.");
+	                System.out.println("Access token: " + accessToken.getToken());
+	                System.out.println("Access token secret: " + accessToken.getTokenSecret());
+	                 
+	            } catch (IllegalStateException ie) {
+	                // access token is already available, or consumer key/secret is not set.
+	                if (!twitter.getAuthorization().isEnabled()) {
+	                    System.out.println("OAuth consumer key/secret is not set.");
+	                    System.exit(-1);
+	                }
+	            }
+	             
+	          // Status status = twitter.updateStatus(testStatus);
+	 
+	      //     System.out.println("Successfully updated the status to [" + status.getText() + "].");
+	 
+	           System.out.println("ready exit");
+	             
+	        } catch (TwitterException te) {
+	            te.printStackTrace();
+	            System.out.println("Failed to get timeline: " + te.getMessage());
+	            System.exit(-1);
+	        } catch (IOException ioe) {
+	            ioe.printStackTrace();
+	            System.out.println("Failed to read the system input.");
+	            System.exit(-1);
+	        }
+	    }
+		
+	public static void openWebpage(URI uri) {
+	    Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+	    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+	        try {
+	            desktop.browse(uri);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}
+
+	public static void openWebpage(URL url) {
+	    try {
+	        openWebpage(url.toURI());
+	    } catch (URISyntaxException e) {
+	        e.printStackTrace();
+	    }
+	}
 	/**
 	 * Destroys the status of the current user
 	 */
@@ -280,8 +405,8 @@ public class TwitModel extends AbstractTableModel {
 		twitter.updateStatus(post);
 	}
 	/**
-	 * Gets the column length.
-	 * @return The length/size of a column
+	 * Gets he column length.
+	 * @return columnName.length();
 	 */
 	@Override
 	public final int getColumnCount() {
@@ -289,34 +414,13 @@ public class TwitModel extends AbstractTableModel {
 	}
 	/**
 	 * gets the rowCount.
-	 * @return The number of rows 
+	 * @return myTweets.size();
 	 */
 	@Override
 	public final int getRowCount() {
 		return myTweets.size();
 	}
 	/**
-	 * Adds a new favorite user to the myFavorites Arraylist.
-	 * @param user - The User to add to the favorites list
-	 */
-	public final void addFavorite(final User user) {
-		myFavorites.add(user);
-	}
-	/**
-	 * Removes a favorite user from the myFavorites Arraylist.
-	 * @param user - The User to remove from the favorites list
-	 */
-	public final void deleteFavorite(final User user) {
-		myFavorites.remove(user);
-	}
-	/**
-	 * Returns the overall number of favorites.
-	 * @return the number of favorites in myFavorites list
-	 */
-	public final int numOfFavorites() {
-		return myFavorites.size();
-	}
-	/*
 	 * loads a string a splits it into a bunch of tokens.
 	 * @return inputwords
 	 */
@@ -330,4 +434,14 @@ public class TwitModel extends AbstractTableModel {
 //	public Object topTrendingList() {
 //		return null;
 //	} 
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void hyperlinkUpdate(HyperlinkEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }
