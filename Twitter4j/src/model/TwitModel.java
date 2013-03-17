@@ -69,6 +69,7 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 	/** String array contains names of column headings. */
 	private String[] columnNames = {"Date", "Login Name",
 			"Display Name", "Freinds", "Followers"};
+	private ArrayList<User> myFavorites;
 	private JFrame frame;
 	private JEditorPane htmlPane;
 	private ConfigurationBuilder cb;
@@ -231,6 +232,47 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 	public void getPhraseSearch(final String keyWord ,
 			final String phrase) {
 
+	}
+	
+	public final void addFavorite(final User user) {
+		myFavorites.add(user);
+	}
+	/**
+	 * Removes a favorite user from the myFavorites Arraylist.
+	 * @param user - The User to remove from the favorites list
+	 */
+	public final void deleteFavorite(final User user) {
+		myFavorites.remove(user);
+	}
+	/**
+	 * Returns the overall number of favorites.
+	 * @return the number of favorites in myFavorites list
+	 */
+	public final int numOfFavorites() {
+		return myFavorites.size();
+	}
+	/**
+	 * Returns the User in a specific index of the myFavorites list.
+	 * @param index - index of desired User in the myFavorites list
+	 * @return the User at the specified index of the myFavorites list
+	 */
+	public final User getFavorite(final int index) {
+		return myFavorites.get(index);
+	}
+	
+	/**
+	 * Gets the number of people a particular user has following them.
+	 * @param user - The user to get to get the number of followers for
+	 * @return the number of people a particular user has following them
+	 */
+	public final int getFriendsNumber(final User user) {
+		int length = 0;
+		try {
+			length = twitter.getFriendsIDs(user.getId(), -1).getIDs().length;
+		} catch (TwitterException ex) {
+			System.err.println("Problem getting number of friends");
+		}
+		return length;
 	}
 	/**
 	 * gets the statues to a user with a specific input.
