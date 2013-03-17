@@ -375,6 +375,13 @@ public class TwitterGUI extends JFrame{
 					PostTimeTabInit();
 					FollowerTabInit();
 					
+					tabs.addTab("Profile", profile);
+					tabs.addTab("Post Tweet/Timeline", PostTimePanel);
+					tabs.addTab("Followers", twitResults);
+					
+					GUI.add(tabs);
+					//GUI.repaint();
+					
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

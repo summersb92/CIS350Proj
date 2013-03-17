@@ -382,7 +382,7 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 	                // this will throw IllegalStateException if access token is already available
 	                requestToken = twitter.getOAuthRequestToken();
 	 
-	               // accessToken = null;
+	                accessToken = null;
 	 
 	                
 	                 
