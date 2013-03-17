@@ -23,11 +23,10 @@ import org.xml.sax.SAXException;
  
 public class FavoritesUtility {
  
-	private ArrayList<String> stringList;
-	
-	public FavoritesUtility(){ 
-		setStringList(new ArrayList<String>());
+	public FavoritesUtility()  { 
+		
 	}
+	@SuppressWarnings("unused")
 	private void writeToFile(String username) throws ParserConfigurationException, TransformerException{
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -60,7 +59,6 @@ public class FavoritesUtility {
 		System.out.println("File saved!");
 		
 	}
-	@SuppressWarnings("unused")
 	private void readFromFile(String username) throws ParserConfigurationException, SAXException, IOException{
 		File fXmlFile = new File("..\\favorites\\"+username+".xml");
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -83,43 +81,10 @@ public class FavoritesUtility {
 			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 	 
 				Element eElement = (Element) nNode;
-				
-				
+	 
 				System.out.println("User id : " + eElement.getAttribute("id"));
 	 
 			}
 		}
-	}
-	public void saveFavorites(String username){
-		try {
-			writeToFile(username);
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TransformerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}	
-	public void loadFavorites(String username){
-		try {
-			writeToFile(username);
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TransformerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	public ArrayList<String> addFavoriteList(String name){
-		stringList.add(name);
-		return stringList;
-	}
-	public ArrayList<String> getStringList() {
-		return stringList;
-	}
-	public void setStringList(ArrayList<String> stringList) {
-		this.stringList = stringList;
 	}
 }
