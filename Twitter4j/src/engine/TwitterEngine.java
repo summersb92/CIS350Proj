@@ -1,15 +1,19 @@
 package engine;
 
+import java.awt.Component;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.swing.ImageIcon;
+import javax.swing.table.TableModel;
 
 import twitter4j.Status;
 import twitter4j.TwitterException;
+import twitter4j.User;
 
 import model.Tweet;
 import model.TwitModel;

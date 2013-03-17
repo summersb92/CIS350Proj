@@ -30,6 +30,7 @@ import javax.swing.JScrollPane;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 
 import twitter4j.Status;
 import twitter4j.User;
@@ -69,7 +70,7 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 	/** String array contains names of column headings. */
 	private String[] columnNames = {"Date", "Login Name",
 			"Display Name", "Freinds", "Followers"};
-	private ArrayList<User> myFavorites;
+	
 	private JFrame frame;
 	private JEditorPane htmlPane;
 	private ConfigurationBuilder cb;
@@ -85,8 +86,7 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 	public TwitModel() throws TwitterException  { 
 		myTweets = new ArrayList<MyTweet>();
 		//wordCounter = new ArrayList<Word>();
-
-		
+	
 	}
 	/**
 	 * Gets the values to be displayed within the Table.
@@ -235,30 +235,30 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 	}
 	
 	public final void addFavorite(final User user) {
-		myFavorites.add(user);
+		//myFavorites.add(user);
 	}
 	/**
 	 * Removes a favorite user from the myFavorites Arraylist.
 	 * @param user - The User to remove from the favorites list
 	 */
 	public final void deleteFavorite(final User user) {
-		myFavorites.remove(user);
+		//myFavorites.remove(user);
 	}
 	/**
 	 * Returns the overall number of favorites.
 	 * @return the number of favorites in myFavorites list
 	 */
-	public final int numOfFavorites() {
-		return myFavorites.size();
-	}
+	//public final int numOfFavorites() {
+		//return myFavorites.size();
+	//}
 	/**
 	 * Returns the User in a specific index of the myFavorites list.
 	 * @param index - index of desired User in the myFavorites list
 	 * @return the User at the specified index of the myFavorites list
 	 */
-	public final User getFavorite(final int index) {
-		return myFavorites.get(index);
-	}
+	//public final User getFavorite(final int index) {
+	//	return myFavorites.get(index);
+	//}
 	
 	/**
 	 * Gets the number of people a particular user has following them.
@@ -274,6 +274,12 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 		}
 		return length;
 	}
+	
+	//public ArrayList<User> getFavorites(){
+		//return myFavorites;
+	
+	//}
+
 	/**
 	 * Authenticates a user.
 	 * @param userName
@@ -513,3 +519,7 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 		return user.getRateLimitStatus().getRemaining();
 	}
 }
+
+
+	
+
