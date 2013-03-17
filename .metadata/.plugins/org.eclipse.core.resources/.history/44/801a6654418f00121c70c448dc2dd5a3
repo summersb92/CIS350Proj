@@ -23,6 +23,4 @@ public interface MyTweet {
 	int getFriendsCount();
 	
 	int getFollowersCount();
-	
-	boolean getFavorite();
 }

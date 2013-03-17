@@ -47,7 +47,6 @@ public class Tweet implements MyTweet {
 		this.friendsCount = friendsCount;
 		this.followersCount = followersCount;
 		this.text = text;
-		this.favorite = favorite;
 	}
 
 	

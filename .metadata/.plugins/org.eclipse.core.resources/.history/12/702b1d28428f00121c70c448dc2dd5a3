@@ -205,7 +205,7 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 		followers = status.getUser().getFollowersCount();
 		friends = status.getUser().getFriendsCount();
 		text = status.getText();
-		fave = getFavorite(displayName);
+		fave = getFavorite();
 		t = new Tweet(date , loginName , displayName , 
 				followers , friends , text, fave);
 		add(t);
@@ -255,10 +255,9 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 	public void loadFavorites(String username){
 		favorites.loadFavorites(username);
 	}	
-	private boolean getFavorite(String username){
-			
-			return false;
-		
+	private boolean getFavorite() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 	/**

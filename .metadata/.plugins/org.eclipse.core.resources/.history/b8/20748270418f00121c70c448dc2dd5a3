@@ -39,15 +39,13 @@ public class Tweet implements MyTweet {
 	 */
 	public Tweet(final Date date, final String loginName,
 			final String displayName, final int friendsCount,
-			final int followersCount, final String text,
-			final boolean favorite) {
+			final int followersCount, final String text) {
 		this.date = date;
 		this.loginName = loginName;
 		this.displayName = displayName;
 		this.friendsCount = friendsCount;
 		this.followersCount = followersCount;
 		this.text = text;
-		this.favorite = favorite;
 	}
 
 	

@@ -57,8 +57,6 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 	private int followers;
 	/** Stores the number of friends. */
 	private int friends;
-	/** Store wether or not is a favorite */
-	private boolean fave;
 	/** Stores the text of a Status. */
 	private String text;
 	/** Stores a Tweet sent/received. */
@@ -205,12 +203,10 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 		followers = status.getUser().getFollowersCount();
 		friends = status.getUser().getFriendsCount();
 		text = status.getText();
-		fave = getFavorite(displayName);
 		t = new Tweet(date , loginName , displayName , 
-				followers , friends , text, fave);
+				followers , friends , text, favorite);
 		add(t);
 	}
-
 	/**
 	 * Retrieves the status of the selected index.
 	 * @param index - index that is selected
@@ -254,11 +250,6 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 	}
 	public void loadFavorites(String username){
 		favorites.loadFavorites(username);
-	}	
-	private boolean getFavorite(String username){
-			
-			return false;
-		
 	}
 	
 	/**

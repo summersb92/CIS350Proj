@@ -77,7 +77,7 @@ public class TwitterEngine {
 			String displayName, int friends,
 			int followers, String text){	
 		Tweet t = new Tweet(date ,loginName, displayName, 
-				friends, followers, text, false);
+				friends, followers, text);
 		model.add(t);
 	}
 	/**
