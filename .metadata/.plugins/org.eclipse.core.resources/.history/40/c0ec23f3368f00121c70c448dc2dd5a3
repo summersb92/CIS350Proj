@@ -275,6 +275,55 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 		return length;
 	}
 	/**
+	 * gets the statues to a user with a specific input.
+	 * @param keyWord
+	 * @param phrase
+	 * @param toUser
+	 */
+//	public void getToUserSearch(final String keyWord ,
+//			final String phrase , final String toUser) {
+//
+//	}
+	/**
+	 * get the status from a user.
+	 * @param keyWord - 
+	 * @param phrase
+	 * @param fromUser
+	 */
+//	public void getFromUserSearch(String keyWord ,
+//			String phrase , String fromUser) {
+//
+//	}
+	/**
+	 * gets a statuses that meet all parameters.
+	 * @param keyWord
+	 * @param phrase
+	 * @param toUser
+	 * @param fromUser
+	 */
+//	public void getAllSearch(String keyWord ,
+//			String phrase , String toUser , String fromUser) {
+//
+//	}
+	/**
+	 * gets keywords from a particular user.
+	 * @param keyWord
+	 * @param fromUser
+	 */
+//	public void getKeyFromSearch(String keyWord ,
+//			String fromUser) {
+//
+//	}
+	/**
+	 * Gets keywords to a specified user.
+	 * @param keyWord
+	 * @param toUser
+	 */
+//	public void getKeyToSearch(String keyWord ,
+//			String toUser) {
+//
+//	}
+	/**
 	 * Authenticates a user.
 	 * @param userName
 	 * @param userKey

@@ -49,7 +49,7 @@ public class FavoritesUtility {
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		DOMSource source = new DOMSource(doc);
-		StreamResult result = new StreamResult(new File("..\\favorites\\"+username+".xml"));
+		StreamResult result = new StreamResult(new File("C:\\file.xml"));
 		 
 		// Output to console for testing
 		// StreamResult result = new StreamResult(System.out);
@@ -60,11 +60,13 @@ public class FavoritesUtility {
 		
 	}
 	private void readFromFile(String username) throws ParserConfigurationException, SAXException, IOException{
-		File fXmlFile = new File("..\\favorites\\"+username+".xml");
+		File fXmlFile = new File("/Users/mkyong/staff.xml");
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 		Document doc = dBuilder.parse(fXmlFile);
 	 
+		//optional, but recommended
+		//read this - http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
 		doc.getDocumentElement().normalize();
 		System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
 		 

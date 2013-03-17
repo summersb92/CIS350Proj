@@ -60,7 +60,7 @@ public class FavoritesUtility {
 		
 	}
 	private void readFromFile(String username) throws ParserConfigurationException, SAXException, IOException{
-		File fXmlFile = new File("..\\favorites\\"+username+".xml");
+		File fXmlFile = new File("/Users/mkyong/staff.xml");
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 		Document doc = dBuilder.parse(fXmlFile);
