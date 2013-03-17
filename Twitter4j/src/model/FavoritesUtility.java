@@ -25,11 +25,13 @@ public class FavoritesUtility {
  
 	private ArrayList<String> stringList;
 	
-	public FavoritesUtility(){ 
+	public FavoritesUtility() { 
 		setStringList(new ArrayList<String>());
 	}
-	private void writeToFile(String username) throws ParserConfigurationException, TransformerException{
-		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+	private void writeToFile(final String username) 
+	throws ParserConfigurationException, TransformerException {
+		DocumentBuilderFactory docFactory =
+			DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 		
 		// root elements
@@ -47,10 +49,12 @@ public class FavoritesUtility {
 		user.setAttributeNode(attr);
 		
 		// write the content into xml file
-		TransformerFactory transformerFactory = TransformerFactory.newInstance();
+		TransformerFactory transformerFactory =
+			TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		DOMSource source = new DOMSource(doc);
-		StreamResult result = new StreamResult(new File("..\\favorites\\"+username+".xml"));
+		StreamResult result = new StreamResult(new File(
+			"..\\favorites\\" + username + ".xml"));
 		 
 		// Output to console for testing
 		// StreamResult result = new StreamResult(System.out);
@@ -61,14 +65,16 @@ public class FavoritesUtility {
 		
 	}
 	@SuppressWarnings("unused")
-	private void readFromFile(String username) throws ParserConfigurationException, SAXException, IOException{
-		File fXmlFile = new File("..\\favorites\\"+username+".xml");
+	private void readFromFile(final String username) 
+	throws ParserConfigurationException, SAXException, IOException {
+		File fXmlFile = new File("..\\favorites\\" + username + ".xml");
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 		Document doc = dBuilder.parse(fXmlFile);
 	 
 		doc.getDocumentElement().normalize();
-		System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+		System.out.println("Root element: " 
+		+ doc.getDocumentElement().getNodeName());
 		 
 		NodeList nList = doc.getElementsByTagName("staff");
 	 
@@ -90,7 +96,7 @@ public class FavoritesUtility {
 			}
 		}
 	}
-	public void saveFavorites(String username){
+	public final void saveFavorites(final String username) {
 		try {
 			writeToFile(username);
 		} catch (ParserConfigurationException e) {
@@ -101,7 +107,7 @@ public class FavoritesUtility {
 			e.printStackTrace();
 		}
 	}	
-	public void loadFavorites(String username){
+	public final void loadFavorites(final String username) {
 		try {
 			writeToFile(username);
 		} catch (ParserConfigurationException e) {
@@ -112,19 +118,19 @@ public class FavoritesUtility {
 			e.printStackTrace();
 		}
 	}
-	public void addFavoriteUser(String name){
+	public final void addFavoriteUser(final String name) {
 		stringList.add(name);
 	}
-	public void removeFavorite(String name){
+	public final void removeFavorite(final String name) {
 		stringList.remove(name);
 	}
-	public ArrayList<String> getStringList() {
+	public final ArrayList<String> getStringList() {
 		return stringList;
 	}
-	public void setStringList(ArrayList<String> stringList) {
-		this.stringList = stringList;
+	public final void setStringList(final ArrayList<String> strList) {
+		this.stringList = strList;
 	}
-	public void clearList(){
+	public final void clearList() {
 		stringList.clear();
 	}
 }

@@ -38,17 +38,17 @@ public class Tweet implements MyTweet {
 	 * @param followersCount - stores amount of followers
 	 * @param text - stores the text of the tweet
 	 */
-	public Tweet(final Date date, final String loginName,
-			final String displayName, final int friendsCount,
-			final int followersCount, final String text,
-			final String fave) {
-		this.date = date;
-		this.loginName = loginName;
-		this.displayName = displayName;
-		this.friendsCount = friendsCount;
-		this.followersCount = followersCount;
-		this.text = text;
-		this.favorite = fave;
+	public Tweet(final Date dte, final String lginName,
+			final String dsplayName, final int frendsCount,
+			final int fllowersCount, final String txt,
+			final String fve) {
+		this.date = dte;
+		this.loginName = lginName;
+		this.displayName = dsplayName;
+		this.friendsCount = frendsCount;
+		this.followersCount = fllowersCount;
+		this.text = txt;
+		this.favorite = fve;
 	}
 
 	
@@ -109,8 +109,7 @@ public class Tweet implements MyTweet {
 	}
 
 
-	@Override
-	public String getFavorite() {
+	public final String getFavorite() {
 		// TODO Auto-generated method stub
 		return favorite;
 	}
