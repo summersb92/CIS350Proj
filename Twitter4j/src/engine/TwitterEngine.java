@@ -2,6 +2,7 @@ package engine;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.Date;
 import java.util.List;
 
@@ -28,8 +29,9 @@ public class TwitterEngine {
 	
 	/**
 	 * Constructs the Twitter Engine
+	 * @throws TwitterException 
 	 */
-	public TwitterEngine(){
+	public TwitterEngine() throws TwitterException{
 		model = new TwitModel();
 	}
 	/**
@@ -217,12 +219,34 @@ public class TwitterEngine {
 	 * @return model.topTrendingList();
 	 * @throws TwitterException 
 	 * @throws IllegalStateException 
+	 * @throws MalformedURLException 
 	 */
 	//public Object topTrendingList() {
 		//return model.topTrendingList();	
 	//}
 	
-	public ImageIcon getProfileImage() throws IllegalStateException, TwitterException {
+	public ImageIcon getProfileImage() throws IllegalStateException, TwitterException, MalformedURLException {
 		return model.getProfileImage();
+	}
+	public String getRealName() {
+		return model.getRealName();
+	}
+	public String getScreenName() {
+		return model.getScreenName();
+	}
+	public int getTweets() {
+		return model.getTweets();
+	}
+	public int getFollowersCount() {
+		return model.getFollowersCount();
+	}
+	public int getFollowingCount() {
+		return model.getFollowingCount();
+	}
+	public int getRateLimit() {
+		return model.getRateLimit();
+	}
+	public int getRateLimitRemaining() {
+		return model.getLimitRemaining();
 	}
 }

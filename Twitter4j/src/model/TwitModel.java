@@ -12,6 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -74,14 +75,16 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 	private TwitterFactory tf;
 	private RequestToken requestToken;
 	private AccessToken accessToken;
-	private ArrayList<User> myFavorites;
+	private User user;
 	/**
 	 * The Constructor for TwitModel().
+	 * @throws TwitterException 
 	 */
 	@SuppressWarnings("static-access")
-	public TwitModel()  { 
+	public TwitModel() throws TwitterException  { 
 		myTweets = new ArrayList<MyTweet>();
 		//wordCounter = new ArrayList<Word>();
+
 		
 	}
 	/**
@@ -229,46 +232,6 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 			final String phrase) {
 
 	}
-	public final void addFavorite(final User user) {
-		myFavorites.add(user);
-	}
-	/**
-	 * Removes a favorite user from the myFavorites Arraylist.
-	 * @param user - The User to remove from the favorites list
-	 */
-	public final void deleteFavorite(final User user) {
-		myFavorites.remove(user);
-	}
-	/**
-	 * Returns the overall number of favorites.
-	 * @return the number of favorites in myFavorites list
-	 */
-	public final int numOfFavorites() {
-		return myFavorites.size();
-	}
-	/**
-	 * Returns the User in a specific index of the myFavorites list.
-	 * @param index - index of desired User in the myFavorites list
-	 * @return the User at the specified index of the myFavorites list
-	 */
-	public final User getFavorite(final int index) {
-		return myFavorites.get(index);
-	}
-	
-	/**
-	 * Gets the number of people a particular user has following them.
-	 * @param user - The user to get to get the number of followers for
-	 * @return the number of people a particular user has following them
-	 */
-	public final int getFriendsNumber(final User user) {
-		int length = 0;
-		try {
-			length = twitter.getFriendsIDs(user.getId(), -1).getIDs().length;
-		} catch (TwitterException ex) {
-			System.err.println("Problem getting number of friends");
-		}
-		return length;
-	}
 	/**
 	 * gets the statues to a user with a specific input.
 	 * @param keyWord
@@ -331,15 +294,15 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 	 */
 	public void Athenticate() throws IllegalStateException, TwitterException, IOException, Exception {
 				 
-	        cb = new ConfigurationBuilder();
-	         
+			cb = new ConfigurationBuilder();
+	        
 	        cb.setDebugEnabled(true)
-	      .setOAuthConsumerKey("UP8vf0xlwUkPHvikkEBXQ")
-	      .setOAuthConsumerSecret("62H0idR3HypsRitEUQI3j2ugqTINXybjeBSLr4QH78");
+	        .setOAuthConsumerKey("UP8vf0xlwUkPHvikkEBXQ")
+	        .setOAuthConsumerSecret("62H0idR3HypsRitEUQI3j2ugqTINXybjeBSLr4QH78");
 	        
 	        tf = new TwitterFactory(cb.build());
-            twitter = tf.getInstance();
-	        
+	        twitter = tf.getInstance();
+	              
 	        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	        
 	        String username = JOptionPane.showInputDialog(frame, "User Name");
@@ -356,9 +319,6 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 				s[1].trim();
 				s[2].trim();
 				
-				System.out.println("User1: " + s[1]);
-				System.out.println("User2: " + s[2]);
-				
 				if (s[0].equals(username)){
 					accessToken = new AccessToken(s[1], s[2]);
 					twitter.setOAuthAccessToken(accessToken);
@@ -373,9 +333,7 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 				
 			
 	        try {
-	            tf = new TwitterFactory(cb.build());
-	            twitter = tf.getInstance();
-	             
+	           
 	            try {
 	              
 	                // get request token.
@@ -428,8 +386,12 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 	            
 	        } catch (IOException ioe) {
 	          
+	        } catch (NullPointerException np){
+	        	System.out.println("Exiting");
+	        	System.exit(0);
 	        }
 	        
+	        user = twitter.showUser(twitter.getId());
 	        
 	        PrintWriter out = new PrintWriter(new FileWriter("./loginInformation.txt", true));
 			String saveFile = "";
@@ -511,17 +473,17 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 	/**
 	 * Gets the top trending list.
 	 * @return twitter.getTrends();
+	 * @throws MalformedURLException 
 	 */
 //	public Object topTrendingList() {
 //		return null;
 //	} 
 
-	public ImageIcon getProfileImage() throws IllegalStateException, TwitterException {
-		
-		User user = twitter.showUser(twitter.getId());
-		
+	public ImageIcon getProfileImage() throws IllegalStateException, TwitterException, MalformedURLException {
+			
+		user = twitter.showUser(twitter.getId());
 		@SuppressWarnings("deprecation")
-		URL url = user.getProfileImageUrlHttps();
+		URL url = new URL(user.getBiggerProfileImageURL());
 		ImageIcon icon = new ImageIcon(url);
 		
 		return icon;
@@ -535,5 +497,26 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 	public void hyperlinkUpdate(HyperlinkEvent arg0) {
 		// TODO Auto-generated method stub
 		
+	}
+	public String getRealName() {
+		return user.getName();
+	}
+	public String getScreenName() {
+		return user.getScreenName();
+	}
+	public int getTweets() {
+		return user.getStatusesCount();
+	}
+	public int getFollowersCount() {
+		return user.getFollowersCount();
+	}
+	public int getFollowingCount() {
+		return user.getFriendsCount();
+	}
+	public int getRateLimit() {
+		return user.getRateLimitStatus().getLimit();
+	}
+	public int getLimitRemaining() {
+		return user.getRateLimitStatus().getRemaining();
 	}
 }
