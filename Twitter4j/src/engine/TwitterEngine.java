@@ -1,19 +1,19 @@
 package engine;
 
-import java.awt.Component;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+//import java.awt.Component;
+//import java.io.FileNotFoundException;
+//import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.swing.ImageIcon;
-import javax.swing.table.TableModel;
+//import javax.swing.table.TableModel;
 
 import twitter4j.Status;
 import twitter4j.TwitterException;
-import twitter4j.User;
+//import twitter4j.User;
 
 import model.Tweet;
 import model.TwitModel;
@@ -29,13 +29,13 @@ public class TwitterEngine {
 	
 	private TwitModel model;
 	private int index;
-	private String post;
+	//private String post;
 	
 	/**
 	 * Constructs the Twitter Engine
 	 * @throws TwitterException 
 	 */
-	public TwitterEngine() throws TwitterException{
+	public TwitterEngine() throws TwitterException {
 		model = new TwitModel();
 	}
 	/**
@@ -43,7 +43,7 @@ public class TwitterEngine {
 	 * 
 	 * @return model
 	 */
-	public TwitModel getModel() {
+	public final TwitModel getModel() {
 		return model;
 	}
 	/**
@@ -51,7 +51,7 @@ public class TwitterEngine {
 	 * 
 	 * @param userName - the user being searched
 	 */
-	public void getStatus(String userName){
+	public final void getStatus(final String userName) {
 		model.retrieveStatus(userName);
 	}
 	/**
@@ -60,7 +60,7 @@ public class TwitterEngine {
 	 * 
 	 * @throws TwitterException 
 	 */
-	public List<Status> getTimeline() throws TwitterException {
+	public final List<Status> getTimeline() throws TwitterException {
 		return model.retriveTimeline();
 	}
 	/**
@@ -73,10 +73,10 @@ public class TwitterEngine {
 	 * @param followers - how many followers
 	 * @param text - status text
 	 */
-	public void addTweet(Date date, String loginName,
-			String displayName, int friends,
-			int followers, String text, String fave){	
-		Tweet t = new Tweet(date ,loginName, displayName, 
+	public final void addTweet(final Date date, final String loginName,
+			 final String displayName, final int friends,
+			final int followers, final String text, final String fave) {	
+		Tweet t = new Tweet(date, loginName, displayName,
 				friends, followers, text, "favorite");
 		model.add(t);
 	}
@@ -91,12 +91,12 @@ public class TwitterEngine {
 	 * @param accessTokenS - their access token secret
 	 * @throws Exception 
 	 */
-	public void login() throws Exception {
+	public final void login() throws Exception {
 			
 		model.authenticate();
 	}
 	
-	public void logout(){
+	public final void logout() {
 		
 		model.logout();
 	}
@@ -105,7 +105,7 @@ public class TwitterEngine {
 	 * 
 	 * @return - checks an array lists size
 	 */
-	public int getArrayListSize(){
+	public final int getArrayListSize() {
 		return model.getArrayListSize();
 	}
 	/**
@@ -115,8 +115,8 @@ public class TwitterEngine {
 	 *  highlighted
 	 * @return - the status of that highlighted table row
 	 */
-	public String getDisplayStatis(int index) {
-		this.index = index;
+	public final String getDisplayStatis(final int idex) {
+		this.index = idex;
 		return model.retriveDisplayStatis(index);
 	}
 	
@@ -125,7 +125,7 @@ public class TwitterEngine {
 	 * 
 	 * @param keyWord - keyword for the search
 	 */
-	public void getWordSearch(String keyWord) {
+	public final void getWordSearch(final String keyWord) {
 		model.getWordSearch(keyWord);
 	}
 	/**
@@ -134,8 +134,8 @@ public class TwitterEngine {
 	 * @param keyWord - the keyword
 	 * @param phrase - the phrase
 	 */
-	public void getPhraseSearch(String keyWord,
-			String phrase){
+	public final void getPhraseSearch(final String keyWord,
+			final String phrase) {
 		model.getPhraseSearch(keyWord, phrase);
 	}
 	/**
@@ -197,7 +197,7 @@ public class TwitterEngine {
 	/**
 	 * removes a tweet from the table
 	 */
-	public void deleteTweet() {
+	public final void deleteTweet() {
 		model.remove(index);
 	}
 	/**
@@ -214,7 +214,7 @@ public class TwitterEngine {
 	 * @return 
 	 * @throws TwitterException 
 	 */
-	public void postStatus(String post) throws TwitterException {
+	public final void postStatus(final String post) throws TwitterException {
 		model.updateStatus(post);
 	}
 	/**
@@ -229,31 +229,32 @@ public class TwitterEngine {
 		//return model.topTrendingList();	
 	//}
 	
-	public ImageIcon getProfileImage() throws IllegalStateException, TwitterException, MalformedURLException {
+	public final ImageIcon getProfileImage() 
+	throws IllegalStateException, TwitterException, MalformedURLException {
 		return model.getProfileImage();
 	}
-	public String getRealName() {
+	public final String getRealName() {
 		return model.getRealName();
 	}
-	public String getScreenName() {
+	public final String getScreenName() {
 		return model.getScreenName();
 	}
-	public int getTweets() {
+	public final int getTweets() {
 		return model.getTweets();
 	}
-	public int getFollowersCount() {
+	public final int getFollowersCount() {
 		return model.getFollowersCount();
 	}
-	public int getFollowingCount() {
+	public final int getFollowingCount() {
 		return model.getFollowingCount();
 	}
-	public int getRateLimit() {
+	public final int getRateLimit() {
 		return model.getRateLimit();
 	}
-	public int getRateLimitRemaining() {
+	public final int getRateLimitRemaining() {
 		return model.getLimitRemaining();
 	}
-	public String getFavoriteStatus(){
+	public final String getFavoriteStatus() {
 		return model.getFavoriteStatus();
 	}
 }
