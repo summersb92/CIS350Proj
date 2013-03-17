@@ -84,7 +84,7 @@ public class FavoritesUtility {
 	 
 				Element eElement = (Element) nNode;
 				
-				addFavoriteList(eElement.getAttribute("id"));
+				
 				System.out.println("User id : " + eElement.getAttribute("id"));
 	 
 			}
@@ -123,8 +123,5 @@ public class FavoritesUtility {
 	}
 	public void setStringList(ArrayList<String> stringList) {
 		this.stringList = stringList;
-	}
-	public void clearList(){
-		stringList.clear();
 	}
 }

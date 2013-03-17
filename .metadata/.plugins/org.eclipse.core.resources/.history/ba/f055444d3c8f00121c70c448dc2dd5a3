@@ -124,7 +124,4 @@ public class FavoritesUtility {
 	public void setStringList(ArrayList<String> stringList) {
 		this.stringList = stringList;
 	}
-	public void clearList(){
-		stringList.clear();
-	}
 }
