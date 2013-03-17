@@ -316,8 +316,8 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 				String line = scanner.nextLine();
 				
 				String[] s = line.split(", ");
-				s[1].trim();
-				s[2].trim();
+				//s[1].trim();
+				//s[2].trim();
 				
 				if (s[0].equals(username)){
 					accessToken = new AccessToken(s[1], s[2]);
@@ -325,7 +325,7 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 				}
 				
 			}
-			
+					
 			if(accessToken != null){
 				scanner.close();
 				return;
@@ -340,7 +340,7 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 	                // this will throw IllegalStateException if access token is already available
 	                requestToken = twitter.getOAuthRequestToken();
 	 
-	                accessToken = null;
+	               // accessToken = null;
 	 
 	                
 	                 
@@ -391,12 +391,12 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 	        	System.exit(0);
 	        }
 	        
-	        user = twitter.showUser(twitter.getId());
+	        //user = twitter.showUser(twitter.getId());
 	        
 	        PrintWriter out = new PrintWriter(new FileWriter("./loginInformation.txt", true));
 			String saveFile = "";
 
-			User user = twitter.showUser(twitter.getId());
+			user = twitter.showUser(twitter.getId());
 			
 			
 			saveFile += user.getName() + ", " + accessToken.getToken() + ", " + accessToken.getTokenSecret();
@@ -405,6 +405,7 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 			out.print(saveFile);
 			out.close();
 			}
+			
 			
 	    }
 		
@@ -428,9 +429,8 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 	}
 	
 	public void logout(){
-		
 		twitter.setOAuthAccessToken(null);
-		
+		accessToken = null;
 	}
 	/**
 	 * Destroys the status of the current user

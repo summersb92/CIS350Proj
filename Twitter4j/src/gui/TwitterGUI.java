@@ -367,7 +367,7 @@ public class TwitterGUI extends JFrame{
 				for(int i = 0; i <= tabs.getTabCount() + 1; i++){
 				tabs.removeTabAt(0);
 				}
-				GUI.pack();
+				//GUI.pack();
 				try {
 					engine.login();
 					menuInit();
