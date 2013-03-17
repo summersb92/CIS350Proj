@@ -87,6 +87,7 @@ public class TwitterGUI extends JFrame{
 		GUI.setSize(300, 300);
 		tabs = new JTabbedPane();
 		menuInit();
+
 		ProfileTabInit();
 		PostTimeTabInit();
 		FollowerTabInit();

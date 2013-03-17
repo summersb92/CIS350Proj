@@ -24,6 +24,8 @@ public class Tweet implements MyTweet {
 	private int friendsCount;
 	/** Stores the number of followers. */
 	private int followersCount;
+	/** Stores favorite users **/
+	private boolean favorite;
 
 
 	/**
