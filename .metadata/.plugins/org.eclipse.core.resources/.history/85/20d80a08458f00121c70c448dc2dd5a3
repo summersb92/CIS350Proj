@@ -264,7 +264,6 @@ public class TwitterGUI extends JFrame{
 				JScrollPane scrollPane = new JScrollPane();
 				tableTitle = BorderFactory.createTitledBorder
 				("Statuses");
-				
 				table.setModel(engine.getModel());
 				scrollPane.setVerticalScrollBarPolicy(JScrollPane.
 						VERTICAL_SCROLLBAR_ALWAYS);

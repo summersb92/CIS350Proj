@@ -12,5 +12,4 @@ public interface ITweet {
 	String getText();
 	int getFriendsCount();
 	int getFollowersCount();
-	String getFavorite();
 }

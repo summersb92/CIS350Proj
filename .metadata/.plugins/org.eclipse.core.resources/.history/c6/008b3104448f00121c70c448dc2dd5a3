@@ -25,8 +25,7 @@ public class Tweet implements MyTweet {
 	/** Stores the number of followers. */
 	private int followersCount;
 
-	private String fave;
-	private String favorite;
+	private boolean favorite;
 
 	/**
 	 * The Tweet constructor.
@@ -41,14 +40,14 @@ public class Tweet implements MyTweet {
 	public Tweet(final Date date, final String loginName,
 			final String displayName, final int friendsCount,
 			final int followersCount, final String text,
-			final String fave) {
+			final boolean favorite) {
 		this.date = date;
 		this.loginName = loginName;
 		this.displayName = displayName;
 		this.friendsCount = friendsCount;
 		this.followersCount = followersCount;
 		this.text = text;
-		this.favorite = fave;
+		this.favorite = favorite;
 	}
 
 	
@@ -110,7 +109,7 @@ public class Tweet implements MyTweet {
 
 
 	@Override
-	public String getFavorite() {
+	public boolean getFavorite() {
 		// TODO Auto-generated method stub
 		return favorite;
 	}

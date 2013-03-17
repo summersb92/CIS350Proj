@@ -26,7 +26,6 @@ public class Tweet implements MyTweet {
 	private int followersCount;
 
 	private String fave;
-	private String favorite;
 
 	/**
 	 * The Tweet constructor.
@@ -110,7 +109,7 @@ public class Tweet implements MyTweet {
 
 
 	@Override
-	public String getFavorite() {
+	public boolean getFavorite() {
 		// TODO Auto-generated method stub
 		return favorite;
 	}

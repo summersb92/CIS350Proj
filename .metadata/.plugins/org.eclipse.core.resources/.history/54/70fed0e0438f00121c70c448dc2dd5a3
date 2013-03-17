@@ -77,7 +77,7 @@ public class TwitterEngine {
 			String displayName, int friends,
 			int followers, String text, String fave){	
 		Tweet t = new Tweet(date ,loginName, displayName, 
-				friends, followers, text, "favorite");
+				friends, followers, text, String fave);
 		model.add(t);
 	}
 	/**
@@ -252,8 +252,5 @@ public class TwitterEngine {
 	}
 	public int getRateLimitRemaining() {
 		return model.getLimitRemaining();
-	}
-	public String getFavoriteStatus(){
-		return model.getFavoriteStatus();
 	}
 }

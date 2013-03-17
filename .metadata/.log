@@ -5933,3 +5933,954 @@ java.io.IOException: Unable to resolve plug-in "platform:/plugin/org.eclipse.wst
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:584)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1438)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1414)
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.319
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.delete: {ActionHandler(org.eclipse.ui.actions.TextActionHandler$DeleteActionHandler@65b60b98)} vs {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.DeleteAction@7d256e50)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.336
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.copy: {ActionHandler(org.eclipse.ui.actions.TextActionHandler$CopyActionHandler@7f29b00a)} vs {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.CopyToClipboardAction@7497e90e)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.342
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.cut: {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.CutAction@aff7853)} vs {ActionHandler(org.eclipse.ui.actions.TextActionHandler$CutActionHandler@3d92d2ba)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.348
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.paste: {ActionHandler(org.eclipse.ui.actions.TextActionHandler$PasteActionHandler@75af431c)} vs {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.PasteAction@230924b1)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.356
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@78d5cfd6)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.361
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addTask: {ActionHandler(org.eclipse.ui.actions.AddTaskAction@7986f141)} vs {ActionHandler(org.eclipse.jdt.internal.ui.actions.AddTaskAction@4228b522)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.374
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.undo: {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@564809be)} vs {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@505e9087)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.380
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.redo: {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fe59c2)} vs {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fc0de)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.384
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.rename: {ActionHandler(org.eclipse.ui.actions.RenameResourceAction@1777f5b2)} vs {ActionHandler(org.eclipse.jdt.ui.actions.RenameAction@55ebc96b)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.388
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.move: {ActionHandler(org.eclipse.jdt.ui.actions.MoveAction@1c9ac1e4)} vs {ActionHandler(org.eclipse.ui.actions.MoveResourceAction@18933ab5)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.393
+!MESSAGE Conflicting handlers for org.eclipse.jdt.ui.edit.text.java.open.editor: {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@20c8e08f)} vs {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@40055f9f)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.397
+!MESSAGE Conflicting handlers for org.eclipse.jdt.ui.edit.text.java.open.editor: {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@40055f9f)} vs {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@20c8e08f)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.402
+!MESSAGE Conflicting handlers for org.eclipse.ui.navigate.goToResource: {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.GotoResourceAction@ed03465)} vs {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.GotoResourceAction@71fda7c)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.406
+!MESSAGE Conflicting handlers for org.eclipse.ui.file.properties: {ActionHandler(org.eclipse.ui.dialogs.PropertyDialogAction@248bf20b)} vs {ActionHandler(org.eclipse.ui.dialogs.PropertyDialogAction@2a06cd3b)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.410
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@6dea9b6e)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.414
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addTask: {ActionHandler(org.eclipse.ui.actions.AddTaskAction@7986f141)} vs {ActionHandler(org.eclipse.ui.actions.AddTaskAction@59b30ac0)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.418
+!MESSAGE Conflicting handlers for org.eclipse.ui.file.refresh: {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.ResourceMgmtActionProvider$2@25aa370b)} vs {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.ResourceMgmtActionProvider$2@38ffdb99)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.438
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.buildProject: {ActionHandler(org.eclipse.ui.actions.BuildAction@26ae58e9)} vs {ActionHandler(org.eclipse.ui.actions.BuildAction@633ac25c)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.442
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.openProject: {ActionHandler(org.eclipse.ui.actions.OpenResourceAction@35ee1bee)} vs {ActionHandler(org.eclipse.ui.actions.OpenResourceAction@3483c0e9)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.446
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.closeProject: {ActionHandler(org.eclipse.ui.actions.CloseResourceAction@117b8cf0)} vs {ActionHandler(org.eclipse.ui.actions.CloseResourceAction@4661e987)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.451
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.undo: {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@505e9087)} vs {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@7062b849)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.455
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.redo: {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@89990ff)} vs {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fe59c2)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.478
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.delete: {ActionHandler(org.eclipse.ui.actions.TextActionHandler$DeleteActionHandler@65b60b98)} vs {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.DeleteAction@7d256e50)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.482
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.copy: {ActionHandler(org.eclipse.ui.actions.TextActionHandler$CopyActionHandler@7f29b00a)} vs {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.CopyToClipboardAction@7497e90e)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.486
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.cut: {ActionHandler(org.eclipse.ui.actions.TextActionHandler$CutActionHandler@3d92d2ba)} vs {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.CutAction@aff7853)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.490
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.paste: {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.PasteAction@230924b1)} vs {ActionHandler(org.eclipse.ui.actions.TextActionHandler$PasteActionHandler@75af431c)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.498
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@78d5cfd6)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.502
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addTask: {ActionHandler(org.eclipse.ui.actions.AddTaskAction@7986f141)} vs {ActionHandler(org.eclipse.jdt.internal.ui.actions.AddTaskAction@4228b522)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.514
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.undo: {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@505e9087)} vs {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@564809be)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.518
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.redo: {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fc0de)} vs {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fe59c2)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.523
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.rename: {ActionHandler(org.eclipse.ui.actions.RenameResourceAction@1777f5b2)} vs {ActionHandler(org.eclipse.jdt.ui.actions.RenameAction@55ebc96b)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.529
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.move: {ActionHandler(org.eclipse.jdt.ui.actions.MoveAction@1c9ac1e4)} vs {ActionHandler(org.eclipse.ui.actions.MoveResourceAction@18933ab5)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.535
+!MESSAGE Conflicting handlers for org.eclipse.jdt.ui.edit.text.java.open.editor: {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@20c8e08f)} vs {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@40055f9f)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.539
+!MESSAGE Conflicting handlers for org.eclipse.jdt.ui.edit.text.java.open.editor: {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@20c8e08f)} vs {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@40055f9f)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.543
+!MESSAGE Conflicting handlers for org.eclipse.ui.navigate.goToResource: {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.GotoResourceAction@ed03465)} vs {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.GotoResourceAction@71fda7c)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.547
+!MESSAGE Conflicting handlers for org.eclipse.ui.file.properties: {ActionHandler(org.eclipse.ui.dialogs.PropertyDialogAction@2a06cd3b)} vs {ActionHandler(org.eclipse.ui.dialogs.PropertyDialogAction@248bf20b)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.552
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@6dea9b6e)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.556
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addTask: {ActionHandler(org.eclipse.ui.actions.AddTaskAction@59b30ac0)} vs {ActionHandler(org.eclipse.ui.actions.AddTaskAction@7986f141)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.560
+!MESSAGE Conflicting handlers for org.eclipse.ui.file.refresh: {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.ResourceMgmtActionProvider$2@38ffdb99)} vs {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.ResourceMgmtActionProvider$2@25aa370b)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.565
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.buildProject: {ActionHandler(org.eclipse.ui.actions.BuildAction@26ae58e9)} vs {ActionHandler(org.eclipse.ui.actions.BuildAction@633ac25c)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.569
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.openProject: {ActionHandler(org.eclipse.ui.actions.OpenResourceAction@3483c0e9)} vs {ActionHandler(org.eclipse.ui.actions.OpenResourceAction@35ee1bee)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.574
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.closeProject: {ActionHandler(org.eclipse.ui.actions.CloseResourceAction@4661e987)} vs {ActionHandler(org.eclipse.ui.actions.CloseResourceAction@117b8cf0)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.580
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.undo: {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@505e9087)} vs {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@7062b849)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:48:08.585
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.redo: {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fe59c2)} vs {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@89990ff)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:30.820
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.delete: {ActionHandler(org.eclipse.ui.actions.TextActionHandler$DeleteActionHandler@65b60b98)} vs {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.DeleteAction@7d256e50)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:30.824
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.copy: {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.CopyToClipboardAction@7497e90e)} vs {ActionHandler(org.eclipse.ui.actions.TextActionHandler$CopyActionHandler@7f29b00a)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:30.829
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.cut: {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.CutAction@aff7853)} vs {ActionHandler(org.eclipse.ui.actions.TextActionHandler$CutActionHandler@3d92d2ba)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:30.834
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.paste: {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.PasteAction@230924b1)} vs {ActionHandler(org.eclipse.ui.actions.TextActionHandler$PasteActionHandler@75af431c)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:30.844
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@78d5cfd6)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:30.850
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addTask: {ActionHandler(org.eclipse.ui.actions.AddTaskAction@7986f141)} vs {ActionHandler(org.eclipse.jdt.internal.ui.actions.AddTaskAction@4228b522)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:30.863
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.undo: {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@505e9087)} vs {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@564809be)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:30.873
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.redo: {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fc0de)} vs {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fe59c2)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:30.883
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.rename: {ActionHandler(org.eclipse.jdt.ui.actions.RenameAction@55ebc96b)} vs {ActionHandler(org.eclipse.ui.actions.RenameResourceAction@1777f5b2)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:30.888
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.move: {ActionHandler(org.eclipse.jdt.ui.actions.MoveAction@1c9ac1e4)} vs {ActionHandler(org.eclipse.ui.actions.MoveResourceAction@18933ab5)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:30.895
+!MESSAGE Conflicting handlers for org.eclipse.jdt.ui.edit.text.java.open.editor: {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@20c8e08f)} vs {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@40055f9f)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:30.900
+!MESSAGE Conflicting handlers for org.eclipse.jdt.ui.edit.text.java.open.editor: {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@40055f9f)} vs {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@20c8e08f)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:30.906
+!MESSAGE Conflicting handlers for org.eclipse.ui.navigate.goToResource: {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.GotoResourceAction@ed03465)} vs {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.GotoResourceAction@71fda7c)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:30.911
+!MESSAGE Conflicting handlers for org.eclipse.ui.file.properties: {ActionHandler(org.eclipse.ui.dialogs.PropertyDialogAction@248bf20b)} vs {ActionHandler(org.eclipse.ui.dialogs.PropertyDialogAction@2a06cd3b)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:30.916
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@6dea9b6e)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:30.921
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addTask: {ActionHandler(org.eclipse.ui.actions.AddTaskAction@59b30ac0)} vs {ActionHandler(org.eclipse.ui.actions.AddTaskAction@7986f141)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:30.925
+!MESSAGE Conflicting handlers for org.eclipse.ui.file.refresh: {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.ResourceMgmtActionProvider$2@38ffdb99)} vs {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.ResourceMgmtActionProvider$2@25aa370b)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:30.930
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.buildProject: {ActionHandler(org.eclipse.ui.actions.BuildAction@633ac25c)} vs {ActionHandler(org.eclipse.ui.actions.BuildAction@26ae58e9)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:30.935
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.openProject: {ActionHandler(org.eclipse.ui.actions.OpenResourceAction@35ee1bee)} vs {ActionHandler(org.eclipse.ui.actions.OpenResourceAction@3483c0e9)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:30.941
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.closeProject: {ActionHandler(org.eclipse.ui.actions.CloseResourceAction@117b8cf0)} vs {ActionHandler(org.eclipse.ui.actions.CloseResourceAction@4661e987)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:30.948
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.undo: {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@505e9087)} vs {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@7062b849)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:30.954
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.redo: {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@89990ff)} vs {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fe59c2)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:30.999
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.delete: {ActionHandler(org.eclipse.ui.actions.TextActionHandler$DeleteActionHandler@65b60b98)} vs {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.DeleteAction@7d256e50)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:31.004
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.copy: {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.CopyToClipboardAction@7497e90e)} vs {ActionHandler(org.eclipse.ui.actions.TextActionHandler$CopyActionHandler@7f29b00a)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:31.008
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.cut: {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.CutAction@aff7853)} vs {ActionHandler(org.eclipse.ui.actions.TextActionHandler$CutActionHandler@3d92d2ba)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:31.013
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.paste: {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.PasteAction@230924b1)} vs {ActionHandler(org.eclipse.ui.actions.TextActionHandler$PasteActionHandler@75af431c)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:31.021
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@78d5cfd6)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:31.026
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addTask: {ActionHandler(org.eclipse.ui.actions.AddTaskAction@7986f141)} vs {ActionHandler(org.eclipse.jdt.internal.ui.actions.AddTaskAction@4228b522)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:31.037
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.undo: {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@505e9087)} vs {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@564809be)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:31.041
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.redo: {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fe59c2)} vs {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fc0de)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:31.046
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.rename: {ActionHandler(org.eclipse.ui.actions.RenameResourceAction@1777f5b2)} vs {ActionHandler(org.eclipse.jdt.ui.actions.RenameAction@55ebc96b)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:31.062
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.move: {ActionHandler(org.eclipse.jdt.ui.actions.MoveAction@1c9ac1e4)} vs {ActionHandler(org.eclipse.ui.actions.MoveResourceAction@18933ab5)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:31.067
+!MESSAGE Conflicting handlers for org.eclipse.jdt.ui.edit.text.java.open.editor: {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@40055f9f)} vs {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@20c8e08f)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:31.071
+!MESSAGE Conflicting handlers for org.eclipse.jdt.ui.edit.text.java.open.editor: {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@20c8e08f)} vs {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@40055f9f)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:31.075
+!MESSAGE Conflicting handlers for org.eclipse.ui.navigate.goToResource: {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.GotoResourceAction@ed03465)} vs {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.GotoResourceAction@71fda7c)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:31.080
+!MESSAGE Conflicting handlers for org.eclipse.ui.file.properties: {ActionHandler(org.eclipse.ui.dialogs.PropertyDialogAction@2a06cd3b)} vs {ActionHandler(org.eclipse.ui.dialogs.PropertyDialogAction@248bf20b)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:31.084
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@6dea9b6e)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:31.088
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addTask: {ActionHandler(org.eclipse.ui.actions.AddTaskAction@59b30ac0)} vs {ActionHandler(org.eclipse.ui.actions.AddTaskAction@7986f141)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:31.092
+!MESSAGE Conflicting handlers for org.eclipse.ui.file.refresh: {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.ResourceMgmtActionProvider$2@38ffdb99)} vs {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.ResourceMgmtActionProvider$2@25aa370b)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:31.097
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.buildProject: {ActionHandler(org.eclipse.ui.actions.BuildAction@633ac25c)} vs {ActionHandler(org.eclipse.ui.actions.BuildAction@26ae58e9)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:31.103
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.openProject: {ActionHandler(org.eclipse.ui.actions.OpenResourceAction@3483c0e9)} vs {ActionHandler(org.eclipse.ui.actions.OpenResourceAction@35ee1bee)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:31.110
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.closeProject: {ActionHandler(org.eclipse.ui.actions.CloseResourceAction@117b8cf0)} vs {ActionHandler(org.eclipse.ui.actions.CloseResourceAction@4661e987)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:31.114
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.undo: {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@505e9087)} vs {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@7062b849)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:31.119
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.redo: {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@89990ff)} vs {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fe59c2)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.751
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.delete: {ActionHandler(org.eclipse.ui.actions.TextActionHandler$DeleteActionHandler@65b60b98)} vs {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.DeleteAction@7d256e50)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.765
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.copy: {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.CopyToClipboardAction@7497e90e)} vs {ActionHandler(org.eclipse.ui.actions.TextActionHandler$CopyActionHandler@7f29b00a)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.771
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.cut: {ActionHandler(org.eclipse.ui.actions.TextActionHandler$CutActionHandler@3d92d2ba)} vs {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.CutAction@aff7853)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.778
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.paste: {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.PasteAction@230924b1)} vs {ActionHandler(org.eclipse.ui.actions.TextActionHandler$PasteActionHandler@75af431c)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.787
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@78d5cfd6)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.793
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addTask: {ActionHandler(org.eclipse.ui.actions.AddTaskAction@7986f141)} vs {ActionHandler(org.eclipse.jdt.internal.ui.actions.AddTaskAction@4228b522)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.805
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.undo: {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@505e9087)} vs {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@564809be)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.812
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.redo: {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fe59c2)} vs {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fc0de)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.818
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.rename: {ActionHandler(org.eclipse.ui.actions.RenameResourceAction@1777f5b2)} vs {ActionHandler(org.eclipse.jdt.ui.actions.RenameAction@55ebc96b)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.824
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.move: {ActionHandler(org.eclipse.jdt.ui.actions.MoveAction@1c9ac1e4)} vs {ActionHandler(org.eclipse.ui.actions.MoveResourceAction@18933ab5)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.831
+!MESSAGE Conflicting handlers for org.eclipse.jdt.ui.edit.text.java.open.editor: {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@20c8e08f)} vs {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@40055f9f)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.837
+!MESSAGE Conflicting handlers for org.eclipse.jdt.ui.edit.text.java.open.editor: {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@20c8e08f)} vs {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@40055f9f)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.843
+!MESSAGE Conflicting handlers for org.eclipse.ui.navigate.goToResource: {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.GotoResourceAction@71fda7c)} vs {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.GotoResourceAction@ed03465)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.850
+!MESSAGE Conflicting handlers for org.eclipse.ui.file.properties: {ActionHandler(org.eclipse.ui.dialogs.PropertyDialogAction@2a06cd3b)} vs {ActionHandler(org.eclipse.ui.dialogs.PropertyDialogAction@248bf20b)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.859
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@6dea9b6e)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.864
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addTask: {ActionHandler(org.eclipse.ui.actions.AddTaskAction@7986f141)} vs {ActionHandler(org.eclipse.ui.actions.AddTaskAction@59b30ac0)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.869
+!MESSAGE Conflicting handlers for org.eclipse.ui.file.refresh: {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.ResourceMgmtActionProvider$2@25aa370b)} vs {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.ResourceMgmtActionProvider$2@38ffdb99)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.874
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.buildProject: {ActionHandler(org.eclipse.ui.actions.BuildAction@26ae58e9)} vs {ActionHandler(org.eclipse.ui.actions.BuildAction@633ac25c)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.879
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.openProject: {ActionHandler(org.eclipse.ui.actions.OpenResourceAction@35ee1bee)} vs {ActionHandler(org.eclipse.ui.actions.OpenResourceAction@3483c0e9)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.883
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.closeProject: {ActionHandler(org.eclipse.ui.actions.CloseResourceAction@4661e987)} vs {ActionHandler(org.eclipse.ui.actions.CloseResourceAction@117b8cf0)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.888
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.undo: {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@505e9087)} vs {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@7062b849)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.892
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.redo: {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@89990ff)} vs {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fe59c2)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.912
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.delete: {ActionHandler(org.eclipse.ui.actions.TextActionHandler$DeleteActionHandler@65b60b98)} vs {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.DeleteAction@7d256e50)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.917
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.copy: {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.CopyToClipboardAction@7497e90e)} vs {ActionHandler(org.eclipse.ui.actions.TextActionHandler$CopyActionHandler@7f29b00a)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.921
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.cut: {ActionHandler(org.eclipse.ui.actions.TextActionHandler$CutActionHandler@3d92d2ba)} vs {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.CutAction@aff7853)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.925
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.paste: {ActionHandler(org.eclipse.ui.actions.TextActionHandler$PasteActionHandler@75af431c)} vs {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.PasteAction@230924b1)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.932
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@78d5cfd6)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.936
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addTask: {ActionHandler(org.eclipse.ui.actions.AddTaskAction@7986f141)} vs {ActionHandler(org.eclipse.jdt.internal.ui.actions.AddTaskAction@4228b522)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.947
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.undo: {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@564809be)} vs {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@505e9087)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.951
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.redo: {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fc0de)} vs {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fe59c2)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.955
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.rename: {ActionHandler(org.eclipse.jdt.ui.actions.RenameAction@55ebc96b)} vs {ActionHandler(org.eclipse.ui.actions.RenameResourceAction@1777f5b2)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.959
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.move: {ActionHandler(org.eclipse.ui.actions.MoveResourceAction@18933ab5)} vs {ActionHandler(org.eclipse.jdt.ui.actions.MoveAction@1c9ac1e4)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.963
+!MESSAGE Conflicting handlers for org.eclipse.jdt.ui.edit.text.java.open.editor: {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@20c8e08f)} vs {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@40055f9f)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.967
+!MESSAGE Conflicting handlers for org.eclipse.jdt.ui.edit.text.java.open.editor: {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@40055f9f)} vs {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@20c8e08f)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.972
+!MESSAGE Conflicting handlers for org.eclipse.ui.navigate.goToResource: {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.GotoResourceAction@71fda7c)} vs {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.GotoResourceAction@ed03465)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.976
+!MESSAGE Conflicting handlers for org.eclipse.ui.file.properties: {ActionHandler(org.eclipse.ui.dialogs.PropertyDialogAction@248bf20b)} vs {ActionHandler(org.eclipse.ui.dialogs.PropertyDialogAction@2a06cd3b)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.980
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@6dea9b6e)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.984
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addTask: {ActionHandler(org.eclipse.ui.actions.AddTaskAction@7986f141)} vs {ActionHandler(org.eclipse.ui.actions.AddTaskAction@59b30ac0)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.988
+!MESSAGE Conflicting handlers for org.eclipse.ui.file.refresh: {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.ResourceMgmtActionProvider$2@38ffdb99)} vs {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.ResourceMgmtActionProvider$2@25aa370b)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.993
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.buildProject: {ActionHandler(org.eclipse.ui.actions.BuildAction@633ac25c)} vs {ActionHandler(org.eclipse.ui.actions.BuildAction@26ae58e9)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:32.998
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.openProject: {ActionHandler(org.eclipse.ui.actions.OpenResourceAction@3483c0e9)} vs {ActionHandler(org.eclipse.ui.actions.OpenResourceAction@35ee1bee)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:33.001
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.closeProject: {ActionHandler(org.eclipse.ui.actions.CloseResourceAction@4661e987)} vs {ActionHandler(org.eclipse.ui.actions.CloseResourceAction@117b8cf0)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:33.006
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.undo: {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@505e9087)} vs {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@7062b849)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:33.011
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.redo: {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@89990ff)} vs {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fe59c2)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:33.062
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@6dea9b6e)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.714
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.delete: {ActionHandler(org.eclipse.ui.actions.TextActionHandler$DeleteActionHandler@65b60b98)} vs {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.DeleteAction@7d256e50)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.727
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.copy: {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.CopyToClipboardAction@7497e90e)} vs {ActionHandler(org.eclipse.ui.actions.TextActionHandler$CopyActionHandler@7f29b00a)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.732
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.cut: {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.CutAction@aff7853)} vs {ActionHandler(org.eclipse.ui.actions.TextActionHandler$CutActionHandler@3d92d2ba)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.739
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.paste: {ActionHandler(org.eclipse.ui.actions.TextActionHandler$PasteActionHandler@75af431c)} vs {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.PasteAction@230924b1)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.763
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@78d5cfd6)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.768
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addTask: {ActionHandler(org.eclipse.ui.actions.AddTaskAction@7986f141)} vs {ActionHandler(org.eclipse.jdt.internal.ui.actions.AddTaskAction@4228b522)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.781
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.undo: {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@505e9087)} vs {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@564809be)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.787
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.redo: {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fe59c2)} vs {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fc0de)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.791
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.rename: {ActionHandler(org.eclipse.ui.actions.RenameResourceAction@1777f5b2)} vs {ActionHandler(org.eclipse.jdt.ui.actions.RenameAction@55ebc96b)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.796
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.move: {ActionHandler(org.eclipse.jdt.ui.actions.MoveAction@1c9ac1e4)} vs {ActionHandler(org.eclipse.ui.actions.MoveResourceAction@18933ab5)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.800
+!MESSAGE Conflicting handlers for org.eclipse.jdt.ui.edit.text.java.open.editor: {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@20c8e08f)} vs {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@40055f9f)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.804
+!MESSAGE Conflicting handlers for org.eclipse.jdt.ui.edit.text.java.open.editor: {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@40055f9f)} vs {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@20c8e08f)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.808
+!MESSAGE Conflicting handlers for org.eclipse.ui.navigate.goToResource: {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.GotoResourceAction@ed03465)} vs {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.GotoResourceAction@71fda7c)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.813
+!MESSAGE Conflicting handlers for org.eclipse.ui.file.properties: {ActionHandler(org.eclipse.ui.dialogs.PropertyDialogAction@248bf20b)} vs {ActionHandler(org.eclipse.ui.dialogs.PropertyDialogAction@2a06cd3b)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.817
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@6dea9b6e)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.821
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addTask: {ActionHandler(org.eclipse.ui.actions.AddTaskAction@59b30ac0)} vs {ActionHandler(org.eclipse.ui.actions.AddTaskAction@7986f141)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.826
+!MESSAGE Conflicting handlers for org.eclipse.ui.file.refresh: {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.ResourceMgmtActionProvider$2@25aa370b)} vs {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.ResourceMgmtActionProvider$2@38ffdb99)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.832
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.buildProject: {ActionHandler(org.eclipse.ui.actions.BuildAction@633ac25c)} vs {ActionHandler(org.eclipse.ui.actions.BuildAction@26ae58e9)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.836
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.openProject: {ActionHandler(org.eclipse.ui.actions.OpenResourceAction@3483c0e9)} vs {ActionHandler(org.eclipse.ui.actions.OpenResourceAction@35ee1bee)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.841
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.closeProject: {ActionHandler(org.eclipse.ui.actions.CloseResourceAction@117b8cf0)} vs {ActionHandler(org.eclipse.ui.actions.CloseResourceAction@4661e987)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.845
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.undo: {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@505e9087)} vs {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@7062b849)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.850
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.redo: {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fe59c2)} vs {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@89990ff)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.871
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.delete: {ActionHandler(org.eclipse.ui.actions.TextActionHandler$DeleteActionHandler@65b60b98)} vs {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.DeleteAction@7d256e50)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.877
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.copy: {ActionHandler(org.eclipse.ui.actions.TextActionHandler$CopyActionHandler@7f29b00a)} vs {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.CopyToClipboardAction@7497e90e)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.881
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.cut: {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.CutAction@aff7853)} vs {ActionHandler(org.eclipse.ui.actions.TextActionHandler$CutActionHandler@3d92d2ba)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.885
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.paste: {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.PasteAction@230924b1)} vs {ActionHandler(org.eclipse.ui.actions.TextActionHandler$PasteActionHandler@75af431c)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.891
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@78d5cfd6)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.896
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addTask: {ActionHandler(org.eclipse.jdt.internal.ui.actions.AddTaskAction@4228b522)} vs {ActionHandler(org.eclipse.ui.actions.AddTaskAction@7986f141)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.908
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.undo: {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@564809be)} vs {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@505e9087)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.912
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.redo: {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fe59c2)} vs {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fc0de)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.916
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.rename: {ActionHandler(org.eclipse.ui.actions.RenameResourceAction@1777f5b2)} vs {ActionHandler(org.eclipse.jdt.ui.actions.RenameAction@55ebc96b)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.920
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.move: {ActionHandler(org.eclipse.ui.actions.MoveResourceAction@18933ab5)} vs {ActionHandler(org.eclipse.jdt.ui.actions.MoveAction@1c9ac1e4)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.924
+!MESSAGE Conflicting handlers for org.eclipse.jdt.ui.edit.text.java.open.editor: {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@40055f9f)} vs {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@20c8e08f)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.928
+!MESSAGE Conflicting handlers for org.eclipse.jdt.ui.edit.text.java.open.editor: {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@20c8e08f)} vs {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@40055f9f)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.932
+!MESSAGE Conflicting handlers for org.eclipse.ui.navigate.goToResource: {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.GotoResourceAction@ed03465)} vs {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.GotoResourceAction@71fda7c)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.936
+!MESSAGE Conflicting handlers for org.eclipse.ui.file.properties: {ActionHandler(org.eclipse.ui.dialogs.PropertyDialogAction@248bf20b)} vs {ActionHandler(org.eclipse.ui.dialogs.PropertyDialogAction@2a06cd3b)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.941
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@6dea9b6e)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.945
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addTask: {ActionHandler(org.eclipse.ui.actions.AddTaskAction@59b30ac0)} vs {ActionHandler(org.eclipse.ui.actions.AddTaskAction@7986f141)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.949
+!MESSAGE Conflicting handlers for org.eclipse.ui.file.refresh: {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.ResourceMgmtActionProvider$2@25aa370b)} vs {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.ResourceMgmtActionProvider$2@38ffdb99)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.953
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.buildProject: {ActionHandler(org.eclipse.ui.actions.BuildAction@633ac25c)} vs {ActionHandler(org.eclipse.ui.actions.BuildAction@26ae58e9)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.957
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.openProject: {ActionHandler(org.eclipse.ui.actions.OpenResourceAction@3483c0e9)} vs {ActionHandler(org.eclipse.ui.actions.OpenResourceAction@35ee1bee)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.961
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.closeProject: {ActionHandler(org.eclipse.ui.actions.CloseResourceAction@117b8cf0)} vs {ActionHandler(org.eclipse.ui.actions.CloseResourceAction@4661e987)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.965
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.undo: {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@505e9087)} vs {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@7062b849)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:41.970
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.redo: {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@89990ff)} vs {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fe59c2)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:50:42.006
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@6dea9b6e)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.613
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.delete: {ActionHandler(org.eclipse.ui.actions.TextActionHandler$DeleteActionHandler@65b60b98)} vs {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.DeleteAction@7d256e50)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.622
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.copy: {ActionHandler(org.eclipse.ui.actions.TextActionHandler$CopyActionHandler@7f29b00a)} vs {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.CopyToClipboardAction@7497e90e)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.629
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.cut: {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.CutAction@aff7853)} vs {ActionHandler(org.eclipse.ui.actions.TextActionHandler$CutActionHandler@3d92d2ba)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.634
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.paste: {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.PasteAction@230924b1)} vs {ActionHandler(org.eclipse.ui.actions.TextActionHandler$PasteActionHandler@75af431c)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.642
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@78d5cfd6)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.649
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addTask: {ActionHandler(org.eclipse.ui.actions.AddTaskAction@7986f141)} vs {ActionHandler(org.eclipse.jdt.internal.ui.actions.AddTaskAction@4228b522)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.661
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.undo: {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@505e9087)} vs {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@564809be)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.668
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.redo: {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fc0de)} vs {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fe59c2)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.674
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.rename: {ActionHandler(org.eclipse.jdt.ui.actions.RenameAction@55ebc96b)} vs {ActionHandler(org.eclipse.ui.actions.RenameResourceAction@1777f5b2)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.678
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.move: {ActionHandler(org.eclipse.jdt.ui.actions.MoveAction@1c9ac1e4)} vs {ActionHandler(org.eclipse.ui.actions.MoveResourceAction@18933ab5)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.682
+!MESSAGE Conflicting handlers for org.eclipse.jdt.ui.edit.text.java.open.editor: {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@40055f9f)} vs {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@20c8e08f)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.687
+!MESSAGE Conflicting handlers for org.eclipse.jdt.ui.edit.text.java.open.editor: {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@20c8e08f)} vs {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@40055f9f)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.699
+!MESSAGE Conflicting handlers for org.eclipse.ui.navigate.goToResource: {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.GotoResourceAction@71fda7c)} vs {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.GotoResourceAction@ed03465)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.704
+!MESSAGE Conflicting handlers for org.eclipse.ui.file.properties: {ActionHandler(org.eclipse.ui.dialogs.PropertyDialogAction@2a06cd3b)} vs {ActionHandler(org.eclipse.ui.dialogs.PropertyDialogAction@248bf20b)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.714
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@6dea9b6e)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.718
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addTask: {ActionHandler(org.eclipse.ui.actions.AddTaskAction@7986f141)} vs {ActionHandler(org.eclipse.ui.actions.AddTaskAction@59b30ac0)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.723
+!MESSAGE Conflicting handlers for org.eclipse.ui.file.refresh: {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.ResourceMgmtActionProvider$2@25aa370b)} vs {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.ResourceMgmtActionProvider$2@38ffdb99)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.751
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.buildProject: {ActionHandler(org.eclipse.ui.actions.BuildAction@633ac25c)} vs {ActionHandler(org.eclipse.ui.actions.BuildAction@26ae58e9)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.756
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.openProject: {ActionHandler(org.eclipse.ui.actions.OpenResourceAction@3483c0e9)} vs {ActionHandler(org.eclipse.ui.actions.OpenResourceAction@35ee1bee)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.760
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.closeProject: {ActionHandler(org.eclipse.ui.actions.CloseResourceAction@4661e987)} vs {ActionHandler(org.eclipse.ui.actions.CloseResourceAction@117b8cf0)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.764
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.undo: {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@505e9087)} vs {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@7062b849)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.769
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.redo: {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@89990ff)} vs {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fe59c2)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.791
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.delete: {ActionHandler(org.eclipse.ui.actions.TextActionHandler$DeleteActionHandler@65b60b98)} vs {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.DeleteAction@7d256e50)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.799
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.copy: {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.CopyToClipboardAction@7497e90e)} vs {ActionHandler(org.eclipse.ui.actions.TextActionHandler$CopyActionHandler@7f29b00a)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.828
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.cut: {ActionHandler(org.eclipse.ui.actions.TextActionHandler$CutActionHandler@3d92d2ba)} vs {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.CutAction@aff7853)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.833
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.paste: {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.PasteAction@230924b1)} vs {ActionHandler(org.eclipse.ui.actions.TextActionHandler$PasteActionHandler@75af431c)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.838
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@78d5cfd6)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.843
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addTask: {ActionHandler(org.eclipse.ui.actions.AddTaskAction@7986f141)} vs {ActionHandler(org.eclipse.jdt.internal.ui.actions.AddTaskAction@4228b522)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.853
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.undo: {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@505e9087)} vs {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@564809be)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.857
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.redo: {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fc0de)} vs {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fe59c2)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.861
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.rename: {ActionHandler(org.eclipse.ui.actions.RenameResourceAction@1777f5b2)} vs {ActionHandler(org.eclipse.jdt.ui.actions.RenameAction@55ebc96b)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.865
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.move: {ActionHandler(org.eclipse.jdt.ui.actions.MoveAction@1c9ac1e4)} vs {ActionHandler(org.eclipse.ui.actions.MoveResourceAction@18933ab5)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.869
+!MESSAGE Conflicting handlers for org.eclipse.jdt.ui.edit.text.java.open.editor: {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@40055f9f)} vs {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@20c8e08f)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.873
+!MESSAGE Conflicting handlers for org.eclipse.jdt.ui.edit.text.java.open.editor: {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@20c8e08f)} vs {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@40055f9f)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.877
+!MESSAGE Conflicting handlers for org.eclipse.ui.navigate.goToResource: {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.GotoResourceAction@ed03465)} vs {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.GotoResourceAction@71fda7c)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.881
+!MESSAGE Conflicting handlers for org.eclipse.ui.file.properties: {ActionHandler(org.eclipse.ui.dialogs.PropertyDialogAction@2a06cd3b)} vs {ActionHandler(org.eclipse.ui.dialogs.PropertyDialogAction@248bf20b)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.885
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@6dea9b6e)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.889
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addTask: {ActionHandler(org.eclipse.ui.actions.AddTaskAction@7986f141)} vs {ActionHandler(org.eclipse.ui.actions.AddTaskAction@59b30ac0)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.893
+!MESSAGE Conflicting handlers for org.eclipse.ui.file.refresh: {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.ResourceMgmtActionProvider$2@25aa370b)} vs {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.ResourceMgmtActionProvider$2@38ffdb99)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.897
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.buildProject: {ActionHandler(org.eclipse.ui.actions.BuildAction@633ac25c)} vs {ActionHandler(org.eclipse.ui.actions.BuildAction@26ae58e9)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.901
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.openProject: {ActionHandler(org.eclipse.ui.actions.OpenResourceAction@3483c0e9)} vs {ActionHandler(org.eclipse.ui.actions.OpenResourceAction@35ee1bee)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.905
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.closeProject: {ActionHandler(org.eclipse.ui.actions.CloseResourceAction@117b8cf0)} vs {ActionHandler(org.eclipse.ui.actions.CloseResourceAction@4661e987)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.909
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.undo: {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@505e9087)} vs {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@7062b849)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.913
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.redo: {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@89990ff)} vs {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fe59c2)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:12.950
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@6dea9b6e)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:13.901
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.delete: {ActionHandler(org.eclipse.ui.actions.TextActionHandler$DeleteActionHandler@65b60b98)} vs {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.DeleteAction@7d256e50)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:13.913
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.copy: {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.CopyToClipboardAction@7497e90e)} vs {ActionHandler(org.eclipse.ui.actions.TextActionHandler$CopyActionHandler@7f29b00a)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:13.920
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.cut: {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.CutAction@aff7853)} vs {ActionHandler(org.eclipse.ui.actions.TextActionHandler$CutActionHandler@3d92d2ba)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:13.928
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.paste: {ActionHandler(org.eclipse.ui.actions.TextActionHandler$PasteActionHandler@75af431c)} vs {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.PasteAction@230924b1)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:13.938
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@78d5cfd6)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:13.943
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addTask: {ActionHandler(org.eclipse.ui.actions.AddTaskAction@7986f141)} vs {ActionHandler(org.eclipse.jdt.internal.ui.actions.AddTaskAction@4228b522)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:13.956
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.undo: {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@505e9087)} vs {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@564809be)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:13.962
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.redo: {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fe59c2)} vs {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fc0de)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:13.967
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.rename: {ActionHandler(org.eclipse.jdt.ui.actions.RenameAction@55ebc96b)} vs {ActionHandler(org.eclipse.ui.actions.RenameResourceAction@1777f5b2)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:13.973
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.move: {ActionHandler(org.eclipse.jdt.ui.actions.MoveAction@1c9ac1e4)} vs {ActionHandler(org.eclipse.ui.actions.MoveResourceAction@18933ab5)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:13.978
+!MESSAGE Conflicting handlers for org.eclipse.jdt.ui.edit.text.java.open.editor: {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@40055f9f)} vs {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@20c8e08f)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:13.983
+!MESSAGE Conflicting handlers for org.eclipse.jdt.ui.edit.text.java.open.editor: {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@20c8e08f)} vs {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@40055f9f)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:13.989
+!MESSAGE Conflicting handlers for org.eclipse.ui.navigate.goToResource: {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.GotoResourceAction@ed03465)} vs {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.GotoResourceAction@71fda7c)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:13.994
+!MESSAGE Conflicting handlers for org.eclipse.ui.file.properties: {ActionHandler(org.eclipse.ui.dialogs.PropertyDialogAction@2a06cd3b)} vs {ActionHandler(org.eclipse.ui.dialogs.PropertyDialogAction@248bf20b)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:13.999
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@6dea9b6e)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.005
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addTask: {ActionHandler(org.eclipse.ui.actions.AddTaskAction@7986f141)} vs {ActionHandler(org.eclipse.ui.actions.AddTaskAction@59b30ac0)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.010
+!MESSAGE Conflicting handlers for org.eclipse.ui.file.refresh: {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.ResourceMgmtActionProvider$2@25aa370b)} vs {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.ResourceMgmtActionProvider$2@38ffdb99)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.014
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.buildProject: {ActionHandler(org.eclipse.ui.actions.BuildAction@26ae58e9)} vs {ActionHandler(org.eclipse.ui.actions.BuildAction@633ac25c)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.019
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.openProject: {ActionHandler(org.eclipse.ui.actions.OpenResourceAction@3483c0e9)} vs {ActionHandler(org.eclipse.ui.actions.OpenResourceAction@35ee1bee)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.023
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.closeProject: {ActionHandler(org.eclipse.ui.actions.CloseResourceAction@4661e987)} vs {ActionHandler(org.eclipse.ui.actions.CloseResourceAction@117b8cf0)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.028
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.undo: {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@505e9087)} vs {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@7062b849)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.032
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.redo: {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@89990ff)} vs {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fe59c2)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.055
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.delete: {ActionHandler(org.eclipse.ui.actions.TextActionHandler$DeleteActionHandler@65b60b98)} vs {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.DeleteAction@7d256e50)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.059
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.copy: {ActionHandler(org.eclipse.ui.actions.TextActionHandler$CopyActionHandler@7f29b00a)} vs {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.CopyToClipboardAction@7497e90e)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.063
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.cut: {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.CutAction@aff7853)} vs {ActionHandler(org.eclipse.ui.actions.TextActionHandler$CutActionHandler@3d92d2ba)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.068
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.paste: {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.PasteAction@230924b1)} vs {ActionHandler(org.eclipse.ui.actions.TextActionHandler$PasteActionHandler@75af431c)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.074
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@78d5cfd6)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.078
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addTask: {ActionHandler(org.eclipse.ui.actions.AddTaskAction@7986f141)} vs {ActionHandler(org.eclipse.jdt.internal.ui.actions.AddTaskAction@4228b522)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.089
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.undo: {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@505e9087)} vs {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@564809be)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.093
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.redo: {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fe59c2)} vs {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fc0de)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.097
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.rename: {ActionHandler(org.eclipse.ui.actions.RenameResourceAction@1777f5b2)} vs {ActionHandler(org.eclipse.jdt.ui.actions.RenameAction@55ebc96b)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.102
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.move: {ActionHandler(org.eclipse.jdt.ui.actions.MoveAction@1c9ac1e4)} vs {ActionHandler(org.eclipse.ui.actions.MoveResourceAction@18933ab5)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.106
+!MESSAGE Conflicting handlers for org.eclipse.jdt.ui.edit.text.java.open.editor: {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@20c8e08f)} vs {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@40055f9f)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.110
+!MESSAGE Conflicting handlers for org.eclipse.jdt.ui.edit.text.java.open.editor: {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@20c8e08f)} vs {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@40055f9f)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.114
+!MESSAGE Conflicting handlers for org.eclipse.ui.navigate.goToResource: {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.GotoResourceAction@71fda7c)} vs {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.GotoResourceAction@ed03465)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.118
+!MESSAGE Conflicting handlers for org.eclipse.ui.file.properties: {ActionHandler(org.eclipse.ui.dialogs.PropertyDialogAction@248bf20b)} vs {ActionHandler(org.eclipse.ui.dialogs.PropertyDialogAction@2a06cd3b)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.122
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@6dea9b6e)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.126
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addTask: {ActionHandler(org.eclipse.ui.actions.AddTaskAction@7986f141)} vs {ActionHandler(org.eclipse.ui.actions.AddTaskAction@59b30ac0)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.130
+!MESSAGE Conflicting handlers for org.eclipse.ui.file.refresh: {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.ResourceMgmtActionProvider$2@38ffdb99)} vs {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.ResourceMgmtActionProvider$2@25aa370b)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.135
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.buildProject: {ActionHandler(org.eclipse.ui.actions.BuildAction@633ac25c)} vs {ActionHandler(org.eclipse.ui.actions.BuildAction@26ae58e9)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.139
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.openProject: {ActionHandler(org.eclipse.ui.actions.OpenResourceAction@3483c0e9)} vs {ActionHandler(org.eclipse.ui.actions.OpenResourceAction@35ee1bee)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.143
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.closeProject: {ActionHandler(org.eclipse.ui.actions.CloseResourceAction@117b8cf0)} vs {ActionHandler(org.eclipse.ui.actions.CloseResourceAction@4661e987)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.147
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.undo: {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@505e9087)} vs {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@7062b849)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.151
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.redo: {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@89990ff)} vs {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fe59c2)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.247
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.undo: {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@505e9087)} vs {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@7062b849)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.251
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.undo: {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@505e9087)} vs {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@7062b849)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.255
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.redo: {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@89990ff)} vs {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fe59c2)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.260
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.redo: {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@89990ff)} vs {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fe59c2)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:14.312
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@6dea9b6e)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.138
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.delete: {ActionHandler(org.eclipse.ui.actions.TextActionHandler$DeleteActionHandler@65b60b98)} vs {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.DeleteAction@7d256e50)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.149
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.copy: {ActionHandler(org.eclipse.ui.actions.TextActionHandler$CopyActionHandler@7f29b00a)} vs {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.CopyToClipboardAction@7497e90e)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.155
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.cut: {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.CutAction@aff7853)} vs {ActionHandler(org.eclipse.ui.actions.TextActionHandler$CutActionHandler@3d92d2ba)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.160
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.paste: {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.PasteAction@230924b1)} vs {ActionHandler(org.eclipse.ui.actions.TextActionHandler$PasteActionHandler@75af431c)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.169
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@78d5cfd6)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.175
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addTask: {ActionHandler(org.eclipse.jdt.internal.ui.actions.AddTaskAction@4228b522)} vs {ActionHandler(org.eclipse.ui.actions.AddTaskAction@7986f141)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.187
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.undo: {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@505e9087)} vs {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@564809be)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.193
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.redo: {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fc0de)} vs {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fe59c2)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.198
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.rename: {ActionHandler(org.eclipse.ui.actions.RenameResourceAction@1777f5b2)} vs {ActionHandler(org.eclipse.jdt.ui.actions.RenameAction@55ebc96b)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.204
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.move: {ActionHandler(org.eclipse.ui.actions.MoveResourceAction@18933ab5)} vs {ActionHandler(org.eclipse.jdt.ui.actions.MoveAction@1c9ac1e4)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.210
+!MESSAGE Conflicting handlers for org.eclipse.jdt.ui.edit.text.java.open.editor: {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@20c8e08f)} vs {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@40055f9f)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.216
+!MESSAGE Conflicting handlers for org.eclipse.jdt.ui.edit.text.java.open.editor: {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@20c8e08f)} vs {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@40055f9f)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.222
+!MESSAGE Conflicting handlers for org.eclipse.ui.navigate.goToResource: {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.GotoResourceAction@ed03465)} vs {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.GotoResourceAction@71fda7c)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.228
+!MESSAGE Conflicting handlers for org.eclipse.ui.file.properties: {ActionHandler(org.eclipse.ui.dialogs.PropertyDialogAction@2a06cd3b)} vs {ActionHandler(org.eclipse.ui.dialogs.PropertyDialogAction@248bf20b)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.234
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@6dea9b6e)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.239
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addTask: {ActionHandler(org.eclipse.ui.actions.AddTaskAction@7986f141)} vs {ActionHandler(org.eclipse.ui.actions.AddTaskAction@59b30ac0)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.245
+!MESSAGE Conflicting handlers for org.eclipse.ui.file.refresh: {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.ResourceMgmtActionProvider$2@38ffdb99)} vs {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.ResourceMgmtActionProvider$2@25aa370b)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.251
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.buildProject: {ActionHandler(org.eclipse.ui.actions.BuildAction@633ac25c)} vs {ActionHandler(org.eclipse.ui.actions.BuildAction@26ae58e9)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.256
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.openProject: {ActionHandler(org.eclipse.ui.actions.OpenResourceAction@3483c0e9)} vs {ActionHandler(org.eclipse.ui.actions.OpenResourceAction@35ee1bee)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.262
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.closeProject: {ActionHandler(org.eclipse.ui.actions.CloseResourceAction@117b8cf0)} vs {ActionHandler(org.eclipse.ui.actions.CloseResourceAction@4661e987)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.266
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.undo: {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@7062b849)} vs {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@505e9087)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.270
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.redo: {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@89990ff)} vs {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fe59c2)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.291
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.delete: {ActionHandler(org.eclipse.ui.actions.TextActionHandler$DeleteActionHandler@65b60b98)} vs {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.DeleteAction@7d256e50)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.298
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.copy: {ActionHandler(org.eclipse.ui.actions.TextActionHandler$CopyActionHandler@7f29b00a)} vs {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.CopyToClipboardAction@7497e90e)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.304
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.cut: {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.CutAction@aff7853)} vs {ActionHandler(org.eclipse.ui.actions.TextActionHandler$CutActionHandler@3d92d2ba)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.309
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.paste: {ActionHandler(org.eclipse.ui.actions.TextActionHandler$PasteActionHandler@75af431c)} vs {ActionHandler(org.eclipse.jdt.internal.ui.refactoring.reorg.PasteAction@230924b1)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.317
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@78d5cfd6)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.322
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addTask: {ActionHandler(org.eclipse.ui.actions.AddTaskAction@7986f141)} vs {ActionHandler(org.eclipse.jdt.internal.ui.actions.AddTaskAction@4228b522)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.333
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.undo: {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@505e9087)} vs {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@564809be)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.339
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.redo: {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fe59c2)} vs {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fc0de)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.346
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.rename: {ActionHandler(org.eclipse.ui.actions.RenameResourceAction@1777f5b2)} vs {ActionHandler(org.eclipse.jdt.ui.actions.RenameAction@55ebc96b)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.350
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.move: {ActionHandler(org.eclipse.ui.actions.MoveResourceAction@18933ab5)} vs {ActionHandler(org.eclipse.jdt.ui.actions.MoveAction@1c9ac1e4)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.354
+!MESSAGE Conflicting handlers for org.eclipse.jdt.ui.edit.text.java.open.editor: {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@40055f9f)} vs {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@20c8e08f)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.358
+!MESSAGE Conflicting handlers for org.eclipse.jdt.ui.edit.text.java.open.editor: {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@40055f9f)} vs {ActionHandler(org.eclipse.jdt.ui.actions.OpenAction@20c8e08f)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.362
+!MESSAGE Conflicting handlers for org.eclipse.ui.navigate.goToResource: {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.GotoResourceAction@ed03465)} vs {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.GotoResourceAction@71fda7c)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.366
+!MESSAGE Conflicting handlers for org.eclipse.ui.file.properties: {ActionHandler(org.eclipse.ui.dialogs.PropertyDialogAction@248bf20b)} vs {ActionHandler(org.eclipse.ui.dialogs.PropertyDialogAction@2a06cd3b)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.371
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@6dea9b6e)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.375
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addTask: {ActionHandler(org.eclipse.ui.actions.AddTaskAction@7986f141)} vs {ActionHandler(org.eclipse.ui.actions.AddTaskAction@59b30ac0)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.379
+!MESSAGE Conflicting handlers for org.eclipse.ui.file.refresh: {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.ResourceMgmtActionProvider$2@25aa370b)} vs {ActionHandler(org.eclipse.ui.internal.navigator.resources.actions.ResourceMgmtActionProvider$2@38ffdb99)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.383
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.buildProject: {ActionHandler(org.eclipse.ui.actions.BuildAction@26ae58e9)} vs {ActionHandler(org.eclipse.ui.actions.BuildAction@633ac25c)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.388
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.openProject: {ActionHandler(org.eclipse.ui.actions.OpenResourceAction@3483c0e9)} vs {ActionHandler(org.eclipse.ui.actions.OpenResourceAction@35ee1bee)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.393
+!MESSAGE Conflicting handlers for org.eclipse.ui.project.closeProject: {ActionHandler(org.eclipse.ui.actions.CloseResourceAction@4661e987)} vs {ActionHandler(org.eclipse.ui.actions.CloseResourceAction@117b8cf0)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.397
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.undo: {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@7062b849)} vs {ActionHandler(org.eclipse.ui.operations.UndoActionHandler@505e9087)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.401
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.redo: {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@89990ff)} vs {ActionHandler(org.eclipse.ui.operations.RedoActionHandler@19fe59c2)}
+
+!ENTRY org.eclipse.ui 4 4 2013-03-17 16:53:17.453
+!MESSAGE Conflicting handlers for org.eclipse.ui.edit.addBookmark: {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@6dea9b6e)} vs {ActionHandler(org.eclipse.ui.actions.AddBookmarkAction@45828b22)}

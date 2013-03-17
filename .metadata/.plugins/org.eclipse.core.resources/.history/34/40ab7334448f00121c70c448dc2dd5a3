@@ -113,8 +113,6 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 		case 4:
 			val = myTweets.get(row).getFollowersCount();
 			break;
-		case 5:
-			val = "false";
 		default:
 		}
 		return val;
@@ -207,8 +205,7 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 		followers = status.getUser().getFollowersCount();
 		friends = status.getUser().getFriendsCount();
 		text = status.getText();
-		fave = "false";
-		//fave = getFavorite(displayName);
+		fave = getFavorite(displayName);
 		t = new Tweet(date , loginName , displayName , 
 				followers , friends , text, fave);
 		add(t);
@@ -516,10 +513,6 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 	}
 	public int getLimitRemaining() {
 		return user.getRateLimitStatus().getRemaining();
-	}
-	public String getFavoriteStatus() {
-		// TODO Auto-generated method stub
-		return "false";
 	}
 	
 	

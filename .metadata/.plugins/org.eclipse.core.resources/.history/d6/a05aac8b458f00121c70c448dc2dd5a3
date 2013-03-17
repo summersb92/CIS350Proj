@@ -113,8 +113,6 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 		case 4:
 			val = myTweets.get(row).getFollowersCount();
 			break;
-		case 5:
-			val = "false";
 		default:
 		}
 		return val;
