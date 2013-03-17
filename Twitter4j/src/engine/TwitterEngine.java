@@ -93,7 +93,7 @@ public class TwitterEngine {
 	 */
 	public void login() throws Exception {
 			
-		model.Athenticate();
+		model.authenticate();
 	}
 	
 	public void logout(){
