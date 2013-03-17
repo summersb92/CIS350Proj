@@ -241,12 +241,6 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener, 
 	public void delteFavorite(String displayName){
 		favorites.removeFavorite(displayName);
 	}
-	public void clearFavoriteList(){
-		favorites.clearList();
-	}
-	public void getFStringList(){
-		favorites.getStringList();
-	}
 
 	/**
 	 * Returns the User in a specific index of the myFavorites list.

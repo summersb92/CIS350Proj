@@ -84,7 +84,7 @@ public class FavoritesUtility {
 	 
 				Element eElement = (Element) nNode;
 				
-				addFavoriteUser(eElement.getAttribute("id"));
+				addFavoriteList(eElement.getAttribute("id"));
 				System.out.println("User id : " + eElement.getAttribute("id"));
 	 
 			}
@@ -112,7 +112,7 @@ public class FavoritesUtility {
 			e.printStackTrace();
 		}
 	}
-	public void addFavoriteUser(String name){
+	public void addFavoriteList(String name){
 		stringList.add(name);
 	}
 	public void removeFavorite(String name){
