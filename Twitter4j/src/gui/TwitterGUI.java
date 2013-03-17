@@ -38,7 +38,7 @@ import java.util.List;
  * 
  * @author Ben
  */
-public class TwitterGUI extends JFrame{
+public class TwitterGUI extends JFrame {
 
 	private String[] options={"Authenticate User",
 			"Get Status", "Get UserTimeline","Post Status",
