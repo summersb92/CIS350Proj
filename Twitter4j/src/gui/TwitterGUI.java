@@ -48,10 +48,10 @@ public class TwitterGUI extends JFrame{
 	private JFrame GUI;
 	private JMenuBar menu;
 	private JTabbedPane tabs;
-	private JMenu file, generate, sort, help; 
+	private JMenu file, generate, sort, help, favoritesMenu; 
 	private JMenuItem fileExport, fileDeleteTable, fileQuit,
 			fileDeleteStatus, generateWordFrequencyList, 
-			generateTopTrendingList, help_About;
+			generateTopTrendingList, help_About, addFavorites, removeFavorites;
   //private TwitterResultsPanel results;
 	private JPanel profile;
 //	private GetStatusPanel getStatusP;
@@ -88,7 +88,6 @@ public class TwitterGUI extends JFrame{
 		GUI.setSize(300, 300);
 		tabs = new JTabbedPane();
 		menuInit();
-
 		ProfileTabInit();
 		PostTimeTabInit();
 		FollowerTabInit();
@@ -325,6 +324,60 @@ public class TwitterGUI extends JFrame{
 	public void FavoritesTabInit() throws TwitterException{
 		
     }
+	
+	/**
+	 * menuInit() geneartes the JMenuBar to be used.
+	 */
+	private void menuInit() {
+		menu = new JMenuBar();
+		//Creates the File Menu
+		file = new JMenu("File");
+		fileDeleteStatus = new JMenuItem("Delete Status");
+		fileDeleteTable = new
+			JMenuItem("Delete Table Status");
+		fileExport = new JMenuItem("Export to XML ...");
+		fileQuit = new JMenuItem("Quit");
+		fileDeleteStatus.addActionListener(menuHandeler);
+		fileDeleteTable.addActionListener(menuHandeler);
+		fileExport.addActionListener(menuHandeler);
+		fileQuit.addActionListener(menuHandeler);
+		file.add(fileDeleteStatus);
+		file.add(fileDeleteTable);
+		file.add(fileExport);
+		file.add(fileQuit);
+		menu.add(file);
+		//Creates the Generate Menu
+		generate = new JMenu("Generate");
+		generateWordFrequencyList = new JMenuItem
+				("Word Frequency List");
+		generateTopTrendingList = new JMenuItem
+				("Top Trending List");
+		generateWordFrequencyList.addActionListener
+			(menuHandeler);
+		generateTopTrendingList.addActionListener
+			(menuHandeler);
+		generate.add(generateWordFrequencyList);
+		generate.add(generateTopTrendingList);
+		menu.add(generate);
+		
+		favoritesMenu = new JMenu("Favorites");
+		
+		addFavorites = new JMenuItem("Add to Favorites");
+		addFavorites.addActionListener(menuHandeler);
+		removeFavorites = new JMenuItem("Remove Favorite");
+		removeFavorites.addActionListener(menuHandeler);
+		favoritesMenu.add(addFavorites);
+		favoritesMenu.add(removeFavorites);
+		menu.add(favoritesMenu);
+		//Create the Help Menu
+		help = new JMenu("Help");
+		help_About = new JMenuItem("About...");
+		help_About.addActionListener(menuHandeler);
+		help.add(help_About);
+		menu.add(help);
+		//Add Menu to the GUI
+		GUI.setJMenuBar(menu);
+	}
     
 	class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
@@ -434,49 +487,7 @@ public class TwitterGUI extends JFrame{
 		}
 	}
      
-	/**
-	 * menuInit() geneartes the JMenuBar to be used.
-	 */
-	private void menuInit() {
-		menu = new JMenuBar();
-		//Creates the File Menu
-		file = new JMenu("File");
-		fileDeleteStatus = new JMenuItem("Delete Status");
-		fileDeleteTable = new
-			JMenuItem("Delete Table Status");
-		fileExport = new JMenuItem("Export to XML ...");
-		fileQuit = new JMenuItem("Quit");
-		fileDeleteStatus.addActionListener(menuHandeler);
-		fileDeleteTable.addActionListener(menuHandeler);
-		fileExport.addActionListener(menuHandeler);
-		fileQuit.addActionListener(menuHandeler);
-		file.add(fileDeleteStatus);
-		file.add(fileDeleteTable);
-		file.add(fileExport);
-		file.add(fileQuit);
-		menu.add(file);
-		//Creates the Generate Menu
-		generate = new JMenu("Generate");
-		generateWordFrequencyList = new JMenuItem
-				("Word Frequency List");
-		generateTopTrendingList = new JMenuItem
-				("Top Trending List");
-		generateWordFrequencyList.addActionListener
-			(menuHandeler);
-		generateTopTrendingList.addActionListener
-			(menuHandeler);
-		generate.add(generateWordFrequencyList);
-		generate.add(generateTopTrendingList);
-		menu.add(generate);
-		//Create the Help Menu
-		help = new JMenu("Help");
-		help_About = new JMenuItem("About...");
-		help_About.addActionListener(menuHandeler);
-		help.add(help_About);
-		menu.add(help);
-		//Add Menu to the GUI
-		GUI.setJMenuBar(menu);
-	}
+	
 	/**
 	 * Handels all of the actions in the JMenuBar
 	 */
