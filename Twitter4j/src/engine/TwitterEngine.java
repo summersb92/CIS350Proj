@@ -257,4 +257,11 @@ public class TwitterEngine {
 	public final boolean getFavoriteStatus() {
 		return model.getFavoriteStatus();
 	}
+	public final void addFavorite() {
+		model.addFavoriteUser(index);
+	}
+	public final void removeFavorite() {
+		// TODO Auto-generated method stub
+		model.removeFavoriteUser(index);
+	}
 }

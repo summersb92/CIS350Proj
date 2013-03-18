@@ -531,11 +531,33 @@ public class TwitModel extends AbstractTableModel
 	public final int getLimitRemaining() {
 		return user.getRateLimitStatus().getRemaining();
 	}
-//	public final boolean getFavoriteStatus() {
-//		// TODO Auto-generated method stub
-//		return ;
-//	}
-	
+	public void removeFavoriteUser(final int index) {
+		try{
+			fireTableDataChanged();
+			//System.out.println(index);
+			return;
+		}catch(IndexOutOfBoundsException e){
+			JOptionPane.showMessageDialog(null , 
+				"Invalid Selection",
+				"Invalid action",
+				JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	public void addFavoriteUser(final int index) {
+		// TODO Auto-generated method stub
+
+		try {
+			//myTweets.remove(index);
+			fireTableDataChanged();
+			return;
+		} catch (IndexOutOfBoundsException e) { 
+			JOptionPane.showMessageDialog(null , 
+				"Invalid Selection",
+				"Invalid action",
+				JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
 	
 }
 

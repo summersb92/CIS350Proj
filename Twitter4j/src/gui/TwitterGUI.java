@@ -523,6 +523,12 @@ public class TwitterGUI extends JFrame {
 			if (e.getActionCommand().equals("Quit")) {
 				System.exit(0);
 			}
+			if (e.getActionCommand().equals("Add to Favorites")){
+				engine.addFavorite();
+			}
+			if (e.getActionCommand().equals("Remove Favorite")){
+				engine.removeFavorite();
+			}
 			if (e.getActionCommand().equals("About...")) {
 				JOptionPane.showMessageDialog(null, 
 						"Produced by\n Benjamin Summers \n" 
@@ -532,6 +538,7 @@ public class TwitterGUI extends JFrame {
 						+ "            3/16//2013          \n"
 						+ "            For a CIS350 Project");
 			}
+
 		}	
 	};
 
