@@ -123,7 +123,7 @@ public class TwitModel extends AbstractTableModel
 			val = myTweets.get(row).getFollowersCount();
 			break;
 		case 5:
-			if(getFavoriteStatus()==false){
+			if((getFavorite(myTweets.get(row).getDisplayName())==false)){
 				val = "false";
 			}else{
 				val = "true";
@@ -273,7 +273,14 @@ public class TwitModel extends AbstractTableModel
 		favorites.loadFavorites(username);
 	}	
 	private boolean getFavorite(final String username) {
-		return false;
+		System.out.println(username);
+		if(favorites.getStringList().contains(username)){
+			System.out.println("true");
+			
+			return true;
+		}else{
+			return false;
+		}
 	}
 	public boolean getFavoriteStatus() {
 		return false;
@@ -527,6 +534,8 @@ public class TwitModel extends AbstractTableModel
 		try {
 		//	myTweets.
 			//myTweets.remove(index);
+			String name = myTweets.get(index).getDisplayName();
+			favorites.addFavoriteUser(name);
 			fireTableDataChanged();
 			return;
 		} catch (IndexOutOfBoundsException e) { 
