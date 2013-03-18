@@ -222,6 +222,7 @@ public class TwitModel extends AbstractTableModel
 		friends = status.getUser().getFriendsCount();
 		text = status.getText();
 		fave = getFavorite(status.getUser().getName());
+		//fave = getFavorite(displayName);
 		t = new Tweet(date , loginName , displayName , 
 				followers , friends , text, fave);
 		add(t);
@@ -272,13 +273,9 @@ public class TwitModel extends AbstractTableModel
 		favorites.loadFavorites(username);
 	}	
 	private boolean getFavorite(final String username) {
-		if(favorites.getStringList().contains(username)){
-			return true;
-		}
-		return false;	
+		return false;
 	}
 	public boolean getFavoriteStatus() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	/**
@@ -528,8 +525,6 @@ public class TwitModel extends AbstractTableModel
 	}
 	public void addFavoriteUser(final int index) {
 		try {
-			String name = myTweets.get(index).getDisplayName();
-			favorites.addFavoriteUser(name);
 		//	myTweets.
 			//myTweets.remove(index);
 			fireTableDataChanged();

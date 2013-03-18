@@ -55,7 +55,7 @@ public class FavoritesUtility {
 		Transformer transformer = transformerFactory.newTransformer();
 		DOMSource source = new DOMSource(doc);
 		StreamResult result = new StreamResult(new File(
-			"..\\Twitter4j\\favorites\\" + curUser + ".xml"));
+			".\\Twitter4j\\favorites\\" + curUser + ".xml"));
 		//Twitter4j\favorites
 		// Output to console for testing
 		// StreamResult result = new StreamResult(System.out);
