@@ -107,8 +107,8 @@ public class Tweet implements MyTweet {
 	public final int getFollowersCount() {
 		return followersCount;
 	}
-	@Override
-	public boolean isFavorite() {
+
+	public final boolean isFavorite() {
 		// TODO Auto-generated method stub
 		return favorite;
 	}

@@ -66,11 +66,14 @@ public class FavoritesUtility {
 		
 	}
 	@SuppressWarnings("unused")
-	private void readFromFile(final String username) throws ParserConfigurationException, SAXException, IOException {
-		File fXmlFile = new File("..\\Twitter4j\\favorites\\" + username + ".xml");
+	private void readFromFile(final String username) 
+	throws ParserConfigurationException, SAXException, IOException {
+		File fXmlFile = new File("..\\Twitter4j\\favorites\\" 
+		+ username + ".xml");
 		curUser = username;
-		if(fXmlFile.exists()){
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		if (fXmlFile.exists()) {
+			DocumentBuilderFactory dbFactory = 
+			DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(fXmlFile);
 		 
@@ -93,7 +96,8 @@ public class FavoritesUtility {
 					Element eElement = (Element) nNode;
 					
 					addFavoriteUser(eElement.getAttribute("id"));
-					System.out.println("User id : " + eElement.getAttribute("id"));
+					System.out.println("User id : " 
+					+ eElement.getAttribute("id"));
 		 
 				}
 			}

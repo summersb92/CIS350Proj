@@ -523,10 +523,10 @@ public class TwitterGUI extends JFrame {
 			if (e.getActionCommand().equals("Quit")) {
 				System.exit(0);
 			}
-			if (e.getActionCommand().equals("Add to Favorites")){
+			if (e.getActionCommand().equals("Add to Favorites")) {
 				engine.addFavorite();
 			}
-			if (e.getActionCommand().equals("Remove Favorite")){
+			if (e.getActionCommand().equals("Remove Favorite")) {
 				engine.removeFavorite();
 			}
 			if (e.getActionCommand().equals("About...")) {
