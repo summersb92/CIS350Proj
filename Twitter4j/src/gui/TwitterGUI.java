@@ -357,8 +357,6 @@ public class TwitterGUI extends JFrame {
 		updateFav.add(updateFavoritesButton);
 		
 		JScrollPane favoritepane = new JScrollPane();
-				
-		updatePanel.add(updateFavoritesButton);
 		
 		FavoritesPanel = new JPanel();
 		FavoritesArea = new JTextArea(20, 40);
@@ -442,7 +440,24 @@ public class TwitterGUI extends JFrame {
 		public void actionPerformed(final ActionEvent e) {
 			if (e.getSource().equals(loginButton)) {
 				try {
+					engine.logout();
+					for (int i = 0; i <= tabs.getTabCount() + 1; i++) {
+						tabs.removeTabAt(0);
+					}
 					engine.login();
+					
+							engine.login();
+							menuInit();
+							profileTabInit();
+							postTimeTabInit();
+							followerTabInit();
+							
+							tabs.addTab("Profile", profile);
+							tabs.addTab("Post Tweet/Timeline", postTimePanel);
+							tabs.addTab("Followers", twitResults);
+							
+							gUI.add(tabs);
+					
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -462,7 +477,7 @@ public class TwitterGUI extends JFrame {
 			}
 			if (e.getSource().equals(signoutButton)) {
 				engine.logout();
-				for (int i = 0; i <= tabs.getTabCount() + 1; i++) {
+				for (int i = 0; i <= tabs.getTabCount() + 2; i++) {
 				tabs.removeTabAt(0);
 				}
 				//GUI.pack();
@@ -476,6 +491,7 @@ public class TwitterGUI extends JFrame {
 					tabs.addTab("Profile", profile);
 					tabs.addTab("Post Tweet/Timeline", postTimePanel);
 					tabs.addTab("Followers", twitResults);
+					tabs.addTab("Favorites",favorites);
 					
 					gUI.add(tabs);
 					//GUI.repaint();
@@ -541,6 +557,24 @@ public class TwitterGUI extends JFrame {
 				} catch (MalformedURLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
+				}
+				
+				if(e.getSource().equals(updateFavoritesButton)){
+					try {
+						statuses = engine.getFavoriteTweets();
+					} catch (TwitterException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				    
+				   for (Status status : statuses) {
+					     FavoritesArea.append(status.getUser().getName() 
+					     + ":" + status.getText());
+					     FavoritesArea.append("\n\n");
+				    }
+					   
+					
+					
 				}
 			}
 			
