@@ -60,7 +60,7 @@ public class TwitModel extends AbstractTableModel
 	/** Stores the number of friends. */
 	private int friends;
 	/** Store whether or not is a favorite. */
-	private String fave;
+	private boolean fave;
 	/** Stores the text of a Status. */
 	private String text;
 	/** Stores a Tweet sent/received. */
@@ -121,12 +121,17 @@ public class TwitModel extends AbstractTableModel
 			val = myTweets.get(row).getFollowersCount();
 			break;
 		case 5:
-			val = "false";
+			if(getFavoriteStatus()==false){
+				val = "false";
+			}else{
+				val = "true";
+			}
 		default:
 		}
 		return val;
 	}
 	
+
 	/**
 	 * Creates the column Names.
 	 * @param column
@@ -214,7 +219,7 @@ public class TwitModel extends AbstractTableModel
 		followers = status.getUser().getFollowersCount();
 		friends = status.getUser().getFriendsCount();
 		text = status.getText();
-		fave = "false";
+		fave = getFavorite(status.getUser().getName());
 		//fave = getFavorite(displayName);
 		t = new Tweet(date , loginName , displayName , 
 				followers , friends , text, fave);
@@ -266,9 +271,13 @@ public class TwitModel extends AbstractTableModel
 		favorites.loadFavorites(username);
 	}	
 	private boolean getFavorite(final String username) {
+	//	favorites.
 		return false;
 	}
-	
+	public boolean getFavoriteStatus() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	/**
 	 * Gets the number of people a particular user has following them.
 	 * @param user - The user to get to get the number of followers for
@@ -522,10 +531,10 @@ public class TwitModel extends AbstractTableModel
 	public final int getLimitRemaining() {
 		return user.getRateLimitStatus().getRemaining();
 	}
-	public final String getFavoriteStatus() {
-		// TODO Auto-generated method stub
-		return "false";
-	}
+//	public final boolean getFavoriteStatus() {
+//		// TODO Auto-generated method stub
+//		return ;
+//	}
 	
 	
 }

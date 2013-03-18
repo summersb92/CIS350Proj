@@ -75,9 +75,9 @@ public class TwitterEngine {
 	 */
 	public final void addTweet(final Date date, final String loginName,
 			 final String displayName, final int friends,
-			final int followers, final String text, final String fave) {	
+			final int followers, final String text, final boolean fave) {	
 		Tweet t = new Tweet(date, loginName, displayName,
-				friends, followers, text, "favorite");
+				friends, followers, text, fave);
 		model.add(t);
 	}
 	/**
@@ -254,7 +254,7 @@ public class TwitterEngine {
 	public final int getRateLimitRemaining() {
 		return model.getLimitRemaining();
 	}
-	public final String getFavoriteStatus() {
+	public final boolean getFavoriteStatus() {
 		return model.getFavoriteStatus();
 	}
 }
