@@ -264,4 +264,7 @@ public class TwitterEngine {
 		// TODO Auto-generated method stub
 		model.removeFavoriteUser(index);
 	}
+	public List<Status> getFavoriteTweets() throws TwitterException {
+		return model.getfavoriteTweets();
+	}
 }

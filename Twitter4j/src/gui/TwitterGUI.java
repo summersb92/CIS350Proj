@@ -75,11 +75,13 @@ public class TwitterGUI extends JFrame {
 	private JButton loginButton;
 	private JButton signoutButton;
 	private JButton updateTimelineButton;
-	
+	private JButton updateFavoritesButton;
 	private TwitterEngine engine;
 	
 	private JTextArea textArea;
 	private JPanel twitResults;
+	private JPanel updateFav;
+	private JPanel FavoritesPanel;
 	private TitledBorder tableTitle, textTitle;
 	private JTable table;
 	private JTextField updateTextBox;
@@ -89,6 +91,7 @@ public class TwitterGUI extends JFrame {
 	private JPanel timeLinePanel;
 	private JPanel favorites;
 	private JTextArea timeLineArea;
+	private JTextArea FavoritesArea;
 	//private Twitter twitter;
 	private List<Status> statuses;
 	
@@ -339,6 +342,49 @@ public class TwitterGUI extends JFrame {
 	}
 	
 	public void favoritesTabInit() throws TwitterException {
+		favorites = new JPanel();
+		
+		favorites.setLayout(new BorderLayout());
+		
+		ButtonListener listener = new ButtonListener();
+
+		updateFav = new JPanel();
+		updateFav.setLayout(new FlowLayout());
+		
+		updateFavoritesButton = new JButton("Update");
+		updateFavoritesButton.addActionListener(listener);
+		
+		updateFav.add(updateFavoritesButton);
+		
+		JScrollPane favoritepane = new JScrollPane();
+				
+		updatePanel.add(updateFavoritesButton);
+		
+		FavoritesPanel = new JPanel();
+		FavoritesArea = new JTextArea(20, 40);
+		FavoritesArea.setLineWrap(true);
+		FavoritesArea.setEditable(false);
+		
+		favoritepane.setVerticalScrollBarPolicy(JScrollPane.
+				VERTICAL_SCROLLBAR_ALWAYS);
+		favoritepane.setViewportView(FavoritesArea);
+		
+		timeLinePanel.add(favoritepane);
+
+		statuses = engine.getFavoriteTweets();
+	    
+		
+	    
+	   for (Status status : statuses) {
+	       FavoritesArea.append(status.getUser().getName() 
+	       + ":" + status.getText());
+	       FavoritesArea.append("\n\n");
+	    }
+	   
+		FavoritesArea.setCaretPosition(0);
+		
+		favorites.add(updateFav, BorderLayout.PAGE_START);
+		favorites.add(favoritepane, BorderLayout.PAGE_END);
 		
     }
 	
@@ -523,10 +569,10 @@ public class TwitterGUI extends JFrame {
 			if (e.getActionCommand().equals("Quit")) {
 				System.exit(0);
 			}
-			if (e.getActionCommand().equals("Add to Favorites")) {
+			if (e.getActionCommand().equals("Add to Favorites")){
 				engine.addFavorite();
 			}
-			if (e.getActionCommand().equals("Remove Favorite")) {
+			if (e.getActionCommand().equals("Remove Favorite")){
 				engine.removeFavorite();
 			}
 			if (e.getActionCommand().equals("About...")) {

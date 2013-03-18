@@ -123,9 +123,9 @@ public class TwitModel extends AbstractTableModel
 			val = myTweets.get(row).getFollowersCount();
 			break;
 		case 5:
-			if (!getFavoriteStatus()) {
+			if(getFavoriteStatus()==false){
 				val = "false";
-			} else {
+			}else{
 				val = "true";
 			}
 		default:
@@ -275,7 +275,7 @@ public class TwitModel extends AbstractTableModel
 	private boolean getFavorite(final String username) {
 		return false;
 	}
-	public final boolean getFavoriteStatus() {
+	public boolean getFavoriteStatus() {
 		return false;
 	}
 	/**
@@ -511,19 +511,19 @@ public class TwitModel extends AbstractTableModel
 	public final int getLimitRemaining() {
 		return user.getRateLimitStatus().getRemaining();
 	}
-	public final void removeFavoriteUser(final int index) {
-		try {
+	public void removeFavoriteUser(final int index) {
+		try{
 			
 			fireTableDataChanged();
 			return;
-		} catch (IndexOutOfBoundsException e) {
+		}catch(IndexOutOfBoundsException e){
 			JOptionPane.showMessageDialog(null , 
 				"Invalid Selection",
 				"Invalid action",
 				JOptionPane.ERROR_MESSAGE);
 		}
 	}
-	public final void addFavoriteUser(final int index) {
+	public void addFavoriteUser(final int index) {
 		try {
 		//	myTweets.
 			//myTweets.remove(index);
@@ -535,6 +535,11 @@ public class TwitModel extends AbstractTableModel
 				"Invalid action",
 				JOptionPane.ERROR_MESSAGE);
 		}
+	}
+	public List<Status> getfavoriteTweets() throws TwitterException {
+		 List<Status> statuses = twitter.getFavorites();
+		
+		return statuses ;
 	}
 
 	
