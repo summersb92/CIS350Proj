@@ -24,11 +24,12 @@ import org.xml.sax.SAXException;
 public class FavoritesUtility {
  
 	private ArrayList<String> stringList;
+	private String curUser;
 	
 	public FavoritesUtility() { 
 		setStringList(new ArrayList<String>());
 	}
-	private void writeToFile(final String username) 
+	private void writeToFile() 
 	throws ParserConfigurationException, TransformerException {
 		DocumentBuilderFactory docFactory =
 			DocumentBuilderFactory.newInstance();
@@ -45,7 +46,7 @@ public class FavoritesUtility {
 		
 		// set attribute to user element
 		Attr attr = doc.createAttribute("id");
-		attr.setValue(username);
+		attr.setValue(curUser);
 		user.setAttributeNode(attr);
 		
 		// write the content into xml file
@@ -54,8 +55,8 @@ public class FavoritesUtility {
 		Transformer transformer = transformerFactory.newTransformer();
 		DOMSource source = new DOMSource(doc);
 		StreamResult result = new StreamResult(new File(
-			"..\\favorites\\" + username + ".xml"));
-		 
+			"..\\Twitter4j\\favorites\\" + curUser + ".xml"));
+		//Twitter4j\favorites
 		// Output to console for testing
 		// StreamResult result = new StreamResult(System.out);
 		 
@@ -66,8 +67,8 @@ public class FavoritesUtility {
 	}
 	@SuppressWarnings("unused")
 	private void readFromFile(final String username) throws ParserConfigurationException, SAXException, IOException {
-		File fXmlFile = new File("..\\favorites\\" + username + ".xml");
-		
+		File fXmlFile = new File("..\\Twitter4j\\favorites\\" + username + ".xml");
+		curUser = username;
 		if(fXmlFile.exists()){
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -98,9 +99,9 @@ public class FavoritesUtility {
 			}
 		}
 	}
-	public final void saveFavorites(final String username) {
+	public final void saveFavorites() {
 		try {
-			writeToFile(username);
+			writeToFile();
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

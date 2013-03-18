@@ -267,7 +267,7 @@ public class TwitModel extends AbstractTableModel
 		favorites.getStringList();
 	}
 	public final void saveFavorites(final String username) {
-		favorites.saveFavorites(username);
+		favorites.saveFavorites();
 	}
 	public final void loadFavorites(final String username) {
 		favorites.loadFavorites(username);
@@ -444,6 +444,7 @@ public class TwitModel extends AbstractTableModel
 	
 	public final void logout() {
 		twitter.setOAuthAccessToken(null);
+		favorites.saveFavorites();
 		accessToken = null;
 	}
 	/**
