@@ -65,34 +65,36 @@ public class FavoritesUtility {
 		
 	}
 	@SuppressWarnings("unused")
-	private void readFromFile(final String username) 
-	throws ParserConfigurationException, SAXException, IOException {
+	private void readFromFile(final String username) throws ParserConfigurationException, SAXException, IOException {
 		File fXmlFile = new File("..\\favorites\\" + username + ".xml");
-		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-		Document doc = dBuilder.parse(fXmlFile);
-	 
-		doc.getDocumentElement().normalize();
-		System.out.println("Root element: " 
-		+ doc.getDocumentElement().getNodeName());
+		
+		if(fXmlFile.exists()){
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(fXmlFile);
 		 
-		NodeList nList = doc.getElementsByTagName("staff");
-	 
-		System.out.println("----------------------------");
-	 
-		for (int temp = 0; temp < nList.getLength(); temp++) {
-	 
-			Node nNode = nList.item(temp);
-	 
-			System.out.println("\nCurrent Element :" + nNode.getNodeName());
-	 
-			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-	 
-				Element eElement = (Element) nNode;
-				
-				addFavoriteUser(eElement.getAttribute("id"));
-				System.out.println("User id : " + eElement.getAttribute("id"));
-	 
+			doc.getDocumentElement().normalize();
+			System.out.println("Root element: " 
+			+ doc.getDocumentElement().getNodeName());
+			 
+			NodeList nList = doc.getElementsByTagName("staff");
+		 
+			System.out.println("----------------------------");
+		 
+			for (int temp = 0; temp < nList.getLength(); temp++) {
+		 
+				Node nNode = nList.item(temp);
+		 
+				System.out.println("\nCurrent Element :" + nNode.getNodeName());
+		 
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+		 
+					Element eElement = (Element) nNode;
+					
+					addFavoriteUser(eElement.getAttribute("id"));
+					System.out.println("User id : " + eElement.getAttribute("id"));
+		 
+				}
 			}
 		}
 	}
@@ -109,11 +111,14 @@ public class FavoritesUtility {
 	}	
 	public final void loadFavorites(final String username) {
 		try {
-			writeToFile(username);
+			readFromFile(username);
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (TransformerException e) {
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

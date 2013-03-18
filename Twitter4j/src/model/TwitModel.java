@@ -92,6 +92,8 @@ public class TwitModel extends AbstractTableModel
 	 */
 
 	public TwitModel() throws TwitterException  { 
+		favorites = new FavoritesUtility();
+		
 		myTweets = new ArrayList<MyTweet>();
 		//wordCounter = new ArrayList<Word>();
 	
@@ -321,7 +323,7 @@ public class TwitModel extends AbstractTableModel
 	    File file = new File("loginInformation.txt");
 	        
 	    Scanner scanner = new Scanner(file);
-
+	    
 		while (scanner.hasNextLine()) {
 				
 			String line = scanner.nextLine();
@@ -336,7 +338,7 @@ public class TwitModel extends AbstractTableModel
 			}
 				
 		}
-					
+		favorites.loadFavorites(username);			
 		if (accessToken != null) {
 			scanner.close();
 			return;
@@ -445,12 +447,6 @@ public class TwitModel extends AbstractTableModel
 		accessToken = null;
 	}
 	/**
-	 * Destroys the status of the current user
-	 */
-//	public void destoryStatus() {
-//
-//	}
-	/**
 	 * sets a new status for the current user.
 	 * @param post - String containing text of updated status
 	 * @throws TwitterException 
@@ -475,21 +471,6 @@ public class TwitModel extends AbstractTableModel
 	public final int getRowCount() {
 		return myTweets.size();
 	}
-	/**
-	 * loads a string a splits it into a bunch of tokens.
-	 * @return inputwords
-	 */
-//	public List<String> loadString(){
-//		return null;
-//	}
-	/**
-	 * Gets the top trending list.
-	 * @return twitter.getTrends();
-	 * @throws MalformedURLException 
-	 */
-//	public Object topTrendingList() {
-//		return null;
-//	} 
 
 	public final ImageIcon getProfileImage() 
 		throws IllegalStateException, TwitterException, MalformedURLException {
@@ -533,8 +514,8 @@ public class TwitModel extends AbstractTableModel
 	}
 	public void removeFavoriteUser(final int index) {
 		try{
+			
 			fireTableDataChanged();
-			//System.out.println(index);
 			return;
 		}catch(IndexOutOfBoundsException e){
 			JOptionPane.showMessageDialog(null , 
@@ -544,9 +525,8 @@ public class TwitModel extends AbstractTableModel
 		}
 	}
 	public void addFavoriteUser(final int index) {
-		// TODO Auto-generated method stub
-
 		try {
+		//	myTweets.
 			//myTweets.remove(index);
 			fireTableDataChanged();
 			return;
