@@ -60,7 +60,7 @@ public class TwitterGUI extends JFrame {
 //			"Search for Statuses"};
 //	private JComboBox combo;
 //	private JPanel eastPanel, westPanel;
-	private JFrame GUI;
+	private JFrame gUI;
 	private JMenuBar menu;
 	private JTabbedPane tabs;
 	private JMenu file, generate, sort, help, favoritesMenu; 
@@ -98,9 +98,9 @@ public class TwitterGUI extends JFrame {
 	 */
 	public TwitterGUI() throws Exception {
 		engine = new TwitterEngine();
-		GUI = new JFrame("Twitter Lite");
+		gUI = new JFrame("Twitter Lite");
 		engine.login();
-		GUI.setSize(300, 300);
+		gUI.setSize(300, 300);
 		tabs = new JTabbedPane();
 		menuInit();
 		profileTabInit();
@@ -113,9 +113,9 @@ public class TwitterGUI extends JFrame {
 		tabs.addTab("Followers", twitResults);
 		tabs.addTab("Favorites", favorites);
 		
-		GUI.add(tabs);
+		gUI.add(tabs);
 		
-		GUI.setVisible(true);
+		gUI.setVisible(true);
 	}
 	
 	public final void profileTabInit() 
@@ -129,7 +129,7 @@ public class TwitterGUI extends JFrame {
 		JPanel top = new JPanel();
 		top.setLayout(new GridLayout(1, 1));
 		top.setBorder(blackline);
-		GUI.setSize(600, 450);
+		gUI.setSize(600, 450);
 		top.setSize(200, 200);
 		
 		JPanel top2 = new JPanel();
@@ -389,7 +389,7 @@ public class TwitterGUI extends JFrame {
 		help.add(helpAbout);
 		menu.add(help);
 		//Add Menu to the GUI
-		GUI.setJMenuBar(menu);
+		gUI.setJMenuBar(menu);
 	}
     
 	class ButtonListener implements ActionListener {
@@ -431,7 +431,7 @@ public class TwitterGUI extends JFrame {
 					tabs.addTab("Post Tweet/Timeline", postTimePanel);
 					tabs.addTab("Followers", twitResults);
 					
-					GUI.add(tabs);
+					gUI.add(tabs);
 					//GUI.repaint();
 					
 				} catch (FileNotFoundException e1) {

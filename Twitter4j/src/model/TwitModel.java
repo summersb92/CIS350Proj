@@ -337,8 +337,8 @@ public class TwitModel extends AbstractTableModel
 	    try {
 	           
 	    	try {
-	            // get request token.
-	            // this will throw IllegalStateException if access token is already available
+// get request token.
+// this will throw IllegalStateException if access token is already available
 	            requestToken = twitter.getOAuthRequestToken();
 	 
 	            accessToken = null;
@@ -386,11 +386,7 @@ public class TwitModel extends AbstractTableModel
 	            }
 	        }
 	             
-	        } catch (TwitterException te) {
-	            
-	        } catch (IOException ioe) {
-	          
-	        } catch (NullPointerException np){
+	    	} catch (NullPointerException np) {
 	        	System.out.println("Exiting");
 	        	System.exit(0);
 	        }
@@ -406,7 +402,7 @@ public class TwitModel extends AbstractTableModel
 			
 	    	saveFile += user.getName() + ", " 
 	    		+ accessToken.getToken() + ", " + accessToken.getTokenSecret();
-			
+			scanner.close();
 	    	out.println();
 	    	out.print(saveFile);
 	    	out.close();
@@ -496,12 +492,12 @@ public class TwitModel extends AbstractTableModel
 		return icon;
 	}
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(final ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 	@Override
-	public void hyperlinkUpdate(HyperlinkEvent arg0) {
+	public void hyperlinkUpdate(final HyperlinkEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
