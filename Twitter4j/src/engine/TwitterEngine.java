@@ -9,8 +9,10 @@ import java.util.Date;
 import java.util.List;
 
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 //import javax.swing.table.TableModel;
 
+import twitter4j.AccountSettings;
 import twitter4j.Status;
 import twitter4j.TwitterException;
 //import twitter4j.User;
@@ -202,10 +204,11 @@ public class TwitterEngine {
 	}
 	/**
 	 * removes current status
+	 * @throws TwitterException 
 	 */
-	//public void deleteStatus() {
-		//model.destoryStatus();
-	//}
+	public void deleteStatus(int i) throws TwitterException {
+		model.destoryStatus(i);
+	}
 	/**
 	 * Posts a new status
 	 * 
@@ -264,7 +267,13 @@ public class TwitterEngine {
 		// TODO Auto-generated method stub
 		model.removeFavoriteUser(index);
 	}
-	public final List<Status> getFavoriteTweets() throws TwitterException {
+	public List<Status> getFavoriteTweets() throws TwitterException {
 		return model.getfavoriteTweets();
+	}
+	public AccountSettings getAccountSettings() throws TwitterException {
+		return model.getAccountSettings();
+	}
+	public List<Status> getMyTweets() throws TwitterException {
+		return model.getMyTweets();
 	}
 }

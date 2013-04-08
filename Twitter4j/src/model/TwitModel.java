@@ -31,6 +31,7 @@ import javax.swing.event.HyperlinkListener;
 import javax.swing.table.AbstractTableModel;
 //import javax.swing.table.TableModel;
 
+import twitter4j.AccountSettings;
 import twitter4j.Status;
 import twitter4j.User;
 import twitter4j.Twitter;
@@ -123,9 +124,9 @@ public class TwitModel extends AbstractTableModel
 			val = myTweets.get(row).getFollowersCount();
 			break;
 		case 5:
-			if ((!getFavorite(myTweets.get(row).getDisplayName()))) {
+			if((getFavorite(myTweets.get(row).getDisplayName())==false)){
 				val = "false";
-			} else {
+			}else{
 				val = "true";
 			}
 		default:
@@ -274,15 +275,15 @@ public class TwitModel extends AbstractTableModel
 	}	
 	private boolean getFavorite(final String username) {
 		System.out.println(username);
-		if (favorites.getStringList().contains(username)) {
+		if(favorites.getStringList().contains(username)){
 			System.out.println("true");
 			
 			return true;
-		} else {
+		}else{
 			return false;
 		}
 	}
-	public final boolean getFavoriteStatus() {
+	public boolean getFavoriteStatus() {
 		return false;
 	}
 	/**
@@ -518,19 +519,19 @@ public class TwitModel extends AbstractTableModel
 	public final int getLimitRemaining() {
 		return user.getRateLimitStatus().getRemaining();
 	}
-	public final void removeFavoriteUser(final int index) {
-		try {
+	public void removeFavoriteUser(final int index) {
+		try{
 			
 			fireTableDataChanged();
 			return;
-		} catch (IndexOutOfBoundsException e) {
+		}catch(IndexOutOfBoundsException e){
 			JOptionPane.showMessageDialog(null , 
 				"Invalid Selection",
 				"Invalid action",
 				JOptionPane.ERROR_MESSAGE);
 		}
 	}
-	public final void addFavoriteUser(final int index) {
+	public void addFavoriteUser(final int index) {
 		try {
 		//	myTweets.
 			//myTweets.remove(index);
@@ -545,9 +546,20 @@ public class TwitModel extends AbstractTableModel
 				JOptionPane.ERROR_MESSAGE);
 		}
 	}
-	public final List<Status> getfavoriteTweets() throws TwitterException {
+	public List<Status> getfavoriteTweets() throws TwitterException {
 		 List<Status> statuses = twitter.getFavorites();
 		
+		return statuses ;
+	}
+	public void destoryStatus(int i) throws TwitterException {
+		List<Status> statuses = twitter.getHomeTimeline();
+		twitter.destroyStatus(statuses.indexOf(i));
+	}
+	public AccountSettings getAccountSettings() throws TwitterException {
+		return twitter.getAccountSettings();
+	}
+	public List<Status> getMyTweets() throws TwitterException {
+		List<Status> statuses = twitter.getUserTimeline();
 		return statuses;
 	}
 
