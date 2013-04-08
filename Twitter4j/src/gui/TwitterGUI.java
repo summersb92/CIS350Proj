@@ -101,6 +101,9 @@ public class TwitterGUI extends JFrame {
 	
 	private JTextField updateTextBox;
 	
+	private long[] statusIds;
+	private String[] myTweets;
+	
 	private TwitterEngine engine;
 	
 	private JTable table;
@@ -144,12 +147,18 @@ public class TwitterGUI extends JFrame {
 		MyTweetsPanel = new JPanel();
 		favoriteButton = new JButton("Favorite");
 		deleteButton = new JButton("Delete");
+		ButtonListener listener = new ButtonListener();
 		
-		String[] myTweets = new String[21];
+		favoriteButton.addActionListener(listener);
+		deleteButton.addActionListener(listener);
+		
+		myTweets = new String[200];
+		statusIds = new long[200];
 		int count = 0;
 		statuses = engine.getMyTweets();
 		for(Status status : statuses){
 			myTweets[count] = status.getText();
+			statusIds[count] = status.getId();
 			count++;
 		}
 		
@@ -556,20 +565,27 @@ public class TwitterGUI extends JFrame {
 			if (e.getSource().equals(loginButton)) {
 				try {
 					engine.logout();
-					for (int i = 0; i <= tabs.getTabCount() + 1; i++) {
-						tabs.removeTabAt(0);
-					}
+							
+					tabs.removeAll();
+					
 					engine.login();
 					
 							engine.login();
-							menuInit();
 							profileTabInit();
 							postTimeTabInit();
 							followerTabInit();
+							favoritesTabInit();
+							ProfileSettingsTabInit();
+							AccountSettingsTabInit();
+							MyTweetsTabInit();
 							
 							tabs.addTab("Profile", profile);
 							tabs.addTab("Post Tweet/Timeline", postTimePanel);
 							tabs.addTab("Followers", twitResults);
+							tabs.addTab("Favorites", favorites);
+							tabs.addTab("Your Tweets", MyTweetsPanel);
+							tabs.addTab("AccountSettings", AccountSettingsPanel);
+							
 							
 							gUI.add(tabs);
 					
@@ -592,21 +608,24 @@ public class TwitterGUI extends JFrame {
 			}
 			if (e.getSource().equals(signoutButton)) {
 				engine.logout();
-				for (int i = 0; i <= tabs.getTabCount() + 2; i++) {
-				tabs.removeTabAt(0);
-				}
+				tabs.removeAll();
 				//GUI.pack();
 				try {
 					engine.login();
-					menuInit();
 					profileTabInit();
 					postTimeTabInit();
 					followerTabInit();
+					favoritesTabInit();
+					ProfileSettingsTabInit();
+					AccountSettingsTabInit();
+					MyTweetsTabInit();
 					
 					tabs.addTab("Profile", profile);
 					tabs.addTab("Post Tweet/Timeline", postTimePanel);
 					tabs.addTab("Followers", twitResults);
-					tabs.addTab("Favorites",favorites);
+					tabs.addTab("Favorites", favorites);
+					tabs.addTab("Your Tweets", MyTweetsPanel);
+					tabs.addTab("AccountSettings", AccountSettingsPanel);
 					
 					gUI.add(tabs);
 					//GUI.repaint();
@@ -687,10 +706,33 @@ public class TwitterGUI extends JFrame {
 					     + ":" + status.getText());
 					     FavoritesArea.append("\n\n");
 				    }
-					   
-					
-					
 				}
+			}
+			
+			if(e.getSource().equals(favoriteButton)){
+				
+				try {
+					engine.favoriteTweet(statusIds[list.getSelectedIndex()]);
+					System.out.println("TESTSWEETTESTSWEET");
+				} catch (NumberFormatException | TwitterException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+			
+			if(e.getSource().equals(deleteButton)){
+				
+				try {
+					engine.deleteStatus(statusIds[list.getSelectedIndex()]);
+				} catch (TwitterException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
+				
+				
 			}
 			
 		}

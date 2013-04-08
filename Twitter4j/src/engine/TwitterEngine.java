@@ -206,8 +206,8 @@ public class TwitterEngine {
 	 * removes current status
 	 * @throws TwitterException 
 	 */
-	public void deleteStatus(int i) throws TwitterException {
-		model.destoryStatus(i);
+	public void deleteStatus(long statusId) throws TwitterException {
+		model.destoryStatus(statusId);
 	}
 	/**
 	 * Posts a new status
@@ -275,5 +275,8 @@ public class TwitterEngine {
 	}
 	public List<Status> getMyTweets() throws TwitterException {
 		return model.getMyTweets();
+	}
+	public void favoriteTweet(long statusIds) throws NumberFormatException, TwitterException {
+		model.favoriteTweet(statusIds);
 	}
 }

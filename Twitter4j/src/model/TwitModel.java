@@ -32,6 +32,7 @@ import javax.swing.table.AbstractTableModel;
 //import javax.swing.table.TableModel;
 
 import twitter4j.AccountSettings;
+import twitter4j.Paging;
 import twitter4j.Status;
 import twitter4j.User;
 import twitter4j.Twitter;
@@ -551,16 +552,19 @@ public class TwitModel extends AbstractTableModel
 		
 		return statuses ;
 	}
-	public void destoryStatus(int i) throws TwitterException {
-		List<Status> statuses = twitter.getHomeTimeline();
-		twitter.destroyStatus(statuses.indexOf(i));
+	public void destoryStatus(long statusId) throws TwitterException {
+		twitter.destroyStatus(statusId);
 	}
 	public AccountSettings getAccountSettings() throws TwitterException {
 		return twitter.getAccountSettings();
 	}
 	public List<Status> getMyTweets() throws TwitterException {
-		List<Status> statuses = twitter.getUserTimeline();
+		Paging paging = new Paging(1, 200);
+		List<Status> statuses = twitter.getUserTimeline(paging);
 		return statuses;
+	}
+	public void favoriteTweet(long statusIds) throws NumberFormatException, TwitterException {
+		twitter.createFavorite(statusIds);
 	}
 
 	
