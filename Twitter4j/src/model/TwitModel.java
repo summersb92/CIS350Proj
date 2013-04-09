@@ -566,6 +566,9 @@ public class TwitModel extends AbstractTableModel
 	public void favoriteTweet(long statusIds) throws NumberFormatException, TwitterException {
 		twitter.createFavorite(statusIds);
 	}
+	public List<User> getFriendsList() throws TwitterException {
+		return twitter.getFriendsList(user.getId(), -1);
+	}
 
 	
 }

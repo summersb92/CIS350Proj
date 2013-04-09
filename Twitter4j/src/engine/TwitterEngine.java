@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import twitter4j.AccountSettings;
 import twitter4j.Status;
 import twitter4j.TwitterException;
+import twitter4j.User;
 //import twitter4j.User;
 
 import model.Tweet;
@@ -278,5 +279,8 @@ public class TwitterEngine {
 	}
 	public void favoriteTweet(long statusIds) throws NumberFormatException, TwitterException {
 		model.favoriteTweet(statusIds);
+	}
+	public List<User> getFriendsList() throws TwitterException {
+		return model.getFriendsList();
 	}
 }
