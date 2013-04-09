@@ -275,9 +275,7 @@ public class TwitModel extends AbstractTableModel
 		favorites.loadFavorites(username);
 	}	
 	private boolean getFavorite(final String username) {
-		System.out.println(username);
 		if(favorites.getStringList().contains(username)){
-			System.out.println("true");
 			
 			return true;
 		}else{
@@ -568,6 +566,10 @@ public class TwitModel extends AbstractTableModel
 	}
 	public List<User> getFriendsList() throws TwitterException {
 		return twitter.getFriendsList(user.getId(), -1);
+	}
+	public void removeFriend(long userId) throws TwitterException {
+		twitter.destroyFriendship(userId);
+		
 	}
 
 	

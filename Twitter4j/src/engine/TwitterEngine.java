@@ -283,4 +283,8 @@ public class TwitterEngine {
 	public List<User> getFriendsList() throws TwitterException {
 		return model.getFriendsList();
 	}
+	public void removefriend(long userId) throws TwitterException {
+		model.removeFriend(userId);
+		
+	}
 }

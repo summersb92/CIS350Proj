@@ -56,9 +56,6 @@ public class FavoritesUtility {
 		DOMSource source = new DOMSource(doc);
 		StreamResult result = new StreamResult(new File(
 			"" +".\\Twitter4j\\favorites\\" + curUser + ".xml"));
-		//Twitter4j\favorites
-		// Output to console for testing
-		// StreamResult result = new StreamResult(System.out);
 		 
 		transformer.transform(source, result);
 		 
@@ -86,14 +83,11 @@ public class FavoritesUtility {
 		 
 				Node nNode = nList.item(temp);
 		 
-				System.out.println("\nCurrent Element :" + nNode.getNodeName());
-		 
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 		 
 					Element eElement = (Element) nNode;
 					
 					addFavoriteUser(eElement.getAttribute("id"));
-					System.out.println("User id : " + eElement.getAttribute("id"));
 		 
 				}
 			}
