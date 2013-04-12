@@ -143,6 +143,7 @@ public class TwitterGUI extends JFrame {
 		tabs.addTab("Account/Profile Settings", AccountSettingsPanel);
 
 		gUI.add(tabs);
+		gUI.setTitle("Twitter for " + engine.getRealName());
 
 		gUI.setVisible(true);
 	}
@@ -482,16 +483,6 @@ public class TwitterGUI extends JFrame {
 		textArea.setText(topTrendingList.toString());
 	}
 
-	/**
-	 * Gets the wordFrequencyCount
-	 * 
-	 * @param wordFrequencyList
-	 *            - what is the word frequency
-	 */
-	public final void wordFrequencyCount(final Object wordFrequencyList) {
-		textArea.setText(wordFrequencyList.toString());
-	}
-
 	public void favoritesTabInit() throws TwitterException {
 		favorites = new JPanel();
 
@@ -685,51 +676,60 @@ public class TwitterGUI extends JFrame {
 				}
 			}
 			if (e.getSource().equals(updateTimelineButton)) {
-				try {
-					timeLineArea.setText("");
-
-					statuses = engine.getTimeline();
-
-					for (Status status : statuses) {
-						timeLineArea.append(status.getUser().getName() + ":"
-								+ status.getText());
-						timeLineArea.append("\n\n");
-					}
-
-					timeLineArea.setCaretPosition(0);
-
-					tabs.remove(0);
-					tabs.remove(1);
-
-					profileTabInit();
-					followerTabInit();
-					tabs.insertTab("Profile", null, profile, null, 0);
-					tabs.insertTab("Followers", null, twitResults, null, 2);
-
-					// tabs.add(profile, 0);
-				} catch (TwitterException e1) {
-					e1.printStackTrace();
-				} catch (IllegalStateException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (MalformedURLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-
-				if (e.getSource().equals(updateFavoritesButton)) {
 					try {
-						statuses = engine.getFavoriteTweets();
-					} catch (TwitterException e1) {
+						tabs.removeAll();
+						profileTabInit();
+				
+						postTimeTabInit();
+						followerTabInit();
+						favoritesTabInit();
+						ProfileSettingsTabInit();
+						AccountSettingsTabInit();
+						MyTweetsTabInit();
+						FriendsListTabInit();
+	
+						tabs.addTab("Profile", profile);
+						tabs.addTab("Post Tweet/Timeline", postTimePanel);
+						tabs.addTab("Followers", twitResults);
+						tabs.addTab("Friends List", FreindsListPanel);
+						tabs.addTab("Favorites", favorites);
+						tabs.addTab("Your Tweets", MyTweetsPanel);
+						tabs.addTab("Account/Profile Settings", AccountSettingsPanel);
+
+					} catch (IllegalStateException | MalformedURLException
+							| TwitterException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 
-					for (Status status : statuses) {
-						FavoritesArea.append(status.getUser().getName() + ":"
-								+ status.getText());
-						FavoritesArea.append("\n\n");
+				if (e.getSource().equals(updateFavoritesButton)) {
+					
+					try {
+						tabs.removeAll();
+						profileTabInit();
+						postTimeTabInit();
+						followerTabInit();
+						favoritesTabInit();
+						ProfileSettingsTabInit();
+						AccountSettingsTabInit();
+						MyTweetsTabInit();
+						FriendsListTabInit();
+	
+						tabs.addTab("Profile", profile);
+						tabs.addTab("Post Tweet/Timeline", postTimePanel);
+						tabs.addTab("Followers", twitResults);
+						tabs.addTab("Friends List", FreindsListPanel);
+						tabs.addTab("Favorites", favorites);
+						tabs.addTab("Your Tweets", MyTweetsPanel);
+						tabs.addTab("Account/Profile Settings", AccountSettingsPanel);
+
+					} catch (IllegalStateException | MalformedURLException
+							| TwitterException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
+					gUI.add(tabs);
+
 				}
 			}
 
@@ -756,7 +756,15 @@ public class TwitterGUI extends JFrame {
 			}
 			
 			if(e.getSource().equals(veiwProfile)){
-				FriendVeiwer freindsProfile = new FriendVeiwer(userIds[FriendsList.getSelectedIndex()]);
+				try {
+					new FriendVeiwer(userIds[FriendsList.getSelectedIndex()], engine);
+				} catch (TwitterException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 			
 			if(e.getSource().equals(removeFriend)){
@@ -772,7 +780,7 @@ public class TwitterGUI extends JFrame {
 	}
 
 	/**
-	 * Handels all of the actions in the JMenuBar
+	 * Handles all of the actions in the JMenuBar
 	 */
 	private ActionListener menuHandeler = new ActionListener() {
 		@Override
@@ -790,9 +798,6 @@ public class TwitterGUI extends JFrame {
 			}
 			if (e.getActionCommand().equals("Delete Table Status")) {
 				engine.deleteTweet();
-			}
-			if (e.getActionCommand().equals("Export to XML ...")) {
-				saveButtonAction();
 			}
 			if (e.getActionCommand().equals("Quit")) {
 				System.exit(0);
@@ -815,13 +820,6 @@ public class TwitterGUI extends JFrame {
 
 		}
 	};
-
-	/**
-	 * uses the saveXML action to save a the twitter Status list as an XML file.
-	 */
-	private void saveButtonAction() {
-
-	}
 
 	/**
 	 * runs the main application starting with TwitterGUI which instantiates all

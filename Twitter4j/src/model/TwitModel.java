@@ -224,7 +224,6 @@ public class TwitModel extends AbstractTableModel
 		friends = status.getUser().getFriendsCount();
 		text = status.getText();
 		fave = getFavorite(status.getUser().getName());
-		//fave = getFavorite(displayName);
 		t = new Tweet(date , loginName , displayName , 
 				followers , friends , text, fave);
 		add(t);
@@ -571,8 +570,24 @@ public class TwitModel extends AbstractTableModel
 		twitter.destroyFriendship(userId);
 		
 	}
+	public String getfriendsName(long userId) throws TwitterException {
+		User user = twitter.showUser(userId);
+		System.out.println(user.getName());
+		return user.getName();
+	}
+	public ImageIcon getfriendProfileImage(long userId) throws TwitterException, MalformedURLException {
+		user = twitter.showUser(userId);
+		URL url = new URL(user.getBiggerProfileImageURL());
+		ImageIcon icon = new ImageIcon(url);
+		
+		return icon;
+	}
+	public List<Status> getfriendsTimeline(long userIds) throws TwitterException {
 
-	
+		Paging paging = new Paging(1, 50);
+		return twitter.getUserTimeline(userIds, paging);
+	}
+
 }
 
 
