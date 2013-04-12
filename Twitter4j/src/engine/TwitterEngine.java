@@ -287,14 +287,4 @@ public class TwitterEngine {
 		model.removeFriend(userId);
 		
 	}
-	public String getfriendsName(long UserId) throws TwitterException {
-		return model.getfriendsName(UserId);
-	}
-	public ImageIcon getfriendProfileImage(long UserId) throws MalformedURLException, TwitterException {
-		return model.getfriendProfileImage(UserId);
-	}
-	public List<Status> getfriendsTimeline(long userIds) throws TwitterException {
-		return model.getfriendsTimeline(userIds);
-	}
-
 }
