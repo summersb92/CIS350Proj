@@ -224,7 +224,6 @@ public class TwitModel extends AbstractTableModel
 		friends = status.getUser().getFriendsCount();
 		text = status.getText();
 		fave = getFavorite(status.getUser().getName());
-		//fave = getFavorite(displayName);
 		t = new Tweet(date , loginName , displayName , 
 				followers , friends , text, fave);
 		add(t);
@@ -340,6 +339,7 @@ public class TwitModel extends AbstractTableModel
 			if (s[0].equals(username)) {
 				accessToken = new AccessToken(s[1], s[2]);
 				twitter.setOAuthAccessToken(accessToken);
+				user = twitter.showUser(twitter.getId());
 			}
 				
 		}
@@ -414,6 +414,7 @@ public class TwitModel extends AbstractTableModel
 	    	String saveFile = "";
 
 	    	user = twitter.showUser(twitter.getId());
+	    	System.out.println(user.getName());
 			
 			
 	    	saveFile += user.getName() + ", " 
@@ -423,6 +424,7 @@ public class TwitModel extends AbstractTableModel
 	    	out.print(saveFile);
 	    	out.close();
 		}
+		user = twitter.showUser(twitter.getId());
 	}
 		
 	public static void openWebpage(final URI uri) {
@@ -481,24 +483,21 @@ public class TwitModel extends AbstractTableModel
 	public final ImageIcon getProfileImage() 
 		throws IllegalStateException, TwitterException, MalformedURLException {
 			
-		user = twitter.showUser(twitter.getId());
-		URL url = new URL(user.getBiggerProfileImageURL());
+		URL url = new URL(twitter.showUser(twitter.getId()).getBiggerProfileImageURL());
 		ImageIcon icon = new ImageIcon(url);
 		
 		return icon;
 	}
 	@Override
 	public void actionPerformed(final ActionEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 	@Override
 	public void hyperlinkUpdate(final HyperlinkEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
-	public final String getRealName() {
-		return user.getName();
+	public final String getRealName(long userId) throws TwitterException {
+		return twitter.showUser(userId).getName();
 	}
 	public final String getScreenName() {
 		return user.getScreenName();
@@ -532,8 +531,6 @@ public class TwitModel extends AbstractTableModel
 	}
 	public void addFavoriteUser(final int index) {
 		try {
-		//	myTweets.
-			//myTweets.remove(index);
 			String name = myTweets.get(index).getDisplayName();
 			favorites.addFavoriteUser(name);
 			fireTableDataChanged();
@@ -564,17 +561,31 @@ public class TwitModel extends AbstractTableModel
 	public void favoriteTweet(long statusIds) throws NumberFormatException, TwitterException {
 		twitter.createFavorite(statusIds);
 	}
-	public List<User> getFriendsList() throws TwitterException {
-		return twitter.getFriendsList(user.getId(), -1);
+	public List<User> getFriendsList(long userId) throws TwitterException {
+		return twitter.getFriendsList(userId, -1);
 	}
 	public void removeFriend(long userId) throws TwitterException {
 		twitter.destroyFriendship(userId);
 		
 	}
-
-	
+	public String getfriendsName(long userId) throws TwitterException {
+		return twitter.showUser(userId).getName();
+	}
+	public ImageIcon getfriendProfileImage(long userId) throws TwitterException, MalformedURLException {
+		URL url = new URL(twitter.showUser(userId).getBiggerProfileImageURL());
+		ImageIcon icon = new ImageIcon(url);
+		
+		return icon;
+	}
+	public List<Status> getfriendsTimeline(long userIds) throws TwitterException {
+		Paging paging = new Paging(1, 50);
+		return twitter.getUserTimeline(userIds, paging);
+	}
+	public List<Status> getFriendsFavoriteTweets(long userId) throws TwitterException {
+		Paging paging = new Paging(1, 50);
+		return twitter.getFavorites(userId, paging);
+	}
+	public long getuserId() throws IllegalStateException, TwitterException{
+		return user.getId();
+	}
 }
-
-
-	
-

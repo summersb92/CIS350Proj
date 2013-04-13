@@ -237,8 +237,8 @@ public class TwitterEngine {
 	throws IllegalStateException, TwitterException, MalformedURLException {
 		return model.getProfileImage();
 	}
-	public final String getRealName() {
-		return model.getRealName();
+	public final String getRealName(long userId) throws TwitterException {
+		return model.getRealName(userId);
 	}
 	public final String getScreenName() {
 		return model.getScreenName();
@@ -280,11 +280,27 @@ public class TwitterEngine {
 	public void favoriteTweet(long statusIds) throws NumberFormatException, TwitterException {
 		model.favoriteTweet(statusIds);
 	}
-	public List<User> getFriendsList() throws TwitterException {
-		return model.getFriendsList();
+	public List<User> getFriendsList(long userId) throws TwitterException {
+		return model.getFriendsList(userId);
 	}
 	public void removefriend(long userId) throws TwitterException {
 		model.removeFriend(userId);
 		
 	}
+	public String getfriendsName(long UserId) throws TwitterException {
+		return model.getfriendsName(UserId);
+	}
+	public ImageIcon getfriendProfileImage(long UserId) throws MalformedURLException, TwitterException {
+		return model.getfriendProfileImage(UserId);
+	}
+	public List<Status> getfriendsTimeline(long userIds) throws TwitterException {
+		return model.getfriendsTimeline(userIds);
+	}
+	public List<Status> getFriendsFavoriteTweets(long userId) throws TwitterException {
+		return model.getFriendsFavoriteTweets(userId);
+	}
+	public Long getuserid() throws IllegalStateException, TwitterException{
+		return model.getuserId();
+	}
+
 }
