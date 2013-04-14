@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import twitter4j.AccountSettings;
 import twitter4j.Status;
+import twitter4j.Trends;
 import twitter4j.TwitterException;
 import twitter4j.User;
 //import twitter4j.User;
@@ -64,7 +65,7 @@ public class TwitterEngine {
 	 * @throws TwitterException 
 	 */
 	public final List<Status> getTimeline() throws TwitterException {
-		return model.retriveTimeline();
+		return model.retrieveTimeline();
 	}
 	/**
 	 * addTweets creates a twitter Status in the table
@@ -120,7 +121,7 @@ public class TwitterEngine {
 	 */
 	public final String getDisplayStatis(final int idex) {
 		this.index = idex;
-		return model.retriveDisplayStatis(index);
+		return model.retrieveDisplayStatus(index);
 	}
 	
 	/**
@@ -288,19 +289,28 @@ public class TwitterEngine {
 		
 	}
 	public String getfriendsName(long UserId) throws TwitterException {
-		return model.getfriendsName(UserId);
+		return model.getFriendsName(UserId);
 	}
 	public ImageIcon getfriendProfileImage(long UserId) throws MalformedURLException, TwitterException {
-		return model.getfriendProfileImage(UserId);
+		return model.getFriendProfileImage(UserId);
 	}
 	public List<Status> getfriendsTimeline(long userIds) throws TwitterException {
-		return model.getfriendsTimeline(userIds);
+		return model.getFriendsTimeline(userIds);
 	}
 	public List<Status> getFriendsFavoriteTweets(long userId) throws TwitterException {
 		return model.getFriendsFavoriteTweets(userId);
 	}
 	public Long getuserid() throws IllegalStateException, TwitterException{
 		return model.getuserId();
+	}
+	public final String[] getTrendsLocations() {
+		return model.getTrendsLocationNames();
+	}
+	public final Trends getPlaceTrends(String location) {
+		return model.getLocationTrends(location);
+	}
+	public User addFriend(String username) throws TwitterException {
+		return model.addFriend(username);
 	}
 
 }

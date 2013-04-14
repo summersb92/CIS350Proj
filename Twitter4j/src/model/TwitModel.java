@@ -32,8 +32,11 @@ import javax.swing.table.AbstractTableModel;
 //import javax.swing.table.TableModel;
 
 import twitter4j.AccountSettings;
+import twitter4j.Location;
 import twitter4j.Paging;
+import twitter4j.ResponseList;
 import twitter4j.Status;
+import twitter4j.Trends;
 import twitter4j.User;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -88,6 +91,7 @@ public class TwitModel extends AbstractTableModel
 	private User user;
 	/** Custom class for storing favorite users. */
 	private FavoritesUtility favorites;
+	private Location[] trendsLocations;
 	/**
 	 * The Constructor for TwitModel().
 	 * @throws TwitterException 
@@ -196,7 +200,7 @@ public class TwitModel extends AbstractTableModel
 	 * @return List of Timeline Statuses
 	 * @throws TwitterException 
 	 */
-	public final List<Status> retriveTimeline() throws TwitterException {
+	public final List<Status> retrieveTimeline() throws TwitterException {
 		
 	    List<Status> statuses = twitter.getHomeTimeline();
 	    
@@ -234,7 +238,7 @@ public class TwitModel extends AbstractTableModel
 	 * @param index - index that is selected
 	 * @return - the text of that index.
 	 */
-	public final String retriveDisplayStatis(final int index) {
+	public final String retrieveDisplayStatus(final int index) {
 		return myTweets.get(index).getText();	
 	}
 	/**
@@ -258,7 +262,7 @@ public class TwitModel extends AbstractTableModel
 	public final void addFavorite(final String dsplayName) {
 		favorites.addFavoriteUser(dsplayName);
 	}
-	public final void delteFavorite(final String dsplayName) {
+	public final void deleteFavorite(final String dsplayName) {
 		favorites.removeFavorite(dsplayName);
 	}
 	public final void clearFavoriteList() {
@@ -323,7 +327,11 @@ public class TwitModel extends AbstractTableModel
 	    twitter = tf.getInstance();
 	        
 	    String username = JOptionPane.showInputDialog(frame, "User Name");
-	        
+	    
+	    if(username == null)
+	    	System.exit(0);
+	   
+	    
 	    File file = new File("loginInformation.txt");
 	        
 	    Scanner scanner = new Scanner(file);
@@ -568,16 +576,16 @@ public class TwitModel extends AbstractTableModel
 		twitter.destroyFriendship(userId);
 		
 	}
-	public String getfriendsName(long userId) throws TwitterException {
+	public String getFriendsName(long userId) throws TwitterException {
 		return twitter.showUser(userId).getName();
 	}
-	public ImageIcon getfriendProfileImage(long userId) throws TwitterException, MalformedURLException {
+	public ImageIcon getFriendProfileImage(long userId) throws TwitterException, MalformedURLException {
 		URL url = new URL(twitter.showUser(userId).getBiggerProfileImageURL());
 		ImageIcon icon = new ImageIcon(url);
 		
 		return icon;
 	}
-	public List<Status> getfriendsTimeline(long userIds) throws TwitterException {
+	public List<Status> getFriendsTimeline(long userIds) throws TwitterException {
 		Paging paging = new Paging(1, 50);
 		return twitter.getUserTimeline(userIds, paging);
 	}
@@ -588,4 +596,44 @@ public class TwitModel extends AbstractTableModel
 	public long getuserId() throws IllegalStateException, TwitterException{
 		return user.getId();
 	}
+	private final Location[] getTrendsLocations() {
+		ResponseList<Location> locations = null;
+		try {
+			locations = twitter.getAvailableTrends();
+		} catch (TwitterException e) {
+			e.printStackTrace();
+		}
+		trendsLocations = new Location[locations.size()];
+		for(int i = 0; i < locations.size(); i++) {
+			trendsLocations[i] = locations.get(i);
+		}
+		
+		return trendsLocations;
+	}
+	public final String[] getTrendsLocationNames() {
+		this.getTrendsLocations();
+		String[] locationnames = new String[trendsLocations.length];
+		for (int i = 0 ; i < trendsLocations.length ; i++) {
+			locationnames[i] = trendsLocations[i].getName();
+		}
+		return locationnames;
+	}
+	public final Trends getLocationTrends(String locationName) {
+		for (int i = 0 ; i < trendsLocations.length ; i++) {
+			if(locationName.equals(trendsLocations[i].getName())) {
+				try {
+					return twitter.getPlaceTrends(trendsLocations[i].getWoeid());
+				} catch (TwitterException e) {
+					e.printStackTrace();		//////////////////////////TO-DO ERROR HANDLING
+				}
+			}
+		}
+		return null;
+	}
+	public final User addFriend(String username) throws TwitterException {
+		return twitter.createFriendship(username, true);
+	}
+	
+	
+	
 }

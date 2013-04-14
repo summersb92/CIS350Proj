@@ -35,6 +35,7 @@ import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
 import twitter4j.Status;
+import twitter4j.Trend;
 import twitter4j.TwitterException;
 import twitter4j.User;
 import engine.TwitterEngine;
@@ -47,7 +48,7 @@ import engine.TwitterEngine;
  */
 public class TwitterGUI extends JFrame {
 
-	private JFrame gUI;
+	private JFrame guiFrame;
 
 	private JTabbedPane tabs;
 
@@ -64,8 +65,9 @@ public class TwitterGUI extends JFrame {
 	private JButton tweet;
 	private JButton favoriteButton;
 	private JButton deleteButton;
-	private JButton veiwProfile;
+	private JButton viewProfile;
 	private JButton removeFriend;
+	private JButton addFriend;
 
 	private JPanel profile;
 	private JPanel twitResults;
@@ -77,8 +79,11 @@ public class TwitterGUI extends JFrame {
 	private JPanel favorites;
 	private JPanel AccountSettingsPanel;
 	private JPanel MyTweetsPanel;
-	private JPanel FreindsListPanel;
-
+	private JPanel FriendsListPanel;
+	private JPanel trendsPanel;
+	
+	private Trend[] trendslist;
+	
 	private List<Status> statuses;
 	private List<User> users;
 
@@ -88,6 +93,7 @@ public class TwitterGUI extends JFrame {
 	private JTextArea timeLineArea;
 	private JTextArea FavoritesArea;
 	private JTextArea textArea;
+	private JTextArea trendsArea;
 
 	private JTextField updateTextBox;
 
@@ -108,9 +114,9 @@ public class TwitterGUI extends JFrame {
 	 * @throws Exception
 	 */
 	public TwitterGUI() throws Exception {
-		gUI = new JFrame();
+		guiFrame = new JFrame();
 		engine = new TwitterEngine();
-		gUI.setSize(800, 450);
+		guiFrame.setSize(800, 450);
 		
 		engine.login();
 		
@@ -124,35 +130,39 @@ public class TwitterGUI extends JFrame {
 		MyTweetsTabInit();
 		FriendsListTabInit();
 		profileTabInit();
+		trendsTabInit();
 		
         tabs = new JTabbedPane();
 		
         tabs.addTab("Profile", profile);
 		tabs.addTab("Post Tweet/Timeline", postTimePanel);
 		tabs.addTab("Followers", twitResults);
-		tabs.addTab("Friends List", FreindsListPanel);
+		tabs.addTab("Friends List", FriendsListPanel);
+		tabs.addTab("Trends", trendsPanel);
 		tabs.addTab("Favorites", favorites);
 		tabs.addTab("Your Tweets", MyTweetsPanel);
 		tabs.addTab("Account/Profile Settings", AccountSettingsPanel);
 
-		gUI.add(tabs);
-		gUI.setTitle("Twitter for " + engine.getRealName(engine.getuserid()));
+		guiFrame.add(tabs);
+		guiFrame.setTitle("Twitter for " + engine.getRealName(engine.getuserid()));
 		
 		final URL url = new URL("http://jonbennallick.co.uk/wp-content/uploads/2012/11/Twitter-Logo-Icon-by-Jon-Bennallick-02.png");
-        gUI.setIconImage(ImageIO.read(url));
+        guiFrame.setIconImage(ImageIO.read(url));
         
 
-		gUI.setVisible(true);
+		guiFrame.setVisible(true);
 	}
 
 	private void FriendsListTabInit() throws TwitterException {
-		FreindsListPanel = new JPanel();
-		veiwProfile = new JButton("View Profile");
+		FriendsListPanel = new JPanel();
+		viewProfile = new JButton("View Profile");
+		addFriend = new JButton("Add Friend");
 		removeFriend = new JButton("Remove Friend");
 		ButtonListener listener = new ButtonListener();
 		
-		veiwProfile.addActionListener(listener);
+		viewProfile.addActionListener(listener);
 		removeFriend.addActionListener(listener);
+		addFriend.addActionListener(listener);
 
 		FriendsNamesList = new String[200];
 		userIds = new long[200];
@@ -167,9 +177,10 @@ public class TwitterGUI extends JFrame {
 		FriendsList = new JList<String>(FriendsNamesList);
 
 		JScrollPane scrollpane = new JScrollPane(FriendsList);
-		FreindsListPanel.add(scrollpane);
-		FreindsListPanel.add(veiwProfile);
-		FreindsListPanel.add(removeFriend);
+		FriendsListPanel.add(scrollpane);
+		FriendsListPanel.add(viewProfile);
+		FriendsListPanel.add(addFriend);
+		FriendsListPanel.add(removeFriend);
 	}
 
 	private void MyTweetsTabInit() throws TwitterException {
@@ -333,6 +344,37 @@ public class TwitterGUI extends JFrame {
 
 		postTimePanel.add(updatePanel, BorderLayout.PAGE_START);
 		postTimePanel.add(timeLinepane, BorderLayout.PAGE_END);
+	}
+	
+	public final void trendsTabInit() {
+		//ButtonListener listener = new ButtonListener();
+		
+		trendsPanel = new JPanel();
+		trendsPanel.setLayout(new BorderLayout());
+		
+		
+		
+		//JScrollPane trendsscrollpane = new JScrollPane();
+		trendsArea = new JTextArea(20,40);
+		trendsArea.setLineWrap(true);
+		trendsArea.setEditable(false);
+		
+		//trendsscrollpane.setVerticalScrollBarPolicy(JScrollPane.
+		//		VERTICAL_SCROLLBAR_ALWAYS);
+		//trendsscrollpane.setViewportView(trendsArea);
+		
+		trendsPanel.add(trendsArea);
+		
+	}
+	
+	public final void updateTrendsArea() {
+		trendsArea.setText("");
+		for(Trend trend : trendslist) {
+			trendsArea.append(trend.getName());
+			trendsArea.append("\n");
+		}
+			
+			
 	}
 
 	/**
@@ -499,7 +541,7 @@ public class TwitterGUI extends JFrame {
 		help.add(helpAbout);
 		menu.add(help);
 		// Add Menu to the GUI
-		gUI.setJMenuBar(menu);
+		guiFrame.setJMenuBar(menu);
 	}
 
 	class ButtonListener implements ActionListener {
@@ -522,12 +564,12 @@ public class TwitterGUI extends JFrame {
 					tabs.addTab("Profile", profile);
 					tabs.addTab("Post Tweet/Timeline", postTimePanel);
 					tabs.addTab("Followers", twitResults);
-					tabs.addTab("Friends List", FreindsListPanel);
+					tabs.addTab("Friends List", FriendsListPanel);
 					tabs.addTab("Favorites", favorites);
 					tabs.addTab("Your Tweets", MyTweetsPanel);
 					tabs.addTab("Account/Profile Settings", AccountSettingsPanel);
 
-					gUI.add(tabs);
+					guiFrame.add(tabs);
 
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
@@ -563,11 +605,11 @@ public class TwitterGUI extends JFrame {
 					tabs.addTab("Profile", profile);
 					tabs.addTab("Post Tweet/Timeline", postTimePanel);
 					tabs.addTab("Followers", twitResults);
-					tabs.addTab("Friends List", FreindsListPanel);
+					tabs.addTab("Friends List", FriendsListPanel);
 					tabs.addTab("Favorites", favorites);
 					tabs.addTab("Your Tweets", MyTweetsPanel);
 
-					gUI.add(tabs);
+					guiFrame.add(tabs);
 					// GUI.repaint();
 
 				} catch (FileNotFoundException e1) {
@@ -614,7 +656,7 @@ public class TwitterGUI extends JFrame {
 						tabs.addTab("Profile", profile);
 						tabs.addTab("Post Tweet/Timeline", postTimePanel);
 						tabs.addTab("Followers", twitResults);
-						tabs.addTab("Friends List", FreindsListPanel);
+						tabs.addTab("Friends List", FriendsListPanel);
 						tabs.addTab("Favorites", favorites);
 						tabs.addTab("Your Tweets", MyTweetsPanel);
 						tabs.addTab("Account/Profile Settings", AccountSettingsPanel);
@@ -640,7 +682,7 @@ public class TwitterGUI extends JFrame {
 						tabs.addTab("Profile", profile);
 						tabs.addTab("Post Tweet/Timeline", postTimePanel);
 						tabs.addTab("Followers", twitResults);
-						tabs.addTab("Friends List", FreindsListPanel);
+						tabs.addTab("Friends List", FriendsListPanel);
 						tabs.addTab("Favorites", favorites);
 						tabs.addTab("Your Tweets", MyTweetsPanel);
 						tabs.addTab("Account/Profile Settings", AccountSettingsPanel);
@@ -650,7 +692,7 @@ public class TwitterGUI extends JFrame {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					gUI.add(tabs);
+					guiFrame.add(tabs);
 
 				}
 			}
@@ -677,7 +719,7 @@ public class TwitterGUI extends JFrame {
 
 			}
 			
-			if(e.getSource().equals(veiwProfile)){
+			if(e.getSource().equals(viewProfile)){
 				try {
 					new FriendVeiwer(userIds[FriendsList.getSelectedIndex()], engine);
 				} catch (TwitterException e1) {
@@ -696,6 +738,23 @@ public class TwitterGUI extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+			}
+			
+			if(e.getSource().equals(addFriend)) {
+				String friend;
+				User newFriend = null;
+				friend = (String) JOptionPane.showInputDialog(FriendsListPanel, "Enter the" +
+						" username of the friend to add.");
+				try {
+					newFriend = engine.addFriend(friend);
+					if(friend != null) 
+						JOptionPane.showMessageDialog(FriendsListPanel,
+							"Added friend " + friend + " (" + newFriend.getName() + ")" );
+				} catch (TwitterException ex) {
+					JOptionPane.showMessageDialog(FriendsListPanel,
+						"Could not add friend " + friend);
+				}
+				
 			}
 
 		}
@@ -739,6 +798,19 @@ public class TwitterGUI extends JFrame {
 								+ "            3/16//2013          \n"
 								+ "            For a CIS350 Project");
 			}
+			if (e.getActionCommand().equals("Top Trending List")) {
+				String[] options = engine.getTrendsLocations();
+				String choice;
+				choice = (String) JOptionPane.showInputDialog(guiFrame, "Pick a Trend Location", "Trend List",
+						JOptionPane.QUESTION_MESSAGE, null,
+						options, options[0]);
+				System.out.println("The choice is: " + choice);
+				trendslist = engine.getPlaceTrends(choice).getTrends();
+				updateTrendsArea();
+
+
+		}
+			
 
 		}
 	};
