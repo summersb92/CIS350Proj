@@ -184,7 +184,7 @@ public class TwitterGUI extends JFrame {
 		FriendsListPanel.add(ButtonsPanel, BorderLayout.PAGE_END);
 	}
 	
-	public final void trendsTabInit() {
+	private final void trendsTabInit() {
 		
 		trendsPanel = new JPanel();
 		trendsPanel.setLayout(new BorderLayout());
@@ -195,7 +195,7 @@ public class TwitterGUI extends JFrame {
 		trendsPanel.add(trendsArea);
 	}
 	
-	public final void updateTrendsArea() {
+	private final void updateTrendsArea() {
 		trendsArea.setText("");
 		for(Trend trend : trendslist) {
 			trendsArea.append(trend.getName());
@@ -248,7 +248,7 @@ public class TwitterGUI extends JFrame {
 		
 	}
 
-	public final void profileTabInit() throws IllegalStateException,
+	private final void profileTabInit() throws IllegalStateException,
 			TwitterException, MalformedURLException {
 		
 		Border blackline = BorderFactory.createLineBorder(Color.black);
@@ -365,7 +365,7 @@ public class TwitterGUI extends JFrame {
 		TimelineList.setFixedCellHeight(50);
 
 		for (Status status : statuses) {
-			model.addElement(html1 + "550" + html2 + engine.getRealName(engine.getuserid())
+			model.addElement(html1 + "550" + html2 + engine.getRealName(status.getUser().getId())
 					+ ": " + status.getText() + "\n");
 			MyTimeLineStatusIds[count] = status.getId();
 			count++;
@@ -441,15 +441,15 @@ public class TwitterGUI extends JFrame {
 		textArea.setText(output);
 	}
 
-	/**
-	 * Gets the topTrendingOutput
-	 * 
-	 * @param topTrendingList
-	 *            - what is top trending
-	 */
-	public final void topTrendingOutput(final Object topTrendingList) {
-		textArea.setText(topTrendingList.toString());
-	}
+//	/**
+//	 * Gets the topTrendingOutput
+//	 * 
+//	 * @param topTrendingList
+//	 *            - what is top trending
+//	 */
+//	public final void topTrendingOutput(final Object topTrendingList) {
+//		textArea.setText(topTrendingList.toString());
+//	}
 
 	public void favoritesTabInit() throws TwitterException {
 		FavoritesPanel = new JPanel();
@@ -759,11 +759,12 @@ public class TwitterGUI extends JFrame {
 				String[] options = engine.getTrendsLocations();
 				String choice;
 				choice = (String) JOptionPane.showInputDialog(guiFrame, "Pick a Trend Location", "Trend List",
-						JOptionPane.QUESTION_MESSAGE, null,
-						options, options[0]);
-				trendslist = engine.getPlaceTrends(choice).getTrends();
-				updateTrendsArea();
-		}
+						JOptionPane.OK_CANCEL_OPTION, null, options, options[0]);
+				if(choice != null) {
+					trendslist = engine.getPlaceTrends(choice).getTrends();
+					updateTrendsArea();
+				}
+			}
 
 		}
 	};

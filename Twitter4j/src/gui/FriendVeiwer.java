@@ -79,7 +79,7 @@ public class FriendVeiwer {
 		profileTabInit(userIds);
 
 		final URL url = new URL(
-				"http://jonbennallick.co.uk/wp-content/upload/2012/11/Twitter-Logo-Icon-by-Jon-Bennallick-02.png");
+				"http://cdn-ak.f.st-hatena.com/images/fotolife/r/rinrinbell/20091225/20091225215812.png");
 		GUI.setIconImage(ImageIO.read(url));
 
 		tabs.addTab("Profile", ProfilePanel);
