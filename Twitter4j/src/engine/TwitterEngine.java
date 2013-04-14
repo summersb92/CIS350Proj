@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 
 import twitter4j.AccountSettings;
 import twitter4j.Status;
+import twitter4j.Trends;
 import twitter4j.TwitterException;
 import twitter4j.User;
 
@@ -288,6 +289,12 @@ public class TwitterEngine {
 	public void sendDirectMessage(long userId, String message)
 			throws TwitterException {
 		model.sendDirectMessage(userId, message);
+	}
+	public final String[] getTrendsLocations() {
+		return model.getTrendsLocationNames();
+	}
+	public final Trends getPlaceTrends(String location) {
+		return model.getLocationTrends(location);
 	}
 
 }

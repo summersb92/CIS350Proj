@@ -36,6 +36,7 @@ import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
 import twitter4j.Status;
+import twitter4j.Trend;
 import twitter4j.TwitterException;
 import twitter4j.User;
 import engine.TwitterEngine;
@@ -49,7 +50,7 @@ import gui.FriendVeiwer.ButtonListener;
  */
 public class TwitterGUI extends JFrame {
 
-	private JFrame gUI;
+	private JFrame guiFrame;
 
 	private JTabbedPane tabs;
 
@@ -78,6 +79,9 @@ public class TwitterGUI extends JFrame {
 	private JPanel ProfileSettingsPanel;
 	private JPanel MyTweetsPanel;
 	private JPanel FriendsListPanel;
+	private JPanel trendsPanel;
+	
+	private Trend[] trendslist;
 
 	private List<Status> statuses;
 	private List<User> users;
@@ -90,6 +94,7 @@ public class TwitterGUI extends JFrame {
 	private JTextArea timeLineArea;
 	private JTextArea FavoritesArea;
 	private JTextArea textArea;
+	private JTextArea trendsArea;
 
 	private JTextField updateTextBox;
 
@@ -110,9 +115,9 @@ public class TwitterGUI extends JFrame {
 	 * @throws Exception
 	 */
 	public TwitterGUI() throws Exception {
-		gUI = new JFrame();
+		guiFrame = new JFrame();
 		engine = new TwitterEngine();
-		gUI.setSize(800, 450);
+		guiFrame.setSize(800, 450);
 		
 		engine.login();
 		
@@ -124,24 +129,26 @@ public class TwitterGUI extends JFrame {
 		MyTweetsTabInit();
 		FriendsListTabInit();
 		profileTabInit();
+		trendsTabInit();
 		
         tabs = new JTabbedPane();
 		
         tabs.addTab("Profile", ProfilePanel);
 		tabs.addTab("Post Tweet/Timeline", PostTimePanel);
 		tabs.addTab("Followers", TwitResults);
+		tabs.addTab("Trends", trendsPanel);
 		tabs.addTab("Friends List", FriendsListPanel);
 		tabs.addTab("Favorites", FavoritesPanel);
 		tabs.addTab("Your Tweets", MyTweetsPanel);
 
-		gUI.add(tabs);
-		gUI.setTitle("Twitter for " + engine.getRealName(engine.getuserid()));
+		guiFrame.add(tabs);
+		guiFrame.setTitle("Twitter for " + engine.getRealName(engine.getuserid()));
 		
 		final URL url = new URL("http://jonbennallick.co.uk/wp-content/uploads/2012/11/Twitter-Logo-Icon-by-Jon-Bennallick-02.png");
-        gUI.setIconImage(ImageIO.read(url));
+        guiFrame.setIconImage(ImageIO.read(url));
         
 
-		gUI.setVisible(true);
+		guiFrame.setVisible(true);
 	}
 
 	private void FriendsListTabInit() throws TwitterException {
@@ -175,6 +182,37 @@ public class TwitterGUI extends JFrame {
 		JScrollPane scrollpane = new JScrollPane(FriendsList);
 		FriendsListPanel.add(scrollpane, BorderLayout.CENTER);
 		FriendsListPanel.add(ButtonsPanel, BorderLayout.PAGE_END);
+	}
+	
+	public final void trendsTabInit() {
+		//ButtonListener listener = new ButtonListener();
+		
+		trendsPanel = new JPanel();
+		trendsPanel.setLayout(new BorderLayout());
+		
+		
+		
+		//JScrollPane trendsscrollpane = new JScrollPane();
+		trendsArea = new JTextArea(20,40);
+		trendsArea.setLineWrap(true);
+		trendsArea.setEditable(false);
+		
+		//trendsscrollpane.setVerticalScrollBarPolicy(JScrollPane.
+		//		VERTICAL_SCROLLBAR_ALWAYS);
+		//trendsscrollpane.setViewportView(trendsArea);
+		
+		trendsPanel.add(trendsArea);
+		
+	}
+	
+	public final void updateTrendsArea() {
+		trendsArea.setText("");
+		for(Trend trend : trendslist) {
+			trendsArea.append(trend.getName());
+			trendsArea.append("\n");
+		}
+			
+			
 	}
 
 	private void MyTweetsTabInit() throws TwitterException {
@@ -509,7 +547,7 @@ public class TwitterGUI extends JFrame {
 		help.add(helpAbout);
 		menu.add(help);
 		// Add Menu to the GUI
-		gUI.setJMenuBar(menu);
+		guiFrame.setJMenuBar(menu);
 	}
 
 	class ButtonListener implements ActionListener {
@@ -536,7 +574,7 @@ public class TwitterGUI extends JFrame {
 					tabs.addTab("Favorites", FavoritesPanel);
 					tabs.addTab("Your Tweets", MyTweetsPanel);
 
-					gUI.add(tabs);
+					guiFrame.add(tabs);
 
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
@@ -571,7 +609,7 @@ public class TwitterGUI extends JFrame {
 					tabs.addTab("Favorites", FavoritesPanel);
 					tabs.addTab("Your Tweets", MyTweetsPanel);
 
-					gUI.add(tabs);
+					guiFrame.add(tabs);
 					// GUI.repaint();
 
 				} catch (FileNotFoundException e1) {
@@ -644,7 +682,7 @@ public class TwitterGUI extends JFrame {
 							| TwitterException e1) {
 						e1.printStackTrace();
 					}
-					gUI.add(tabs);
+					guiFrame.add(tabs);
 
 				}
 			}
@@ -725,6 +763,18 @@ public class TwitterGUI extends JFrame {
 								+ "            3/16//2013          \n"
 								+ "            For a CIS350 Project");
 			}
+			if (e.getActionCommand().equals("Top Trending List")) {
+				String[] options = engine.getTrendsLocations();
+				String choice;
+				choice = (String) JOptionPane.showInputDialog(guiFrame, "Pick a Trend Location", "Trend List",
+						JOptionPane.QUESTION_MESSAGE, null,
+						options, options[0]);
+				System.out.println("The choice is: " + choice);
+				trendslist = engine.getPlaceTrends(choice).getTrends();
+				updateTrendsArea();
+
+
+		}
 
 		}
 	};
