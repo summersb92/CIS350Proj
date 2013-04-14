@@ -62,7 +62,6 @@ public class FavoritesUtility {
 		System.out.println("File saved!");
 		
 	}
-	@SuppressWarnings("unused")
 	private void readFromFile(final String username) throws ParserConfigurationException, SAXException, IOException {
 		File fXmlFile = new File("..\\Twitter4j\\favorites\\" + username + ".xml");
 		curUser = username;
