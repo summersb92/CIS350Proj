@@ -31,6 +31,7 @@ import javax.swing.table.AbstractTableModel;
 //import javax.swing.table.TableModel;
 
 import twitter4j.AccountSettings;
+import twitter4j.DirectMessage;
 import twitter4j.Location;
 import twitter4j.Paging;
 import twitter4j.ResponseList;
@@ -769,5 +770,15 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener,
 			}
 		}
 		return null;
+	}
+
+	public List<DirectMessage> getDirectMessages() throws TwitterException {
+		Paging paging = new Paging(1, 50);
+		
+		return twitter.getDirectMessages(paging);
+	}
+
+	public void deleteMessage(long MessageId) throws TwitterException {
+		twitter.destroyDirectMessage(MessageId);		
 	}
 }

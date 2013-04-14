@@ -7,6 +7,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 
 import twitter4j.AccountSettings;
+import twitter4j.DirectMessage;
 import twitter4j.Status;
 import twitter4j.Trends;
 import twitter4j.TwitterException;
@@ -295,6 +296,14 @@ public class TwitterEngine {
 	}
 	public final Trends getPlaceTrends(String location) {
 		return model.getLocationTrends(location);
+	}
+
+	public List<DirectMessage> getDirectMessages() throws TwitterException {
+		return model.getDirectMessages();
+	}
+
+	public void deleteMessage(long MessageId) throws TwitterException {
+		model.deleteMessage(MessageId);
 	}
 
 }

@@ -3,7 +3,6 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,7 +39,6 @@ import twitter4j.Trend;
 import twitter4j.TwitterException;
 import twitter4j.User;
 import engine.TwitterEngine;
-import gui.FriendVeiwer.ButtonListener;
 
 @SuppressWarnings("serial")
 /**
@@ -70,6 +68,7 @@ public class TwitterGUI extends JFrame {
 	private JButton DeleteButton;
 	private JButton VeiwProfile;
 	private JButton RemoveFriend;
+	private JButton ViewMessagesButton;
 
 	private JPanel ProfilePanel;
 	private JPanel TwitResults;
@@ -91,8 +90,6 @@ public class TwitterGUI extends JFrame {
 	private JList<String> FavoritesList;
 	private JList<String> TimelineList;
 
-	private JTextArea timeLineArea;
-	private JTextArea FavoritesArea;
 	private JTextArea textArea;
 	private JTextArea trendsArea;
 
@@ -185,24 +182,14 @@ public class TwitterGUI extends JFrame {
 	}
 	
 	public final void trendsTabInit() {
-		//ButtonListener listener = new ButtonListener();
 		
 		trendsPanel = new JPanel();
 		trendsPanel.setLayout(new BorderLayout());
-		
-		
-		
-		//JScrollPane trendsscrollpane = new JScrollPane();
 		trendsArea = new JTextArea(20,40);
 		trendsArea.setLineWrap(true);
 		trendsArea.setEditable(false);
 		
-		//trendsscrollpane.setVerticalScrollBarPolicy(JScrollPane.
-		//		VERTICAL_SCROLLBAR_ALWAYS);
-		//trendsscrollpane.setViewportView(trendsArea);
-		
 		trendsPanel.add(trendsArea);
-		
 	}
 	
 	public final void updateTrendsArea() {
@@ -211,8 +198,6 @@ public class TwitterGUI extends JFrame {
 			trendsArea.append(trend.getName());
 			trendsArea.append("\n");
 		}
-			
-			
 	}
 
 	private void MyTweetsTabInit() throws TwitterException {
@@ -310,8 +295,7 @@ public class TwitterGUI extends JFrame {
 		top.add(userIcon);
 		top2.add(realname);
 		top2.add(screenname);
-
-		// bottom.add(space);
+		
 		bottom.add(tweets);
 		bottom.add(followers);
 		bottom.add(following);
@@ -326,13 +310,15 @@ public class TwitterGUI extends JFrame {
 		LoginButton.addActionListener(listener);
 		SignoutButton = new JButton("Sign Out");
 		SignoutButton.addActionListener(listener);
+		ViewMessagesButton = new JButton("View Messages");
+		ViewMessagesButton.addActionListener(listener);
 
+		login.add(ViewMessagesButton);
 		login.add(LoginButton);
 		login.add(SignoutButton);
 
 		ProfilePanel.add(user, BorderLayout.CENTER);
 		ProfilePanel.add(login, BorderLayout.PAGE_END);
-
 	}
 
 	/**
@@ -525,6 +511,7 @@ public class TwitterGUI extends JFrame {
 		generate = new JMenu("Generate");
 		generateWordFrequencyList = new JMenuItem("Word Frequency List");
 		generateTopTrendingList = new JMenuItem("Top Trending List");
+		generateTopTrendingList.addActionListener(menuHandeler);
 		generateWordFrequencyList.addActionListener(menuHandeler);
 		generateTopTrendingList.addActionListener(menuHandeler);
 		generate.add(generateWordFrequencyList);
@@ -724,6 +711,15 @@ public class TwitterGUI extends JFrame {
 					e1.printStackTrace();
 				}
 			}
+			
+			if(e.getSource().equals(ViewMessagesButton)){
+				try {
+					new DirectMessageViewer(engine);
+				} catch (TwitterException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
 		}
 	}
 
@@ -769,7 +765,6 @@ public class TwitterGUI extends JFrame {
 				choice = (String) JOptionPane.showInputDialog(guiFrame, "Pick a Trend Location", "Trend List",
 						JOptionPane.QUESTION_MESSAGE, null,
 						options, options[0]);
-				System.out.println("The choice is: " + choice);
 				trendslist = engine.getPlaceTrends(choice).getTrends();
 				updateTrendsArea();
 
