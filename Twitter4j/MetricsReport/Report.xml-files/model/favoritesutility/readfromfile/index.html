@@ -4,7 +4,7 @@
 <html>
 <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <title>readFromFile - Apr 15, 2013 12:50:58 AM - CodeCover Report</title>
+    <title>readFromFile - Apr 15, 2013 1:43:45 AM - CodeCover Report</title>
     <link rel="stylesheet" type="text/css" href="../../../style.css">
 </head>
 <body>
@@ -12,10 +12,10 @@
         Coverage Report
     </div>
     <div class="session">
-        Apr 15, 2013 12:50:58 AM
+        Apr 15, 2013 1:43:45 AM
     </div>
     <div class="sessionDate">
-        measured on April 15, 2013 12:50:58 AM EDT
+        measured on April 15, 2013 1:43:45 AM EDT
     </div>
     <div class="linkToTop">
           <a href="../../../../Report.xml">
@@ -50,13 +50,13 @@
 			throws ParserConfigurationException, SAXException, IOException
             </td>  
                                     <td class="methodInfo">
-                        9&nbsp;/&nbsp;12
+                        2&nbsp;/&nbsp;12
                 </td>
                 <td class="methodInfo">
-                        75&nbsp;%
+                        16&nbsp;%
                 </td>
                 <td class="methodInfo coverage">
-                        <div class="red"><div class="green" style="width:75%"></div></div>
+                        <div class="red"><div class="green" style="width:16%"></div></div>
                 </td>   
                                                 <td class="methodInfo">
                         1&nbsp;/&nbsp;4
@@ -68,13 +68,13 @@
                         <div class="red"><div class="green" style="width:25%"></div></div>
                 </td>   
                                                 <td class="methodInfo">
-                        1&nbsp;/&nbsp;3
+                        0&nbsp;/&nbsp;3
                 </td>
                 <td class="methodInfo">
-                        33&nbsp;%
+                        0&nbsp;%
                 </td>
                 <td class="methodInfo coverage">
-                        <div class="red"><div class="green" style="width:33%"></div></div>
+                        <div class="red"><div class="green" style="width:0%"></div></div>
                 </td>   
                                             <td class="methodInfo">
                         0&nbsp;/&nbsp;0
@@ -86,13 +86,13 @@
                         <div class="grey"></div>
                 </td>  
                                                 <td class="methodInfo">
-                        2&nbsp;/&nbsp;6
+                        1&nbsp;/&nbsp;6
                 </td>
                 <td class="methodInfo">
-                        33&nbsp;%
+                        16&nbsp;%
                 </td>
                 <td class="methodInfo coverage">
-                        <div class="red"><div class="green" style="width:33%"></div></div>
+                        <div class="red"><div class="green" style="width:16%"></div></div>
                 </td>   
                                             <td class="methodInfo">
                         0&nbsp;/&nbsp;0
@@ -177,7 +177,7 @@
                        &nbsp;
               </td>
               <td class="code text">
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered partlyCovered Branch_Coverage" title="Unexecuted branches: implicit (omitted) branch">if</span> (<span class="covered partlyCovered Term_Coverage">fXmlFile.exists()</span>) {
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered partlyCovered Branch_Coverage" title="Unexecuted branches: then">if</span> (<span class="covered partlyCovered Term_Coverage">fXmlFile.exists()</span>) {
               </td>
           </tr>
                       <tr class="code" id="L72">
@@ -188,7 +188,7 @@
                        &nbsp;
               </td>
               <td class="code text">
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered fullyCovered Statement_Coverage">DocumentBuilderFactory dbFactory = DocumentBuilderFactory</span>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered notCovered Statement_Coverage">DocumentBuilderFactory dbFactory = DocumentBuilderFactory</span>
               </td>
           </tr>
                       <tr class="code" id="L73">
@@ -199,7 +199,7 @@
                        &nbsp;
               </td>
               <td class="code text">
-                  <span class="covered fullyCovered Statement_Coverage">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.newInstance();</span>
+                  <span class="covered notCovered Statement_Coverage">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.newInstance();</span>
               </td>
           </tr>
                       <tr class="code" id="L74">
@@ -210,7 +210,7 @@
                        &nbsp;
               </td>
               <td class="code text">
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered fullyCovered Statement_Coverage">DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();</span>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered notCovered Statement_Coverage">DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();</span>
               </td>
           </tr>
                       <tr class="code" id="L75">
@@ -221,7 +221,7 @@
                        &nbsp;
               </td>
               <td class="code text">
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered fullyCovered Statement_Coverage">Document doc = dBuilder.parse(fXmlFile);</span>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered notCovered Statement_Coverage">Document doc = dBuilder.parse(fXmlFile);</span>
               </td>
           </tr>
                       <tr class="code" id="L76">
@@ -243,7 +243,7 @@
                        &nbsp;
               </td>
               <td class="code text">
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered fullyCovered Statement_Coverage">doc.getDocumentElement().normalize();</span>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered notCovered Statement_Coverage">doc.getDocumentElement().normalize();</span>
               </td>
           </tr>
                       <tr class="code" id="L78">
@@ -254,7 +254,7 @@
                        &nbsp;
               </td>
               <td class="code text">
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered fullyCovered Statement_Coverage">System.out.println(&quot;Root element: &quot;</span>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered notCovered Statement_Coverage">System.out.println(&quot;Root element: &quot;</span>
               </td>
           </tr>
                       <tr class="code" id="L79">
@@ -265,7 +265,7 @@
                        &nbsp;
               </td>
               <td class="code text">
-                  <span class="covered fullyCovered Statement_Coverage">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ doc.getDocumentElement().getNodeName());</span>
+                  <span class="covered notCovered Statement_Coverage">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ doc.getDocumentElement().getNodeName());</span>
               </td>
           </tr>
                       <tr class="code" id="L80">
@@ -287,7 +287,7 @@
                        &nbsp;
               </td>
               <td class="code text">
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered fullyCovered Statement_Coverage">NodeList nList = doc.getElementsByTagName(&quot;staff&quot;);</span>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered notCovered Statement_Coverage">NodeList nList = doc.getElementsByTagName(&quot;staff&quot;);</span>
               </td>
           </tr>
                       <tr class="code" id="L82">
@@ -309,7 +309,7 @@
                        &nbsp;
               </td>
               <td class="code text">
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered fullyCovered Statement_Coverage">System.out.println(&quot;----------------------------&quot;);</span>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered notCovered Statement_Coverage">System.out.println(&quot;----------------------------&quot;);</span>
               </td>
           </tr>
                       <tr class="code" id="L84">
@@ -331,7 +331,7 @@
                        &nbsp;
               </td>
               <td class="code text">
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered partlyCovered Loop_Coverage" title="Missing execution(s): ONE MANY time(s).">for</span> (int temp = 0; <span class="covered partlyCovered Term_Coverage">temp &lt; nList.getLength()</span>; temp++) {
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered notCovered Loop_Coverage" title="Missing execution(s): ZERO ONE MANY time(s).">for</span> (int temp = 0; <span class="covered notCovered Term_Coverage">temp &lt; nList.getLength()</span>; temp++) {
               </td>
           </tr>
                       <tr class="code" id="L86">
@@ -480,7 +480,7 @@
             </tbody>
     </table></div>
         <div class="creationNote">
-        created on April 15, 2013 1:24:33 AM EDT with
+        created on April 15, 2013 1:49:18 AM EDT with
         <a href="http://www.codecover.org">
             CodeCover
         </a>
