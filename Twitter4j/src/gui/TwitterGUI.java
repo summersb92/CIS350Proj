@@ -613,25 +613,13 @@ public class TwitterGUI extends JFrame {
 			}
 			if (e.getSource().equals(updateTimelineButton)) {
 					try {
-						tabs.removeAll();
-						profileTabInit();
-				
+						tabs.remove(1);
 						postTimeTabInit();
-						followerTabInit();
-						favoritesTabInit();
-						ProfileSettingsTabInit();
-						MyTweetsTabInit();
-						FriendsListTabInit();
-	
-				        tabs.addTab("Profile", ProfilePanel);
-						tabs.addTab("Post Tweet/Timeline", PostTimePanel);
-						tabs.addTab("Followers", TwitResults);
-						tabs.addTab("Friends List", FriendsListPanel);
-						tabs.addTab("Favorites", FavoritesPanel);
-						tabs.addTab("Your Tweets", MyTweetsPanel);
-
-					} catch (IllegalStateException | MalformedURLException
-							| TwitterException e1) {
+						
+						tabs.insertTab("Post Tweet/Timeline", null, PostTimePanel, null, 1);
+						
+						tabs.setSelectedIndex(1);
+					} catch (IllegalStateException | TwitterException e1) {
 						e1.printStackTrace();
 					}
 			}
@@ -640,28 +628,16 @@ public class TwitterGUI extends JFrame {
 					
 					try {
 						
-						tabs.removeAll();
-						profileTabInit();
-						postTimeTabInit();
-						followerTabInit();
+						tabs.remove(4);
 						favoritesTabInit();
-						ProfileSettingsTabInit();
-						MyTweetsTabInit();
-						FriendsListTabInit();
-	
-				        tabs.addTab("Profile", ProfilePanel);
-						tabs.addTab("Post Tweet/Timeline", PostTimePanel);
-						tabs.addTab("Followers", TwitResults);
-						tabs.addTab("Friends List", FriendsListPanel);
-						tabs.addTab("Favorites", FavoritesPanel);
-						tabs.addTab("Your Tweets", MyTweetsPanel);
+						
+						tabs.insertTab("Favorites", null, PostTimePanel, null, 4);
+						
+						tabs.setSelectedIndex(4);
 
-					} catch (IllegalStateException | MalformedURLException
-							| TwitterException e1) {
+					} catch (IllegalStateException | TwitterException e1) {
 						e1.printStackTrace();
 					}
-					guiFrame.add(tabs);
-
 				}
 			
 
@@ -716,7 +692,9 @@ public class TwitterGUI extends JFrame {
 				} catch (NumberFormatException e1) {
 					e1.printStackTrace();
 				} catch (TwitterException e1) {
-					e1.printStackTrace();
+					if(e1.getErrorCode() == 139){
+						JOptionPane.showMessageDialog(guiFrame, "You have already favorited that Tweet", "Error", JOptionPane.ERROR_MESSAGE);
+					}	
 				}
 			}
 			
