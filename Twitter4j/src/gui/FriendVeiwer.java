@@ -268,18 +268,24 @@ public class FriendVeiwer {
 				try {
 					engine.favoriteTweet(statusIds[TimelineList
 							.getSelectedIndex()]);
-				} catch (NumberFormatException | TwitterException e1) {
+				} catch (NumberFormatException e1) {
 					JOptionPane.showMessageDialog(GUI,
 							"Please do not select the white space.  Thank you");
+				} catch (TwitterException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 			}
 			if (e.getSource().equals(FavoriteTweetButton)) {
 				try {
 					engine.favoriteTweet(statusIds[FavoritesList
 							.getSelectedIndex()]);
-				} catch (NumberFormatException | TwitterException e1) {
+				} catch (NumberFormatException  e1) {
 					JOptionPane.showMessageDialog(GUI,
 							"Please do not select the white space.  Thank you");
+				} catch (TwitterException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 			}
 

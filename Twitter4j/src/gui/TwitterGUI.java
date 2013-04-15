@@ -600,7 +600,10 @@ public class TwitterGUI extends JFrame {
 							null, 1);
 
 					tabs.setSelectedIndex(1);
-				} catch (IllegalStateException | TwitterException e1) {
+				} catch (IllegalStateException  e1) {
+					e1.printStackTrace();
+				} catch (TwitterException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -616,7 +619,10 @@ public class TwitterGUI extends JFrame {
 
 					tabs.setSelectedIndex(4);
 
-				} catch (IllegalStateException | TwitterException e1) {
+				} catch (IllegalStateException e1) {
+					e1.printStackTrace();
+				} catch (TwitterException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -625,7 +631,10 @@ public class TwitterGUI extends JFrame {
 				try {
 					engine.favoriteTweet(MyTweetsStatusIds[list
 							.getSelectedIndex()]);
-				} catch (NumberFormatException | TwitterException e1) {
+				} catch (NumberFormatException  e1) {
+					e1.printStackTrace();
+				} catch (TwitterException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 
