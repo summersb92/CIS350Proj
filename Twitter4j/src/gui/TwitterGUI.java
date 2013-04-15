@@ -101,6 +101,8 @@ public class TwitterGUI extends JFrame {
 	private long[] MyFavoriteStatusIds;
 	private long[] userIds;
 	private String[] FriendsNamesList;
+	
+	private DefaultListModel<String> favModel;
 
 	private TwitterEngine engine;
 
@@ -411,7 +413,7 @@ public class TwitterGUI extends JFrame {
 
 		// Text Area
 		textArea = new JTextArea(7, 40);
-		textArea.setEditable(true);
+		textArea.setEditable(false);
 		textTitle = BorderFactory.createTitledBorder("Status Text");
 		textArea.setLineWrap(true);
 		textArea.setBorder(textTitle);
@@ -470,19 +472,11 @@ public class TwitterGUI extends JFrame {
 		statuses = engine.getFavoriteTweets();
 		MyFavoriteStatusIds = new long[200];
 
-		DefaultListModel<String> model = new DefaultListModel<String>();
-		FavoritesList = new JList<String>(model);
+		favModel = new DefaultListModel<String>();
+		FavoritesList = new JList<String>(favModel);
 		FavoritesList.setFixedCellHeight(50);
 
-		int count = 0;
-
-		for (Status status : statuses) {
-			model.addElement(html1 + "400" + html2 + status.getUser().getName()
-					+ ":" + status.getText());
-			MyFavoriteStatusIds[count] = status.getId();
-			count++;
-		}
-
+		updateFavoritesList();
 		JScrollPane FavoritePane = new JScrollPane(FavoritesList);
 		
 		ButtonsPanel.add(UpdateFavoritesButton);
@@ -490,6 +484,22 @@ public class TwitterGUI extends JFrame {
 
 		FavoritesPanel.add(FavoritePane, BorderLayout.CENTER);
 		FavoritesPanel.add(ButtonsPanel, BorderLayout.PAGE_END);
+	}
+	
+	private final void updateFavoritesList() throws TwitterException {
+		String html1 = "<html><body style='width: ";
+		String html2 = "px'>";
+		statuses = engine.getFavoriteTweets();
+		int count = 0;
+		for (Status status : statuses) {
+			favModel.addElement(html1 + "400" + html2 + status.getUser().getName()
+					+ ":" + status.getText());
+			MyFavoriteStatusIds[count] = status.getId();
+			count++;
+		}
+		FavoritesList.updateUI();
+		
+
 	}
 
 	/**
@@ -624,10 +634,12 @@ public class TwitterGUI extends JFrame {
 							| TwitterException e1) {
 						e1.printStackTrace();
 					}
+			}
 
 				if (e.getSource().equals(UpdateFavoritesButton)) {
 					
 					try {
+						
 						tabs.removeAll();
 						profileTabInit();
 						postTimeTabInit();
@@ -651,10 +663,9 @@ public class TwitterGUI extends JFrame {
 					guiFrame.add(tabs);
 
 				}
-			}
+			
 
 			if (e.getSource().equals(MyTweetsFavoriteButton)) {
-
 				try {
 					engine.favoriteTweet(MyTweetsStatusIds[list.getSelectedIndex()]);
 				} catch (NumberFormatException | TwitterException e1) {

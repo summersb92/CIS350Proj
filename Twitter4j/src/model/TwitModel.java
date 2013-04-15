@@ -635,13 +635,13 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener,
 	}
 
 	public List<Status> getfavoriteTweets() throws TwitterException {
-		List<Status> statuses = twitter.getFavorites();
-
-		return statuses;
+		//List<Status> statuses = twitter.getFavorites();
+		return twitter.getFavorites();
 	}
 
 	public void destoryStatus(long statusId) throws TwitterException {
-		twitter.destroyStatus(statusId);
+		//twitter.destroyStatus(statusId);
+		twitter.destroyFavorite(statusId);
 	}
 
 	public AccountSettings getAccountSettings() throws TwitterException {
