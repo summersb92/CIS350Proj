@@ -1,0 +1,621 @@
+
+            <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>DirectMessageViewer - Apr 15, 2013 12:50:58 AM - CodeCover Report</title>
+    <link rel="stylesheet" type="text/css" href="../../../style.css">
+</head>
+<body>
+    <div class="headline">
+        Coverage Report
+    </div>
+    <div class="session">
+        Apr 15, 2013 12:50:58 AM
+    </div>
+    <div class="sessionDate">
+        measured on April 15, 2013 12:50:58 AM EDT
+    </div>
+    <div class="linkToTop">
+          <a href="../../../../Report.xml">
+              up to the title page
+          </a>
+    </div>
+    <div class="ancestors">
+    <a href="../../index.html">
+        gui</a>
+    .
+    <a href="../index.html">
+        DirectMessageViewer</a>
+    .
+    DirectMessageViewer
+    </div><div class="methodInfo">
+    <table class="methodInfo">
+    <thead class="methodInfo">
+        <tr class="methodInfo">
+            <th class="methodInfo firstcolumn"></th>
+            <th class="methodInfo" colspan="3">Statement Coverage</th>
+            <th class="methodInfo" colspan="3">Branch Coverage</th>
+            <th class="methodInfo" colspan="3">Loop Coverage</th>
+            <th class="methodInfo" colspan="3">?-Operator Coverage</th>
+            <th class="methodInfo" colspan="3">Term Coverage</th>
+            <th class="methodInfo" colspan="3">Synchronized Coverage</th>
+        </tr>
+    </thead>
+    <tbody class="methodInfo">
+        <tr class="methodInfo">
+            <td class="methodInfo firstcolumn">
+                    public DirectMessageViewer(TwitterEngine engine) throws TwitterException
+            </td>  
+                                    <td class="methodInfo">
+                        24&nbsp;/&nbsp;24
+                </td>
+                <td class="methodInfo">
+                        100&nbsp;%
+                </td>
+                <td class="methodInfo coverage">
+                        <div class="red"><div class="green" style="width:100%"></div></div>
+                </td>   
+                                            <td class="methodInfo">
+                        0&nbsp;/&nbsp;0
+                </td>
+                <td class="methodInfo">
+                        ---
+                </td>
+                <td class="methodInfo coverage">
+                        <div class="grey"></div>
+                </td>  
+                                                <td class="methodInfo">
+                        1&nbsp;/&nbsp;3
+                </td>
+                <td class="methodInfo">
+                        33&nbsp;%
+                </td>
+                <td class="methodInfo coverage">
+                        <div class="red"><div class="green" style="width:33%"></div></div>
+                </td>   
+                                            <td class="methodInfo">
+                        0&nbsp;/&nbsp;0
+                </td>
+                <td class="methodInfo">
+                        ---
+                </td>
+                <td class="methodInfo coverage">
+                        <div class="grey"></div>
+                </td>  
+                                            <td class="methodInfo">
+                        0&nbsp;/&nbsp;0
+                </td>
+                <td class="methodInfo">
+                        ---
+                </td>
+                <td class="methodInfo coverage">
+                        <div class="grey"></div>
+                </td>  
+                                            <td class="methodInfo">
+                        0&nbsp;/&nbsp;0
+                </td>
+                <td class="methodInfo">
+                        ---
+                </td>
+                <td class="methodInfo coverage">
+                        <div class="grey"></div>
+                </td>  
+                        </tr>
+    </tbody>
+    </table></div>
+    <div class="code">
+    <table class="code">
+        <thead class="code">
+        <tr class="code">
+                        <th class="code" colspan="3">DirectMessageViewer.java</th>
+                </tr>
+        </thead>
+        <tbody class="code">
+                      <tr class="code" id="L36">
+             <td class="code lineNumber">
+                  <a href="#L36">36</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;public DirectMessageViewer(TwitterEngine engine) throws TwitterException{
+              </td>
+          </tr>
+                      <tr class="code" id="L37">
+             <td class="code lineNumber">
+                  <a href="#L37">37</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered fullyCovered Statement_Coverage">this.engine = engine;</span>
+              </td>
+          </tr>
+                      <tr class="code" id="L38">
+             <td class="code lineNumber">
+                  <a href="#L38">38</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </td>
+          </tr>
+                      <tr class="code" id="L39">
+             <td class="code lineNumber">
+                  <a href="#L39">39</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered fullyCovered Statement_Coverage">DefaultListModel&lt;String&gt; model = new DefaultListModel&lt;String&gt;();</span>
+              </td>
+          </tr>
+                      <tr class="code" id="L40">
+             <td class="code lineNumber">
+                  <a href="#L40">40</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered fullyCovered Statement_Coverage">ButtonListener listener = new ButtonListener();</span>
+              </td>
+          </tr>
+                      <tr class="code" id="L41">
+             <td class="code lineNumber">
+                  <a href="#L41">41</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </td>
+          </tr>
+                      <tr class="code" id="L42">
+             <td class="code lineNumber">
+                  <a href="#L42">42</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered fullyCovered Statement_Coverage">MessageViewer = new JFrame(&quot;Messages&quot;);</span>
+              </td>
+          </tr>
+                      <tr class="code" id="L43">
+             <td class="code lineNumber">
+                  <a href="#L43">43</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </td>
+          </tr>
+                      <tr class="code" id="L44">
+             <td class="code lineNumber">
+                  <a href="#L44">44</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered fullyCovered Statement_Coverage">MessagePanel = new JPanel();</span>
+              </td>
+          </tr>
+                      <tr class="code" id="L45">
+             <td class="code lineNumber">
+                  <a href="#L45">45</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered fullyCovered Statement_Coverage">MessagePanel.setLayout(new BorderLayout());</span>
+              </td>
+          </tr>
+                      <tr class="code" id="L46">
+             <td class="code lineNumber">
+                  <a href="#L46">46</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </td>
+          </tr>
+                      <tr class="code" id="L47">
+             <td class="code lineNumber">
+                  <a href="#L47">47</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered fullyCovered Statement_Coverage">JPanel ButtonsPanel = new JPanel();</span>
+              </td>
+          </tr>
+                      <tr class="code" id="L48">
+             <td class="code lineNumber">
+                  <a href="#L48">48</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </td>
+          </tr>
+                      <tr class="code" id="L49">
+             <td class="code lineNumber">
+                  <a href="#L49">49</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered fullyCovered Statement_Coverage">Messages = engine.getDirectMessages();</span>
+              </td>
+          </tr>
+                      <tr class="code" id="L50">
+             <td class="code lineNumber">
+                  <a href="#L50">50</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </td>
+          </tr>
+                      <tr class="code" id="L51">
+             <td class="code lineNumber">
+                  <a href="#L51">51</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered fullyCovered Statement_Coverage">MessagesList = new JList&lt;String&gt;(model);</span>
+              </td>
+          </tr>
+                      <tr class="code" id="L52">
+             <td class="code lineNumber">
+                  <a href="#L52">52</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered fullyCovered Statement_Coverage">MessagesList.setFixedCellHeight(40);</span>
+              </td>
+          </tr>
+                      <tr class="code" id="L53">
+             <td class="code lineNumber">
+                  <a href="#L53">53</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </td>
+          </tr>
+                      <tr class="code" id="L54">
+             <td class="code lineNumber">
+                  <a href="#L54">54</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </td>
+          </tr>
+                      <tr class="code" id="L55">
+             <td class="code lineNumber">
+                  <a href="#L55">55</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered fullyCovered Statement_Coverage">MessageIds = new long[50];</span>
+              </td>
+          </tr>
+                      <tr class="code" id="L56">
+             <td class="code lineNumber">
+                  <a href="#L56">56</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </td>
+          </tr>
+                      <tr class="code" id="L57">
+             <td class="code lineNumber">
+                  <a href="#L57">57</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered fullyCovered Statement_Coverage">int count = 0;</span>
+              </td>
+          </tr>
+                      <tr class="code" id="L58">
+             <td class="code lineNumber">
+                  <a href="#L58">58</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </td>
+          </tr>
+                      <tr class="code" id="L59">
+             <td class="code lineNumber">
+                  <a href="#L59">59</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered partlyCovered Loop_Coverage" title="Missing execution(s): ZERO ONE time(s).">for</span>(DirectMessage message : Messages){
+              </td>
+          </tr>
+                      <tr class="code" id="L60">
+             <td class="code lineNumber">
+                  <a href="#L60">60</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered fullyCovered Statement_Coverage">model.addElement(message.getText());</span>
+              </td>
+          </tr>
+                      <tr class="code" id="L61">
+             <td class="code lineNumber">
+                  <a href="#L61">61</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered fullyCovered Statement_Coverage">MessageIds[count] = message.getId();</span>
+              </td>
+          </tr>
+                      <tr class="code" id="L62">
+             <td class="code lineNumber">
+                  <a href="#L62">62</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered fullyCovered Statement_Coverage">count++;</span>
+              </td>
+          </tr>
+                      <tr class="code" id="L63">
+             <td class="code lineNumber">
+                  <a href="#L63">63</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+              </td>
+          </tr>
+                      <tr class="code" id="L64">
+             <td class="code lineNumber">
+                  <a href="#L64">64</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </td>
+          </tr>
+                      <tr class="code" id="L65">
+             <td class="code lineNumber">
+                  <a href="#L65">65</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered fullyCovered Statement_Coverage">JScrollPane scrollpane = new JScrollPane(MessagesList);</span>
+              </td>
+          </tr>
+                      <tr class="code" id="L66">
+             <td class="code lineNumber">
+                  <a href="#L66">66</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </td>
+          </tr>
+                      <tr class="code" id="L67">
+             <td class="code lineNumber">
+                  <a href="#L67">67</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered fullyCovered Statement_Coverage">DeleteMessageButton = new JButton(&quot;Delete Message&quot;);</span>
+              </td>
+          </tr>
+                      <tr class="code" id="L68">
+             <td class="code lineNumber">
+                  <a href="#L68">68</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered fullyCovered Statement_Coverage">DeleteMessageButton.addActionListener(listener);</span>
+              </td>
+          </tr>
+                      <tr class="code" id="L69">
+             <td class="code lineNumber">
+                  <a href="#L69">69</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </td>
+          </tr>
+                      <tr class="code" id="L70">
+             <td class="code lineNumber">
+                  <a href="#L70">70</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered fullyCovered Statement_Coverage">ButtonsPanel.add(DeleteMessageButton, BorderLayout.PAGE_END);</span>&nbsp;&nbsp;&nbsp;&nbsp;
+              </td>
+          </tr>
+                      <tr class="code" id="L71">
+             <td class="code lineNumber">
+                  <a href="#L71">71</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </td>
+          </tr>
+                      <tr class="code" id="L72">
+             <td class="code lineNumber">
+                  <a href="#L72">72</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered fullyCovered Statement_Coverage">MessagePanel.add(scrollpane, BorderLayout.CENTER);</span>
+              </td>
+          </tr>
+                      <tr class="code" id="L73">
+             <td class="code lineNumber">
+                  <a href="#L73">73</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered fullyCovered Statement_Coverage">MessagePanel.add(ButtonsPanel, BorderLayout.PAGE_END);</span>
+              </td>
+          </tr>
+                      <tr class="code" id="L74">
+             <td class="code lineNumber">
+                  <a href="#L74">74</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </td>
+          </tr>
+                      <tr class="code" id="L75">
+             <td class="code lineNumber">
+                  <a href="#L75">75</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered fullyCovered Statement_Coverage">MessageViewer.add(MessagePanel);</span>
+              </td>
+          </tr>
+                      <tr class="code" id="L76">
+             <td class="code lineNumber">
+                  <a href="#L76">76</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </td>
+          </tr>
+                      <tr class="code" id="L77">
+             <td class="code lineNumber">
+                  <a href="#L77">77</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered fullyCovered Statement_Coverage">MessageViewer.setSize(800, 450);</span>
+              </td>
+          </tr>
+                      <tr class="code" id="L78">
+             <td class="code lineNumber">
+                  <a href="#L78">78</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </td>
+          </tr>
+                      <tr class="code" id="L79">
+             <td class="code lineNumber">
+                  <a href="#L79">79</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="covered fullyCovered Statement_Coverage">MessageViewer.setVisible(true);</span>
+              </td>
+          </tr>
+                      <tr class="code" id="L80">
+             <td class="code lineNumber">
+                  <a href="#L80">80</a>
+                       </td>
+              <td class="code executions">
+                       &nbsp;
+              </td>
+              <td class="code text">
+                  &nbsp;&nbsp;&nbsp;&nbsp;}
+              </td>
+          </tr>
+            </tbody>
+    </table></div>
+        <div class="creationNote">
+        created on April 15, 2013 1:24:33 AM EDT with
+        <a href="http://www.codecover.org">
+            CodeCover
+        </a>
+    </div>    
+</body>
+</html>
+        
