@@ -62,6 +62,8 @@ public class TwitterGUI extends JFrame {
 	private JButton SignoutButton;
 	private JButton updateTimelineButton;
 	private JButton UpdateFavoritesButton;
+	private JButton UpdateFriendsList;
+	private JButton UpdateMyTweetsList;
 	private JButton DeleteFavoriteButton;
 	private JButton TimelineFavoriteButton;
 	private JButton MyTweetsFavoriteButton;
@@ -160,10 +162,12 @@ public class TwitterGUI extends JFrame {
 		
 		VeiwProfile = new JButton("View Profile");
 		RemoveFriend = new JButton("Remove Friend");
+		UpdateFriendsList = new JButton("Update");
 		ButtonListener listener = new ButtonListener();
 		
 		VeiwProfile.addActionListener(listener);
 		RemoveFriend.addActionListener(listener);
+		UpdateFriendsList.addActionListener(listener);
 		
 		users = engine.getFriendsList(engine.getuserid());
 		FriendsNamesList = new String[users.size()];
@@ -178,6 +182,7 @@ public class TwitterGUI extends JFrame {
 
 		FriendsList = new JList<String>(FriendsNamesList);
 		
+		ButtonsPanel.add(UpdateFriendsList);
 		ButtonsPanel.add(VeiwProfile);
 		ButtonsPanel.add(RemoveFriend);
 
@@ -219,10 +224,12 @@ public class TwitterGUI extends JFrame {
 		
 		MyTweetsFavoriteButton = new JButton("Favorite");
 		DeleteMyTweetButton = new JButton("Delete Tweet");
+		UpdateMyTweetsList = new JButton("Update");
 		ButtonListener listener = new ButtonListener();
 
 		MyTweetsFavoriteButton.addActionListener(listener);
 		DeleteMyTweetButton.addActionListener(listener);
+		UpdateMyTweetsList.addActionListener(listener);
 
 		statuses = engine.getMyTweets();
 		MyTweetsStatusIds = new long[statuses.size()];
@@ -236,6 +243,7 @@ public class TwitterGUI extends JFrame {
 		
 		JScrollPane scrollpane = new JScrollPane(list);
 		
+		ButtonsPanel.add(UpdateMyTweetsList);
 		ButtonsPanel.add(MyTweetsFavoriteButton);
 		ButtonsPanel.add(DeleteMyTweetButton);
 		
@@ -461,9 +469,6 @@ public class TwitterGUI extends JFrame {
 		
 		ButtonListener listener = new ButtonListener();
 		
-		String html1 = "<html><body style='width: ";
-		String html2 = "px'>";
-
 		UpdateFavoritesButton = new JButton("Update");
 		UpdateFavoritesButton.addActionListener(listener);
 		DeleteFavoriteButton = new JButton("Delete");
@@ -498,8 +503,6 @@ public class TwitterGUI extends JFrame {
 			count++;
 		}
 		FavoritesList.updateUI();
-		
-
 	}
 
 	/**
@@ -591,14 +594,8 @@ public class TwitterGUI extends JFrame {
 			}
 			if (e.getSource().equals(SignoutButton)) {
 				engine.logout();
-				tabs.removeAll();
-				try {
-					engine.login();
-				}catch (IllegalStateException e1) {
-					e1.printStackTrace();
-				}catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				
+				System.exit(0);
 			}
 
 			if (e.getSource().equals(TweetButton)) {
@@ -704,6 +701,34 @@ public class TwitterGUI extends JFrame {
 				} catch (TwitterException e1) {
 					e1.printStackTrace();
 				}
+			}
+			
+			if(e.getSource().equals(UpdateFriendsList)){
+				tabs.remove(3);
+				try {
+					FriendsListTabInit();
+				} catch (TwitterException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				tabs.insertTab("Friends", null, FriendsListPanel, null, 3);
+				
+				tabs.setSelectedIndex(3);
+			}
+			
+			if(e.getSource().equals(UpdateMyTweetsList)){
+				tabs.remove(5);
+				try {
+					favoritesTabInit();
+				} catch (TwitterException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				tabs.insertTab("My Tweets", null, MyTweetsPanel, null, 5);
+				
+				tabs.setSelectedIndex(5);
 			}
 		}
 	}
