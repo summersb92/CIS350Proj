@@ -3,12 +3,9 @@ package model;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-//import java.io.BufferedReader;
 import java.io.File;
-//import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-//import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -20,15 +17,11 @@ import java.util.List;
 import java.util.Scanner;
 
 import javax.swing.ImageIcon;
-//import javax.swing.JEditorPane;
-//import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-//import javax.swing.JScrollPane;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.table.AbstractTableModel;
-//import javax.swing.table.TableModel;
 
 import twitter4j.AccountSettings;
 import twitter4j.DirectMessage;
@@ -360,7 +353,8 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener,
 	 * @throws IOException 
 	 */
 	public final void authenticate() throws TwitterException, IOException {
-
+		String username = "";
+		
 		cb = new ConfigurationBuilder();
 
 		cb.setDebugEnabled(true)
@@ -371,11 +365,12 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener,
 		tf = new TwitterFactory(cb.build());
 		twitter = tf.getInstance();
 
-		String username = JOptionPane.showInputDialog(frame, "User Name");
-		if (username == null) {
-			System.exit(0);
+		while(username == null || username.length() <= 0){
+			username = JOptionPane.showInputDialog(frame, "User Name");
+			if (username == null) {
+				System.exit(0);
+			}
 		}
-
 		File file = new File("loginInformation.txt");
 
 		Scanner scanner = new Scanner(file);

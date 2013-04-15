@@ -757,8 +757,11 @@ public class TwitterGUI extends JFrame {
 			if (e.getSource().equals(tweetButton)) {
 				try {
 					String post = updateTextBox.getText();
-					engine.postStatus(post);
-					updateTextBox.setText("");
+					
+					if(post.length() >= 0 && post != null){
+						engine.postStatus(post);
+						updateTextBox.setText("");
+					}
 				} catch (TwitterException e1) {
 					e1.printStackTrace();
 				}
@@ -774,47 +777,30 @@ public class TwitterGUI extends JFrame {
 				} catch (IllegalStateException  e1) {
 					e1.printStackTrace();
 				} catch (TwitterException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
 			if (e.getSource().equals(myTweetsFavoriteButton)) {
 				try {
-
+					if(list.getSelectedIndex() >= 0){
 					engine.favoriteTweet(myTweetsStatusIds[list
 					  .getSelectedIndex()]);
-					tabs.remove(4);
-					favoritesTabInit();
-
-					tabs.insertTab("Favorites", null, favoritesPanel, null, 4);
-
-					tabs.setSelectedIndex(4);
-
+					}
+					
 				} catch (IllegalStateException e1) {
 					e1.printStackTrace();
 				} catch (TwitterException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
 
-			if (e.getSource().equals(myTweetsFavoriteButton)) {
-				try {
-					engine.favoriteTweet(myTweetsStatusIds[list
-					.getSelectedIndex()]);
-				} catch (NumberFormatException  e1) {
-					e1.printStackTrace();
-				} catch (TwitterException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-
-			}
 			if (e.getSource().equals(deleteMyTweetButton)) {
 
 				try {
-					engine.deleteStatus(myTweetsStatusIds[list
+					if(list.getSelectedIndex() >= 0){
+						engine.deleteStatus(myTweetsStatusIds[list
 							.getSelectedIndex()]);
+					}
 				} catch (TwitterException e1) {
 					e1.printStackTrace();
 				}
@@ -822,8 +808,10 @@ public class TwitterGUI extends JFrame {
 			}
 			if (e.getSource().equals(viewProfile)) {
 				try {
-					new FriendVeiwer(userIds[friendsList.getSelectedIndex()],
+					if(friendsList.getSelectedIndex() >= 0){
+						new FriendVeiwer(userIds[friendsList.getSelectedIndex()],
 							engine);
+					}
 				} catch (TwitterException e1) {
 					e1.printStackTrace();
 				} catch (Exception e1) {
@@ -832,8 +820,10 @@ public class TwitterGUI extends JFrame {
 			}
 			if (e.getSource().equals(removeFriend)) {
 				try {
-					engine.removefriend(
+					if(friendsList.getSelectedIndex() >= 0){
+						engine.removefriend(
 						userIds[friendsList.getSelectedIndex()]);
+					}
 				} catch (TwitterException e1) {
 					e1.printStackTrace();
 				}
@@ -847,8 +837,10 @@ public class TwitterGUI extends JFrame {
 			}
 			if (e.getSource().equals(timelineFavoriteButton)) {
 				try {
-					engine.favoriteTweet(myTimeLineStatusIds[timelineList
+					if(timelineList.getSelectedIndex() >= 0){
+						engine.favoriteTweet(myTimeLineStatusIds[timelineList
 							.getSelectedIndex()]);
+					}
 				} catch (NumberFormatException e1) {
 					e1.printStackTrace();
 				} catch (TwitterException e1) {
@@ -861,9 +853,11 @@ public class TwitterGUI extends JFrame {
 			}
 			if (e.getSource().equals(deleteFavoriteButton)) {
 				try {
-					engine.deleteStatus(myFavoriteStatusIds[favoritesList
-							.getSelectedIndex()]);
-					e.setSource(updateFavoritesButton);
+					if(favoritesList.getSelectedIndex() >= 0){
+						engine.deleteStatus(myFavoriteStatusIds[favoritesList
+						                      .getSelectedIndex()]);
+						e.setSource(updateFavoritesButton);
+					}
 				} catch (TwitterException e1) {
 					e1.printStackTrace();
 				}

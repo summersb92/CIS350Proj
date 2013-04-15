@@ -113,7 +113,8 @@ public class FriendVeiwer {
 	/**
 	 * Array of status ids.
 	 */
-	private long[] statusIds;
+	private long[] MyTweetStatusIds;
+	private long[] TimelineStatusIds;
 	/**
 	 * Current user id.
 	 */
@@ -285,7 +286,7 @@ public class FriendVeiwer {
 		favoriteTweetButton.addActionListener(listener);
 
 		statuses = engine.getFriendsFavoriteTweets(userId);
-		long[] statusids = new long[200];
+		MyTweetStatusIds = new long[200];
 
 		DefaultListModel<String> model = new DefaultListModel<String>();
 		favoritesList = new JList<String>(model);
@@ -296,7 +297,7 @@ public class FriendVeiwer {
 		for (Status status : statuses) {
 			model.addElement(html1 + "400" + html2 + status.getUser().getName()
 					+ ":" + status.getText());
-			statusids[count] = status.getId();
+			MyTweetStatusIds[count] = status.getId();
 			count++;
 		}
 
@@ -324,7 +325,7 @@ public class FriendVeiwer {
 		favoriteButton = new JButton("Favorite");
 		favoriteButton.addActionListener(listener);
 
-		statusIds = new long[200];
+		TimelineStatusIds = new long[200];
 		int count = 0;
 		statuses = engine.getfriendsTimeline(userId);
 
@@ -332,8 +333,8 @@ public class FriendVeiwer {
 			model.addElement(html1 + "500" + html2 + engine.getRealName(userId)
 					+ ": " + status.getText() + "\n");
 			model.addElement(" ");
-			statusIds[count] = status.getId();
-			count += 2;
+			TimelineStatusIds[count] = status.getId();
+			count++;
 
 		}
 
@@ -354,28 +355,29 @@ public class FriendVeiwer {
 
 			if (e.getSource().equals(favoriteButton)) {
 				try {
-					engine.favoriteTweet(statusIds[timelineList
+					if(timelineList.getSelectedIndex() >= 0){
+						engine.favoriteTweet(TimelineStatusIds[timelineList
 							.getSelectedIndex()]);
+					}
 
 				} catch (NumberFormatException e1) {
 					JOptionPane.showMessageDialog(guiFrame,
-							"Please do not select the white space.  Thank you");
+							"You already have that tweet as a favorite");
 				} catch (TwitterException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
 			if (e.getSource().equals(favoriteTweetButton)) {
 				try {
-					engine.favoriteTweet(statusIds[favoritesList
+					if(favoritesList.getSelectedIndex() >= 0){
+						engine.favoriteTweet(TimelineStatusIds[favoritesList
 							.getSelectedIndex()]);
-
+					}
 				} catch (NumberFormatException  e1) {
 					JOptionPane.showMessageDialog(guiFrame,
 
-							"Please do not select the white space.  Thank you");
+							"You already have that tweet as a favorite");
 				} catch (TwitterException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}

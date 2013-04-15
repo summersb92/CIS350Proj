@@ -110,7 +110,6 @@ public class Tweet implements MyTweet {
 	}
 	@Override
 	public final boolean isFavorite() {
-		// TODO Auto-generated method stub
 		return favorite;
 	}
 }

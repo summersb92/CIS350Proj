@@ -94,19 +94,15 @@ public class DirectMessageSender {
 			if (e.getSource().equals(sendMessageButton)) {
 				message = messageArea.getText();
 				try {
-					engine.sendDirectMessage(userId, message);
-					messageEditor.dispatchEvent(new WindowEvent(messageEditor,
+					if(message.length() > 0 && message != null){
+						engine.sendDirectMessage(userId, message);
+						messageEditor.dispatchEvent(new WindowEvent(messageEditor,
 							WindowEvent.WINDOW_CLOSING));
-				} catch (TwitterException e1) {
-					if (e1.exceededRateLimitation()) {
-						JOptionPane.showMessageDialog(messageEditor,
-								"You message is longer than 140 characters."
-										+ "  Please make your message shorter");
 					}
+				} catch (TwitterException e1) {
 					e1.printStackTrace();
-
+					}
 				}
 			}
 		}
 	}
-}

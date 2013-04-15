@@ -112,8 +112,10 @@ public class DirectMessageViewer {
 		public void actionPerformed(final ActionEvent e) {
 			if (e.getSource().equals(deleteMessageButton)) {
 				try {
-					engine.deleteMessage(
+					if(messagesList.getSelectedIndex() >= 0){
+						engine.deleteMessage(
 						messageIds[messagesList.getSelectedIndex()]);
+					}
 				} catch (TwitterException e1) {
 					e1.printStackTrace();
 				}
