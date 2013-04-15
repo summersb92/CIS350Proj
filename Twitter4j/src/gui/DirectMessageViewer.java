@@ -16,74 +16,104 @@ import twitter4j.DirectMessage;
 import twitter4j.TwitterException;
 
 import engine.TwitterEngine;
-
+/**
+ * Class used to view a direct message.
+ *
+ */
 public class DirectMessageViewer {
-
-	private JFrame MessageViewer;
-	
-	private JPanel MessagePanel;
-	
-	private List<DirectMessage> Messages;
-	
-	private JList<String> MessagesList;
-	
-	private JButton DeleteMessageButton;
-	
-	private long[] MessageIds;
-	
-	TwitterEngine engine;
-	
-	public DirectMessageViewer(TwitterEngine engine) throws TwitterException{
-		this.engine = engine;
+	/**
+	 * Frame for the message viewer.
+	 */
+	private JFrame messageViewer;
+	/**
+	 * Panel for the message viewer.
+	 */
+	private JPanel messagePanel;
+	/**
+	 * List of direct messages.
+	 */
+	private List<DirectMessage> messages;
+	/**
+	 * JList to display messages.
+	 */
+	private JList<String> messagesList;
+	/**
+	 * Button to delete a message.
+	 */
+	private JButton deleteMessageButton;
+	/**
+	 * Array containing message ids.
+	 */
+	private long[] messageIds;
+	/**
+	 * TwitterEngine instance.
+	 */
+	private TwitterEngine engine;
+	/**
+	 * Constructor.
+	 * @param eng TwitterEngine instance
+	 * @throws TwitterException 
+	 */
+	public DirectMessageViewer(final TwitterEngine eng) 
+	throws TwitterException {
+		this.engine = eng;
 		
 		DefaultListModel<String> model = new DefaultListModel<String>();
 		ButtonListener listener = new ButtonListener();
 		
-		MessageViewer = new JFrame("Messages");
+		messageViewer = new JFrame("Messages");
 		
-		MessagePanel = new JPanel();
-		MessagePanel.setLayout(new BorderLayout());
+		messagePanel = new JPanel();
+		messagePanel.setLayout(new BorderLayout());
 		
-		JPanel ButtonsPanel = new JPanel();
+		JPanel buttonsPanel = new JPanel();
 		
-		Messages = engine.getDirectMessages();
+		messages = eng.getDirectMessages();
 		
-		MessagesList = new JList<String>(model);
-		MessagesList.setFixedCellHeight(40);
+		messagesList = new JList<String>(model);
+		messagesList.setFixedCellHeight(40);
 		
 		
-		MessageIds = new long[50];
+		messageIds = new long[50];
 		
 		int count = 0;
 		
-		for(DirectMessage message : Messages){
+		for (DirectMessage message : messages) {
 			model.addElement(message.getText());
-			MessageIds[count] = message.getId();
+			messageIds[count] = message.getId();
 			count++;
 		}
 		
-		JScrollPane scrollpane = new JScrollPane(MessagesList);
+		JScrollPane scrollpane = new JScrollPane(messagesList);
 		
-		DeleteMessageButton = new JButton("Delete Message");
-		DeleteMessageButton.addActionListener(listener);
+		deleteMessageButton = new JButton("Delete Message");
+		deleteMessageButton.addActionListener(listener);
 		
-		ButtonsPanel.add(DeleteMessageButton, BorderLayout.PAGE_END);	
+		buttonsPanel.add(deleteMessageButton, BorderLayout.PAGE_END);	
 		
-		MessagePanel.add(scrollpane, BorderLayout.CENTER);
-		MessagePanel.add(ButtonsPanel, BorderLayout.PAGE_END);
+		messagePanel.add(scrollpane, BorderLayout.CENTER);
+		messagePanel.add(buttonsPanel, BorderLayout.PAGE_END);
 		
-		MessageViewer.add(MessagePanel);
+		messageViewer.add(messagePanel);
 		
-		MessageViewer.setSize(800, 450);
+		messageViewer.setSize(800, 450);
 		
-		MessageViewer.setVisible(true);
+		messageViewer.setVisible(true);
 	}
-	
+	/**
+	 * ButtonListener delegates button commands.
+	 *
+	 */
 	class ButtonListener implements ActionListener {
+		/**
+		 * Waits for button press.
+		 * @param e action performed
+		 */
 		public void actionPerformed(final ActionEvent e) {
-			if(e.getSource().equals(DeleteMessageButton)){
+			if (e.getSource().equals(deleteMessageButton)) {
 				try {
-					engine.deleteMessage(MessageIds[MessagesList.getSelectedIndex()]);
+					engine.deleteMessage(
+						messageIds[messagesList.getSelectedIndex()]);
 				} catch (TwitterException e1) {
 					e1.printStackTrace();
 				}

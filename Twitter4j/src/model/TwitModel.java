@@ -92,14 +92,16 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener,
 	private User user;
 	/** Custom class for storing favorite users. */
 	private FavoritesUtility favorites;
+	/**
+	 * Array of trend locations.
+	 */
 	private Location[] trendsLocations;
 
 	/**
 	 * The Constructor for TwitModel().
 	 * 
-	 * @throws TwitterException
+	 * @throws TwitterException 
 	 */
-
 	public TwitModel() throws TwitterException {
 		favorites = new FavoritesUtility();
 
@@ -136,7 +138,7 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener,
 			val = myTweets.get(row).getFollowersCount();
 			break;
 		case 5:
-			if ((getFavorite(myTweets.get(row).getDisplayName()) == false)) {
+			if ((!getFavorite(myTweets.get(row).getDisplayName()))) {
 				val = "false";
 			} else {
 				val = "true";
@@ -212,7 +214,7 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener,
 	 * Gets the status timeline of a particular user.
 	 * 
 	 * @return List of Timeline Statuses
-	 * @throws TwitterException
+	 * @throws TwitterException 
 	 */
 	public final List<Status> retriveTimeline() throws TwitterException {
 
@@ -284,48 +286,61 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener,
 	public void getPhraseSearch(final String keyWord, final String phrase) {
 
 	}
-
+	/**
+	 * Add a favorite user.
+	 * @param dsplayName name of user to add
+	 */
 	public final void addFavorite(final String dsplayName) {
 		favorites.addFavoriteUser(dsplayName);
-	}
-
-	public final void delteFavorite(final String dsplayName) {
+	}	
+	/**
+	 * Delete a favorite user.
+	 * @param dsplayName name of user to delete
+	 */
+	public final void deleteFavorite(final String dsplayName) {
 		favorites.removeFavorite(dsplayName);
 	}
-
+	/**
+	 * Clear favorites list.
+	 */
 	public final void clearFavoriteList() {
 		favorites.clearList();
 	}
-
+	/**
+	 * Get favorites string list.
+	 */
 	public final void getFStringList() {
 		favorites.getStringList();
 	}
-
-	public final void saveFavorites(final String username) {
+	/**
+	 * Save list of favorites.
+	 */
+	public final void saveFavorites() {
 		favorites.saveFavorites();
 	}
-
+	/**
+	 * Load list of favorites.
+	 * @param username username of favorites list owner
+	 */
 	public final void loadFavorites(final String username) {
 		favorites.loadFavorites(username);
 	}
-
+	/**
+	 * Determine if a user is a favorite.
+	 * @param username user to determine favorite of
+	 * @return true if favorite false otherwise
+	 */
 	private boolean getFavorite(final String username) {
 		if (favorites.getStringList().contains(username)) {
-
 			return true;
-		} else {
-			return false;
 		}
-	}
-
-	public boolean getFavoriteStatus() {
 		return false;
 	}
-
+	
 	/**
 	 * Gets the number of people a particular user has following them.
 	 * 
-	 * @param user
+	 * @param usr
 	 *            - The user to get to get the number of followers for
 	 * @return the number of people a particular user has following them
 	 */
@@ -341,18 +356,10 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener,
 
 	/**
 	 * Authenticates a user.
-	 * 
-	 * @param userName
-	 * @param userKey
-	 * @param userSecret
-	 * @param token
-	 * @param tokenSecret
-	 * @throws TwitterException
-	 * @throws IllegalStateException
-	 * @throws IOException
+	 * @throws TwitterException 
+	 * @throws IOException 
 	 */
-	public final void authenticate() throws IllegalStateException,
-			TwitterException, IOException {
+	public final void authenticate() throws TwitterException, IOException {
 
 		cb = new ConfigurationBuilder();
 
@@ -430,7 +437,8 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener,
 										JOptionPane.ERROR_MESSAGE);
 								te.printStackTrace();
 
-								// System.out.println("Unable to get the access token.");
+								System.out.println(
+									"Unable to get the access token.");
 							} else {
 								te.printStackTrace();
 							}
@@ -442,7 +450,7 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener,
 					// is not set.
 					if (!twitter.getAuthorization().isEnabled()) {
 						System.out
-								.println("OAuth consumer key/secret is not set.");
+							.println("OAuth consumer key/secret is not set.");
 						System.exit(-1);
 					}
 				}
@@ -470,7 +478,10 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener,
 		}
 		user = twitter.showUser(twitter.getId());
 	}
-
+	/**
+	 * Opens a webpage of specific URI.
+	 * @param uri 
+	 */
 	public static void openWebpage(final URI uri) {
 		Desktop desktop = null;
 		if (Desktop.isDesktopSupported()) {
@@ -484,7 +495,10 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener,
 			}
 		}
 	}
-
+	/**
+	 * Opens a webpage of specified URL.
+	 * @param url URL of webpage
+	 */
 	public static void openWebpage(final URL url) {
 		try {
 			openWebpage(url.toURI());
@@ -492,7 +506,9 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener,
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * Logs the user out.
+	 */
 	public final void logout() {
 		twitter.setOAuthAccessToken(null);
 		favorites.saveFavorites();
@@ -504,7 +520,7 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener,
 	 * 
 	 * @param post
 	 *            - String containing text of updated status
-	 * @throws TwitterException
+	 * @throws TwitterException 
 	 */
 	public final void updateStatus(final String post) throws TwitterException {
 
@@ -512,13 +528,13 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener,
 		int start = 0;
 		int end = 140;
 
-		String[] SplitMessage = new String[30];
+		String[] splitMessage = new String[30];
 
 		System.out.println("Message Length: " + post.length());
 
 		if (post.length() > 140) {
 			while (end < post.length()) {
-				SplitMessage[count] = post.substring(start, end);
+				splitMessage[count] = post.substring(start, end);
 				count++;
 				start += 140;
 				end += 140;
@@ -527,17 +543,17 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener,
 			}
 
 			end -= 140;
-			SplitMessage[count] = post.substring(end, post.length());
+			splitMessage[count] = post.substring(end, post.length());
 		}
 
 		count = 0;
 
-		while (SplitMessage[count] != null) {
-			twitter.updateStatus(SplitMessage[count]);
+		while (splitMessage[count] != null) {
+			twitter.updateStatus(splitMessage[count]);
 			count++;
 			System.out.println("Test2");
 		}
-		if (SplitMessage[0] == null) {
+		if (splitMessage[0] == null) {
 			twitter.updateStatus(post);
 			System.out.println("Test3");
 		}
@@ -562,9 +578,14 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener,
 	public final int getRowCount() {
 		return myTweets.size();
 	}
-
-	public final ImageIcon getProfileImage() throws IllegalStateException,
-			TwitterException, MalformedURLException {
+	/**
+	 * Gets profile image of current user.
+	 * @return profile image icon
+	 * @throws TwitterException 
+	 * @throws MalformedURLException 
+	 */
+	public final ImageIcon getProfileImage() 
+	throws TwitterException, MalformedURLException {
 
 		URL url = new URL(twitter.showUser(twitter.getId())
 				.getBiggerProfileImageURL());
@@ -582,36 +603,62 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener,
 	public void hyperlinkUpdate(final HyperlinkEvent arg0) {
 
 	}
-
-	public final String getRealName(long userId) throws TwitterException {
+	/**
+	 * Get real name of a user.
+	 * @param userId user id of user
+	 * @return real name of suer
+	 * @throws TwitterException 
+	 */
+	public final String getRealName(final long userId) throws TwitterException {
 		return twitter.showUser(userId).getName();
 	}
-
+	/**
+	 * Get screen name of current user.
+	 * @return screen name of current user
+	 */
 	public final String getScreenName() {
 		return user.getScreenName();
 	}
-
+	/**
+	 * Get tweets of current user.
+	 * @return tweets of current user
+	 */
 	public final int getTweets() {
 		return user.getStatusesCount();
 	}
-
+	/**
+	 * Get follower count of current user.
+	 * @return follower count of current user
+	 */
 	public final int getFollowersCount() {
 		return user.getFollowersCount();
 	}
-
+	/**
+	 * Get following count of current user.
+	 * @return following count of current user
+	 */
 	public final int getFollowingCount() {
 		return user.getFriendsCount();
 	}
-
+	/**
+	 * Get rate limit from twitter.
+	 * @return rate limit
+	 */
 	public final int getRateLimit() {
 		return user.getRateLimitStatus().getLimit();
 	}
-
+	/**
+	 * Get remaining rate limit from twitter.
+	 * @return remaining rate limit
+	 */
 	public final int getLimitRemaining() {
 		return user.getRateLimitStatus().getRemaining();
 	}
-
-	public void removeFavoriteUser(final int index) {
+	/**
+	 * Remove a favorite user of specific index.
+	 * @param index index of user to remove
+	 */
+	public final void removeFavoriteUser(final int index) {
 		try {
 
 			fireTableDataChanged();
@@ -621,8 +668,11 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener,
 					"Invalid action", JOptionPane.ERROR_MESSAGE);
 		}
 	}
-
-	public void addFavoriteUser(final int index) {
+	/**
+	 * Add favorite user of specified index in myTweets.
+	 * @param index index of user to add
+	 */
+	public final void addFavoriteUser(final int index) {
 		try {
 			String name = myTweets.get(index).getDisplayName();
 			favorites.addFavoriteUser(name);
@@ -633,86 +683,152 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener,
 					"Invalid action", JOptionPane.ERROR_MESSAGE);
 		}
 	}
-
-	public List<Status> getfavoriteTweets() throws TwitterException {
-		// List<Status> statuses = twitter.getFavorites();
+	/**
+	 * Get list of favorite tweets.
+	 * @return list of favorite tweets
+	 * @throws TwitterException 
+	 */ 
+	public final List<Status> getfavoriteTweets() throws TwitterException {
 		return twitter.getFavorites();
 	}
-
-	public void destoryStatus(long statusId) throws TwitterException {
+	/**
+	 * Destroy a favorite tweet.
+	 * @param statusId status id to destroy
+	 * @throws TwitterException 
+	 */
+	public final void destoryStatus(final long statusId)
+	throws TwitterException {
 		// twitter.destroyStatus(statusId);
 		twitter.destroyFavorite(statusId);
 	}
-
-	public AccountSettings getAccountSettings() throws TwitterException {
+	/**
+	 * Get account settings of current user.
+	 * @return account settings
+	 * @throws TwitterException 
+	 */
+	public final AccountSettings getAccountSettings() throws TwitterException {
 		return twitter.getAccountSettings();
 	}
-
-	public List<Status> getMyTweets() throws TwitterException {
+	/**
+	 * List of current users tweets.
+	 * @return list of users tweets
+	 * @throws TwitterException 
+	 */
+	public final List<Status> getMyTweets() throws TwitterException {
 		Paging paging = new Paging(1, 200);
 		List<Status> statuses = twitter.getUserTimeline(paging);
 		return statuses;
 	}
-
-	public void favoriteTweet(long statusIds) throws NumberFormatException,
-			TwitterException {
+	/**
+	 * Creates a favorite tweet.
+	 * @param statusIds status id of tweet to create a favorite of
+	 * @throws TwitterException 
+	 */
+	public final void favoriteTweet(final long statusIds) 
+	throws TwitterException {
 		twitter.createFavorite(statusIds);
 	}
-
-	public List<User> getFriendsList(long userId) throws TwitterException {
+	/**
+	 * Gets friends list of a user.
+	 * @param userId user to get list of
+	 * @return friends list of user
+	 * @throws TwitterException 
+	 */
+	public final List<User> getFriendsList(final long userId) 
+	throws TwitterException {
 		return twitter.getFriendsList(userId, -1);
 	}
-
-	public void removeFriend(long userId) throws TwitterException {
+	/**
+	 * Remove a friend.
+	 * @param userId user id of friend
+	 * @throws TwitterException 
+	 */
+	public final void removeFriend(final long userId) throws TwitterException {
 		twitter.destroyFriendship(userId);
 
 	}
-
-	public String getfriendsName(long userId) throws TwitterException {
+	/**
+	 * Get name of friend.
+	 * @param userId user id of friend
+	 * @return name of friend
+	 * @throws TwitterException 
+	 */
+	public final String getfriendsName(final long userId)
+	throws TwitterException {
 		return twitter.showUser(userId).getName();
 	}
-
-	public ImageIcon getfriendProfileImage(long userId)
+	/**
+	 * Image icon of friend profile.
+	 * @param userId user id of friend
+	 * @return Image Icon of friend profile
+	 * @throws TwitterException 
+	 * @throws MalformedURLException 
+	 */
+	public final ImageIcon getfriendProfileImage(final long userId)
 			throws TwitterException, MalformedURLException {
 		URL url = new URL(twitter.showUser(userId).getBiggerProfileImageURL());
 		ImageIcon icon = new ImageIcon(url);
 
 		return icon;
 	}
-
-	public List<Status> getfriendsTimeline(long userIds)
+	/**
+	 * Twitter timeline of a friend.
+	 * @param userIds user id of friend
+	 * @return twitter timeline of friend
+	 * @throws TwitterException 
+	 */
+	public final List<Status> getfriendsTimeline(final long userIds)
 			throws TwitterException {
 		Paging paging = new Paging(1, 50);
 		return twitter.getUserTimeline(userIds, paging);
 	}
-
-	public List<Status> getFriendsFavoriteTweets(long userId)
+	/**
+	 * Favorite tweets of friend.
+	 * @param userId user id of friend
+	 * @return Favorite tweets of friend
+	 * @throws TwitterException 
+	 */
+	public final List<Status> getFriendsFavoriteTweets(final long userId)
 			throws TwitterException {
 		Paging paging = new Paging(1, 50);
 		return twitter.getFavorites(userId, paging);
 	}
-
-	public long getuserId() throws IllegalStateException, TwitterException {
+	/**
+	 * Get current user id.
+	 * @return current user id
+	 * @throws TwitterException 
+	 */
+	public final long getUserId()throws  TwitterException {
 		return user.getId();
 	}
-
-	public void createFriendship(long userId) throws TwitterException {
+	/**
+	 * Create a friendship.
+	 * @param userId user id of new friend
+	 * @throws TwitterException 
+	 */
+	public final void createFriendship(final long userId)
+	throws TwitterException {
 		twitter.createFriendship(userId);
 	}
-
-	public void sendDirectMessage(long userId, String message)
+	/**
+	 * Send a direct message to a user.
+	 * @param userId user id to send message to
+	 * @param message message to send to the user
+	 * @throws TwitterException 
+	 */
+	public final void sendDirectMessage(final long userId, final String message)
 			throws TwitterException {
 		int count = 0;
 		int start = 0;
 		int end = 140;
 
-		String[] SplitMessage = new String[30];
+		String[] splitMessage = new String[30];
 
 		System.out.println("Message Length: " + message.length());
 
 		if (message.length() > 140) {
 			while (end < message.length()) {
-				SplitMessage[count] = message.substring(start, end);
+				splitMessage[count] = message.substring(start, end);
 				count++;
 				start += 140;
 				end += 140;
@@ -721,23 +837,26 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener,
 			}
 
 			end -= 140;
-			SplitMessage[count] = message.substring(end, message.length());
+			splitMessage[count] = message.substring(end, message.length());
 		}
 
 		count = 0;
 
-		while (SplitMessage[count] != null) {
-			twitter.sendDirectMessage(userId, SplitMessage[count]);
+		while (splitMessage[count] != null) {
+			twitter.sendDirectMessage(userId, splitMessage[count]);
 			count++;
 			System.out.println("Test2");
 		}
-		if (SplitMessage[0] == null) {
+		if (splitMessage[0] == null) {
 			twitter.sendDirectMessage(userId, message);
 			System.out.println("Test3");
 		}
 	}
-
-	private final Location[] getTrendsLocations() {
+	/**
+	 * Get list of trends locations.
+	 * @return list of trends locations
+	 */
+	private Location[] getTrendsLocations() {
 		ResponseList<Location> locations = null;
 		try {
 			locations = twitter.getAvailableTrends();
@@ -751,7 +870,10 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener,
 
 		return trendsLocations;
 	}
-
+	/**
+	 * Get String array of trend location names.
+	 * @return trends location names
+	 */
 	public final String[] getTrendsLocationNames() {
 		this.getTrendsLocations();
 		String[] locationnames = new String[trendsLocations.length];
@@ -760,8 +882,12 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener,
 		}
 		return locationnames;
 	}
-
-	public final Trends getLocationTrends(String locationName) {
+	/**
+	 * The Trends a a specified location.
+	 * @param locationName name of location to get trends of
+	 * @return Trends of a location
+	 */
+	public final Trends getLocationTrends(final String locationName) {
 		for (int i = 0; i < trendsLocations.length; i++) {
 			if (locationName.equals(trendsLocations[i].getName())) {
 				try {
@@ -775,14 +901,24 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener,
 		}
 		return null;
 	}
-
-	public List<DirectMessage> getDirectMessages() throws TwitterException {
+	/**
+	 * Get the direct messages of the current user.
+	 * @return list of current user direct messages
+	 * @throws TwitterException 
+	 */
+	public final List<DirectMessage> getDirectMessages()
+	throws TwitterException {
 		Paging paging = new Paging(1, 50);
 
 		return twitter.getDirectMessages(paging);
 	}
-
-	public void deleteMessage(long MessageId) throws TwitterException {
-		twitter.destroyDirectMessage(MessageId);
+	/**
+	 * Delete a message of the current user's.
+	 * @param messageId message id of message to delete
+	 * @throws TwitterException 
+	 */
+	public final void deleteMessage(final long messageId)
+	throws TwitterException {
+		twitter.destroyDirectMessage(messageId);
 	}
 }

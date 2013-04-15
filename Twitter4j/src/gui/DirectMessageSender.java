@@ -15,62 +15,91 @@ import twitter4j.TwitterException;
 
 import engine.TwitterEngine;
 
+/**
+ * Class used to send direct message to twitter users.
+ */
 public class DirectMessageSender {
 
-	private JFrame MessageEditor;
-
-	private JPanel MessagePanel;
-
-	private JTextArea MessageArea;
-
-	private JButton SendMessageButton;
-
+	/**
+	 * Frame for message editor.
+	 */
+	private JFrame messageEditor;
+	/**
+	 * Panel for contents of message sender.
+	 */
+	private JPanel messagePanel;
+	/**
+	 * Text area to create a message.
+	 */
+	private JTextArea messageArea;
+	/**
+	 * Button used to send a message.
+	 */
+	private JButton sendMessageButton;
+	/**
+	 * Instance of TwitterEngine.
+	 */
 	private TwitterEngine engine;
-
+	/**
+	 * Message to send.
+	 */
 	private String message;
-
+	/**
+	 * userId to send to.
+	 */
 	private long userId;
-
-	public DirectMessageSender(long userId, TwitterEngine engine) {
-		this.engine = engine;
-		this.userId = userId;
+	/**
+	 * Constructor for DirectMessageSender.
+	 * @param userid user id
+	 * @param eng TwitterEngine instance
+	 */
+	public DirectMessageSender(final long userid, final TwitterEngine eng) {
+		this.engine = eng;
+		this.userId = userid;
 		ButtonListener listener = new ButtonListener();
 
-		MessageEditor = new JFrame("Send Direct Message");
+		messageEditor = new JFrame("Send Direct Message");
 
-		MessagePanel = new JPanel();
-		MessagePanel.setLayout(new BorderLayout());
+		messagePanel = new JPanel();
+		messagePanel.setLayout(new BorderLayout());
 
-		MessageArea = new JTextArea();
-		MessageArea.setLineWrap(true);
+		messageArea = new JTextArea();
+		messageArea.setLineWrap(true);
 
-		JScrollPane scrollpane = new JScrollPane(MessageArea);
+		JScrollPane scrollpane = new JScrollPane(messageArea);
 
-		SendMessageButton = new JButton("Send Message");
-		SendMessageButton.addActionListener(listener);
+		sendMessageButton = new JButton("Send Message");
+		sendMessageButton.addActionListener(listener);
 
-		MessagePanel.add(scrollpane, BorderLayout.CENTER);
-		MessagePanel.add(SendMessageButton, BorderLayout.PAGE_END);
+		messagePanel.add(scrollpane, BorderLayout.CENTER);
+		messagePanel.add(sendMessageButton, BorderLayout.PAGE_END);
 
-		MessageEditor.add(MessagePanel);
+		messageEditor.add(messagePanel);
 
-		MessageEditor.setSize(300, 200);
+		messageEditor.setSize(300, 200);
 
-		MessageEditor.setVisible(true);
+		messageEditor.setVisible(true);
 	}
-
+	/**
+	 * Waits for button press and delegates button commands.
+	 *
+	 */
 	class ButtonListener implements ActionListener {
+		/**
+		 * Waits for action to be performed.
+		 * @param e action performed
+		 */
 		public void actionPerformed(final ActionEvent e) {
 
-			if (e.getSource().equals(SendMessageButton)) {
-				message = MessageArea.getText();
+			if (e.getSource().equals(sendMessageButton)) {
+				message = messageArea.getText();
 				try {
 					engine.sendDirectMessage(userId, message);
-					MessageEditor.dispatchEvent(new WindowEvent(MessageEditor,
+					messageEditor.dispatchEvent(new WindowEvent(messageEditor,
 							WindowEvent.WINDOW_CLOSING));
 				} catch (TwitterException e1) {
 					if (e1.exceededRateLimitation()) {
-						JOptionPane.showMessageDialog(MessageEditor,
+						JOptionPane.showMessageDialog(messageEditor,
 								"You message is longer than 140 characters."
 										+ "  Please make your message shorter");
 					}

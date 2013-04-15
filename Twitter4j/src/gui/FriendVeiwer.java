@@ -29,86 +29,158 @@ import twitter4j.TwitterException;
 import twitter4j.User;
 
 import engine.TwitterEngine;
-
+/**
+ * Class used to view friends.
+ *
+ */
 public class FriendVeiwer {
-
-	private JFrame GUI;
-
+	/**
+	 * Main frame.
+	 */
+	private JFrame guiFrame;
+	/**
+	 * gui tabs.
+	 */
 	private JTabbedPane tabs;
-
-	private JPanel ProfilePanel;
-	private JPanel TimelinePanel;
-	private JPanel FriendsListPanel;
-	private JPanel FavoritesPanel;
-	private JPanel FriendsOptionsPanel;
-
-	private JButton FavoriteButton;
-	private JButton ViewProfileButton;
-	private JButton FavoriteTweetButton;
-	private JButton DirectMessageButton;
-	private JButton CreateFriendButton;
-
-	private JList<String> TimelineList;
-	private JList<String> FriendsList;
-	private JList<String> FavoritesList;
-
+	/**
+	 * Panel for profile contents.
+	 */
+	private JPanel profilePanel;
+	/**
+	 * Panel for timeline.
+	 */
+	private JPanel timelinePanel;
+	/**
+	 * Panel for friends list.
+	 */
+	private JPanel friendsListPanel;
+	/**
+	 * Panel for user favorites.
+	 */
+	private JPanel favoritesPanel;
+	/**
+	 * Panel for friend options.
+	 */
+	private JPanel friendsOptionsPanel;
+	/**
+	 * Button to add favorite.
+	 */
+	private JButton favoriteButton;
+	/**
+	 * Button to view a profile.
+	 */
+	private JButton viewProfileButton;
+	/**
+	 * Button to add favorite tweet.
+	 */
+	private JButton favoriteTweetButton;
+	/**
+	 * Button to send direct message.
+	 */
+	private JButton directMessageButton;
+	/**
+	 * Button to create a new friendship.
+	 */
+	private JButton createFriendButton;
+	/**
+	 * JList containting timeline.
+	 */
+	private JList<String> timelineList;
+	/**
+	 * JList containing friends list.
+	 */
+	private JList<String> friendsList;
+	/**
+	 * JList containing favorites list.
+	 */
+	private JList<String> favoritesList;
+	/**
+	 * List of twitter statuses.
+	 */
 	private List<Status> statuses;
+	/**
+	 * List of twitter users.
+	 */
 	private List<User> users;
-
-	private String[] FriendsNamesList;
-	private long[] UserIds;
+	/**
+	 * Array of friends names.
+	 */
+	private String[] friendsNamesList;
+	/**
+	 * Array of user ids.
+	 */
+	private long[] userIds;
+	/**
+	 * Array of status ids.
+	 */
 	private long[] statusIds;
-
+	/**
+	 * Current user id.
+	 */
 	private long userId;
-
+	/**
+	 * TwitterEngine instance.
+	 */
 	private TwitterEngine engine;
+	/**
+	 * Constructor.
+	 * @param userids current user id.
+	 * @param eng TwitterEngine instance
+	 * @throws Exception 
+	 */
+	public FriendVeiwer(final long userids, final TwitterEngine eng) 
+	throws Exception {
 
-	public FriendVeiwer(long userIds, TwitterEngine engine) throws Exception {
+		userId = userids;
 
-		userId = userIds;
+		guiFrame = new JFrame();
 
-		GUI = new JFrame();
-
-		this.engine = engine;
+		this.engine = eng;
 
 		tabs = new JTabbedPane();
 
-		TimelineTabInit();
+		timelineTabInit();
 		favoritesTabInit();
-		FriendsListTabInit();
-		profileTabInit(userIds);
+		friendsListTabInit();
+		profileTabInit(userids);
 
 		final URL url = new URL(
-				"http://cdn-ak.f.st-hatena.com/images/fotolife/r/rinrinbell/20091225/20091225215812.png");
-		GUI.setIconImage(ImageIO.read(url));
+				"http://cdn-ak.f.st-hatena.com/images/fotolife"
+				+ "/r/rinrinbell/20091225/20091225215812.png");
+		guiFrame.setIconImage(ImageIO.read(url));
 
-		tabs.addTab("Profile", ProfilePanel);
-		tabs.addTab(this.engine.getfriendsName(userIds) + "'s Timeline",
-				TimelinePanel);
-		tabs.addTab(this.engine.getfriendsName(userIds) + "'s Favorite Tweets",
-				FavoritesPanel);
-		tabs.addTab("Friends", FriendsListPanel);
+		tabs.addTab("Profile", profilePanel);
+		tabs.addTab(this.engine.getfriendsName(userids) + "'s Timeline",
+				timelinePanel);
+		tabs.addTab(this.engine.getfriendsName(userids) + "'s Favorite Tweets",
+				favoritesPanel);
+		tabs.addTab("Friends", friendsListPanel);
 
-		GUI.setSize(800, 450);
+		guiFrame.setSize(800, 450);
 
-		GUI.setTitle("Twitter for " + engine.getfriendsName(userId));
+		guiFrame.setTitle("Twitter for " + eng.getfriendsName(userId));
 
-		GUI.add(tabs);
+		guiFrame.add(tabs);
 
-		GUI.setVisible(true);
+		guiFrame.setVisible(true);
 
 	}
-
-	private void profileTabInit(long userIds) throws IllegalStateException,
-			MalformedURLException, TwitterException {
+	/**
+	 * Initialize profile tab.
+	 * @param userids user id.
+	 * @throws MalformedURLException 
+	 * @throws TwitterException 
+	 */
+	private void profileTabInit(final long userids) 
+	throws MalformedURLException, TwitterException {
 		Border blackline = BorderFactory.createLineBorder(Color.black);
 
 		ButtonListener listener = new ButtonListener();
 
-		ProfilePanel = new JPanel();
-		FriendsOptionsPanel = new JPanel();
+		profilePanel = new JPanel();
+		friendsOptionsPanel = new JPanel();
 
-		ProfilePanel.setLayout(new GridLayout(2, 1));
+		profilePanel.setLayout(new GridLayout(2, 1));
 
 		JPanel top = new JPanel();
 		top.setLayout(new GridLayout(1, 1));
@@ -125,7 +197,7 @@ public class FriendVeiwer {
 		user.setLayout(new BorderLayout());
 		user.setBorder(blackline);
 
-		ImageIcon img = engine.getfriendProfileImage(userIds);
+		ImageIcon img = engine.getfriendProfileImage(userids);
 
 		JLabel userIcon = new JLabel(img);
 		userIcon.setBorder(blackline);
@@ -146,12 +218,12 @@ public class FriendVeiwer {
 		JLabel rateLimitRemaining = new JLabel("Rate Limit Remaining: "
 				+ engine.getRateLimitRemaining());
 
-		DirectMessageButton = new JButton("Send Direct Message");
-		DirectMessageButton.addActionListener(listener);
-		CreateFriendButton = new JButton("Follow");
-		CreateFriendButton.addActionListener(listener);
-		FriendsOptionsPanel.add(CreateFriendButton);
-		FriendsOptionsPanel.add(DirectMessageButton);
+		directMessageButton = new JButton("Send Direct Message");
+		directMessageButton.addActionListener(listener);
+		createFriendButton = new JButton("Follow");
+		createFriendButton.addActionListener(listener);
+		friendsOptionsPanel.add(createFriendButton);
+		friendsOptionsPanel.add(directMessageButton);
 
 		top.add(userIcon);
 		top2.add(realname);
@@ -165,83 +237,92 @@ public class FriendVeiwer {
 		user.add(top, BorderLayout.PAGE_START);
 		user.add(top2, BorderLayout.CENTER);
 		user.add(bottom, BorderLayout.PAGE_END);
-		ProfilePanel.add(user, BorderLayout.CENTER);
-		ProfilePanel.add(FriendsOptionsPanel, BorderLayout.PAGE_END);
+		profilePanel.add(user, BorderLayout.CENTER);
+		profilePanel.add(friendsOptionsPanel, BorderLayout.PAGE_END);
 	}
-
-	private void FriendsListTabInit() throws TwitterException {
-		FriendsListPanel = new JPanel();
-		ViewProfileButton = new JButton("View Profile");
+	/**
+	 * Initialize friends list tab.
+	 * @throws TwitterException 
+	 */
+	private void friendsListTabInit() throws TwitterException {
+		friendsListPanel = new JPanel();
+		viewProfileButton = new JButton("View Profile");
 		ButtonListener listener = new ButtonListener();
 
-		ViewProfileButton.addActionListener(listener);
+		viewProfileButton.addActionListener(listener);
 
-		FriendsNamesList = new String[200];
-		UserIds = new long[200];
+		friendsNamesList = new String[200];
+		userIds = new long[200];
 		int count = 0;
 		users = engine.getFriendsList(userId);
 		for (User user : users) {
-			FriendsNamesList[count] = user.getName();
-			UserIds[count] = user.getId();
+			friendsNamesList[count] = user.getName();
+			userIds[count] = user.getId();
 			count++;
 		}
 
-		FriendsList = new JList<String>(FriendsNamesList);
-		FriendsList.setFixedCellHeight(30);
+		friendsList = new JList<String>(friendsNamesList);
+		friendsList.setFixedCellHeight(30);
 
-		JScrollPane scrollpane = new JScrollPane(FriendsList);
-		FriendsListPanel.add(scrollpane);
-		FriendsListPanel.add(ViewProfileButton);
+		JScrollPane scrollpane = new JScrollPane(friendsList);
+		friendsListPanel.add(scrollpane);
+		friendsListPanel.add(viewProfileButton);
 	}
-
+	/**
+	 * Initialize favorites tab.
+	 * @throws TwitterException 
+	 */
 	private void favoritesTabInit() throws TwitterException {
-		FavoritesPanel = new JPanel();
+		favoritesPanel = new JPanel();
 
 		ButtonListener listener = new ButtonListener();
 
 		String html1 = "<html><body style='width: ";
 		String html2 = "px'>";
 
-		FavoriteTweetButton = new JButton("Favorite");
+		favoriteTweetButton = new JButton("Favorite");
 
-		FavoriteTweetButton.addActionListener(listener);
+		favoriteTweetButton.addActionListener(listener);
 
 		statuses = engine.getFriendsFavoriteTweets(userId);
-		long[] statusIds = new long[200];
+		long[] statusids = new long[200];
 
 		DefaultListModel<String> model = new DefaultListModel<String>();
-		FavoritesList = new JList<String>(model);
-		FavoritesList.setFixedCellHeight(50);
+		favoritesList = new JList<String>(model);
+		favoritesList.setFixedCellHeight(50);
 
 		int count = 0;
 
 		for (Status status : statuses) {
 			model.addElement(html1 + "400" + html2 + status.getUser().getName()
 					+ ":" + status.getText());
-			statusIds[count] = status.getId();
+			statusids[count] = status.getId();
 			count++;
 		}
 
-		JScrollPane FavoritePane = new JScrollPane(FavoritesList);
+		JScrollPane favoritePane = new JScrollPane(favoritesList);
 
-		FavoritesPanel.add(FavoritePane);
-		FavoritesPanel.add(FavoriteTweetButton);
+		favoritesPanel.add(favoritePane);
+		favoritesPanel.add(favoriteTweetButton);
 	}
-
-	private void TimelineTabInit() throws TwitterException {
+	/**
+	 * Initialize timeline tab.
+	 * @throws TwitterException 
+	 */
+	private void timelineTabInit() throws TwitterException {
 		ButtonListener listener = new ButtonListener();
 
 		String html1 = "<html><body style='width: ";
 		String html2 = "px'>";
 
 		DefaultListModel<String> model = new DefaultListModel<String>();
-		TimelineList = new JList<String>(model);
-		TimelineList.setFixedCellHeight(50);
+		timelineList = new JList<String>(model);
+		timelineList.setFixedCellHeight(50);
 
-		TimelinePanel = new JPanel();
+		timelinePanel = new JPanel();
 
-		FavoriteButton = new JButton("Favorite");
-		FavoriteButton.addActionListener(listener);
+		favoriteButton = new JButton("Favorite");
+		favoriteButton.addActionListener(listener);
 
 		statusIds = new long[200];
 		int count = 0;
@@ -256,32 +337,42 @@ public class FriendVeiwer {
 
 		}
 
-		JScrollPane TimeLinePane = new JScrollPane(TimelineList);
-		TimelinePanel.add(TimeLinePane);
-		TimelinePanel.add(FavoriteButton);
+		JScrollPane timeLinePane = new JScrollPane(timelineList);
+		timelinePanel.add(timeLinePane);
+		timelinePanel.add(favoriteButton);
 	}
-
+	/**
+	 * Contains button code.
+	 *
+	 */
 	class ButtonListener implements ActionListener {
+		/**
+		 * Wait for button press.
+		 * @param e action performed
+		 */
 		public void actionPerformed(final ActionEvent e) {
 
-			if (e.getSource().equals(FavoriteButton)) {
+			if (e.getSource().equals(favoriteButton)) {
 				try {
-					engine.favoriteTweet(statusIds[TimelineList
+					engine.favoriteTweet(statusIds[timelineList
 							.getSelectedIndex()]);
+
 				} catch (NumberFormatException e1) {
-					JOptionPane.showMessageDialog(GUI,
+					JOptionPane.showMessageDialog(guiFrame,
 							"Please do not select the white space.  Thank you");
 				} catch (TwitterException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
-			if (e.getSource().equals(FavoriteTweetButton)) {
+			if (e.getSource().equals(favoriteTweetButton)) {
 				try {
-					engine.favoriteTweet(statusIds[FavoritesList
+					engine.favoriteTweet(statusIds[favoritesList
 							.getSelectedIndex()]);
+
 				} catch (NumberFormatException  e1) {
-					JOptionPane.showMessageDialog(GUI,
+					JOptionPane.showMessageDialog(guiFrame,
+
 							"Please do not select the white space.  Thank you");
 				} catch (TwitterException e1) {
 					// TODO Auto-generated catch block
@@ -289,24 +380,24 @@ public class FriendVeiwer {
 				}
 			}
 
-			if (e.getSource().equals(ViewProfileButton)) {
+			if (e.getSource().equals(viewProfileButton)) {
 				try {
-					new FriendVeiwer(UserIds[FriendsList.getSelectedIndex()],
+					new FriendVeiwer(userIds[friendsList.getSelectedIndex()],
 							engine);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
 			}
 
-			if (e.getSource().equals(CreateFriendButton)) {
+			if (e.getSource().equals(createFriendButton)) {
 				try {
-					engine.CreateFriendship(userId);
+					engine.createFriendship(userId);
 				} catch (TwitterException e1) {
 					e1.printStackTrace();
 				}
 			}
 
-			if (e.getSource().equals(DirectMessageButton)) {
+			if (e.getSource().equals(directMessageButton)) {
 				new DirectMessageSender(userId, engine);
 			}
 		}

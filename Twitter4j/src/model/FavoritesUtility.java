@@ -19,16 +19,30 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-
+/**
+ * Class that helps with favorites implementation.
+ *
+ */
 public class FavoritesUtility {
-
+	/**
+	 * Arraylist of favorites.
+	 */
 	private ArrayList<String> stringList;
+	/**
+	 * Current user name.
+	 */
 	private String curUser;
-
+	/**
+	 * Constructor.
+	 */
 	public FavoritesUtility() {
 		setStringList(new ArrayList<String>());
 	}
-
+	/**
+	 * Write favorites to file.
+	 * @throws ParserConfigurationException 
+	 * @throws TransformerException 
+	 */
 	private void writeToFile() throws ParserConfigurationException,
 			TransformerException {
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory
@@ -62,7 +76,13 @@ public class FavoritesUtility {
 		System.out.println("File saved!");
 
 	}
-
+	/**
+	 * Read favorites from file.
+	 * @param username name of user to get favorites list of.
+	 * @throws ParserConfigurationException 
+	 * @throws SAXException 
+	 * @throws IOException 
+	 */
 	private void readFromFile(final String username)
 			throws ParserConfigurationException, SAXException, IOException {
 		File fXmlFile = new File("..\\Twitter4j\\favorites\\" + username
@@ -96,7 +116,9 @@ public class FavoritesUtility {
 			}
 		}
 	}
-
+	/**
+	 * Saves favorites to file.
+	 */
 	public final void saveFavorites() {
 		try {
 			writeToFile();
@@ -108,7 +130,10 @@ public class FavoritesUtility {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * Loads favorites of user from file.
+	 * @param username user to get favorites of
+	 */
 	public final void loadFavorites(final String username) {
 		try {
 			readFromFile(username);
@@ -123,23 +148,37 @@ public class FavoritesUtility {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * Adds favorite user to list.
+	 * @param name name of user to add
+	 */
 	public final void addFavoriteUser(final String name) {
 		stringList.add(name);
 	}
-
+	/**
+	 * Remove favorite user from list.
+	 * @param name name of user to remove
+	 */
 	public final void removeFavorite(final String name) {
 		stringList.remove(name);
 	}
-
+	/**
+	 * List of favorite users.
+	 * @return list of favorite users
+	 */
 	public final ArrayList<String> getStringList() {
 		return stringList;
 	}
-
+	/**
+	 * Sets the list of favorites.
+	 * @param strList list of favorite users.
+	 */
 	public final void setStringList(final ArrayList<String> strList) {
 		this.stringList = strList;
 	}
-
+	/**
+	 * 
+	 */
 	public final void clearList() {
 		stringList.clear();
 	}

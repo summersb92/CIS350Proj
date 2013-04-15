@@ -24,19 +24,20 @@ public class Tweet implements MyTweet {
 	private int friendsCount;
 	/** Stores the number of followers. */
 	private int followersCount;
-
-//	private String fave;
-//	private String favorite;
+	/**
+	 * favorite tweet flag.
+	 */
 	private boolean favorite;
 	/**
 	 * The Tweet constructor.
 	 * 
-	 * @param date - stores the tweet date.
-	 * @param loginName - stores the username
-	 * @param displayName - stores the actual name
-	 * @param friendsCount - stores amount of friends
-	 * @param followersCount - stores amount of followers
-	 * @param text - stores the text of the tweet
+	 * @param dte - stores the tweet date.
+	 * @param lginName - stores the username
+	 * @param dsplayName - stores the actual name
+	 * @param frendsCount - stores amount of friends
+	 * @param fllowersCount - stores amount of followers
+	 * @param txt - stores the text of the tweet
+	 * @param fave - flag for favorite tweet
 	 */
 	public Tweet(final Date dte, final String lginName,
 			final String dsplayName, final int frendsCount,
@@ -108,7 +109,7 @@ public class Tweet implements MyTweet {
 		return followersCount;
 	}
 	@Override
-	public boolean isFavorite() {
+	public final boolean isFavorite() {
 		// TODO Auto-generated method stub
 		return favorite;
 	}
