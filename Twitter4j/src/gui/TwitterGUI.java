@@ -128,7 +128,6 @@ public class TwitterGUI extends JFrame {
 		postTimeTabInit();
 		followerTabInit();
 		favoritesTabInit();
-		ProfileSettingsTabInit();
 		MyTweetsTabInit();
 		FriendsListTabInit();
 		profileTabInit();
@@ -250,11 +249,6 @@ public class TwitterGUI extends JFrame {
 
 		MyTweetsPanel.add(scrollpane, BorderLayout.CENTER);
 		MyTweetsPanel.add(ButtonsPanel, BorderLayout.PAGE_END);
-
-	}
-
-	private void ProfileSettingsTabInit() {
-		// ProfileSettingsPanel = new JPanel();
 
 	}
 
@@ -452,16 +446,6 @@ public class TwitterGUI extends JFrame {
 		textArea.setText(output);
 	}
 
-	// /**
-	// * Gets the topTrendingOutput
-	// *
-	// * @param topTrendingList
-	// * - what is top trending
-	// */
-	// public final void topTrendingOutput(final Object topTrendingList) {
-	// textArea.setText(topTrendingList.toString());
-	// }
-
 	public void favoritesTabInit() throws TwitterException {
 		FavoritesPanel = new JPanel();
 		FavoritesPanel.setLayout(new BorderLayout());
@@ -532,7 +516,6 @@ public class TwitterGUI extends JFrame {
 		generateTopTrendingList = new JMenuItem("Top Trending List");
 		generateTopTrendingList.addActionListener(menuHandeler);
 		generateWordFrequencyList.addActionListener(menuHandeler);
-		generateTopTrendingList.addActionListener(menuHandeler);
 		generate.add(generateWordFrequencyList);
 		generate.add(generateTopTrendingList);
 		menu.add(generate);
@@ -568,7 +551,6 @@ public class TwitterGUI extends JFrame {
 					postTimeTabInit();
 					followerTabInit();
 					favoritesTabInit();
-					ProfileSettingsTabInit();
 					MyTweetsTabInit();
 					FriendsListTabInit();
 
@@ -773,8 +755,8 @@ public class TwitterGUI extends JFrame {
 								+ "			 Kevin Anderson     \n"
 								+ "			 Seth Hilaski       \n"
 								+ "			 Trent Newberry     \n"
-								+ "            3/16//2013          \n"
-								+ "            For a CIS350 Project");
+								+ "          4/14/2013          \n"
+								+ "          For a CIS350 Project");
 			}
 			if (e.getActionCommand().equals("Top Trending List")) {
 				String[] options = engine.getTrendsLocations();
