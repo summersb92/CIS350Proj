@@ -365,10 +365,10 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener,
 		twitter = tf.getInstance();
 
 		String username = JOptionPane.showInputDialog(frame, "User Name");
-		if(username == null) {
+		if (username == null) {
 			System.exit(0);
 		}
-		
+
 		File file = new File("loginInformation.txt");
 
 		Scanner scanner = new Scanner(file);
@@ -635,12 +635,12 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener,
 	}
 
 	public List<Status> getfavoriteTweets() throws TwitterException {
-		//List<Status> statuses = twitter.getFavorites();
+		// List<Status> statuses = twitter.getFavorites();
 		return twitter.getFavorites();
 	}
 
 	public void destoryStatus(long statusId) throws TwitterException {
-		//twitter.destroyStatus(statusId);
+		// twitter.destroyStatus(statusId);
 		twitter.destroyFavorite(statusId);
 	}
 
@@ -736,7 +736,7 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener,
 			System.out.println("Test3");
 		}
 	}
-	
+
 	private final Location[] getTrendsLocations() {
 		ResponseList<Location> locations = null;
 		try {
@@ -745,27 +745,31 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener,
 			e.printStackTrace();
 		}
 		trendsLocations = new Location[locations.size()];
-		for(int i = 0; i < locations.size(); i++) {
+		for (int i = 0; i < locations.size(); i++) {
 			trendsLocations[i] = locations.get(i);
 		}
-		
+
 		return trendsLocations;
 	}
+
 	public final String[] getTrendsLocationNames() {
 		this.getTrendsLocations();
 		String[] locationnames = new String[trendsLocations.length];
-		for (int i = 0 ; i < trendsLocations.length ; i++) {
+		for (int i = 0; i < trendsLocations.length; i++) {
 			locationnames[i] = trendsLocations[i].getName();
 		}
 		return locationnames;
 	}
+
 	public final Trends getLocationTrends(String locationName) {
-		for (int i = 0 ; i < trendsLocations.length ; i++) {
-			if(locationName.equals(trendsLocations[i].getName())) {
+		for (int i = 0; i < trendsLocations.length; i++) {
+			if (locationName.equals(trendsLocations[i].getName())) {
 				try {
-					return twitter.getPlaceTrends(trendsLocations[i].getWoeid());
+					return twitter
+							.getPlaceTrends(trendsLocations[i].getWoeid());
 				} catch (TwitterException e) {
-					e.printStackTrace();		//////////////////////////TO-DO ERROR HANDLING
+					e.printStackTrace(); // ////////////////////////TO-DO ERROR
+											// HANDLING
 				}
 			}
 		}
@@ -774,11 +778,11 @@ public class TwitModel extends AbstractTableModel implements HyperlinkListener,
 
 	public List<DirectMessage> getDirectMessages() throws TwitterException {
 		Paging paging = new Paging(1, 50);
-		
+
 		return twitter.getDirectMessages(paging);
 	}
 
 	public void deleteMessage(long MessageId) throws TwitterException {
-		twitter.destroyDirectMessage(MessageId);		
+		twitter.destroyDirectMessage(MessageId);
 	}
 }

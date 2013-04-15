@@ -78,11 +78,11 @@ public class TwitterGUI extends JFrame {
 	private JPanel UpdatePanel;
 	private JPanel PostTimePanel;
 	private JPanel FavoritesPanel;
-	//private JPanel ProfileSettingsPanel;
+	// private JPanel ProfileSettingsPanel;
 	private JPanel MyTweetsPanel;
 	private JPanel FriendsListPanel;
 	private JPanel trendsPanel;
-	
+
 	private Trend[] trendslist;
 
 	private List<Status> statuses;
@@ -103,7 +103,7 @@ public class TwitterGUI extends JFrame {
 	private long[] MyFavoriteStatusIds;
 	private long[] userIds;
 	private String[] FriendsNamesList;
-	
+
 	private DefaultListModel<String> favModel;
 
 	private TwitterEngine engine;
@@ -121,9 +121,9 @@ public class TwitterGUI extends JFrame {
 		guiFrame = new JFrame();
 		engine = new TwitterEngine();
 		guiFrame.setSize(800, 450);
-		
+
 		engine.login();
-		
+
 		menuInit();
 		postTimeTabInit();
 		followerTabInit();
@@ -133,23 +133,24 @@ public class TwitterGUI extends JFrame {
 		FriendsListTabInit();
 		profileTabInit();
 		trendsTabInit();
-		
-        tabs = new JTabbedPane();
-		
-        tabs.addTab("Profile", ProfilePanel);
+
+		tabs = new JTabbedPane();
+
+		tabs.addTab("Profile", ProfilePanel);
 		tabs.addTab("Post Tweet/Timeline", PostTimePanel);
 		tabs.addTab("Followers", TwitResults);
 		tabs.addTab("Friends List", FriendsListPanel);
 		tabs.addTab("Favorites", FavoritesPanel);
 		tabs.addTab("Your Tweets", MyTweetsPanel);
 		tabs.addTab("Trends", trendsPanel);
-		
+
 		guiFrame.add(tabs);
-		guiFrame.setTitle("Twitter for " + engine.getRealName(engine.getuserid()));
-		
-		final URL url = new URL("http://jonbennallick.co.uk/wp-content/uploads/2012/11/Twitter-Logo-Icon-by-Jon-Bennallick-02.png");
-        guiFrame.setIconImage(ImageIO.read(url));
-        
+		guiFrame.setTitle("Twitter for "
+				+ engine.getRealName(engine.getuserid()));
+
+		final URL url = new URL(
+				"http://jonbennallick.co.uk/wp-content/uploads/2012/11/Twitter-Logo-Icon-by-Jon-Bennallick-02.png");
+		guiFrame.setIconImage(ImageIO.read(url));
 
 		guiFrame.setVisible(true);
 	}
@@ -157,23 +158,23 @@ public class TwitterGUI extends JFrame {
 	private void FriendsListTabInit() throws TwitterException {
 		FriendsListPanel = new JPanel();
 		FriendsListPanel.setLayout(new BorderLayout());
-		
+
 		JPanel ButtonsPanel = new JPanel();
-		
+
 		VeiwProfile = new JButton("View Profile");
 		RemoveFriend = new JButton("Remove Friend");
 		UpdateFriendsList = new JButton("Update");
 		ButtonListener listener = new ButtonListener();
-		
+
 		VeiwProfile.addActionListener(listener);
 		RemoveFriend.addActionListener(listener);
 		UpdateFriendsList.addActionListener(listener);
-		
+
 		users = engine.getFriendsList(engine.getuserid());
 		FriendsNamesList = new String[users.size()];
 		userIds = new long[users.size()];
 		int count = 0;
-		
+
 		for (User user : users) {
 			FriendsNamesList[count] = user.getName();
 			userIds[count] = user.getId();
@@ -181,7 +182,7 @@ public class TwitterGUI extends JFrame {
 		}
 
 		FriendsList = new JList<String>(FriendsNamesList);
-		
+
 		ButtonsPanel.add(UpdateFriendsList);
 		ButtonsPanel.add(VeiwProfile);
 		ButtonsPanel.add(RemoveFriend);
@@ -190,21 +191,21 @@ public class TwitterGUI extends JFrame {
 		FriendsListPanel.add(scrollpane, BorderLayout.CENTER);
 		FriendsListPanel.add(ButtonsPanel, BorderLayout.PAGE_END);
 	}
-	
+
 	private final void trendsTabInit() {
-		
+
 		trendsPanel = new JPanel();
 		trendsPanel.setLayout(new BorderLayout());
-		trendsArea = new JTextArea(20,40);
+		trendsArea = new JTextArea(20, 40);
 		trendsArea.setLineWrap(true);
 		trendsArea.setEditable(false);
-		
+
 		trendsPanel.add(trendsArea);
 	}
-	
+
 	private final void updateTrendsArea() {
 		trendsArea.setText("");
-		for(Trend trend : trendslist) {
+		for (Trend trend : trendslist) {
 			trendsArea.append(trend.getName());
 			trendsArea.append("\n");
 		}
@@ -214,14 +215,14 @@ public class TwitterGUI extends JFrame {
 		DefaultListModel<String> model = new DefaultListModel<String>();
 		list = new JList<String>(model);
 		list.setFixedCellHeight(50);
-		
+
 		MyTweetsPanel = new JPanel();
 		MyTweetsPanel.setLayout(new BorderLayout());
 		JPanel ButtonsPanel = new JPanel();
-		
+
 		String html1 = "<html><body style='width: ";
 		String html2 = "px'>";
-		
+
 		MyTweetsFavoriteButton = new JButton("Favorite");
 		DeleteMyTweetButton = new JButton("Delete Tweet");
 		UpdateMyTweetsList = new JButton("Update");
@@ -234,33 +235,32 @@ public class TwitterGUI extends JFrame {
 		statuses = engine.getMyTweets();
 		MyTweetsStatusIds = new long[statuses.size()];
 		int count = 0;
-		
+
 		for (Status status : statuses) {
 			model.addElement(html1 + "550" + html2 + status.getText());
 			MyTweetsStatusIds[count] = status.getId();
 			count++;
 		}
-		
+
 		JScrollPane scrollpane = new JScrollPane(list);
-		
+
 		ButtonsPanel.add(UpdateMyTweetsList);
 		ButtonsPanel.add(MyTweetsFavoriteButton);
 		ButtonsPanel.add(DeleteMyTweetButton);
-		
+
 		MyTweetsPanel.add(scrollpane, BorderLayout.CENTER);
 		MyTweetsPanel.add(ButtonsPanel, BorderLayout.PAGE_END);
 
 	}
 
 	private void ProfileSettingsTabInit() {
-	//	ProfileSettingsPanel = new JPanel();
-		
-		
+		// ProfileSettingsPanel = new JPanel();
+
 	}
 
 	private final void profileTabInit() throws IllegalStateException,
 			TwitterException, MalformedURLException {
-		
+
 		Border blackline = BorderFactory.createLineBorder(Color.black);
 
 		ProfilePanel = new JPanel();
@@ -310,7 +310,7 @@ public class TwitterGUI extends JFrame {
 		top.add(userIcon);
 		top2.add(realname);
 		top2.add(screenname);
-		
+
 		bottom.add(tweets);
 		bottom.add(followers);
 		bottom.add(following);
@@ -346,23 +346,23 @@ public class TwitterGUI extends JFrame {
 		ButtonListener listener = new ButtonListener();
 		UpdatePanel = new JPanel();
 		PostTimePanel = new JPanel();
-		
+
 		PostTimePanel.setLayout(new BorderLayout());
-		
+
 		DefaultListModel<String> model = new DefaultListModel<String>();
-		
+
 		String html1 = "<html><body style='width: ";
 		String html2 = "px'>";
 
 		updateTextBox = new JTextField(50);
-		
+
 		TweetButton = new JButton("Post Tweet");
 		TweetButton.addActionListener((listener));
 		updateTimelineButton = new JButton("Update");
 		updateTimelineButton.addActionListener(listener);
 		TimelineFavoriteButton = new JButton("Favorite");
 		TimelineFavoriteButton.addActionListener(listener);
-		
+
 		UpdatePanel.add(updateTextBox);
 		UpdatePanel.add(TweetButton);
 		UpdatePanel.add(updateTimelineButton);
@@ -370,13 +370,14 @@ public class TwitterGUI extends JFrame {
 		MyTimeLineStatusIds = new long[200];
 		int count = 0;
 		statuses = engine.getTimeline();
-		
+
 		TimelineList = new JList<String>(model);
 		TimelineList.setFixedCellHeight(50);
 
 		for (Status status : statuses) {
-			model.addElement(html1 + "550" + html2 + engine.getRealName(status.getUser().getId())
-					+ ": " + status.getText() + "\n");
+			model.addElement(html1 + "550" + html2
+					+ engine.getRealName(status.getUser().getId()) + ": "
+					+ status.getText() + "\n");
 			MyTimeLineStatusIds[count] = status.getId();
 			count++;
 		}
@@ -451,24 +452,24 @@ public class TwitterGUI extends JFrame {
 		textArea.setText(output);
 	}
 
-//	/**
-//	 * Gets the topTrendingOutput
-//	 * 
-//	 * @param topTrendingList
-//	 *            - what is top trending
-//	 */
-//	public final void topTrendingOutput(final Object topTrendingList) {
-//		textArea.setText(topTrendingList.toString());
-//	}
+	// /**
+	// * Gets the topTrendingOutput
+	// *
+	// * @param topTrendingList
+	// * - what is top trending
+	// */
+	// public final void topTrendingOutput(final Object topTrendingList) {
+	// textArea.setText(topTrendingList.toString());
+	// }
 
 	public void favoritesTabInit() throws TwitterException {
 		FavoritesPanel = new JPanel();
 		FavoritesPanel.setLayout(new BorderLayout());
-		
+
 		JPanel ButtonsPanel = new JPanel();
-		
+
 		ButtonListener listener = new ButtonListener();
-		
+
 		UpdateFavoritesButton = new JButton("Update");
 		UpdateFavoritesButton.addActionListener(listener);
 		DeleteFavoriteButton = new JButton("Delete");
@@ -483,22 +484,22 @@ public class TwitterGUI extends JFrame {
 
 		updateFavoritesList();
 		JScrollPane FavoritePane = new JScrollPane(FavoritesList);
-		
+
 		ButtonsPanel.add(UpdateFavoritesButton);
 		ButtonsPanel.add(DeleteFavoriteButton);
 
 		FavoritesPanel.add(FavoritePane, BorderLayout.CENTER);
 		FavoritesPanel.add(ButtonsPanel, BorderLayout.PAGE_END);
 	}
-	
+
 	private final void updateFavoritesList() throws TwitterException {
 		String html1 = "<html><body style='width: ";
 		String html2 = "px'>";
 		statuses = engine.getFavoriteTweets();
 		int count = 0;
 		for (Status status : statuses) {
-			favModel.addElement(html1 + "400" + html2 + status.getUser().getName()
-					+ ":" + status.getText());
+			favModel.addElement(html1 + "400" + html2
+					+ status.getUser().getName() + ":" + status.getText());
 			MyFavoriteStatusIds[count] = status.getId();
 			count++;
 		}
@@ -560,7 +561,7 @@ public class TwitterGUI extends JFrame {
 			if (e.getSource().equals(LoginButton)) {
 				try {
 					tabs.removeAll();
-					engine.logout();					
+					engine.logout();
 
 					engine.login();
 					profileTabInit();
@@ -571,7 +572,7 @@ public class TwitterGUI extends JFrame {
 					MyTweetsTabInit();
 					FriendsListTabInit();
 
-			        tabs.addTab("Profile", ProfilePanel);
+					tabs.addTab("Profile", ProfilePanel);
 					tabs.addTab("Post Tweet/Timeline", PostTimePanel);
 					tabs.addTab("Followers", TwitResults);
 					tabs.addTab("Friends List", FriendsListPanel);
@@ -594,7 +595,7 @@ public class TwitterGUI extends JFrame {
 			}
 			if (e.getSource().equals(SignoutButton)) {
 				engine.logout();
-				
+
 				System.exit(0);
 			}
 
@@ -609,38 +610,39 @@ public class TwitterGUI extends JFrame {
 				}
 			}
 			if (e.getSource().equals(updateTimelineButton)) {
-					try {
-						tabs.remove(1);
-						postTimeTabInit();
-						
-						tabs.insertTab("Post Tweet/Timeline", null, PostTimePanel, null, 1);
-						
-						tabs.setSelectedIndex(1);
-					} catch (IllegalStateException | TwitterException e1) {
-						e1.printStackTrace();
-					}
+				try {
+					tabs.remove(1);
+					postTimeTabInit();
+
+					tabs.insertTab("Post Tweet/Timeline", null, PostTimePanel,
+							null, 1);
+
+					tabs.setSelectedIndex(1);
+				} catch (IllegalStateException | TwitterException e1) {
+					e1.printStackTrace();
+				}
 			}
 
-				if (e.getSource().equals(UpdateFavoritesButton)) {
-					
-					try {
-						
-						tabs.remove(4);
-						favoritesTabInit();
-						
-						tabs.insertTab("Favorites", null, PostTimePanel, null, 4);
-						
-						tabs.setSelectedIndex(4);
+			if (e.getSource().equals(UpdateFavoritesButton)) {
 
-					} catch (IllegalStateException | TwitterException e1) {
-						e1.printStackTrace();
-					}
+				try {
+
+					tabs.remove(4);
+					favoritesTabInit();
+
+					tabs.insertTab("Favorites", null, FavoritesPanel, null, 4);
+
+					tabs.setSelectedIndex(4);
+
+				} catch (IllegalStateException | TwitterException e1) {
+					e1.printStackTrace();
 				}
-			
+			}
 
 			if (e.getSource().equals(MyTweetsFavoriteButton)) {
 				try {
-					engine.favoriteTweet(MyTweetsStatusIds[list.getSelectedIndex()]);
+					engine.favoriteTweet(MyTweetsStatusIds[list
+							.getSelectedIndex()]);
 				} catch (NumberFormatException | TwitterException e1) {
 					e1.printStackTrace();
 				}
@@ -650,84 +652,89 @@ public class TwitterGUI extends JFrame {
 			if (e.getSource().equals(DeleteMyTweetButton)) {
 
 				try {
-					engine.deleteStatus(MyTweetsStatusIds[list.getSelectedIndex()]);
+					engine.deleteStatus(MyTweetsStatusIds[list
+							.getSelectedIndex()]);
 				} catch (TwitterException e1) {
 					e1.printStackTrace();
 				}
 
 			}
-			
-			if(e.getSource().equals(VeiwProfile)){
+
+			if (e.getSource().equals(VeiwProfile)) {
 				try {
-					new FriendVeiwer(userIds[FriendsList.getSelectedIndex()], engine);
+					new FriendVeiwer(userIds[FriendsList.getSelectedIndex()],
+							engine);
 				} catch (TwitterException e1) {
 					e1.printStackTrace();
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
 			}
-			
-			if(e.getSource().equals(RemoveFriend)){
+
+			if (e.getSource().equals(RemoveFriend)) {
 				try {
 					engine.removefriend(userIds[FriendsList.getSelectedIndex()]);
 				} catch (TwitterException e1) {
 					e1.printStackTrace();
 				}
 			}
-			
-			if(e.getSource().equals(ViewMessagesButton)){
+
+			if (e.getSource().equals(ViewMessagesButton)) {
 				try {
 					new DirectMessageViewer(engine);
 				} catch (TwitterException e1) {
 					e1.printStackTrace();
 				}
 			}
-			
-			if(e.getSource().equals(TimelineFavoriteButton)){
+
+			if (e.getSource().equals(TimelineFavoriteButton)) {
 				try {
-					engine.favoriteTweet(MyTimeLineStatusIds[TimelineList.getSelectedIndex()]);
+					engine.favoriteTweet(MyTimeLineStatusIds[TimelineList
+							.getSelectedIndex()]);
 				} catch (NumberFormatException e1) {
 					e1.printStackTrace();
 				} catch (TwitterException e1) {
-					if(e1.getErrorCode() == 139){
-						JOptionPane.showMessageDialog(guiFrame, "You have already favorited that Tweet", "Error", JOptionPane.ERROR_MESSAGE);
-					}	
+					if (e1.getErrorCode() == 139) {
+						JOptionPane.showMessageDialog(guiFrame,
+								"You have already favorited that Tweet",
+								"Error", JOptionPane.ERROR_MESSAGE);
+					}
 				}
 			}
-			
-			if(e.getSource().equals(DeleteFavoriteButton)){
+
+			if (e.getSource().equals(DeleteFavoriteButton)) {
 				try {
-					engine.deleteStatus(MyFavoriteStatusIds[FavoritesList.getSelectedIndex()]);
+					engine.deleteStatus(MyFavoriteStatusIds[FavoritesList
+							.getSelectedIndex()]);
 				} catch (TwitterException e1) {
 					e1.printStackTrace();
 				}
 			}
-			
-			if(e.getSource().equals(UpdateFriendsList)){
+
+			if (e.getSource().equals(UpdateFriendsList)) {
 				tabs.remove(3);
 				try {
 					FriendsListTabInit();
 				} catch (TwitterException e1) {
-					// TODO Auto-generated catch block
+
 					e1.printStackTrace();
 				}
-				
+
 				tabs.insertTab("Friends", null, FriendsListPanel, null, 3);
-				
+
 				tabs.setSelectedIndex(3);
 			}
-			
-			if(e.getSource().equals(UpdateMyTweetsList)){
+
+			if (e.getSource().equals(UpdateMyTweetsList)) {
 				tabs.remove(5);
 				try {
 					favoritesTabInit();
 				} catch (TwitterException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
+
 				tabs.insertTab("My Tweets", null, MyTweetsPanel, null, 5);
-				
+
 				tabs.setSelectedIndex(5);
 			}
 		}
@@ -772,9 +779,11 @@ public class TwitterGUI extends JFrame {
 			if (e.getActionCommand().equals("Top Trending List")) {
 				String[] options = engine.getTrendsLocations();
 				String choice;
-				choice = (String) JOptionPane.showInputDialog(guiFrame, "Pick a Trend Location", "Trend List",
-						JOptionPane.OK_CANCEL_OPTION, null, options, options[0]);
-				if(choice != null) {
+				choice = (String) JOptionPane
+						.showInputDialog(guiFrame, "Pick a Trend Location",
+								"Trend List", JOptionPane.OK_CANCEL_OPTION,
+								null, options, options[0]);
+				if (choice != null) {
 					trendslist = engine.getPlaceTrends(choice).getTrends();
 					updateTrendsArea();
 				}
@@ -785,7 +794,7 @@ public class TwitterGUI extends JFrame {
 
 	/**
 	 * runs the main application starting with TwitterGUI which instantiates all
-	 * other methods that are part of the GUI
+	 * other components that are part of the GUI
 	 * 
 	 * @param args
 	 */

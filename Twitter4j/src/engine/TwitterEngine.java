@@ -291,9 +291,11 @@ public class TwitterEngine {
 			throws TwitterException {
 		model.sendDirectMessage(userId, message);
 	}
+
 	public final String[] getTrendsLocations() {
 		return model.getTrendsLocationNames();
 	}
+
 	public final Trends getPlaceTrends(String location) {
 		return model.getLocationTrends(location);
 	}

@@ -15,67 +15,69 @@ import twitter4j.TwitterException;
 
 import engine.TwitterEngine;
 
-public class DirectMessageSender{
+public class DirectMessageSender {
 
 	private JFrame MessageEditor;
-	
+
 	private JPanel MessagePanel;
-	
+
 	private JTextArea MessageArea;
-	
+
 	private JButton SendMessageButton;
-	
+
 	private TwitterEngine engine;
-	
+
 	private String message;
-	
+
 	private long userId;
-	
-	public DirectMessageSender(long userId, TwitterEngine engine){
+
+	public DirectMessageSender(long userId, TwitterEngine engine) {
 		this.engine = engine;
 		this.userId = userId;
 		ButtonListener listener = new ButtonListener();
-		
+
 		MessageEditor = new JFrame("Send Direct Message");
-		
+
 		MessagePanel = new JPanel();
 		MessagePanel.setLayout(new BorderLayout());
-		
+
 		MessageArea = new JTextArea();
 		MessageArea.setLineWrap(true);
-		
+
 		JScrollPane scrollpane = new JScrollPane(MessageArea);
-		
+
 		SendMessageButton = new JButton("Send Message");
 		SendMessageButton.addActionListener(listener);
-		
+
 		MessagePanel.add(scrollpane, BorderLayout.CENTER);
 		MessagePanel.add(SendMessageButton, BorderLayout.PAGE_END);
-		
+
 		MessageEditor.add(MessagePanel);
-		
+
 		MessageEditor.setSize(300, 200);
-		
-		MessageEditor.setVisible(true);		
+
+		MessageEditor.setVisible(true);
 	}
 
 	class ButtonListener implements ActionListener {
 		public void actionPerformed(final ActionEvent e) {
-			
-			if(e.getSource().equals(SendMessageButton)){
+
+			if (e.getSource().equals(SendMessageButton)) {
 				message = MessageArea.getText();
 				try {
 					engine.sendDirectMessage(userId, message);
-					MessageEditor.dispatchEvent(new WindowEvent(MessageEditor, WindowEvent.WINDOW_CLOSING)); 
+					MessageEditor.dispatchEvent(new WindowEvent(MessageEditor,
+							WindowEvent.WINDOW_CLOSING));
 				} catch (TwitterException e1) {
-					if(e1.exceededRateLimitation()){
-						JOptionPane.showMessageDialog(MessageEditor, "You message is longer than 140 characters."
-														+ "  Please make your message shorter");
+					if (e1.exceededRateLimitation()) {
+						JOptionPane.showMessageDialog(MessageEditor,
+								"You message is longer than 140 characters."
+										+ "  Please make your message shorter");
 					}
-						e1.printStackTrace();
-					
+					e1.printStackTrace();
+
 				}
-			}	
+			}
 		}
 	}
 }
